@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
 <head>
-	<meta name="generator" content="Hugo 0.128.2"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta name="generator" content="Hugo 0.148.2"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
    <style>
     * {
       margin: 0;
@@ -477,38 +477,130 @@ function setPreferredHome() {
     
 
 
-
-<style>
-
-.yp-main-part { margin-top:3rem;}
-
-#main {
-  transition: margin-left .5s;
-  padding: 5px;
-  margin-left: 20px;
+<head>
+    <style>
+        .card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin:3rem auto;
+  padding: 1rem;
 }
 
-
- 
-@media screen and (max-width: 768px) {
-
-  #main {
-    margin-left: 0;
-  }
-
+.card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-</style>
-<main class="yp-main-part">
-<div id="main">
-  <h2>Sidenav Responsive Example</h2>
-  <p>Resize the browser to see responsive behavior.</p>
-  <span id="openBtn" onclick="openNav()">&#9776; open</span>
-</div>
 
-</main>
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.card-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 1rem;
+  flex: 1;
+}
+
+.card-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+}
+
+.card-title a {
+  color: #222;
+  text-decoration: none;
+}
+
+.card-title a:hover {
+  color: #0073e6;
+}
+
+.card-date {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.card-summary {
+  margin: 0.75rem 0 1rem;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.card-btn {
+  display: inline-block;
+  padding: 0.5rem 0.75rem;
+  background: #0073e6;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
+}
+
+.card-btn:hover {
+  background: #005bb5;
+}
+
+    </style>
+</head>
 
 
-</body>
+<section class="card-list">
+  
+    <article class="card">
+      
+      <div class="card-content">
+        <h2 class="card-title"><a href="/posts/post-3/">Post 3</a></h2>
+        <time class="card-date" datetime="2023-03-15">15 Mar 2023</time>
+        <p class="card-summary"><p>Occaecat aliqua consequat laborum ut ex aute aliqua culpa quis irure esse magna dolore quis. Proident fugiat labore eu laboris officia Lorem enim. Ipsum occaecat cillum ut tempor id sint aliqua incididunt nisi incididunt reprehenderit. Voluptate ad minim sint est aute aliquip esse occaecat tempor officia qui sunt. Aute ex ipsum id ut in est velit est laborum incididunt. Aliqua qui id do esse sunt eiusmod id deserunt eu nostrud aute sit ipsum. Deserunt esse cillum Lorem non magna adipisicing mollit amet consequat.</p></p>
+        <a class="card-btn" href="/posts/post-3/">Read More →</a>
+      </div>
+    </article>
+  
+    <article class="card">
+      
+      <div class="card-content">
+        <h2 class="card-title"><a href="/posts/post-2/">Post 2</a></h2>
+        <time class="card-date" datetime="2023-02-15">15 Feb 2023</time>
+        <p class="card-summary"><p>Anim eiusmod irure incididunt sint cupidatat. Incididunt irure irure irure nisi ipsum do ut quis fugiat consectetur proident cupidatat incididunt cillum. Dolore voluptate occaecat qui mollit laborum ullamco et. Ipsum laboris officia anim laboris culpa eiusmod ex magna ex cupidatat anim ipsum aute. Mollit aliquip occaecat qui sunt velit ut cupidatat reprehenderit enim sunt laborum. Velit veniam in officia nulla adipisicing ut duis officia.</p>
+<p>Exercitation voluptate irure in irure tempor mollit Lorem nostrud ad officia. Velit id fugiat occaecat do tempor. Sit officia Lorem aliquip eu deserunt consectetur. Aute proident deserunt in nulla aliquip dolore ipsum Lorem ut cupidatat consectetur sit sint laborum. Esse cupidatat sit sint sunt tempor exercitation deserunt. Labore dolor duis laborum est do nisi ut veniam dolor et nostrud nostrud.</p></p>
+        <a class="card-btn" href="/posts/post-2/">Read More →</a>
+      </div>
+    </article>
+  
+    <article class="card">
+      
+      <div class="card-content">
+        <h2 class="card-title"><a href="/posts/post-1/">Post 1</a></h2>
+        <time class="card-date" datetime="2023-01-15">15 Jan 2023</time>
+        <p class="card-summary"><p>Tempor proident minim aliquip reprehenderit dolor et ad anim Lorem duis sint eiusmod. Labore ut ea duis dolor. Incididunt consectetur proident qui occaecat incididunt do nisi Lorem. Tempor do laborum elit laboris excepteur eiusmod do. Eiusmod nisi excepteur ut amet pariatur adipisicing Lorem.</p>
+<p>Occaecat nulla excepteur dolore excepteur duis eiusmod ullamco officia anim in voluptate ea occaecat officia. Cillum sint esse velit ea officia minim fugiat. Elit ea esse id aliquip pariatur cupidatat id duis minim incididunt ea ea. Anim ut duis sunt nisi. Culpa cillum sit voluptate voluptate eiusmod dolor. Enim nisi Lorem ipsum irure est excepteur voluptate eu in enim nisi. Nostrud ipsum Lorem anim sint labore consequat do.</p></p>
+        <a class="card-btn" href="/posts/post-1/">Read More →</a>
+      </div>
+    </article>
+  
+</section>
+
+
+<nav class="pagination">
+  
+  
+</nav>
+
+
 
 
 

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admission toml Tools Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f2f4f8;
+      padding: 30px 15px;
+      margin: 0;
+    }
+    h2, h3 { color: #333; }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    }
+    label { font-weight: 600; margin-top: 10px; display: block; }
+    select, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    select:focus, textarea:focus {
+      border-color: #1a73e8;
+      outline: none;
+    }
+    button {
+      background-color: #08036a;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover { opacity: 0.8; }
+    .delbtn { width:20px; }
+    .entry {
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+      position: relative;
+      border-left: 4px solid #1a73e8;
+    }
+    .entry strong { color: #1a73e8; }
+    .entry button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 4px 10px;
+      background: #e53935;
+      border: none;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .button-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .button-row button {
+      padding: 6px 12px;
+      font-size: 14px;
+      border-radius: 6px;
+      border: none;
+      background-color: red;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    .button-row button:nth-child(2) { background-color: green; }
+    .output-box {
+      background: #f1f1f1;
+      padding: 15px;
+      margin-top: 15px;
+      border-radius: 8px;
+      white-space: pre-wrap;
+      font-family: monospace;
+      color: #333;
+    }
+    .hidden { display: none; }
+    @media (max-width: 600px) {
+      .container { padding: 20px 15px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>YP Jobs Toml Tools</h2>
+
+    <label for="typeSelector">Select Type</label>
+    <select id="typeSelector"></select>
+
+    <div id="formArea" class="hidden">
+      <label id="selectedLabel"></label>
+      <textarea id="inputText" rows="4" placeholder="Enter details here..."></textarea>
+      <div class="button-row">
+        <button onclick="clearTextarea()">Clear</button>
+        <button onclick="addEntry()">+Add</button>
+      </div>
+    </div>
+
+    <h3>Added Entries</h3>
+    <div id="entriesContainer"></div>
+
+    <div class="button-row">
+      <button onclick="deleteAllEntries()">🗑 Delete All</button>
+      <button onclick="generateOutput()">✅ Generate</button>
+    </div>
+
+    <div id="outputSection" class="hidden">
+      <h3>Output</h3>
+      <div id="outputBox" class="output-box"></div>
+      <button onclick="copyOutput()">Copy</button>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "yp_admission_entries";
+    const typeSelector = document.getElementById("typeSelector");
+    const formArea = document.getElementById("formArea");
+    const selectedLabel = document.getElementById("selectedLabel");
+    const inputText = document.getElementById("inputText");
+    const entriesContainer = document.getElementById("entriesContainer");
+    const outputBox = document.getElementById("outputBox");
+    const outputSection = document.getElementById("outputSection");
+
+    const allOptions = [
+      "type", "post_type",  "title", "recruitment", "seo_title", "keywords",  "PostName", "totalPost",    "Notification",  "notificationdate", "begindate", "lastdate", "activedate", "impdates", "Examstart", "applyfees", "Department", "OfficialSource",  "State", "category", "description", "summary",   "eligibility", "qualification", "physical", "castewise" , "Domicile",   "age_limit",   "how_to", "shortinfo", "InnerPost",    "candidates", "imageBanner",  "documents",  "cssStyles", "faqs", "admitcardName", "ResultName", "content_html",  "pdfName" 
+    ];
+
+    const defaultTexts = {
+      type: "Recruitment",
+      activedate: "2025-12-31" ,
+      post_type: "latest-jobs",
+      eligibility: "10th/12th/Graduation/Post Graduation",
+      qualification: "M.Sc / Equivalent Degree with 55% Marks for General / OBC Candidates.",
+      Recruitment: "Recruitment 2025",
+      castewise: ` #  `, 
+      applyfees: ` 
+      General / OBC / EWS: ₹0/-
+      SC / ST / Female: ₹0/- 
+      Payment can be made online through UPI, net banking, debit/credit card, etc.
+      `, 
+      impdates: `      Begin Date:  
+      Last Date:  
+      Payment Last Date:  
+      Admit Card: To be notified soon  
+      Exam Date: To be notified soon`,
+      content_html: "can use html" ,
+      category: "Recruitemnt",
+      candidates: "Male & Female",
+      OfficialSource: "https://yojnaportal.com/",
+      cssStyles: "css/posts/recruitment.css",
+      InnerPost: " Application | Dates | Requirements | Important Links",
+
+how_to: `
+Visit the official website:
+Read the latest notification:
+Go to the Candidate Online Form section:
+Complete the registration:
+Fill out the application form:
+Pay the application fee:
+Print the application form:`,
+
+shortinfo: `
+#`,
+
+documents: `
+Educational Qualification
+10th Marksheet
+Aadhaar Card
+Mobile Number and Email ID
+Photo and Signature etc.`,
+
+age_limit: `
+Age Limit as On 01/01/2025
+Minimum Age:
+Maximum Age:`
+
+    };
+
+    let entries = [];
+
+    window.onload = () => {
+      loadEntriesFromStorage();
+      populateDropdown();
+    };
+
+    function populateDropdown() {
+      typeSelector.innerHTML = "";
+      const available = allOptions.filter(opt => !entries.find(e => e.type === opt));
+      available.forEach(opt => {
+        const option = document.createElement("option");
+        option.value = opt;
+        option.textContent = opt;
+        typeSelector.appendChild(option);
+      });
+      if (available.length > 0) {
+        typeSelector.selectedIndex = 0;
+        showForm();
+      } else {
+        formArea.classList.add("hidden");
+      }
+    }
+
+    function showForm() {
+      const selected = typeSelector.value;
+      selectedLabel.textContent = "Selected: " + selected;
+      inputText.value = defaultTexts[selected] || "";
+      formArea.classList.remove("hidden");
+    }
+
+    typeSelector.addEventListener("change", showForm);
+
+    function addEntry() {
+      const type = typeSelector.value;
+      const text = inputText.value.trim();
+      if (!text) return alert("Please enter some text.");
+      if (!type) return alert("Please select a type.");
+      entries.push({ type, text });
+      saveEntriesToStorage();
+
+      const entryDiv = document.createElement("div");
+      entryDiv.className = "entry";
+      entryDiv.innerHTML = `
+        <strong>${type}</strong> = "${text}"
+        <button class="delbtn" onclick="deleteEntry(this, '${type}')">X</button>
+      `;
+      entriesContainer.appendChild(entryDiv);
+      populateDropdown();
+    }
+
+    function deleteEntry(btn, type) {
+      entries = entries.filter(e => e.type !== type);
+      saveEntriesToStorage();
+      btn.parentElement.remove();
+      populateDropdown();
+    }
+
+    function deleteAllEntries() {
+      if (confirm("Are you sure you want to delete all entries?")) {
+        entries = [];
+        localStorage.removeItem(STORAGE_KEY);
+        entriesContainer.innerHTML = "";
+        populateDropdown();
+        outputSection.classList.add("hidden");
+      }
+    }
+
+    function generateOutput() {
+      if (entries.length === 0) return alert("No entries added.");
+      const forceArrayTypes = ["impdates", "cssstyles", "age_limit", "importantdates", "applyfees", "qualification", "physical", "castewise" , "keywords", "how_to", "faqs", "documents", "shortinfo"];
+      let result = entries.map(entry => {
+        const { type, text } = entry;
+        const typeKey = type.toLowerCase();
+        const isForceArray = forceArrayTypes.includes(typeKey);
+        const isMultiLine = isForceArray || text.includes("\n") || text.trim() === "///";
+        if (isMultiLine) {
+          const lines = text
+            .split("\n")
+            .map(line => line.trim())
+            .filter(line => line !== "")
+            .map(line => `"${line}"`);
+          return `${type} = [\n  ${lines.join(",\n  ")}\n]`;
+        } else {
+          return `${type} = "${text}"`;
+        }
+      }).join("\n\n");
+      outputBox.textContent = result;
+      outputSection.classList.remove("hidden");
+    }
+
+    function copyOutput() {
+      navigator.clipboard.writeText(outputBox.textContent).then(() => {
+        alert("Copied to clipboard!");
+      });
+    }
+
+    function clearTextarea() {
+      inputText.value = "";
+    }
+
+    function saveEntriesToStorage() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+    }
+
+    function loadEntriesFromStorage() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        entries = JSON.parse(saved);
+        entries.forEach(({ type, text }) => {
+          const entryDiv = document.createElement("div");
+          entryDiv.className = "entry";
+          entryDiv.innerHTML = `
+            <strong>${type}</strong> = "${text}"
+            <button class="delbtn" onclick="deleteEntry(this, '${type}')">X</button>
+          `;
+          entriesContainer.appendChild(entryDiv);
+        });
+      }
+    }
+  </script>
+</body>
+</html>

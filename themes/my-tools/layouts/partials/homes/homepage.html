@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productivity Tools Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .tool-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .tool-card:hover::before {
+            left: 100%;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .tool-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 2rem;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tool-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .tool-description {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* Individual tool colors */
+        .image-resizer .tool-icon { background: linear-gradient(135deg, #11998e, #38ef7d); }
+        .marriage-bio .tool-icon { background: linear-gradient(135deg, #ffecd2, #fcb69f); }
+        .resume-maker .tool-icon { background: linear-gradient(135deg, #a8edea, #fed6e3); }
+        .jpg-converter .tool-icon { background: linear-gradient(135deg, #ff9a9e, #fecfef); }
+        .typing-test .tool-icon { background: linear-gradient(135deg, #fbc2eb, #a6c1ee); }
+        .age-calculator .tool-icon { background: linear-gradient(135deg, #fdbb2d, #22c1c3); }
+        .photo-maker .tool-icon { background: linear-gradient(135deg, #e0c3fc, #9bb5ff); }
+        .signature-joiner .tool-icon { background: linear-gradient(135deg, #ffecd2, #fcb69f); }
+        .mppeb-template .tool-icon { background: linear-gradient(135deg, #667eea, #764ba2); }
+
+        .status-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 12px;
+            height: 12px;
+            background: #4CAF50;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .tool-card:hover .status-indicator {
+            animation-duration: 0.5s;
+        }
+
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .tool-card {
+                padding: 20px;
+            }
+        }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-circle:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-circle:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .floating-circle:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>Productivity Tools</h1>
+            <p>Professional tools to boost your productivity and creativity</p>
+        </div>
+
+        <div class="tools-grid">
+            <a href="#">
+            <div class="tool-card">
+                <div class="status-indicator"></div>
+                <div class="tool-icon">📏</div>
+                <div class="tool-title">Image Resizer</div>
+                <div class="tool-description">Resize and optimize images for web, print, or social media with precision</div>
+            </div>
+           </a>
+
+            <div class="tool-card marriage-bio" onclick="handleToolClick('marriage-bio')">
+                <div class="status-indicator"></div>
+                <div class="tool-icon">💑</div>
+                <div class="tool-title">Shadi / Marriage Bio Data Maker</div>
+                <div class="tool-description">Create beautiful and professional marriage bio-data with customizable templates</div>
+            </div>
+
+            <div class="tool-card resume-maker" onclick="handleToolClick('resume-maker')">
+                <div class="status-indicator"></div>
+                <div class="tool-icon">📄</div>
+                <div class="tool-title">Resume/CV Maker</div>
+                <div class="tool-description">Build professional resumes and CVs with modern templates and layouts</div>
+            </div>
+
+            <div class="tool-card jpg-converter" onclick="handleToolClick('jpg-converter')">
+                <div class="status-indicator"></div>
+                <div class="tool-icon">🔄</div>
+                <div class="tool-title">JPG to PDF Converter</div>
+                <div class="tool-description">Convert JPG images to high-quality PDF documents instantly</div>
+            </div>
+
+            <div class="tool-card typing-test" onclick="handleToolClick('typing-test')">
+                <div class="status-indicator"></div>
+                <div class="tool-icon">⌨️</div>
+                <div class="tool-title">Typing Test</div>
+                <div class="tool-description">Improve your typing speed and accuracy with interactive tests</div>
+            </div>
+
+            <div class="tool-card age-calculator" onclick="handleToolClick('age-calculator')">
+                <div class="status-indicator"></div>
+                <div class="tool-icon">🎂</div>
+                <div class="tool-title">Age Calculator</div>
+                <div class="tool-description">Calculate age precisely in years, months, days, and even seconds</div>
+            </div>
+
+            <div class="tool-card photo-maker" onclick="handleToolClick('photo-maker')">
+                <div class="status-indicator"></div>
+                <div class="tool-icon">📸</div>
+                <div class="tool-title">Name & Date on Photo Maker</div>
+                <div class="tool-description">Add custom text, names, and dates to your photos with style</div>
+            </div>
+
+            <div class="tool-card signature-joiner" onclick="handleToolClick('signature-joiner')">
+                <div class="status-indicator"></div>
+                <div class="tool-icon">✍️</div>
+                <div class="tool-title">Photo Signature Joiner</div>
+                <div class="tool-description">Merge photos with signatures for official documents and presentations</div>
+            </div>
+
+            <div class="tool-card mppeb-template" onclick="handleToolClick('mppeb-template')">
+                <div class="status-indicator"></div>
+                <div class="tool-icon">📋</div>
+                <div class="tool-title">MPPEB Template</div>
+                <div class="tool-description">Official MPPEB document templates for government applications</div>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>

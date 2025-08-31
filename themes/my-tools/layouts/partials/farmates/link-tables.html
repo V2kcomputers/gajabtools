@@ -1,0 +1,17 @@
+<table class="yp-table">
+  <tr>
+    <th>Important Links</th>
+    <th>Action</th>
+  </tr>
+  {{ range .Params.links.item }}
+    <tr>
+      <td>{{ .title }}</td>
+      <td>
+        {{ range $index, $act := .actions }}
+          {{ if gt $index 0 }} | {{ end }}
+         <a href="{{ $act.url }}" target="_blank"  title="Go to {{ $act.name }}'s external page" rel="noopener noreferrer">{{ $act.name }}</a>
+        {{ end }}
+      </td>
+    </tr>
+  {{ end }}
+</table>
