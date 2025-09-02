@@ -2,12 +2,14 @@ name: Deploy Hugo site to Cloudflare Pages
 
 on:
   schedule:
-    - cron: "32 18 * * *" # रोज़ाना 12:02 AM IST
-    - cron: "0 */24 * * *" # हर 24 घंटे पर deploy
+    # रोज़ाना 00:02 AM IST (यानी 18:32 UTC)
+    - cron: "32 18 * * *"  
+
   workflow_dispatch:       # Manual run option
 
 jobs:
   build:
+    if: ${{ github.event.schedule && github.event.schedule != '' && (github.event.schedule_time > '2025-09-01T00:00:00Z') || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
