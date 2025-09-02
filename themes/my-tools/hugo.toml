@@ -1,6 +1,6 @@
 baseURL = 'https://www.gajabtools.com/'
 languageCode = 'en-US'
-title = 'My New Hugo Site'
+title = 'Gajab Tools'
 theme = "my-tools"
 
 [[menus.main]]
