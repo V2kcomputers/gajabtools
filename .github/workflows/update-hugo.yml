@@ -1,0 +1,31 @@
+name: Deploy Hugo site to Cloudflare Pages
+
+on:
+  schedule:
+    - cron: "32 18 * * *" # रोज़ाना 12:02 AM IST
+    - cron: "0 */24 * * *" # हर 24 घंटे पर deploy
+  workflow_dispatch:       # Manual run option
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: Build Hugo
+        run: hugo --minify
+
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          projectName: ${{ secrets.CF_PROJECT_NAME }}
+          directory: ./public
