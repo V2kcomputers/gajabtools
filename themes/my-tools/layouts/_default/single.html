@@ -1,6 +1,24 @@
 {{ define "main" }}
-
-
-
-  {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+  {{- $type := .Type -}}
+  {{- if eq $type "yojna" -}}
+    {{ partial "farmate/yojna.html" . }}
+  {{- else if eq $type "job" -}}
+    {{ partial "farmate/jobs.html" . }}
+  {{- else if eq $type "form" -}}
+    {{ partial "farmate/form.html" . }}
+  {{- else if eq $type "admission" -}}
+    {{ partial "farmate/admission.html" . }}
+  {{- else if eq $type "exams" -}}
+    {{ partial "farmate/exams.html" . }}
+  {{- else if eq $type "howto" -}}
+    {{ partial "farmate/howto.html" . }}
+     {{- else if eq $type "Scheme" -}}
+    {{ partial "farmate/Scheme.html" . }}
+      {{- else if eq $type "Recruitment" -}}
+    {{ partial "farmate/Recruitment.html" . }}
+     {{- else if eq $type "jobsupdate" -}}
+    {{ partial "farmate/jobsupdate.html" . }}
+  {{- else -}}
+    {{ partial "farmate/default.html" . }}
+  {{- end }}
 {{ end }}
