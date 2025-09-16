@@ -787,13 +787,15 @@ function setPreferredHome() {
 .dark-mode .incorrect { color: #f44336; }
 .dark-mode .active { background: #ffff00; color:#000; }
 
-.dark-mode textarea,
-.dark-mode input, .dark-mode .header,
-.dark-mode button {
+.dark-mode textarea, .dark-mode input, .dark-mode .header
+ {
   background: #555;
   color: white;
 }
-
+.dark-mode button {
+   background: #181717;
+   color:white;
+}
   </style>
 </head>
 <body>
@@ -806,7 +808,7 @@ function setPreferredHome() {
     <button class="accbtn" id="openFormBtn">➕Add Name/Passage</button>
     <div class="dropdown">
       
- <span class="timebtn">  ⏳ Time Left: <span id="time" style="color: #ff9800;">10:00</span>  </span>
+ <button class="timebtn">  ⏳ Time Left: <span id="time" style="color: #ff9800;">10:00</span>  </button>
   <div class="dropdown-content">
      <a href="#">01:00</a>
     <a href="#">02:00</a>
@@ -819,10 +821,10 @@ function setPreferredHome() {
   </div>
 </div>
    
-        <span class="accbtn">🎯 Accuracy: <span id="accuracy" style="color: #2196f3;">100</span>%  </span>
-         <span class="wpwbtn"> ⌨️ WPM: <span id="wpm" style="color: #4caf50;">0</span>  </span> 
+        <button class="accbtn">🎯 Accuracy: <span id="accuracy" style="color: #2196f3;">100</span>%  </button>
+         <button class="wpwbtn"> ⌨️ WPM: <span id="wpm" style="color: #4caf50;">0</span>  </button> 
 
-       <span class="wpwbtn">⭐ Best Score: <span id="bestScore" style="color:#ff9800;">0</span> WPM </span>
+       <button class="wpwbtn">⭐ Best Score: <span id="bestScore" style="color:#ff9800;">0</span> WPM </button>
  <div class="controls">
    
     <button onclick="changeSize(-2)">-</button>
@@ -907,8 +909,36 @@ const lessons = [
 `Success does not come overnight, and typing speed is no different. Every master once started as a beginner, pressing one key at a time. Do not compare your speed with others, because everyone has their own journey. What matters is your effort today.
 When you practice, you are not just learning typing, you are training your brain to focus and your fingers to move with confidence. Small daily practice is better than long but irregular effort. Even ten minutes a day will change your skills in a few months. Remember, the habit you build today will give you lifelong benefit.
 Believe in yourself, stay motivated, and let each keystroke be a step toward your success.`,
+`"The Power of Consistency"
+Success is not the result of one big action, but the outcome of countless small efforts made every single day. Many people believe that greatness requires extraordinary talent or luck, but the truth is much simpler: consistency. When you choose to work steadily toward your goals, even in small steps, you create momentum. That momentum slowly builds habits, and habits shape your destiny.
+Think of water dripping on a stone. A single drop does nothing, but when drops fall again and again, they carve the stone itself. In the same way, your daily discipline—studying a little, practicing regularly, waking up on time, or exercising each day—may seem small, but over months and years it creates results beyond imagination.
+There will be days when motivation feels weak, when you want to quit or take a break. That is the exact moment when consistency matters the most. Showing up even when it’s difficult strengthens not just your skills, but also your character. It teaches patience, perseverance, and self-belief.
+Remember this: talent can shine for a while, but discipline and consistency win in the long run. Keep moving, keep working, and trust the process. One day, you will look back and realize that your small daily efforts have built a mountain of success.`,
+`Typing practice is like building a house. Each word you type is a brick, and every session makes the structure stronger. At first, it looks like nothing is changing, but after a while, the results are visible. The wall becomes higher and stronger. Similarly, your typing speed may not grow in one day, but with patience and daily work, it will become solid. Do not fear mistakes. Mistakes are not failure; they are lessons. Each error guides you to the right path.
+Keep typing, keep learning, and your future self will thank you for the effort you put in today.`,
+`In this digital world, typing is a superpower. It saves time, increases productivity, and makes communication faster.
+When you type with speed and accuracy, you get more freedom to focus on ideas rather than the keyboard. The key to improvement is consistency. Just like athletes train daily to stay fit, your fingers need daily practice to stay sharp. You may type slowly now, but if you do not quit, improvement is guaranteed.
+Think about the confidence you will feel when you can type without looking at the keys. That day will come soon if you keep practicing today.`,
+`Patience is your best friend in typing practice. Many learners give up too quickly because they expect fast results.
+But real progress comes slowly and steadily. Imagine planting a seed today. You water it daily, and after some time it becomes a strong tree. Typing practice works the same way.
+Every word is a drop of water, and every session adds strength. One day, your typing skills will be like a strong tree giving you shade in the form of confidence and productivity. Do not stop, because every small step counts.`,
+`Every challenge in typing is an opportunity to grow. When you see a difficult word or a tricky sentence, take it as a chance to improve.
+Do not avoid challenges, embrace them. The harder the passage, the more it trains your fingers and brain. With practice, what feels hard today will feel easy tomorrow.
+Life works the same way. Challenges make you stronger. Stay motivated, stay focused, and remember that your growth comes from pushing yourself beyond comfort.`,
+`Discipline always beats motivation. You may not feel motivated every day to practice typing, but discipline will push you forward.
+Create a routine and stick to it. Even when you do not feel like practicing, do it for at least five minutes. Those small moments add up.
+Success is not about one big effort; it is about hundreds of small efforts done daily. Train your discipline, and your fingers will follow. Soon you will see the power of persistence in your typing speed and accuracy.`,
+`Typing is more than just pressing keys; it is about building confidence.
+Imagine sitting in an exam, writing an assignment, or working in an office where speed matters. Fast typing gives you an advantage in every field.
+The best part is, this skill stays with you for life. Once you master it, it never leaves you. So do not waste time doubting yourself.
+Start now, practice daily, and watch how a simple habit can create lifelong success.`,
 
-
+`Remember that every expert was once a beginner who refused to give up. The only difference between you and a fast typist is practice.
+They practiced more, and so they became better. You too can achieve that speed if you keep going.
+Do not rush. Enjoy the process. Feel the rhythm of your fingers, enjoy the sound of the keys, and let typing become a fun game instead of a boring task. When learning becomes fun, improvement becomes natural.`,
+`Stay positive while practicing typing. Negative thoughts like "I am too slow" or "I cannot improve" will only block your progress. Replace them with positive thoughts such as "I am improving every day" and "With practice, I will be fast." Your mind controls your body.
+If your mind believes in success, your fingers will follow. Motivation comes from within.
+So encourage yourself, cheer for yourself, and type with confidence. You are capable of more than you think.`,
 `Your future self is waiting for the efforts you make today. Think about the opportunities that will come when you can type with speed and accuracy.
 You will save time, finish work faster, and feel confident in every situation. All of this is possible if you stay consistent.
 The keyboard in front of you is not just a tool, it is a bridge to your success. Practice every day, trust the process, and remember: great skills are built with small daily actions. Keep typing, keep growing, and keep believing in yourself.`
