@@ -473,12 +473,47 @@ function setPreferredHome() {
 
   </header>
   <main>
-    
-  <h1>Typing-Speed-Tests</h1>
-  
-  
-    <h2><a href="/typing-speed-test/hindi/10m/"></a></h2>
-    <!DOCTYPE html>
+    <head>
+    <meta name="robots" content="index, follow">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href=" \css\single-post.css">
+    <style>
+   </style>
+  </head>
+
+    <div class="single-post-header">
+        <div class="Post-Date"> Post Date / Update: <strong>01-Jan-0001 00:00:00</strong></div> 
+        <nav aria-label="breadcrumb" class="breadcrumbNav">
+          <div class="breadcrumb">
+            <li><a href="http://localhost:1313/">Home</a> >> </li>
+            
+            
+            
+              
+            
+              
+                
+                <li><a href="/typing-speed-test">Typing Speed Test</a> >> </li>
+              
+            
+              
+                
+                <li><a href="/typing-speed-test/hindi">Hindi</a> >> </li>
+              
+            
+              
+            
+              
+            
+            <li></li>
+          </div>
+        </nav>
+       
+    </div>
+    <div class="single-post-wrapper">
+      <div class="single-post-content">
+
+        <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -1215,386 +1250,131 @@ function renderHistory() {
   if (!container) return;
 
   if (history.length === 0) {
-    container.innerHTML = "<p>No history yet.</p>
-  
-    <h2><a href="/typing-speed-test/english/10m/">Typing test Speed English -10 Minit</a></h2>
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Typing Tutor - Paragraph Mode</title>
-  <style>
-    .typing-container { font-family: Arial, sans-serif;  margin:0; padding:20px; text-align:center;}
-    h1 { margin-bottom:10px; }
-      #text {
-      max-width:700px; 
-      margin:20px auto; 
-      font-size:30px; 
-      line-height:1.6;
-      text-align:left; 
-      background:#fff; 
-      padding:15px; 
-      border-radius:10px;
-      box-shadow:0 0 10px rgba(0,0,0,0.1); 
-      white-space:pre-wrap;
-      height:3.2em;   /* केवल 2 लाइन की ऊँचाई */
-      overflow:hidden; /* केवल 2 लाइन दिखें */
-      transition: font-size 0.3s ease;
-    }
- .controls {
-      text-align:center;
-      margin-top:10px;
-    }
+    container.innerHTML = "<p>No history yet.</p>";
+    return;
+  }
 
-    .controls button {
-      font-size:18px;
-      padding:5px 10px;
-      margin:0 5px;
-      border:none;
-      background:#007bff;
-      color:#fff;
-      border-radius:5px;
-      cursor:pointer;
-    }
+  // केवल 20 रिकॉर्ड
+  if (history.length > 20) history = history.slice(-20);
 
-    .controls button:hover {
-      background:#0056b3;
-    }
-
-    .correct { font-weight: bold; color:green; }
-    .incorrect { font-weight: bold;  color:red; }
-    .active { background:yellow; padding:1px 2px; border-radius:3px; font-weight:bold; }
-    #input {
-      width:90%; max-width:700px; padding:10px; font-size:16px; margin-top:20px;
-      border:2px solid #007bff; border-radius:6px;
-    }
-    #stats { margin-top:20px; font-size:18px; }
-    #result { display:none; margin-top:25px; }
-    table {
-      margin:20px auto; border-collapse:collapse; width:400px; background:#fff;
-      box-shadow:0 0 10px rgba(0,0,0,0.1); border-radius:8px; overflow:hidden;
-    }
-    td { padding:12px 15px; border:1px solid #ddd; font-size:16px; }
-    td:first-child { font-weight:bold; background:#f0f4ff; width:180px; text-align:left; }
-    textarea { margin:auto; }
-    #restartBtn {
-      display:none; margin-top:15px; padding:10px 20px; font-size:16px;
-      border:none; border-radius:6px; background:#007bff; color:white; cursor:pointer;
-    }
-
-#popupForm {
-  display: none; 
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.popup-content {
-  background: white;
-  padding: 20px;
-  border-radius: 5px;
-  width: 300px;
-  text-align: center;
-}
-
-.popup-content h2 {
-  margin: 0;
-  padding: 10px 0;
-}
-
-.popup-content form {
-  display: flex;
-  flex-direction: column;
-}
-
-.popup-content input, .popup-content textarea {
-  padding: 8px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 30px;
-  cursor: pointer;
-}
-
-.close-btn:hover {
-  color: red;
-}
-   .timebtn, .wpwbtn, .accbtn {
-  padding: 8px 5px;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  font-weight: bold;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-  transition: all 0.3s ease;
-  margin: 5px;
-}
-/* अलग-अलग रंग */
-.timebtn {
-  border:1px solid #ff9800; /* Orange */
-  
-}
-.accbtn {
-   border:1px solid #2196f3;
-}
-
-.wpwbtn {
-  border:1px solid #4caf50;
-}
-
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  font-weight: bold;
-}
-
-.dropdown-content a:hover {background-color: #ff9800;}
-
-.dropdown:hover .dropdown-content {display: block;}
-
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
-.dark-mode {
-  background:#222;
-  color:#fff;
-}
-
-.dark-mode #text,
-.dark-mode table,
-.dark-mode .dropdown-content,
-.dark-mode .popup-content {
-  background-color: #333;
-  color: white;
-  border-color: #444;
-}
-.dark-mode td:first-child {
-    color: black;
-    width: 180px;
-   
-}
-
-.dark-mode .correct { color: #4caf50; }
-.dark-mode .incorrect { color: #f44336; }
-.dark-mode .active { background: #ffff00; color:#000; }
-
-.dark-mode textarea, .dark-mode input, .dark-mode .header
- {
-  background: #555;
-  color: white;
-}
-.dark-mode button {
-   background: #181717;
-   color:white;
-}
-  </style>
-</head>
-<body>
-<div class="typing-container">
-  <h1>Typing Speed Test -Gajab Tools </h1>
-
-
-  <div id="stats">
-
-    <button class="accbtn" id="openFormBtn">➕Add Name/Passage</button>
-    <div class="dropdown">
-      
- <button class="timebtn">  ⏳ Time Left: <span id="time" style="color: #ff9800;">10:00</span>  </button>
-  <div class="dropdown-content">
-     <a href="#">01:00</a>
-    <a href="#">02:00</a>
-     <a href="#">03:00</a> 
-    <a href="#">05:00</a>
-      <a href="#">10:00</a>
-    <a href="#">20:00</a>
-     <a href="#">30:00</a>
-      <a href="#">60:00</a>
-  </div>
-</div>
-   
-        <button class="accbtn">🎯 Accuracy: <span id="accuracy" style="color: #2196f3;">100</span>%  </button>
-         <button class="wpwbtn"> ⌨️ WPM: <span id="wpm" style="color: #4caf50;">0</span>  </button> 
-
-       <button class="wpwbtn">⭐ Best Score: <span id="bestScore" style="color:#ff9800;">0</span> WPM </button>
- <div class="controls">
-   
-    <button onclick="changeSize(-2)">-</button>
-    <button onclick="resetSize()">■</button>
-     <button onclick="changeSize(2)">+</button>
-     <button onclick="toggleDarkMode()" class="DarkMode" >🌙 Dark Mode</button>
-    
-  </div>
-  </div>
-
-  <!-- Pop-up form -->
-  <div id="popupForm" class="popup-form">
-    <div class="popup-content">
-      <span id="closeBtn" class="close-btn">&times;</span>
-
-      <h2>Add Your Name & Your Passage</h2>
-
-   <div style="margin:20px auto; max-width:700px; text-align:left;">
-    <label><b>Your Name:</b></label>
-  <input onchange ="saveUserName()" type="text" id="userName" placeholder="Your Name" style="padding:6px; width:200px; margin-left:10px;" />
-  <!-- User Passage Input -->
-<div style="margin:20px auto; max-width:700px; text-align:left;">
-  <label><b>Paste Your Passage:</b></label><br>
-  <textarea id="customPassage" rows="4" style="width:100%; margin-top:5px; padding:8px;" placeholder="Paste your text here..."></textarea><br>
-  <button onclick="useCustomPassage()" >✅ Use Your Passage </button> 
-</div>
-</div>
-    </div>
-  </div>
-
-  <div id="text"></div>
- <div id="progressBar" style="width:90%; max-width:700px; height:8px; background:#ddd; margin:0px auto 0px auto; border-radius:4px;">
-  <div id="progress" style="height:100%; width:100%; background:#ff9800; border-radius:4px;"></div>
-</div>
-  <textarea id="input" rows="1" placeholder="Start typing here..."></textarea>
-
-
-  <div id="result"></div>
-    <button id="restartBtn">🔄 Try Again</button>
-
- <div id="historyTable" style="margin-top:40px;"></div>
-
-
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script>
-  document.addEventListener('keydown', function(e){
-    if(e.key === "Escape") {
-      initTest(); // ESC to restart
-    }
-    if(e.ctrlKey && e.key === "Enter") {
-      finishTest(); // Ctrl+Enter to finish test
-    }
-    if(e.key === "Tab") {
-      e.preventDefault(); // prevent tab jump
-      input.focus(); // focus on typing input
-    }
+  // Group by date
+  const grouped = {};
+  history.forEach(h => {
+    const d = h.date.split(",")[0];
+    if (!grouped[d]) grouped[d] = [];
+    grouped[d].push(h);
   });
+
+  const lastDate = Object.keys(grouped).sort().pop();
+  const tests = grouped[lastDate];
+  const userName = localStorage.getItem("userName") || "Anonymous";
+
+  const totalTest = tests.length;
+  const timeSpent = tests.reduce((a,b)=>a+parseInt(b.time),0);
+  const lowest = Math.min(...tests.map(t=>parseInt(t.wpm)));
+  const highest = Math.max(...tests.map(t=>parseInt(t.wpm)));
+  const avgSpeed = (tests.reduce((a,b)=>a+parseInt(b.wpm),0)/totalTest).toFixed(0);
+  const totalTyped = tests.reduce((a,b)=>a+b.totalWords,0);
+  const totalCorrect = tests.reduce((a,b)=>a+b.correctWords,0);
+  const avgAcc = (tests.reduce((a,b)=>a+parseInt(b.accuracy),0)/totalTest).toFixed(1);
+  const totalBackspace = tests.reduce((a,b)=>a+(parseInt(b.backspace)||0),0); // ✅ कुल Backspace
+  const deletedCount = deleted[lastDate] || 0;
+
+  // HTML Create
+  let html = `
+    <h2>📜 Typing Report (Last 20 Tests)</h2>
+    <p><b>Name:</b> ${userName}, <b>Report Date:</b> ${new Date().toLocaleString()}
+      <button onclick="downloadReport()">⬇️ Download PDF</button></p>
+
+    <table id="summaryTable" style="cursor:pointer;">
+      <tr>
+        <td><b>Date</b></td>
+        <td>Total Tests</td>
+        <td>Total Time</td>
+        <td>Lowest</td>
+        <td>Highest</td>
+        <td>Avg Speed</td>
+        <td>Total Words</td>
+        <td>Total Correct</td>
+        <td>Avg Accuracy</td>
+        <td>Total Backspace</td>
+        <td style="color:#007bff;"><b id="toggleText">🔽 Show</b></td>
+      </tr>
+      <tr>
+        <td>${lastDate}</td>
+        <td>${totalTest}</td>
+        <td>${Math.round(timeSpent/60)}m</td>
+        <td>${lowest}</td>
+        <td>${highest}</td>
+        <td>${avgSpeed}</td>
+        <td>${totalTyped}</td>
+        <td>${totalCorrect}</td>
+        <td>${avgAcc}%</td>
+        <td>${totalBackspace}</td>
+        <td style="text-align:center;color:#007bff;">▼</td>
+      </tr>
+    </table>
+
+    <div id="detailedReport" class="hidden">
+      <h3 style="margin-top:15px;">📅 Detailed History (Recent 20 Records)</h3>
+      <table>
+        <tr>
+          <td><b>Time Stamp</b></td>
+          <td>WPM</td>
+          <td>Acc. Speed</td>
+          <td>Accuracy</td>
+          <td>Time</td>
+          <td>Correct</td>
+          <td>Wrong</td>
+          <td>Total Words</td>
+          <td>Backspace</td>
+        </tr>`;
+
+  tests.forEach(h=>{
+    const highlight = (parseInt(h.wpm) === highest)
+      ? "background:#ffeb3b;font-weight:bold;color:#000;"
+      : "";
+    html += `
+      <tr style="${highlight}">
+        <td>${h.date}</td>
+        <td>${h.wpm}</td>
+        <td>${Math.round((h.wpm*h.accuracy)/100)}</td>
+        <td>${h.accuracy}%</td>
+        <td>${Math.round(h.time/60)} m</td>
+        <td style="color:green;">${h.correctWords}</td>
+        <td style="color:red;">${h.wrongWords}</td>
+        <td>${h.totalWords}</td>
+        <td>${h.backspace || 0}</td>
+      </tr>`;
+  });
+
+  html += "</table></div>";
+  container.innerHTML = html;
+
+  // 🟢 Toggle Show/Hide
+  const summary = document.getElementById("summaryTable");
+  const detail = document.getElementById("detailedReport");
+  const toggleText = document.getElementById("toggleText");
+  summary.addEventListener("click", () => {
+    detail.classList.toggle("hidden");
+    toggleText.textContent = detail.classList.contains("hidden") ? "🔽 Show" : "🔼 Hide";
+  });
+}
 </script>
 
-  <script>
-    const defaultSize = 30; // px
 
-    function changeSize(delta) {
-      const text = document.getElementById("text");
-      let current = parseInt(window.getComputedStyle(text).fontSize);
-      let newSize = current + delta;
-      if (newSize >= 12 && newSize <= 80) { // limit
-        text.style.fontSize = newSize + "px";
-      }
-    }
-
-    function resetSize() {
-      const text = document.getElementById("text");
-      text.style.fontSize = defaultSize + "px";
-    }
-  </script>
 <script>
-const lessons = [
-
-`Success does not come overnight, and typing speed is no different. Every master once started as a beginner, pressing one key at a time. Do not compare your speed with others, because everyone has their own journey. What matters is your effort today.
-When you practice, you are not just learning typing, you are training your brain to focus and your fingers to move with confidence. Small daily practice is better than long but irregular effort. Even ten minutes a day will change your skills in a few months. Remember, the habit you build today will give you lifelong benefit.
-Believe in yourself, stay motivated, and let each keystroke be a step toward your success.`,
-`"The Power of Consistency"
-Success is not the result of one big action, but the outcome of countless small efforts made every single day. Many people believe that greatness requires extraordinary talent or luck, but the truth is much simpler: consistency. When you choose to work steadily toward your goals, even in small steps, you create momentum. That momentum slowly builds habits, and habits shape your destiny.
-Think of water dripping on a stone. A single drop does nothing, but when drops fall again and again, they carve the stone itself. In the same way, your daily discipline—studying a little, practicing regularly, waking up on time, or exercising each day—may seem small, but over months and years it creates results beyond imagination.
-There will be days when motivation feels weak, when you want to quit or take a break. That is the exact moment when consistency matters the most. Showing up even when it’s difficult strengthens not just your skills, but also your character. It teaches patience, perseverance, and self-belief.
-Remember this: talent can shine for a while, but discipline and consistency win in the long run. Keep moving, keep working, and trust the process. One day, you will look back and realize that your small daily efforts have built a mountain of success.`,
-`Typing practice is like building a house. Each word you type is a brick, and every session makes the structure stronger. At first, it looks like nothing is changing, but after a while, the results are visible. The wall becomes higher and stronger. Similarly, your typing speed may not grow in one day, but with patience and daily work, it will become solid. Do not fear mistakes. Mistakes are not failure; they are lessons. Each error guides you to the right path.
-Keep typing, keep learning, and your future self will thank you for the effort you put in today.`,
-`In this digital world, typing is a superpower. It saves time, increases productivity, and makes communication faster.
-When you type with speed and accuracy, you get more freedom to focus on ideas rather than the keyboard. The key to improvement is consistency. Just like athletes train daily to stay fit, your fingers need daily practice to stay sharp. You may type slowly now, but if you do not quit, improvement is guaranteed.
-Think about the confidence you will feel when you can type without looking at the keys. That day will come soon if you keep practicing today.`,
-`Patience is your best friend in typing practice. Many learners give up too quickly because they expect fast results.
-But real progress comes slowly and steadily. Imagine planting a seed today. You water it daily, and after some time it becomes a strong tree. Typing practice works the same way.
-Every word is a drop of water, and every session adds strength. One day, your typing skills will be like a strong tree giving you shade in the form of confidence and productivity. Do not stop, because every small step counts.`,
-`Every challenge in typing is an opportunity to grow. When you see a difficult word or a tricky sentence, take it as a chance to improve.
-Do not avoid challenges, embrace them. The harder the passage, the more it trains your fingers and brain. With practice, what feels hard today will feel easy tomorrow.
-Life works the same way. Challenges make you stronger. Stay motivated, stay focused, and remember that your growth comes from pushing yourself beyond comfort.`,
-`Discipline always beats motivation. You may not feel motivated every day to practice typing, but discipline will push you forward.
-Create a routine and stick to it. Even when you do not feel like practicing, do it for at least five minutes. Those small moments add up.
-Success is not about one big effort; it is about hundreds of small efforts done daily. Train your discipline, and your fingers will follow. Soon you will see the power of persistence in your typing speed and accuracy.`,
-`Typing is more than just pressing keys; it is about building confidence.
-Imagine sitting in an exam, writing an assignment, or working in an office where speed matters. Fast typing gives you an advantage in every field.
-The best part is, this skill stays with you for life. Once you master it, it never leaves you. So do not waste time doubting yourself.
-Start now, practice daily, and watch how a simple habit can create lifelong success.`,
-
-`Remember that every expert was once a beginner who refused to give up. The only difference between you and a fast typist is practice.
-They practiced more, and so they became better. You too can achieve that speed if you keep going.
-Do not rush. Enjoy the process. Feel the rhythm of your fingers, enjoy the sound of the keys, and let typing become a fun game instead of a boring task. When learning becomes fun, improvement becomes natural.`,
-`Stay positive while practicing typing. Negative thoughts like "I am too slow" or "I cannot improve" will only block your progress. Replace them with positive thoughts such as "I am improving every day" and "With practice, I will be fast." Your mind controls your body.
-If your mind believes in success, your fingers will follow. Motivation comes from within.
-So encourage yourself, cheer for yourself, and type with confidence. You are capable of more than you think.`,
-`Your future self is waiting for the efforts you make today. Think about the opportunities that will come when you can type with speed and accuracy.
-You will save time, finish work faster, and feel confident in every situation. All of this is possible if you stay consistent.
-The keyboard in front of you is not just a tool, it is a bridge to your success. Practice every day, trust the process, and remember: great skills are built with small daily actions. Keep typing, keep growing, and keep believing in yourself.`
-
-];
-
-
-  let textToType, chars;
-  let startTime, timer, started=false;
-  let timeLimit = 600;
-  let timeLeft = timeLimit;
-  let correctChars=0, wrongChars=0;
-
-  const textDiv=document.getElementById("text");
-  const input=document.getElementById("input");
-  const timeSpan=document.getElementById("time");
-  const wpmSpan=document.getElementById("wpm");
-  const accSpan=document.getElementById("accuracy");
-  const resultDiv=document.getElementById("result");
-  const restartBtn=document.getElementById("restartBtn");
-
- function formatTime(seconds){
-  let m = Math.floor(seconds / 60);
-  let s = seconds % 60;
-  return (m < 10 ? "0"+m : m) + ":" + (s < 10 ? "0"+s : s);
-}
-
-function initTest(){
-  // ✅ Random paragraph pick
-  textToType = lessons[Math.floor(Math.random()*lessons.length)];
+  // ✅ Custom passage function
+function useCustomPassage(){
+  let customText = document.getElementById("customPassage").value.trim();
+  if(customText.length < 20){
+    alert("Please paste at least 20 characters passage!");
+    return;
+  }
+  textToType = customText;
   chars = textToType.split("");
-  started=false; 
-  timeLeft=timeLimit;
-  correctChars=0; 
-  wrongChars=0;
+  started=false; timeLeft=timeLimit;
+  correctChars=0; wrongChars=0;
   input.value="";
   input.disabled=false;
   document.getElementById("stats").style.display="block";
@@ -1603,290 +1383,495 @@ function initTest(){
   textDiv.style.display="block";
   input.style.display="block";
   renderText([]);
-
-  // ⏳ Start timer in MM:SS
-  timeSpan.textContent = formatTime(timeLimit);
-
+  timeSpan.textContent=timeLimit;
   wpmSpan.textContent=0;
   accSpan.textContent=100;
 }
 
-function updateStats(){
-  if(timeLeft <= 0){ 
-    finishTest(); 
-    return; 
+</script>
+
+<script>
+function saveUserName(){
+  let name = document.getElementById("userName").value.trim();
+  if(name){
+    localStorage.setItem("userName", name);
+    alert("Name saved: " + name);
+  } else {
+    alert("Please enter a valid name!");
   }
-
-  timeLeft--; // decrease time by 1 second
-
-  // ⏳ Format and update MM:SS
-  timeSpan.textContent = formatTime(timeLeft);
-
-  // 🟠 Update progress bar
-  let percent = (timeLeft / timeLimit) * 100;
-  document.getElementById("progress").style.width = percent + "%";
-
-  // ⏱ Calculate typing stats
-  let elapsed = (new Date() - startTime) / 1000; // in seconds
-  let wpm = (correctChars / 5) / (elapsed / 60);
-  let accuracy = (correctChars + wrongChars) ? (correctChars / (correctChars + wrongChars)) * 100 : 100;
-
-  // 💡 Update UI values
-  wpmSpan.textContent = wpm.toFixed(0);
-  accSpan.textContent = accuracy.toFixed(0);
-}
-
-
-
-function renderText(typedChars){
-  textDiv.innerHTML = chars.map((ch,i)=>{
-    let typed = typedChars[i];
-    let cls="";
-    if(typed==null){ cls=""; }
-    else if(typed===ch){ cls="correct"; }
-    else{ cls="incorrect"; }
-
-    let displayChar = ch;
-    if(ch==="\n"){ displayChar="↲\n"; }
-
-    if(i===typedChars.length){
-      return `<span id="activeChar" class="active">${displayChar}</span>`;
-    }else{
-      return `<span class="${cls}">${displayChar}</span>`;
-    }
-  }).join("");
-
-const activeEl=document.getElementById("activeChar");
-if(activeEl){
-  let offset = activeEl.offsetTop - textDiv.offsetTop;
-  textDiv.scrollTop = offset - 25;  // active line + ऊपर की 1 line दिखे
+  let userName = localStorage.getItem("userName") || prompt("Enter your name:");
+if(userName){
+   localStorage.setItem("userName", userName);
 }
 
 }
 
+window.onload = function(){
+  let savedName = localStorage.getItem("userName");
+  if(savedName){
+    document.getElementById("userName").value = savedName;
+  }
+  loadBestScore(); 
+  initTest(); 
+  if(localStorage.getItem("darkMode") === "true"){
+    document.body.classList.add("dark-mode");
+  }
+};
 
-  input.addEventListener("input", (e)=>{
-    const val=e.target.value;
-    const typedChars=val.split("");
+</script>
+  <script>
+    // Get elements
+const openFormBtn = document.getElementById("openFormBtn");
+const popupForm = document.getElementById("popupForm");
+const closeBtn = document.getElementById("closeBtn");
 
-    if(!started && val.length>0){
-      started=true;
-      startTime=new Date();
-      timer=setInterval(updateStats,1000);
-    }
+// Show the pop-up form when the button is clicked
+openFormBtn.addEventListener("click", function() {
+  popupForm.style.display = "flex";
+});
 
-    renderText(typedChars);
+// Close the pop-up form when the close button is clicked
+closeBtn.addEventListener("click", function() {
+  popupForm.style.display = "none";
+});
 
-    correctChars=0; wrongChars=0;
-    typedChars.forEach((ch,i)=>{
-      if(ch===chars[i]) correctChars++; else wrongChars++;
+// Close the pop-up form when clicking outside the form
+window.addEventListener("click", function(event) {
+  if (event.target === popupForm) {
+    popupForm.style.display = "none";
+  }
+});
+
+  </script>
+<script>
+  // ✅ Best Score load
+function loadBestScore(){
+  let best = localStorage.getItem("bestScore") || 0;
+  document.getElementById("bestScore").textContent = best;
+}
+
+// ✅ Update Best Score अगर नया WPM ज़्यादा है
+function updateBestScore(wpm){
+  let best = localStorage.getItem("bestScore") || 0;
+  if(parseInt(wpm) > parseInt(best)){
+    localStorage.setItem("bestScore", wpm);
+    document.getElementById("bestScore").textContent = wpm;
+  }
+}
+</script>
+<script>
+function toggleDarkMode(){
+  document.body.classList.toggle("dark-mode");
+  localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+}
+
+window.addEventListener("DOMContentLoaded", ()=>{
+  if(localStorage.getItem("darkMode") === "true"){
+    document.body.classList.add("dark-mode");
+  }
+});
+</script>
+<script>
+  // ✅ Time selector functionality
+  document.querySelectorAll('.dropdown-content a').forEach(a => {
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      const selected = parseInt(this.textContent.split(":")[0]);
+      if (!isNaN(selected)) {
+        timeLimit = selected * 60;
+        initTest(); // Restart test with new time
+      }
     });
-
-// ---- नया passage जोड़ने का logic ----
-let typedWords = val.trim().split(/\s+/).filter(Boolean).length;
-let totalWords = textToType.trim().split(/\s+/).length;
-let remainingWords = totalWords - typedWords;
-
-if (remainingWords <= 5 && !window.nextLoaded) {
-    // नया passage add करें (random या वही दुबारा)
-    textToType += "\n" + lessons[Math.floor(Math.random() * lessons.length)];
-    chars = textToType.split("");
-    renderText(typedChars); // पुराने typedChars के हिसाब से coloring बनी रहे
-    window.nextLoaded = true;
-} else if (remainingWords > 5) {
-    window.nextLoaded = false;
-}
-
-
   });
 
+</script>
+<script>
+function highlightHighestScore() {
+  let history = JSON.parse(localStorage.getItem("typingHistory") || "[]");
+  if (history.length === 0) return;
 
-function finishTest(){
-  clearInterval(timer);
-  input.disabled=true;
+  // 🏆 सबसे बड़ा WPM खोजें
+  let highest = Math.max(...history.map(h => parseInt(h.wpm)));
+  localStorage.setItem("highestWpm", highest); // सेव कर दो ताकि हमेशा रहे
+}
 
-  if(correctChars + wrongChars === 0){
-    return; 
-  }
-
-  textDiv.style.display="none";
-  input.style.display="none";
-  document.getElementById("stats").style.display="none";
-
-  resultDiv.style.display="block";
-  restartBtn.style.display="inline-block";
-
-  let elapsed=(new Date()-startTime)/1000;
-  let wpm=(correctChars/5)/(elapsed/60);
-  let accuracy=(correctChars+wrongChars)? (correctChars/(correctChars+wrongChars))*100 : 100;
-  let totalTyped = correctChars + wrongChars;
-
-  // ✅ Update Best Score
-  updateBestScore(wpm.toFixed(0));
-
-  resultDiv.innerHTML=`
-    <h2>📊 Test Result</h2>
-    <table>
-      <tr><td>Typing Speed</td><td>${wpm.toFixed(0)} WPM</td></tr>
-      <tr><td>Accuracy</td><td>${accuracy.toFixed(0)}%</td></tr>
-      <tr><td>Time Taken</td><td>${Math.min(elapsed,timeLimit).toFixed(0)}s</td></tr>
-      <tr><td>Total Typed Characters</td><td>${totalTyped}</td></tr>
-      <tr><td>Correct Characters</td><td style="color:green;">${correctChars}</td></tr>
-      <tr><td>Wrong Characters</td><td style="color:red;">${wrongChars}</td></tr>
-    </table>
-  `;
-
-  saveHistory({
-    wpm: wpm.toFixed(0),
-    accuracy: accuracy.toFixed(0),
-    time: Math.min(elapsed,timeLimit).toFixed(0),
-    totalTyped,
-    correct: correctChars,
-    wrong: wrongChars,
-    date: new Date().toLocaleString()
+</script>
+<script>
+  // ✅ Try Again button working
+  document.getElementById("restartBtn").addEventListener("click", function() {
+    initTest();   // टाइपिंग टेस्ट फिर से शुरू करे
   });
+</script>
 
-  renderHistory();
-}
-
-
-// ✅ LocalStorage Functions
-function saveHistory(entry){
+<script>
+function renderWpmChart(){
   let history = JSON.parse(localStorage.getItem("typingHistory") || "[]");
+  if (history.length === 0) return;
 
-  // ✅ character को word में कन्वर्ट
-  entry.totalWords = Math.round(entry.totalTyped / 5);
-  entry.correctWords = Math.round(entry.correct / 5);
-  entry.wrongWords = Math.round(entry.wrong / 5);
-
-  history.push(entry);
-  localStorage.setItem("typingHistory", JSON.stringify(history));
-}
-
-function deleteHistory(globalIndex){
-  let history = JSON.parse(localStorage.getItem("typingHistory") || "[]");
-  let deleted = JSON.parse(localStorage.getItem("deletedCount") || "{}");
-
-  if(history[globalIndex]){
-    let d = history[globalIndex].date.split(",")[0];
-    deleted[d] = (deleted[d] || 0) + 1;
-    localStorage.setItem("deletedCount", JSON.stringify(deleted));
-  }
-
-  history.splice(globalIndex,1);
-  localStorage.setItem("typingHistory", JSON.stringify(history));
-  renderHistory();
-}
-
-function downloadReport(){
-  let history = JSON.parse(localStorage.getItem("typingHistory") || "[]");
-  let deleted = JSON.parse(localStorage.getItem("deletedCount") || "{}");
-
-  if(history.length===0){ 
-    alert("No history!"); 
-    return; 
-  }
-
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
-
-  let userName = localStorage.getItem("userName") || "Anonymous";
-
-  // Group by date
+  // 📅 Group by Date — find Best WPM & its duration
   let grouped = {};
+  let dayDetails = {};
   history.forEach(h=>{
-    let d = h.date.split(",")[0];
-    if(!grouped[d]) grouped[d] = [];
-    grouped[d].push(h);
-  });
-  let lastDate = Object.keys(grouped).sort().pop();
-  let tests = grouped[lastDate];
-
-  // Summary calculation
-  let totalTest = tests.length;
-  let timeSpent = tests.reduce((a,b)=>a+parseInt(b.time),0);
-  let lowest = Math.min(...tests.map(t=>parseInt(t.wpm)));
-  let highest = Math.max(...tests.map(t=>parseInt(t.wpm)));
-  let avgSpeed = (tests.reduce((a,b)=>a+parseInt(b.wpm),0)/totalTest).toFixed(0);
-  let totalTyped = tests.reduce((a,b)=>a+b.totalWords,0);
-  let totalCorrect = tests.reduce((a,b)=>a+b.correctWords,0);
-  let avgAcc = (tests.reduce((a,b)=>a+parseInt(b.accuracy),0)/totalTest).toFixed(1);
-  let deletedCount = deleted[lastDate] || 0;
-
-  // ===== Header =====
-  doc.setFontSize(16);
-  doc.text("📜 Typing Report", 14, 20);
-  doc.setFontSize(12);
-  doc.text("Name: " + userName + ", Report Date: " + new Date().toLocaleString(), 14, 30);
-
-  // ===== Summary Table =====
-  let y = 40;
-  doc.setFontSize(13);
-  doc.text("Summary ("+lastDate+")", 14, y);
-  y += 8;
-
-  doc.setFontSize(11);
-  doc.text("Total Test: " + totalTest, 14, y);   y+=6;
-  doc.text("Time Spent: " + Math.round(timeSpent/60)+" m", 14, y); y+=6;
-  doc.text("Lowest Speed: " + lowest, 14, y);   y+=6;
-  doc.text("Highest Speed: " + highest, 14, y); y+=6;
-  doc.text("Avg Speed: " + avgSpeed, 14, y);   y+=6;
-  doc.text("Total Words: " + totalTyped, 14, y); y+=6;
-  doc.text("Correct Words: " + totalCorrect, 14, y); y+=6;
-  doc.text("Avg Accuracy: " + avgAcc+"%", 14, y); y+=6;
-  doc.text("Deleted Test: " + deletedCount, 14, y); y+=10;
-
-  // ===== Last Date Report Card =====
-  doc.setFontSize(13);
-  doc.text("📅 Last Date Report Card", 14, y);
-  y+=8;
-
-  doc.setFontSize(11);
-  doc.text("Time", 14, y);
-  doc.text("WPM", 60, y);
-  doc.text("Accuracy", 90, y);
-  doc.text("Time Spent", 120, y);
-  doc.text("Correct", 160, y);
-  doc.text("Wrong", 180, y);
-  doc.text("Total", 200, y);
-
-  y+=6;
-
-  tests.forEach(h=>{
-    doc.text(h.date, 14, y);
-    doc.text(h.wpm.toString(), 60, y);
-    doc.text(h.accuracy+"%", 90, y);
-    doc.text(Math.round(h.time/60)+" m", 120, y);
-    doc.text(h.correctWords.toString(), 160, y);
-    doc.text(h.wrongWords.toString(), 180, y);
-    doc.text(h.totalWords.toString(), 200, y);
-    y+=6;
-
-    if(y > 280){
-      doc.addPage();
-      y=20;
+    let date = h.date.split(",")[0];
+    let wpm = parseInt(h.wpm);
+    let time = parseInt(h.time);
+    let acc = parseFloat(h.accuracy);
+    if(!grouped[date] || wpm > grouped[date]) {
+      grouped[date] = wpm;
+      dayDetails[date] = { wpm, duration: time, accuracy: acc };
     }
   });
 
-  // ===== Save File =====
-  doc.save(userName.replace(/\s+/g,"_")+"_report.pdf");
+  // 📆 Filter only last 30 days
+  const today = new Date();
+  const last30 = Object.keys(grouped).filter(d=>{
+    const dt = new Date(d);
+    return (today - dt) / (1000 * 60 * 60 * 24) <= 30;
+  }).sort((a,b)=>new Date(a)-new Date(b));
+
+  const labels = last30;
+  const wpmData = labels.map(d => dayDetails[d].wpm);
+  const durationData = labels.map(d => Math.round(dayDetails[d].duration));
+
+  const ctx = document.getElementById('wpmChart').getContext('2d');
+  const isDark = document.body.classList.contains("dark-mode");
+  const textColor = isDark ? "#fff" : "#000";
+  const gridColor = isDark ? "#555" : "#ccc";
+
+  if (window.wpmChartInstance) window.wpmChartInstance.destroy();
+
+  window.wpmChartInstance = new Chart(ctx, {
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          type: 'line',
+          label: 'Best Speed (WPM)',
+          data: wpmData,
+          borderColor: '#4caf50',
+          backgroundColor: 'rgba(76,175,80,0.2)',
+          borderWidth: 3,
+          tension: 0.3,
+          pointBackgroundColor: '#ff9800',
+          fill: true,
+          yAxisID: 'y'
+        },
+        {
+          type: 'line',
+          label: 'Duration (Seconds)',
+          data: durationData,
+          borderColor: '#e91e63',
+          backgroundColor: 'rgba(233,30,99,0.2)',
+          borderWidth: 2,
+          tension: 0.4,
+          pointBackgroundColor: '#e91e63',
+          fill: false,
+          yAxisID: 'y2'
+        }
+      ]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: { display: true, text: 'Speed (WPM)', color: textColor },
+          ticks: { color: textColor },
+          grid: { color: gridColor }
+        },
+        y2: {
+          beginAtZero: true,
+          position: 'right',
+          title: { display: true, text: 'Duration (Seconds)', color: textColor },
+          ticks: { color: textColor },
+          grid: { drawOnChartArea: false }
+        },
+        x: {
+          title: { display: true, text: 'Date', color: textColor },
+          ticks: { color: textColor },
+          grid: { color: gridColor }
+        }
+      },
+      plugins: {
+        legend: {
+          labels: { color: textColor }
+        },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              let date = ctx.label;
+              let info = dayDetails[date];
+              return [
+                `WPM: ${info.wpm}`,
+                `Duration: ${info.duration}s`,
+                `Accuracy: ${info.accuracy}%`
+              ];
+            }
+          }
+        }
+      }
+    }
+  });
 }
 
 
-
-
-
-// ✅ Render only last date report
-// ✅ Render only last date report
-function renderHistory(){
+// 🕒 24 घंटे वाला चार्ट (जैसा पहले था)
+function renderRecentChart(){
   let history = JSON.parse(localStorage.getItem("typingHistory") || "[]");
-  let deleted = JSON.parse(localStorage.getItem("deletedCount") || "{}");
-  let container = document.getElementById("historyTable");
-  if (!container) return;
+  if (history.length === 0) return;
 
-  if (history.length === 0) {
-    container.innerHTML = "<p>No history yet.</p>
-  
+  const now = new Date();
+  const last24 = history.filter(h=>{
+    const d = new Date(h.date);
+    return (now - d) / (1000 * 60 * 60) <= 24;
+  });
+
+  if(last24.length === 0) return;
+
+  const labels = last24.map(h => h.date.split(",")[1]?.trim() || h.date);
+  const wpms = last24.map(h => parseInt(h.wpm));
+  const accs = last24.map(h => parseFloat(h.accuracy));
+  const times = last24.map(h => parseInt(h.time));
+
+  const ctx = document.getElementById('recentChart').getContext('2d');
+  const isDark = document.body.classList.contains("dark-mode");
+  const textColor = isDark ? "#fff" : "#000";
+  const gridColor = isDark ? "#555" : "#ccc";
+
+  if (window.recentChartInstance) window.recentChartInstance.destroy();
+
+  window.recentChartInstance = new Chart(ctx, {
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          type: 'bar',
+          label: 'Speed (WPM)',
+          data: wpms,
+          backgroundColor: 'rgba(33,150,243,0.6)',
+          borderColor: '#2196f3',
+          borderWidth: 2
+        },
+        {
+          type: 'line',
+          label: 'Accuracy (%)',
+          data: accs,
+          borderColor: '#ff9800',
+          backgroundColor: 'rgba(255,152,0,0.2)',
+          borderWidth: 2,
+          tension: 0.3,
+          yAxisID: 'y2'
+        }
+      ]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: { display: true, text: 'WPM', color: textColor },
+          ticks: { color: textColor },
+          grid: { color: gridColor }
+        },
+        y2: {
+          beginAtZero: true,
+          position: 'right',
+          title: { display: true, text: 'Accuracy (%)', color: textColor },
+          ticks: { color: textColor },
+          grid: { drawOnChartArea: false }
+        },
+        x: {
+          ticks: { color: textColor },
+          grid: { color: gridColor }
+        }
+      },
+      plugins: {
+        legend: { labels: { color: textColor } },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              const i = ctx.dataIndex;
+              if(ctx.dataset.label.includes("Speed")){
+                return [
+                  `WPM: ${wpms[i]}`,
+                  `Accuracy: ${accs[i]}%`,
+                  `Duration: ${times[i]}s`
+                ];
+              } else {
+                return null;
+              }
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+// 📊 दोनों चार्ट render करें
+function renderAllCharts(){
+  renderWpmChart();
+  renderRecentChart();
+}
+
+// Auto load + dark mode observer
+window.addEventListener("load", renderAllCharts);
+document.addEventListener("DOMContentLoaded", ()=>{
+  const observer = new MutationObserver(renderAllCharts);
+  observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+});
+</script>
+<script>
+let testRunning = false; // स्थिति ट्रैक करने के लिए
+
+function toggleTest() {
+  const btn = document.getElementById("finishBtn");
+  const input = document.getElementById("input");
+
+  // अगर टेस्ट चल रहा है तो रोक दो
+  if (testRunning || started) {
+    // ✅ नया: यूज़र से पुष्टि लो
+    const confirmFinish = confirm("Are you sure you want to finish the test?");
+    if (!confirmFinish) return; // ❌ यूज़र ने Cancel किया तो कुछ मत करो
+
+    testRunning = false;
+    started = false;
+    btn.textContent = "▶️";
+    btn.style.background = "#4caf50"; // 🟢 Start रंग
+    finishTest();
+  } 
+  else {
+    // ▶️ Start Test
+    testRunning = true;
+    started = true;
+    btn.textContent = "⏹";
+    btn.style.background = "#e91e63"; // 🔴 Stop रंग
+    initTest();
+    input.focus();
+  }
+}
+
+// जब textarea पर फोकस आए और टेस्ट स्टार्ट न हुआ हो तो ऑटो स्टार्ट करो
+document.getElementById("input").addEventListener("focus", () => {
+  const btn = document.getElementById("finishBtn");
+  if (!testRunning) {
+    testRunning = true;
+    started = true;
+    btn.textContent = "⏹";
+    btn.style.background = "#e91e63";
+    initTest();
+  }
+});
+
+// पेज लोड पर बटन को हरा रखो
+window.addEventListener("load", () => {
+  const btn = document.getElementById("finishBtn");
+  btn.style.background = "#4caf50";
+});
+</script>
+
+
+
+<script>
+let typingMode = localStorage.getItem("typingMode") || "character"; // डिफ़ॉल्ट मोड
+
+// बटन टेक्स्ट अपडेट करने वाला फ़ंक्शन
+function updateModeButton() {
+  const btn = document.getElementById("modeToggleBtn");
+  btn.textContent = "🔤 Mode: " + (typingMode === "character" ? "Character" : "Word");
+}
+
+// Toggle बटन क्लिक
+function toggleMode() {
+  typingMode = (typingMode === "character") ? "word" : "character";
+  localStorage.setItem("typingMode", typingMode);
+  updateModeButton();
+  initTest(); // नया मोड तुरंत लागू
+}
+
+// टेस्ट शुरू होते ही बटन अपडेट करें
+window.addEventListener("load", updateModeButton);
+</script>
+<script>
+  let typingMode = localStorage.getItem("typingMode") || "character"; // डिफ़ॉल्ट मोड
+
+function updateModeButton() {
+  const btn = document.getElementById("modeToggleBtn");
+  btn.textContent = "🔤 Mode: " + (typingMode === "character" ? "Character" : "Word");
+}
+
+function toggleMode() {
+  typingMode = (typingMode === "character") ? "word" : "character";
+  localStorage.setItem("typingMode", typingMode);
+  updateModeButton();
+  initTest(); // मोड बदलने पर रीस्टार्ट
+}
+
+window.addEventListener("load", updateModeButton);
+
+</script>
+<script>
+let backspaceEnabled = JSON.parse(localStorage.getItem("backspaceEnabled") || "true");
+
+function toggleBackspace() {
+  backspaceEnabled = !backspaceEnabled;
+  localStorage.setItem("backspaceEnabled", backspaceEnabled);
+  updateBackspaceButton();
+}
+
+// बटन का टेक्स्ट अपडेट करें
+function updateBackspaceButton() {
+  const btn = document.getElementById("backspaceToggleBtn");
+  btn.textContent = "⌫ Backspace: " + (backspaceEnabled ? "ON" : "OFF");
+  btn.style.background = backspaceEnabled ? "#4caf50" : "#f44336";
+}
+
+// टाइपिंग इनपुट पर बैकस्पेस रोकें
+document.addEventListener("keydown", function(e) {
+  if (!backspaceEnabled && e.key === "Backspace") {
+    e.preventDefault();
+  }
+});
+
+// पेज लोड पर बटन स्टेट सेट करें
+window.addEventListener("load", updateBackspaceButton);
+</script>
+<script>
+// जब यूज़र textarea में फोकस करे तो ऑटो स्टार्ट हो जाए
+document.getElementById("input").addEventListener("focus", () => {
+  const btn = document.getElementById("finishBtn");
+
+  // अगर अभी टेस्ट नहीं चल रहा है, तो शुरू करें
+  if (!testRunning) {
+    testRunning = true;
+    started = true;
+    btn.textContent = "⏹"; // Stop बटन दिखाओ
+    initTest();             // नया टेस्ट शुरू
+  }
+});
+</script>
+
+
+</body>
+</html>
+
+       
+      
+      
+      
+
+     
+    </div>
+  </div>
+  <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 20px;">
+    <a href="https://www.copyscape.com/" target="_blank">
+        <img src="//banners.copyscape.com/img/copyscape-banner-blue-130x46.png" width="130" height="55" border="0" alt="Protected by Copyscape" title="Protected by Copyscape - Do not copy content from this page." />
+    </a>
+    <a href="//www.dmca.com/Protection/Status.aspx?ID=d3b3907b-b880-412d-8661-4c7109eb787c" title="DMCA.com Protection Status" class="dmca-badge" target="_blank"> 
+        <img src="https://images.dmca.com/Badges/dmca_protected_1_120.png?ID=d3b3907b-b880-412d-8661-4c7109eb787c" alt="DMCA.com Protection Status" />
+    </a>
+    <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"></script>
+
+  </div>
+
 
   </main>
   <footer>
