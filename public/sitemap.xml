@@ -41,6 +41,8 @@
   </url><url>
     <loc>http://localhost:1313/typing-speed-test/hindi/10m/</loc>
   </url><url>
+    <loc>http://localhost:1313/typing-speed-test/hindi/l2/</loc>
+  </url><url>
     <loc>http://localhost:1313/typing-speed-test/</loc>
   </url>
 </urlset>
