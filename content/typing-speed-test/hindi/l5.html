@@ -1,519 +1,8 @@
++++
+title = "Typing test Speed Hindi Tradition -Lassion 2"
++++
+
 <!DOCTYPE html>
-<html lang="en-us" dir="ltr">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html, body {
-      height: 100%;
-    }
-
-    body {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      font-family: Arial, sans-serif;
-    }
-
-    header {
-      padding: 1rem;
-      text-align: center;
-    }
-
-    main {
-      flex: 1;
-      padding: 2rem;
-
-    }
-
-    footer {
-      background: #222;
-      color:aliceblue;
-      text-align: center;
-      padding: 1rem;
-      z-index:99;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <style>
-     @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap");
-
-    :root {
-      --color-black: hsl(0, 0%, 10%);
-      --color-darks: hsl(0, 0%, 25%);
-      --color-greys: hsl(0, 0%, 60%);
-      --color-light: hsl(0, 0%, 95%);
-      --color-white: hsl(0, 0%, 100%);
-      --color-blue-100: hsl(217, 91%, 65%);
-      --color-blue-200: hsl(221, 83%, 55%);
-      --color-blue-300: hsl(224, 76%, 45%);
-      --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-        0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      
-      background-color: var(--color-white);
-      color: var(--color-black);
-    }
-
-   .menu a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    header.header {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: var(--color-white);
-      box-shadow: var(--shadow-medium);
-      z-index: 99;
-    }
-
-    .nav-container {
-      max-width: 1600px;
-      font-family: 'Rubik', sans-serif;
-      margin: auto;
-      padding: 0 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 4rem;
-    }
-
-    .brand {
-      font-size: 1.6rem;
-      font-weight: 600;
-      color: var(--color-blue-200);
-      text-transform: uppercase;
-    }
-
-    .burger {
-      display: block;
-      width: 1.6rem;
-      cursor: pointer;
-    }
-
-    .burger-line {
-      width: 100%;
-      height: 2px;
-      background: var(--color-black);
-      margin: 5px 0;
-      border-radius: 10px;
-    }
-
-    .menu {
-      position: fixed;
-      top: 0;
-      left: -100%;
-      width: 80%;
-      height: 100vh;
-      background: var(--color-white);
-      box-shadow: var(--shadow-medium);
-      transition: 0.3s ease;
-      z-index: 11;
-    }
-
-    .menu.is-active {
-      left: 0;
-    }
-
-    .menu-inner {
-      padding: 5rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .menu-link {
-      font-size: 1.1rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      color: var(--color-black);
-    }
-
-    .menu-link:hover {
-      color: var(--color-blue-200);
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      background: rgba(0, 0, 0, 0.6);
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      visibility: hidden;
-      z-index: 10;
-      transition: 0.3s ease;
-    }
-
-    .overlay.is-active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .search-toggle {
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-
-    .search-block {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 100%;
-      height: 100vh;
-      background: var(--color-white);
-      z-index: 99;
-      transition: 0.3s ease;
-      padding: 1.5rem;
-    }
-
-    .search-block.is-active {
-      right: 0;
-    }
-.search-form-container {
-  max-width: 600px;
-  margin: auto;
-  
-}
-    .search-form {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .search-input {
-      flex: 1;
-      padding: 0.75rem 1.25rem;
-      border: none;
-      border-radius: 5px;
-      background: var(--color-light);
-      font-size: 1rem;
-    }
-
-    .search-cancel {
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-.search-block {
-  position: fixed;
-  top: 0;
-  right: -100%;  
-  width: 100%;
-  height: 100vh;
-  background: white;
-  z-index: 12;
-  transition: 0.3s ease;
-  padding: 0.8rem;
-}
-
-.search-block.is-active {
-  right: 0;  
-}
-.search-form {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  max-width: 100%;
-  flex-wrap: wrap;
-}
-
-.search-form {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  max-width: 600px;
-  margin: 0 auto;
-  font-family: Arial, sans-serif;
-}
-
-.back-btn {
-  background: none;
-  border: none;
-  font-size: 22px;
-  color: #333;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.back-btn:hover {
-  color: #007BFF;
-}
-
-.search-input-wrapper {
-  position: relative;
-  flex: 1;
-}
-
-.search-icon {
-  position: absolute;
-  left: 12px;
-  font-size: 18px;
-  color: #aaa;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.search-input {
-  width: 100%;
-  padding: 10px 36px 10px 36px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: all 0.3s ease;
-}
-
-.search-input:focus {
-  border-color: #007BFF;
-  box-shadow: 0 0 0 2px #007bff33;
-  outline: none;
-}
-
-.clear-input {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #999;
-  font-size: 16px;
-  display: none;
-}
-
-.clear-input:hover {
-  color: #ff4d4d;
-}
-
-.search-btn {
-  background-color: #007BFF;
-  color: white;
-  padding: 10px 14px;
-  font-size: 18px;
-  border: none;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.search-btn:hover {
-  background-color: #0056b3;
-}
-
-    #search-results {
-      position: relative;
-      margin-top: 2px;
-      font-size: 14px;
-      color: #333;
-      overflow: auto;
-      max-height: 500px;
-    }
-    #search-results div {
-    border: 1px solid #333;
-    padding: 2px;
-  border-bottom: 1px solid #eee;
-}
-  a:link {text-decoration: none;}
-  a:hover { color:#367404}
-    mark {
-        background-color: yellow;
-      color: black;
-      padding: 0 2px;
-      border-radius: 3px;
-    }
-    h3 {
-
-    display: block;
-    font-size: 1.17em;
-    margin-block-start: 0.2rem;
-    margin-block-end: 0.1rem;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-    unicode-bidi: isolate;
-}
-p {
-    display: block;
-    margin-block-start: 0.2rem;
-    margin-block-end: 0.1rem;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    unicode-bidi: isolate;
-}
-
-.logo-img {
-  margin-top:5px;
-  width: 200px;}
-
-    @media (min-width: 768px) {
-      .burger {
-        display: none;
-      }
-
-      .menu {
-        position: static;
-        height: auto;
-        width: auto;
-        display: flex;
-        box-shadow: none;
-        background: none;
-        left: auto;
-      }
-
-      .menu-inner {
-        flex-direction: row;
-        padding: 0;
-        gap: 2rem;
-      }
-
-      .overlay {
-        display: none;
-      }
-    }
-    
-</style>
-
-
-
-
-<head>
-  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script>
-</head>
-
-  <header class="header">
-    <div class="nav-container">
-      <div class="burger" id="burger">
-        <div class="burger-line"></div>
-        <div class="burger-line"></div>
-        <div class="burger-line"></div> 
-      </div>
-       <a href="/" class="brand">
-        <img class="logo-img" src="/logo/logo-1080x200.png" alt="GAJAB TOOLS"  loading="lazy" />
-      </a>
-       
-      <div class="menu" id="menu">
-        <ul class="menu-inner">
-          <li><a href="#" onclick="setPreferredHome()" class="menu-link">Switch</a></li>
-          <li><a href="/" class="menu-link"> Home</a></li>
-          <li> <a href="/pdf-forms/" class="menu-link">Forms</a></li> 
-          <li><a href="/baner-poster-update/" class="menu-link">Poster</a></li>
-          <li><a href="/last-date/" class="menu-link">Lastdate</a></li>
-          <li><a href="/latest-jobs/" class="menu-link">Latest Jobs</a></li>
-        </ul>
-      </div>
-     <i class="bx bx-search search-toggle" id="searchToggle"></i>
-
-
-<div class="search-block" id="searchBlock">
- <div class="search-form-container">
-    <form class="search-form" onsubmit="handleSearch(event)" method="post" action="" name="search-form">
-    <input type="hidden" name="TimeStamp" class="Advance" id="timestamp-field">
-    <input type="hidden" name="use-in" class="advnce" value="TopSearch">
-  <i class="bx bx-arrow-back search-cancel" class="back-btn" id="searchCancel"></i>
-
-  <div class="search-input-wrapper">
-    <i class="bx bx-search search-icon"></i>
-    <input id="search-query" class="search-input" name="Search" type="text" placeholder="Search..." />
-    <span class="clear-input" id="clearInputBtn">✕</span>
-  </div>
-
-  <button type="submit" class="search-btn">
-    <i class="bx bx-search"></i>
-  </button>
-    </form>
-    <div id="search-results"></div>
-    <div id="recent-searches"></div>
-    <iframe id="search-iframe" src="/menu" style="display: none; height: 600px; width: 100%; border: none;" name="menu"></iframe>
-  </div>
-</div>
-</div>
-  </header>
-
-
-<div id="installBtn" style="display: none;">
-  <img width="30px" src="https://www.yojnaportal.com/logo/logo-100x100.png" alt="App Icon">
-  Yojna Portal App <span style="color:blue; font-weight:700;">Install</span>
-  <button id="closeInstallBtn" onclick="document.getElementById('installBtn').style.display='none'">❌</button>
-</div>
-
-  <div class="overlay" id="overlay"></div>
-<script>
-function setPreferredHome() {
-  const currentPref = localStorage.getItem("preferredHome");
-  if (currentPref === "homepage") {
-    localStorage.removeItem("preferredHome");
-    window.location.href = '/';
-  } else {
-    localStorage.setItem("preferredHome", "homepage");
-    window.location.href = '/homepage/';
-  }
-}
-</script>
-
- 
-
-  </header>
-  <main>
-    <head>
-    <meta name="robots" content="index, follow">
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href=" \css\single-post.css">
-    <style>
-   </style>
-  </head>
-
-    <div class="single-post-header">
-        <div class="Post-Date"> Post Date / Update: <strong>01-Jan-0001 00:00:00</strong></div> 
-        <nav aria-label="breadcrumb" class="breadcrumbNav">
-          <div class="breadcrumb">
-            <li><a href="http://localhost:1313/">Home</a> >> </li>
-            
-            
-            
-              
-            
-              
-                
-                <li><a href="/typing-speed-test">Typing Speed Test</a> >> </li>
-              
-            
-              
-                
-                <li><a href="/typing-speed-test/english">English</a> >> </li>
-              
-            
-              
-            
-              
-            
-            <li>Typing test Speed English -10 Minit</li>
-          </div>
-        </nav>
-       
-    </div>
-    <div class="single-post-wrapper">
-      <div class="single-post-content">
-
-        <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -561,8 +50,8 @@ function setPreferredHome() {
     .incorrect { font-weight: bold;  color:red; }
     .active { background:yellow; padding:1px 2px; border-radius:3px; font-weight:bold; }
     #input {
-      width:90%; max-width:700px; padding:10px; font-size:16px; margin-top:20px;
-      border:2px solid #007bff; border-radius:6px;
+      width:90%; max-width:700px; padding:10px; font-size:26px; margin-top:20px;
+      border:2px solid #007bff; border-radius:6px; font-weight: bold;
     }
     #stats { margin-top:20px; font-size:18px; }
     #result { display:none; margin-top:25px; }
@@ -759,6 +248,10 @@ function setPreferredHome() {
   max-height: 0;
   pointer-events: none;
 }
+.halfwrong {
+  font-weight: bold;
+  color: orange;
+}
   </style>
 </head>
 <body>
@@ -822,7 +315,7 @@ function setPreferredHome() {
  <div id="progressBar" style="width:90%; max-width:700px; height:8px; background:#ddd; margin:0px auto 0px auto; border-radius:4px;">
   <div id="progress" style="height:100%; width:100%; background:#ff9800; border-radius:4px;"></div>
 </div>
-  <textarea id="input" rows="2" placeholder="Start typing here..."></textarea>
+  <textarea id="input" rows="1" placeholder="Start typing here..."></textarea>
 
 
   <div id="result"></div>
@@ -844,6 +337,21 @@ function setPreferredHome() {
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// --- Unicode-safe Hindi grapheme utils ---
+const _seg = (Intl && Intl.Segmenter)
+  ? new Intl.Segmenter('hi', { granularity: 'grapheme' })
+  : null;
+
+function toGraphemes(str) {
+  // NFC से canonical normalize + ZWJ/ZWNJ हटाएँ
+  const s = (str || '').normalize('NFC').replace(/[\u200C\u200D]/g, '');
+  if (_seg) return Array.from(_seg.segment(s), x => x.segment);
+  // Fallback: Array.from codepoints (कम सही, पर बेहतर than split(""))
+  return Array.from(s);
+}
+</script>
+
 <script>
   document.addEventListener('keydown', function(e){
     if(e.key === "Escape") {
@@ -878,48 +386,46 @@ function setPreferredHome() {
   </script>
 <script>
 const lessons = [
+`स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं
+स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं
+राम करम, राम करम, राम करम, राम करम, राम करम, राम करम, राम करम, राम करम, राम करम, राम करम, राम करम, राम करम, राम करम, राम करम,
+परमू कहीं चाय नही पीता हैं. परमू कहीं चाय नही पीता हैं. परमू कहीं चाय नही पीता हैं. परमू कहीं चाय नही पीता हैं. परमू कहीं चाय नही पीता हैं. परमू कहीं चाय नही पीता हैं.
+हर समय, समस्या को, सहजता से, पकड़ना चाहियें. हर समय, समस्या को, सहजता से, पकड़ना चाहियें. हर समय, समस्या को, सहजता से, पकड़ना चाहियें. हर समय, समस्या को, सहजता से, पकड़ना चाहियें.
+बाजू के जंगल में, बहुत बड़े बड़े बन्दर हैं, बाजू के जंगल में, बहुत बड़े बड़े बन्दर हैं, बाजू के जंगल में, बहुत बड़े बड़े बन्दर हैं, बाजू के जंगल में, बहुत बड़े बड़े बन्दर हैं,
+सायं के समय पर रूम का किराया देने को, नमन तैयार हैं. सायं के समय पर रूम का किराया देने को, नमन तैयार हैं. सायं के समय पर रूम का किराया देने को, सायं के समय पर नमन तैयार हैं. रूम का किराया देने को, नमन तैयार हैं.`,
 
-`Success does not come overnight, and typing speed is no different. Every master once started as a beginner, pressing one key at a time. Do not compare your speed with others, because everyone has their own journey. What matters is your effort today.
-When you practice, you are not just learning typing, you are training your brain to focus and your fingers to move with confidence. Small daily practice is better than long but irregular effort. Even ten minutes a day will change your skills in a few months. Remember, the habit you build today will give you lifelong benefit.
-Believe in yourself, stay motivated, and let each keystroke be a step toward your success.`,
-`"The Power of Consistency"
-Success is not the result of one big action, but the outcome of countless small efforts made every single day. Many people believe that greatness requires extraordinary talent or luck, but the truth is much simpler: consistency. When you choose to work steadily toward your goals, even in small steps, you create momentum. That momentum slowly builds habits, and habits shape your destiny.
-Think of water dripping on a stone. A single drop does nothing, but when drops fall again and again, they carve the stone itself. In the same way, your daily discipline—studying a little, practicing regularly, waking up on time, or exercising each day—may seem small, but over months and years it creates results beyond imagination.
-There will be days when motivation feels weak, when you want to quit or take a break. That is the exact moment when consistency matters the most. Showing up even when it’s difficult strengthens not just your skills, but also your character. It teaches patience, perseverance, and self-belief.
-Remember this: talent can shine for a while, but discipline and consistency win in the long run. Keep moving, keep working, and trust the process. One day, you will look back and realize that your small daily efforts have built a mountain of success.`,
-`Typing practice is like building a house. Each word you type is a brick, and every session makes the structure stronger. At first, it looks like nothing is changing, but after a while, the results are visible. The wall becomes higher and stronger. Similarly, your typing speed may not grow in one day, but with patience and daily work, it will become solid. Do not fear mistakes. Mistakes are not failure; they are lessons. Each error guides you to the right path.
-Keep typing, keep learning, and your future self will thank you for the effort you put in today.`,
-`In this digital world, typing is a superpower. It saves time, increases productivity, and makes communication faster.
-When you type with speed and accuracy, you get more freedom to focus on ideas rather than the keyboard. The key to improvement is consistency. Just like athletes train daily to stay fit, your fingers need daily practice to stay sharp. You may type slowly now, but if you do not quit, improvement is guaranteed.
-Think about the confidence you will feel when you can type without looking at the keys. That day will come soon if you keep practicing today.`,
-`Patience is your best friend in typing practice. Many learners give up too quickly because they expect fast results.
-But real progress comes slowly and steadily. Imagine planting a seed today. You water it daily, and after some time it becomes a strong tree. Typing practice works the same way.
-Every word is a drop of water, and every session adds strength. One day, your typing skills will be like a strong tree giving you shade in the form of confidence and productivity. Do not stop, because every small step counts.`,
-`Every challenge in typing is an opportunity to grow. When you see a difficult word or a tricky sentence, take it as a chance to improve.
-Do not avoid challenges, embrace them. The harder the passage, the more it trains your fingers and brain. With practice, what feels hard today will feel easy tomorrow.
-Life works the same way. Challenges make you stronger. Stay motivated, stay focused, and remember that your growth comes from pushing yourself beyond comfort.`,
-`Discipline always beats motivation. You may not feel motivated every day to practice typing, but discipline will push you forward.
-Create a routine and stick to it. Even when you do not feel like practicing, do it for at least five minutes. Those small moments add up.
-Success is not about one big effort; it is about hundreds of small efforts done daily. Train your discipline, and your fingers will follow. Soon you will see the power of persistence in your typing speed and accuracy.`,
-`Typing is more than just pressing keys; it is about building confidence.
-Imagine sitting in an exam, writing an assignment, or working in an office where speed matters. Fast typing gives you an advantage in every field.
-The best part is, this skill stays with you for life. Once you master it, it never leaves you. So do not waste time doubting yourself.
-Start now, practice daily, and watch how a simple habit can create lifelong success.`,
-`Remember that every expert was once a beginner who refused to give up. The only difference between you and a fast typist is practice.
-They practiced more, and so they became better. You too can achieve that speed if you keep going.
-Do not rush. Enjoy the process. Feel the rhythm of your fingers, enjoy the sound of the keys, and let typing become a fun game instead of a boring task. When learning becomes fun, improvement becomes natural.`,
-`Stay positive while practicing typing. Negative thoughts like "I am too slow" or "I cannot improve" will only block your progress. Replace them with positive thoughts such as "I am improving every day" and "With practice, I will be fast." Your mind controls your body.
-If your mind believes in success, your fingers will follow. Motivation comes from within.
-So encourage yourself, cheer for yourself, and type with confidence. You are capable of more than you think.`,
-`Your future self is waiting for the efforts you make today. Think about the opportunities that will come when you can type with speed and accuracy.
-You will save time, finish work faster, and feel confident in every situation. All of this is possible if you stay consistent.
-The keyboard in front of you is not just a tool, it is a bridge to your success. Practice every day, trust the process, and remember: great skills are built with small daily actions. Keep typing, keep growing, and keep believing in yourself.`
+`स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं
+स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं
+समस्या हर किसी के पास होती हैं, जिससे जीतना हमारी सहजता हैं. समस्या हर किसी के पास होती हैं, जिससे जीतना हमारी सहजता हैं. समस्या हर किसी के पास होती हैं, जिससे जीतना हमारी सहजता हैं.
+चाय हमारी सेहत को बिगाड़ती हैं, जिसे कम पीना चाहियें. चाय हमारी सेहत को बिगाड़ती हैं, जिसे कम पीना चाहियें. चाय हमारी सेहत को बिगाड़ती हैं, जिसे कम पीना चाहियें. चाय हमारी सेहत को बिगाड़ती हैं, जिसे कम पीना चाहियें.
+रामू काका कहानी सुना रहे हैं, रामू काका कहानी सुना रहे हैं, रामू काका कहानी सुना रहे हैं, रामू काका कहानी सुना रहे हैं, रामू काका कहानी सुना रहे हैं, रामू काका कहानी सुना रहे हैं, रामू काका कहानी सुना रहे हैं,
+सायं के समय पर रूम का किराया देने को, नमन तैयार हैं. सायं के समय पर रूम का किराया देने को, नमन तैयार हैं. सायं के समय पर रूम का किराया देने को, सायं के समय पर नमन तैयार हैं. रूम का किराया देने को, नमन तैयार हैं.`,
 
-];
+`स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं
+स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं
+कौन सा रंग सबसे रंगीन होता हैं, कौन सा रंग सबसे रंगीन होता हैं, कौन सा रंग सबसे रंगीन होता हैं, कौन सा रंग सबसे रंगीन होता हैं, कौन सा रंग सबसे रंगीन होता हैं, 
+पुरानी यारी, सबसे प्यारी. पुरानी यारी, सबसे प्यारी. पुरानी यारी, सबसे प्यारी. पुरानी यारी, सबसे प्यारी. पुरानी यारी, सबसे प्यारी. पुरानी यारी, सबसे प्यारी. पुरानी यारी, सबसे प्यारी.
+सायं का समय. बहुत ही सुहाना होता हैं, सायं का समय. बहुत ही सुहाना होता हैं, सायं का समय. बहुत ही सुहाना होता हैं, सायं का समय. बहुत ही सुहाना होता हैं, सायं का समय. बहुत ही सुहाना होता हैं,
+जो सच कहता है, कही डरता नही हैं. जो सच कहता है, कही डरता नही हैं. जो सच कहता है, कही डरता नही हैं. जो सच कहता है, कही डरता नही हैं. जो सच कहता है, कही डरता नही हैं.
+सायं के समय पर रूम का किराया देने को, नमन तैयार हैं. सायं के समय पर रूम का किराया देने को, नमन तैयार हैं. सायं के समय पर रूम का किराया देने को, सायं के समय पर नमन तैयार हैं. रूम का किराया देने को, नमन तैयार हैं.`,
 
+`स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं
+स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं
+कौन नही जानता है कि नर्मदा नदी का पानी सुन्दर लगता हैं. कौन नही जानता है कि नर्मदा नदी का पानी सुन्दर लगता हैं. कौन नही जानता है कि नर्मदा नदी का पानी सुन्दर लगता हैं.
+बहादुर कायर नही हैं, क्योकि बहादुरी से हर जगह सच ही कहता हैं. बहादुर कायर नही हैं, क्योकि बहादुरी से हर जगह सच ही कहता हैं. बहादुर कायर नही हैं, क्योकि बहादुरी से हर जगह सच ही कहता हैं.
+बड़िया कर्म की सदा ही जय होती हैं, बड़िया कर्म की सदा ही जय होती हैं, बड़िया कर्म की सदा ही जय होती हैं, बड़िया कर्म की सदा ही जय होती हैं, बड़िया कर्म की सदा ही जय होती हैं,
+सायं के समय पर रूम का किराया देने को, नमन तैयार हैं. सायं के समय पर रूम का किराया देने को, नमन तैयार हैं. सायं के समय पर रूम का किराया देने को, सायं के समय पर नमन तैयार हैं. रूम का किराया देने को, नमन तैयार हैं.`,
+
+`स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं
+स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं स,.य नमं
+हमारी योजना, हम ही जानते हैं. हमारी योजना, हम ही जानते हैं. हमारी योजना, हम ही जानते हैं. हमारी योजना, हम ही जानते हैं. हमारी योजना, हम ही जानते हैं.
+हमारे संस्कार, हमारी जीत. हमारे संस्कार, हमारी जीत. हमारे संस्कार, हमारी जीत. हमारे संस्कार, हमारी जीत. हमारे संस्कार, हमारी जीत. हमारे संस्कार, हमारी जीत. हमारे संस्कार, हमारी जीत.
+तुम्हारे पास बहुत दिमाग हैं. तुम्हारे पास बहुत दिमाग हैं. तुम्हारे पास बहुत दिमाग हैं. तुम्हारे पास बहुत दिमाग हैं. तुम्हारे पास बहुत दिमाग हैं. तुम्हारे पास बहुत दिमाग हैं. तुम्हारे पास बहुत दिमाग हैं.
+सायं के समय पर रूम का किराया देने को, नमन तैयार हैं. सायं के समय पर रूम का किराया देने को, नमन तैयार हैं. सायं के समय पर रूम का किराया देने को, सायं के समय पर नमन तैयार हैं. रूम का किराया देने को, नमन तैयार हैं.`
+]
 
 // 🔹 Global Variables
-let textToType, chars;
+let textToType, chars;   
 let startTime, timer, started = false;
 let timeLimit = 600;
 let timeLeft = timeLimit;
@@ -944,7 +450,7 @@ function formatTime(seconds) {
 // 🧩 Initialize new test
 function initTest() {
   textToType = lessons[Math.floor(Math.random() * lessons.length)];
-  chars = textToType.split("");
+  chars = toGraphemes(textToType);
   started = false;
   timeLeft = timeLimit;
   correctChars = 0;
@@ -959,7 +465,7 @@ function initTest() {
   textDiv.style.display = "block";
   input.style.display = "block";
   renderText([]);
-  timeSpan.textContent = formatTime(timeLimit);
+ timeSpan.textContent = formatTime(timeLimit);
   wpmSpan.textContent = 0;
   accSpan.textContent = 100;
   document.getElementById("finishBtn").style.display = "inline-block";
@@ -986,35 +492,82 @@ function updateStats() {
 }
 
 // 🟡 Render Text (Character or Word Mode)
-function renderText(typedChars) {
+function renderText() {
+  const typedGraphemes = toGraphemes(input.value);
+
   if (typingMode === "word") {
+    // 🔹 Word Mode (जैसा पहले था)
     const words = textToType.split(/\s+/);
     const typedWords = input.value.trim().split(/\s+/);
-    const currentWordIndex = input.value.endsWith(" ") ? typedWords.length : typedWords.length - 1;
-    textDiv.innerHTML = words.map((word, i) => {
-      let cls = "";
-      if (typedWords[i] == null) cls = "";
-      else if (typedWords[i] === word) cls = "correct";
-      else cls = "incorrect";
-      return i === currentWordIndex
-        ? `<span class="active">${word}</span>`
-        : `<span class="${cls}">${word}</span>`;
-    }).join(" ");
+    const currentWordIndex = input.value.endsWith(" ")
+      ? typedWords.length
+      : typedWords.length - 1;
+
+    textDiv.innerHTML = words
+      .map((word, i) => {
+        let cls = "";
+        if (typedWords[i] == null) cls = "";
+        else if (typedWords[i] === word) cls = "correct";
+        else cls = "incorrect";
+        return i === currentWordIndex
+          ? `<span class="active">${word}</span>`
+          : `<span class="${cls}">${word}</span>`;
+      })
+      .join(" ");
+  } 
+  else {
+    // 🔸 Character Mode (updated मात्रा logic)
+   // 🔸 Character Mode (fixed मात्रा logic + last-letter fix)
+textDiv.innerHTML = chars.map((g, i) => {
+  const typed = typedGraphemes[i];
+  let cls = "";
+
+  if (typed == null) {
+    cls = "";
   } else {
-    textDiv.innerHTML = chars.map((ch, i) => {
-      let typed = typedChars[i];
-      let cls = "";
-      if (typed == null) cls = "";
-      else if (typed === ch) cls = "correct";
-      else cls = "incorrect";
-      let displayChar = ch === "\n" ? "↲\n" : ch;
-      if (i === typedChars.length) {
-        return `<span id="activeChar" class="active">${displayChar}</span>`;
+    const t = typed.normalize("NFC");
+    const target = g.normalize("NFC");
+
+    const consonantRegex = /[\u0915-\u0939\u0958-\u095f\u0978-\u097f]/;
+    const matraRegex     = /[\u093e-\u094c\u0962\u0963]/;
+
+    const gCons  = (target.match(consonantRegex)?.[0]) || "";
+    const gMatra = (target.match(matraRegex)?.[0])     || "";
+    const tCons  = (t.match(consonantRegex)?.[0])      || "";
+    const tMatra = (t.match(matraRegex)?.[0])          || "";
+
+    const isConsonantTarget = !!gCons;
+    const matraExpected = gMatra !== "";
+    const matraOk = matraExpected ? (tMatra === gMatra) : (tMatra === "");
+
+    // non-consonant (space, punctuation, independent vowels, newline) → direct equality
+    if (!isConsonantTarget) {
+      cls = (t === target) ? "correct" : "incorrect";
+    } else {
+      const consCorrect = (tCons === gCons);
+      if (consCorrect && matraOk) {
+        cls = "correct";                 // ✅ base + (expected) matra ठीक
+      } else if (consCorrect && !matraOk) {
+        // मात्रा expected थी पर अभी सही/पूरी नहीं है
+        const nextTypedExists = !!typedGraphemes[i + 1];
+        cls = nextTypedExists ? "incorrect" : "halfwrong"; // ⏳ अभी incomplete तो orange, आगे बढ़ गए तो red
       } else {
-        return `<span class="${cls}">${displayChar}</span>`;
+        cls = "incorrect";               // ❌ base ही गलत
       }
-    }).join("");
+    }
   }
+
+  const displayChar = (g === "\n")
+  ? "<span style='color:#999;'>↲</span><br>"
+  : g;
+  return i === typedGraphemes.length
+    ? `<span id="activeChar" class="active">${displayChar}</span>`
+    : `<span class="${cls}">${displayChar}</span>`;
+}).join("");
+
+  }
+
+  // स्क्रॉल एडजस्ट
   const activeEl = document.querySelector(".active");
   if (activeEl) {
     let offset = activeEl.offsetTop - textDiv.offsetTop;
@@ -1022,10 +575,12 @@ function renderText(typedChars) {
   }
 }
 
+
+
 // 🧠 Typing Input Logic
 input.addEventListener("input", (e) => {
   const val = e.target.value;
-  const typedChars = val.split("");
+  const typedGraphemes = toGraphemes(val);
 
   if (!started && val.length > 0) {
     started = true;
@@ -1033,13 +588,13 @@ input.addEventListener("input", (e) => {
     timer = setInterval(updateStats, 1000);
   }
 
-  renderText(typedChars);
+  renderText();
   correctChars = 0;
   wrongChars = 0;
 
   if (typingMode === "character") {
-    typedChars.forEach((ch, i) => {
-      if (ch === chars[i]) correctChars++;
+    typedGraphemes.forEach((g, i) => {
+      if (g === chars[i]) correctChars++;
       else wrongChars++;
     });
   } else {
@@ -1050,7 +605,21 @@ input.addEventListener("input", (e) => {
       else wrongChars += word.length + 1;
     });
   }
+
+  // 🔁 Auto Repeat logic — 50 words before ending
+  const totalWords = textToType.trim().split(/\s+/).length;
+  const typedWords = val.trim().split(/\s+/).length;
+
+let repeatThreshold = Math.max(30, Math.floor(totalWords * 0.1)); // कुल शब्दों का 10%, कम से कम 30
+if (totalWords - typedWords <= repeatThreshold) {
+  textToType += "\n\n" + textToType;
+  chars = toGraphemes(textToType);
+  renderText();
+}
 });
+
+
+
 
 // ✅ Global Backspace Counter (works everywhere)
 document.addEventListener("keydown", function (e) {
@@ -1396,7 +965,7 @@ function useCustomPassage(){
     return;
   }
   textToType = customText;
-  chars = textToType.split("");
+  chars = toGraphemes(textToType);
   started=false; timeLeft=timeLimit;
   correctChars=0; wrongChars=0;
   input.value="";
@@ -1744,7 +1313,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 });
 </script>
 <script>
-let testRunning = false; // स्थिति ट्रैक करने के लिए
+
 
 function toggleTest() {
   const btn = document.getElementById("finishBtn");
@@ -1773,17 +1342,13 @@ function toggleTest() {
   }
 }
 
-// जब textarea पर फोकस आए और टेस्ट स्टार्ट न हुआ हो तो ऑटो स्टार्ट करो
+let testRunning = false; // स्थिति ट्रैक करने के लिए
 document.getElementById("input").addEventListener("focus", () => {
-  const btn = document.getElementById("finishBtn");
-  if (!testRunning) {
-    testRunning = true;
-    started = true;
-    btn.textContent = "⏹";
-    btn.style.background = "#e91e63";
-    initTest();
+  if (!started && !testRunning) {
+    toggleTest();
   }
 });
+
 
 // पेज लोड पर बटन को हरा रखो
 window.addEventListener("load", () => {
@@ -1814,24 +1379,7 @@ function toggleMode() {
 // टेस्ट शुरू होते ही बटन अपडेट करें
 window.addEventListener("load", updateModeButton);
 </script>
-<script>
-  let typingMode = localStorage.getItem("typingMode") || "character"; // डिफ़ॉल्ट मोड
 
-function updateModeButton() {
-  const btn = document.getElementById("modeToggleBtn");
-  btn.textContent = "🔤 Mode: " + (typingMode === "character" ? "Character" : "Word");
-}
-
-function toggleMode() {
-  typingMode = (typingMode === "character") ? "word" : "character";
-  localStorage.setItem("typingMode", typingMode);
-  updateModeButton();
-  initTest(); // मोड बदलने पर रीस्टार्ट
-}
-
-window.addEventListener("load", updateModeButton);
-
-</script>
 <script>
 let backspaceEnabled = JSON.parse(localStorage.getItem("backspaceEnabled") || "true");
 
@@ -1874,32 +1422,5 @@ document.getElementById("input").addEventListener("focus", () => {
 </script>
 
 
-</body>
-</html>
-
-       
-      
-      
-      
-
-     
-    </div>
-  </div>
-  <div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 20px;">
-    <a href="https://www.copyscape.com/" target="_blank">
-        <img src="//banners.copyscape.com/img/copyscape-banner-blue-130x46.png" width="130" height="55" border="0" alt="Protected by Copyscape" title="Protected by Copyscape - Do not copy content from this page." />
-    </a>
-    <a href="//www.dmca.com/Protection/Status.aspx?ID=d3b3907b-b880-412d-8661-4c7109eb787c" title="DMCA.com Protection Status" class="dmca-badge" target="_blank"> 
-        <img src="https://images.dmca.com/Badges/dmca_protected_1_120.png?ID=d3b3907b-b880-412d-8661-4c7109eb787c" alt="DMCA.com Protection Status" />
-    </a>
-    <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"></script>
-
-  </div>
-
-
-  </main>
-  <footer>
-   <p>Copyright 2025. All rights reserved.</p>
-  </footer>
 </body>
 </html>

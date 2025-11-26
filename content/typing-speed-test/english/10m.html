@@ -8,7 +8,7 @@ title = "Typing test Speed English -10 Minit"
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Typing Tutor - Paragraph Mode</title>
   <style>
-    .typing-container { font-family: Arial, sans-serif;  margin:0; padding:20px; text-align:center;}
+    body { font-family: Arial, sans-serif; background:#f7f9fc; margin:0; padding:20px; text-align:center;}
     h1 { margin-bottom:10px; }
       #text {
       max-width:700px; 
@@ -191,28 +191,75 @@ title = "Typing test Speed English -10 Minit"
 .dark-mode .incorrect { color: #f44336; }
 .dark-mode .active { background: #ffff00; color:#000; }
 
-.dark-mode textarea, .dark-mode input, .dark-mode .header
- {
+.dark-mode textarea,
+.dark-mode input,
+.dark-mode button {
   background: #555;
   color: white;
 }
-.dark-mode button {
-   background: #181717;
-   color:white;
+#finishBtn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #e91e63;
+  color: #fff;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+  display: none;
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+#finishBtn:hover {
+  background: #c2185b;
+  transform: scale(1.1);
+}
+#modeToggleBtn {
+  background:#9c27b0;
+}
+.dark-mode #modeToggleBtn {
+  background:#7b1fa2;
+}
+/* ✅ Result Page Animation */
+#result {
+  display: none;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+#result.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+/* ✅ CSS से Show/Hide Transition */
+#detailedReport {
+  overflow: hidden;
+  transition: all 0.5s ease;
+  opacity: 1;
+}
+#detailedReport.hidden {
+  opacity: 0;
+  max-height: 0;
+  pointer-events: none;
 }
   </style>
 </head>
 <body>
-<div class="typing-container">
+
   <h1>Typing Speed Test -Gajab Tools </h1>
 
 
   <div id="stats">
 
-    <button class="accbtn" id="openFormBtn">➕Add Name/Passage</button>
+    <button class="accbtn" id="openFormBtn">➕Add Name/Lassion</button>
     <div class="dropdown">
       
- <button class="timebtn">  ⏳ Time Left: <span id="time" style="color: #ff9800;">10:00</span>  </button>
+ <span class="timebtn">  ⏳ Time Left: <span id="time" style="color: #ff9800;">10:00</span>  </span>
   <div class="dropdown-content">
      <a href="#">01:00</a>
     <a href="#">02:00</a>
@@ -224,18 +271,19 @@ title = "Typing test Speed English -10 Minit"
       <a href="#">60:00</a>
   </div>
 </div>
-   
-        <button class="accbtn">🎯 Accuracy: <span id="accuracy" style="color: #2196f3;">100</span>%  </button>
-         <button class="wpwbtn"> ⌨️ WPM: <span id="wpm" style="color: #4caf50;">0</span>  </button> 
-
-       <button class="wpwbtn">⭐ Best Score: <span id="bestScore" style="color:#ff9800;">0</span> WPM </button>
+   <button onclick="toggleDarkMode()" class="wpwbtn">🌓 Toggle Dark Mode</button>
+   <button class="accbtn" id="modeToggleBtn" onclick="toggleMode()">🔤 Mode: Character</button>
+   <button class="timebtn" id="backspaceToggleBtn" onclick="toggleBackspace()">⌫ Backspace: ON</button>
+    <span class="wpwbtn"> ⌨️ WPM: <span id="wpm" style="color: #4caf50;">0</span>  </span> 
+     <span class="accbtn">🎯 Accuracy: <span id="accuracy" style="color: #2196f3;">100</span>%  </span>
+       <span class="wpwbtn">⭐ Best Score: <span id="bestScore" style="color:#ff9800;">0</span> WPM </span>
  <div class="controls">
    
     <button onclick="changeSize(-2)">-</button>
     <button onclick="resetSize()">■</button>
      <button onclick="changeSize(2)">+</button>
-     <button onclick="toggleDarkMode()" class="DarkMode" >🌙 Dark Mode</button>
-    
+     <!-- ✅ नया बटन -->
+ <button id="finishBtn" onclick="toggleTest()" data-title="Start / Stop Test">▶</button>
   </div>
   </div>
 
@@ -243,12 +291,11 @@ title = "Typing test Speed English -10 Minit"
   <div id="popupForm" class="popup-form">
     <div class="popup-content">
       <span id="closeBtn" class="close-btn">&times;</span>
-
       <h2>Add Your Name & Your Passage</h2>
-
    <div style="margin:20px auto; max-width:700px; text-align:left;">
-    <label><b>Your Name:</b></label>
-  <input onchange ="saveUserName()" type="text" id="userName" placeholder="Your Name" style="padding:6px; width:200px; margin-left:10px;" />
+  <label><b>Enter Your Name:</b></label>
+  <input type="text" id="userName" placeholder="Your Name" style="padding:6px; width:200px; margin-left:10px;" />
+  <button onclick="saveUserName()">💾 Save Name</button>
   <!-- User Passage Input -->
 <div style="margin:20px auto; max-width:700px; text-align:left;">
   <label><b>Paste Your Passage:</b></label><br>
@@ -263,7 +310,7 @@ title = "Typing test Speed English -10 Minit"
  <div id="progressBar" style="width:90%; max-width:700px; height:8px; background:#ddd; margin:0px auto 0px auto; border-radius:4px;">
   <div id="progress" style="height:100%; width:100%; background:#ff9800; border-radius:4px;"></div>
 </div>
-  <textarea id="input" rows="1" placeholder="Start typing here..."></textarea>
+  <textarea id="input" rows="2" placeholder="Start typing here..."></textarea>
 
 
   <div id="result"></div>
@@ -271,10 +318,20 @@ title = "Typing test Speed English -10 Minit"
 
  <div id="historyTable" style="margin-top:40px;"></div>
 
-
+<!-- 📈 Chart Sections -->
+<div style="max-width:700px;margin:50px auto;">
+  <h3>📈 Best WPM (Last 30 Days)</h3>
+  <canvas id="wpmChart" height="120"></canvas>
 </div>
 
+<div style="max-width:700px;margin:50px auto;">
+  <h3>🕒 All Tests (Last 24 Hours)</h3>
+  <canvas id="recentChart" height="120"></canvas>
+</div>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
   document.addEventListener('keydown', function(e){
     if(e.key === "Escape") {
@@ -336,7 +393,6 @@ Success is not about one big effort; it is about hundreds of small efforts done 
 Imagine sitting in an exam, writing an assignment, or working in an office where speed matters. Fast typing gives you an advantage in every field.
 The best part is, this skill stays with you for life. Once you master it, it never leaves you. So do not waste time doubting yourself.
 Start now, practice daily, and watch how a simple habit can create lifelong success.`,
-
 `Remember that every expert was once a beginner who refused to give up. The only difference between you and a fast typist is practice.
 They practiced more, and so they became better. You too can achieve that speed if you keep going.
 Do not rush. Enjoy the process. Feel the rhythm of your fingers, enjoy the sound of the keys, and let typing become a fun game instead of a boring task. When learning becomes fun, improvement becomes natural.`,
@@ -350,225 +406,268 @@ The keyboard in front of you is not just a tool, it is a bridge to your success.
 ];
 
 
-  let textToType, chars;
-  let startTime, timer, started=false;
-  let timeLimit = 600;
-  let timeLeft = timeLimit;
-  let correctChars=0, wrongChars=0;
+// 🔹 Global Variables
+let textToType, chars;
+let startTime, timer, started = false;
+let timeLimit = 600;
+let timeLeft = timeLimit;
+let correctChars = 0, wrongChars = 0;
+let backspaceCount = 0;  // ✅ Backspace counter (global)
 
-  const textDiv=document.getElementById("text");
-  const input=document.getElementById("input");
-  const timeSpan=document.getElementById("time");
-  const wpmSpan=document.getElementById("wpm");
-  const accSpan=document.getElementById("accuracy");
-  const resultDiv=document.getElementById("result");
-  const restartBtn=document.getElementById("restartBtn");
+const textDiv = document.getElementById("text");
+const input = document.getElementById("input");
+const timeSpan = document.getElementById("time");
+const wpmSpan = document.getElementById("wpm");
+const accSpan = document.getElementById("accuracy");
+const resultDiv = document.getElementById("result");
+const restartBtn = document.getElementById("restartBtn");
 
- function formatTime(seconds){
+// ⏳ Format Time
+function formatTime(seconds) {
   let m = Math.floor(seconds / 60);
   let s = seconds % 60;
-  return (m < 10 ? "0"+m : m) + ":" + (s < 10 ? "0"+s : s);
+  return (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
 }
 
-function initTest(){
-  // ✅ Random paragraph pick
-  textToType = lessons[Math.floor(Math.random()*lessons.length)];
+// 🧩 Initialize new test
+function initTest() {
+  textToType = lessons[Math.floor(Math.random() * lessons.length)];
   chars = textToType.split("");
-  started=false; 
-  timeLeft=timeLimit;
-  correctChars=0; 
-  wrongChars=0;
-  input.value="";
-  input.disabled=false;
-  document.getElementById("stats").style.display="block";
-  document.getElementById("result").style.display="none";
-  restartBtn.style.display="none";
-  textDiv.style.display="block";
-  input.style.display="block";
+  started = false;
+  timeLeft = timeLimit;
+  correctChars = 0;
+  wrongChars = 0;
+  backspaceCount = 0; // ✅ Reset counter
+
+  input.value = "";
+  input.disabled = false;
+  document.getElementById("stats").style.display = "block";
+  document.getElementById("result").style.display = "none";
+  restartBtn.style.display = "none";
+  textDiv.style.display = "block";
+  input.style.display = "block";
   renderText([]);
-
-  // ⏳ Start timer in MM:SS
   timeSpan.textContent = formatTime(timeLimit);
-
-  wpmSpan.textContent=0;
-  accSpan.textContent=100;
+  wpmSpan.textContent = 0;
+  accSpan.textContent = 100;
+  document.getElementById("finishBtn").style.display = "inline-block";
 }
 
-function updateStats(){
-  if(timeLeft <= 0){ 
-    finishTest(); 
-    return; 
+// 🕐 Update Stats Every Second
+function updateStats() {
+  if (timeLeft <= 0) {
+    finishTest();
+    return;
   }
-
-  timeLeft--; // decrease time by 1 second
-
-  // ⏳ Format and update MM:SS
+  timeLeft--;
   timeSpan.textContent = formatTime(timeLeft);
+  document.getElementById("progress").style.width = (timeLeft / timeLimit) * 100 + "%";
 
-  // 🟠 Update progress bar
-  let percent = (timeLeft / timeLimit) * 100;
-  document.getElementById("progress").style.width = percent + "%";
-
-  // ⏱ Calculate typing stats
-  let elapsed = (new Date() - startTime) / 1000; // in seconds
+  let elapsed = (new Date() - startTime) / 1000;
   let wpm = (correctChars / 5) / (elapsed / 60);
-  let accuracy = (correctChars + wrongChars) ? (correctChars / (correctChars + wrongChars)) * 100 : 100;
+  let accuracy = (correctChars + wrongChars)
+    ? (correctChars / (correctChars + wrongChars)) * 100
+    : 100;
 
-  // 💡 Update UI values
   wpmSpan.textContent = wpm.toFixed(0);
   accSpan.textContent = accuracy.toFixed(0);
 }
 
-
-
-function renderText(typedChars){
-  textDiv.innerHTML = chars.map((ch,i)=>{
-    let typed = typedChars[i];
-    let cls="";
-    if(typed==null){ cls=""; }
-    else if(typed===ch){ cls="correct"; }
-    else{ cls="incorrect"; }
-
-    let displayChar = ch;
-    if(ch==="\n"){ displayChar="↲\n"; }
-
-    if(i===typedChars.length){
-      return `<span id="activeChar" class="active">${displayChar}</span>`;
-    }else{
-      return `<span class="${cls}">${displayChar}</span>`;
-    }
-  }).join("");
-
-const activeEl=document.getElementById("activeChar");
-if(activeEl){
-  let offset = activeEl.offsetTop - textDiv.offsetTop;
-  textDiv.scrollTop = offset - 25;  // active line + ऊपर की 1 line दिखे
+// 🟡 Render Text (Character or Word Mode)
+function renderText(typedChars) {
+  if (typingMode === "word") {
+    const words = textToType.split(/\s+/);
+    const typedWords = input.value.trim().split(/\s+/);
+    const currentWordIndex = input.value.endsWith(" ") ? typedWords.length : typedWords.length - 1;
+    textDiv.innerHTML = words.map((word, i) => {
+      let cls = "";
+      if (typedWords[i] == null) cls = "";
+      else if (typedWords[i] === word) cls = "correct";
+      else cls = "incorrect";
+      return i === currentWordIndex
+        ? `<span class="active">${word}</span>`
+        : `<span class="${cls}">${word}</span>`;
+    }).join(" ");
+  } else {
+    textDiv.innerHTML = chars.map((ch, i) => {
+      let typed = typedChars[i];
+      let cls = "";
+      if (typed == null) cls = "";
+      else if (typed === ch) cls = "correct";
+      else cls = "incorrect";
+      let displayChar = ch === "\n" ? "↲\n" : ch;
+      if (i === typedChars.length) {
+        return `<span id="activeChar" class="active">${displayChar}</span>`;
+      } else {
+        return `<span class="${cls}">${displayChar}</span>`;
+      }
+    }).join("");
+  }
+  const activeEl = document.querySelector(".active");
+  if (activeEl) {
+    let offset = activeEl.offsetTop - textDiv.offsetTop;
+    textDiv.scrollTop = offset - 25;
+  }
 }
 
-}
+// 🧠 Typing Input Logic
+input.addEventListener("input", (e) => {
+  const val = e.target.value;
+  const typedChars = val.split("");
 
-
-  input.addEventListener("input", (e)=>{
-    const val=e.target.value;
-    const typedChars=val.split("");
-
-    if(!started && val.length>0){
-      started=true;
-      startTime=new Date();
-      timer=setInterval(updateStats,1000);
-    }
-
-    renderText(typedChars);
-
-    correctChars=0; wrongChars=0;
-    typedChars.forEach((ch,i)=>{
-      if(ch===chars[i]) correctChars++; else wrongChars++;
-    });
-
-// ---- नया passage जोड़ने का logic ----
-let typedWords = val.trim().split(/\s+/).filter(Boolean).length;
-let totalWords = textToType.trim().split(/\s+/).length;
-let remainingWords = totalWords - typedWords;
-
-if (remainingWords <= 5 && !window.nextLoaded) {
-    // नया passage add करें (random या वही दुबारा)
-    textToType += "\n" + lessons[Math.floor(Math.random() * lessons.length)];
-    chars = textToType.split("");
-    renderText(typedChars); // पुराने typedChars के हिसाब से coloring बनी रहे
-    window.nextLoaded = true;
-} else if (remainingWords > 5) {
-    window.nextLoaded = false;
-}
-
-
-  });
-
-
-function finishTest(){
-  clearInterval(timer);
-  input.disabled=true;
-
-  if(correctChars + wrongChars === 0){
-    return; 
+  if (!started && val.length > 0) {
+    started = true;
+    startTime = new Date();
+    timer = setInterval(updateStats, 1000);
   }
 
-  textDiv.style.display="none";
-  input.style.display="none";
-  document.getElementById("stats").style.display="none";
+  renderText(typedChars);
+  correctChars = 0;
+  wrongChars = 0;
 
-  resultDiv.style.display="block";
-  restartBtn.style.display="inline-block";
+  if (typingMode === "character") {
+    typedChars.forEach((ch, i) => {
+      if (ch === chars[i]) correctChars++;
+      else wrongChars++;
+    });
+  } else {
+    const typedWords = val.trim().split(/\s+/);
+    const targetWords = textToType.trim().split(/\s+/);
+    typedWords.forEach((word, i) => {
+      if (word === targetWords[i]) correctChars += word.length + 1;
+      else wrongChars += word.length + 1;
+    });
+  }
+});
 
-  let elapsed=(new Date()-startTime)/1000;
-  let wpm=(correctChars/5)/(elapsed/60);
-  let accuracy=(correctChars+wrongChars)? (correctChars/(correctChars+wrongChars))*100 : 100;
+// ✅ Global Backspace Counter (works everywhere)
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Backspace" && !e.repeat) {
+    backspaceCount++;
+  }
+});
+
+</script>
+
+<script>
+function finishTest(){
+  clearInterval(timer);
+  input.disabled = true;
+  document.getElementById("finishBtn").style.display = "none";
+  if (correctChars + wrongChars === 0) return;
+
+  textDiv.style.display = "none";
+  input.style.display = "none";
+  document.getElementById("stats").style.display = "none";
+
+  resultDiv.classList.remove("show");
+  resultDiv.style.display = "block";
+  setTimeout(() => resultDiv.classList.add("show"), 50);
+  restartBtn.style.display = "inline-block";
+
+  let elapsed = (new Date() - startTime) / 1000; // total seconds
+  let hours = Math.floor(elapsed / 3600);
+  let minutes = Math.floor((elapsed % 3600) / 60);
+  let seconds = Math.floor(elapsed % 60);
+  let formattedTime = 
+      `${hours.toString().padStart(2, '0')}:` +
+      `${minutes.toString().padStart(2, '0')}:` +
+      `${seconds.toString().padStart(2, '0')}`; // ✅ HH:MM:SS format
+
+  let wpm = (correctChars / 5) / (elapsed / 60);
+  let accuracy = (correctChars + wrongChars)
+    ? (correctChars / (correctChars + wrongChars)) * 100
+    : 100;
   let totalTyped = correctChars + wrongChars;
 
-  // ✅ Update Best Score
   updateBestScore(wpm.toFixed(0));
 
-  resultDiv.innerHTML=`
+  resultDiv.innerHTML = `
     <h2>📊 Test Result</h2>
     <table>
       <tr><td>Typing Speed</td><td>${wpm.toFixed(0)} WPM</td></tr>
       <tr><td>Accuracy</td><td>${accuracy.toFixed(0)}%</td></tr>
-      <tr><td>Time Taken</td><td>${Math.min(elapsed,timeLimit).toFixed(0)}s</td></tr>
+      <tr><td>Time Taken</td><td>${formattedTime}</td></tr> <!-- ✅ HH:MM:SS -->
       <tr><td>Total Typed Characters</td><td>${totalTyped}</td></tr>
       <tr><td>Correct Characters</td><td style="color:green;">${correctChars}</td></tr>
       <tr><td>Wrong Characters</td><td style="color:red;">${wrongChars}</td></tr>
+      <tr><td>Correct Words</td><td style="color:green;">${Math.round(correctChars / 5)}</td></tr>
+      <tr><td>Wrong Words</td><td style="color:red;">${Math.round(wrongChars / 5)}</td></tr>
+      <tr><td>Backspace Used</td><td>${backspaceCount}</td></tr>
     </table>
   `;
 
   saveHistory({
     wpm: wpm.toFixed(0),
     accuracy: accuracy.toFixed(0),
-    time: Math.min(elapsed,timeLimit).toFixed(0),
+    time: elapsed.toFixed(0),
     totalTyped,
     correct: correctChars,
     wrong: wrongChars,
+    backspace: backspaceCount,
     date: new Date().toLocaleString()
   });
 
   renderHistory();
+  document.getElementById("finishBtn").textContent = "▶️";
+  testRunning = false;
 }
+</script>
 
 
-// ✅ LocalStorage Functions
+
+
+<script>
+// ✅ Improved saveHistory(): अब Backspace भी सेव होगा
 function saveHistory(entry){
   let history = JSON.parse(localStorage.getItem("typingHistory") || "[]");
-
-  // ✅ character को word में कन्वर्ट
+  
+  // ✅ Words calculation
   entry.totalWords = Math.round(entry.totalTyped / 5);
   entry.correctWords = Math.round(entry.correct / 5);
   entry.wrongWords = Math.round(entry.wrong / 5);
+  entry.backspace = entry.backspace || 0; // 🔹 ensure backspace is saved
 
-  history.push(entry);
-  localStorage.setItem("typingHistory", JSON.stringify(history));
-}
-
-function deleteHistory(globalIndex){
-  let history = JSON.parse(localStorage.getItem("typingHistory") || "[]");
-  let deleted = JSON.parse(localStorage.getItem("deletedCount") || "{}");
-
-  if(history[globalIndex]){
-    let d = history[globalIndex].date.split(",")[0];
-    deleted[d] = (deleted[d] || 0) + 1;
-    localStorage.setItem("deletedCount", JSON.stringify(deleted));
+  // 🏆 Highest WPM logic
+  let highest = 0;
+  if (history.length > 0) {
+    highest = Math.max(...history.map(h => parseInt(h.wpm)));
+  }
+  if (parseInt(entry.wpm) > highest) {
+    localStorage.setItem("highestWpm", entry.wpm);
   }
 
-  history.splice(globalIndex,1);
-  localStorage.setItem("typingHistory", JSON.stringify(history));
-  renderHistory();
-}
+  // ✅ Protect highest WPM record
+  let highestWpm = parseInt(localStorage.getItem("highestWpm") || 0);
+  let highestEntry = history.find(h => parseInt(h.wpm) === highestWpm);
 
+  // नया record जोड़ें
+  history.push(entry);
+
+  // ✅ अगर records 20 से ज्यादा हैं तो oldest delete करें (highest को छोड़कर)
+  if (history.length > 20) {
+    let filtered = history.filter(h => parseInt(h.wpm) === highestWpm);
+    let remaining = history.filter(h => parseInt(h.wpm) !== highestWpm);
+    if (remaining.length > 19) remaining = remaining.slice(-19);
+    history = [...filtered, ...remaining];
+  }
+
+  // ✅ Save final list
+  localStorage.setItem("typingHistory", JSON.stringify(history));
+}
+</script>
+
+<script>
 function downloadReport(){
   let history = JSON.parse(localStorage.getItem("typingHistory") || "[]");
   let deleted = JSON.parse(localStorage.getItem("deletedCount") || "{}");
 
-  if(history.length===0){ 
+  if(history.length === 0){ 
     alert("No history!"); 
     return; 
   }
+
+  if (history.length > 20) history = history.slice(-20);
 
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
@@ -594,77 +693,72 @@ function downloadReport(){
   let totalTyped = tests.reduce((a,b)=>a+b.totalWords,0);
   let totalCorrect = tests.reduce((a,b)=>a+b.correctWords,0);
   let avgAcc = (tests.reduce((a,b)=>a+parseInt(b.accuracy),0)/totalTest).toFixed(1);
+  let totalBackspace = tests.reduce((a,b)=>a+(parseInt(b.backspace)||0),0); // ✅ Added
   let deletedCount = deleted[lastDate] || 0;
 
   // ===== Header =====
   doc.setFontSize(16);
-  doc.text("📜 Typing Report", 14, 20);
+  doc.text("📜 Typing Report (Last 20 Tests)", 14, 20);
   doc.setFontSize(12);
   doc.text("Name: " + userName + ", Report Date: " + new Date().toLocaleString(), 14, 30);
 
-  // ===== Summary Table =====
+  // ===== Summary =====
   let y = 40;
   doc.setFontSize(13);
   doc.text("Summary ("+lastDate+")", 14, y);
   y += 8;
-
   doc.setFontSize(11);
-  doc.text("Total Test: " + totalTest, 14, y);   y+=6;
+  doc.text("Total Test: " + totalTest, 14, y); y+=6;
   doc.text("Time Spent: " + Math.round(timeSpent/60)+" m", 14, y); y+=6;
-  doc.text("Lowest Speed: " + lowest, 14, y);   y+=6;
+  doc.text("Lowest Speed: " + lowest, 14, y); y+=6;
   doc.text("Highest Speed: " + highest, 14, y); y+=6;
-  doc.text("Avg Speed: " + avgSpeed, 14, y);   y+=6;
+  doc.text("Avg Speed: " + avgSpeed, 14, y); y+=6;
   doc.text("Total Words: " + totalTyped, 14, y); y+=6;
   doc.text("Correct Words: " + totalCorrect, 14, y); y+=6;
   doc.text("Avg Accuracy: " + avgAcc+"%", 14, y); y+=6;
+  doc.text("Total Backspace: " + totalBackspace, 14, y); y+=6; // ✅ New line
   doc.text("Deleted Test: " + deletedCount, 14, y); y+=10;
 
-  // ===== Last Date Report Card =====
+  // ===== Details Table =====
   doc.setFontSize(13);
-  doc.text("📅 Last Date Report Card", 14, y);
+  doc.text("📅 Detailed Report", 14, y);
   y+=8;
-
   doc.setFontSize(11);
   doc.text("Time", 14, y);
   doc.text("WPM", 60, y);
-  doc.text("Accuracy", 90, y);
-  doc.text("Time Spent", 120, y);
-  doc.text("Correct", 160, y);
-  doc.text("Wrong", 180, y);
-  doc.text("Total", 200, y);
-
+  doc.text("Acc.", 90, y);
+  doc.text("Correct", 120, y);
+  doc.text("Wrong", 150, y);
+  doc.text("Words", 180, y);
+  doc.text("Back", 205, y);
   y+=6;
 
   tests.forEach(h=>{
     doc.text(h.date, 14, y);
     doc.text(h.wpm.toString(), 60, y);
     doc.text(h.accuracy+"%", 90, y);
-    doc.text(Math.round(h.time/60)+" m", 120, y);
-    doc.text(h.correctWords.toString(), 160, y);
-    doc.text(h.wrongWords.toString(), 180, y);
-    doc.text(h.totalWords.toString(), 200, y);
+    doc.text(h.correctWords.toString(), 120, y);
+    doc.text(h.wrongWords.toString(), 150, y);
+    doc.text(h.totalWords.toString(), 180, y);
+    doc.text((h.backspace||0).toString(), 205, y);
     y+=6;
-
     if(y > 280){
       doc.addPage();
       y=20;
     }
   });
 
-  // ===== Save File =====
   doc.save(userName.replace(/\s+/g,"_")+"_report.pdf");
 }
+</script>
 
 
 
-
-
-// ✅ Render only last date report
-// ✅ Render only last date report
-function renderHistory(){
+<script>
+function renderHistory() {
+  const container = document.getElementById("historyTable");
   let history = JSON.parse(localStorage.getItem("typingHistory") || "[]");
   let deleted = JSON.parse(localStorage.getItem("deletedCount") || "{}");
-  let container = document.getElementById("historyTable");
   if (!container) return;
 
   if (history.length === 0) {
@@ -672,103 +766,115 @@ function renderHistory(){
     return;
   }
 
+  // केवल 20 रिकॉर्ड
+  if (history.length > 20) history = history.slice(-20);
+
   // Group by date
-  let grouped = {};
-  history.forEach(h=>{
-    let d = h.date.split(",")[0];
-    if(!grouped[d]) grouped[d] = [];
+  const grouped = {};
+  history.forEach(h => {
+    const d = h.date.split(",")[0];
+    if (!grouped[d]) grouped[d] = [];
     grouped[d].push(h);
   });
 
-  // Get last date
-  let lastDate = Object.keys(grouped).sort().pop();
-  let tests = grouped[lastDate];
+  const lastDate = Object.keys(grouped).sort().pop();
+  const tests = grouped[lastDate];
+  const userName = localStorage.getItem("userName") || "Anonymous";
 
-  // Summary values
-  let totalTest = tests.length;
-  let timeSpent = tests.reduce((a,b)=>a+parseInt(b.time),0);
-  let lowest = Math.min(...tests.map(t=>parseInt(t.wpm)));
-  let highest = Math.max(...tests.map(t=>parseInt(t.wpm)));
-  let avgSpeed = (tests.reduce((a,b)=>a+parseInt(b.wpm),0)/totalTest).toFixed(0);
-  let totalTyped = tests.reduce((a,b)=>a+b.totalWords,0);
-  let totalCorrect = tests.reduce((a,b)=>a+b.correctWords,0);
-  let avgAcc = (tests.reduce((a,b)=>a+parseInt(b.accuracy),0)/totalTest).toFixed(1);
-  let deletedCount = deleted[lastDate] || 0;
+  const totalTest = tests.length;
+  const timeSpent = tests.reduce((a,b)=>a+parseInt(b.time),0);
+  const lowest = Math.min(...tests.map(t=>parseInt(t.wpm)));
+  const highest = Math.max(...tests.map(t=>parseInt(t.wpm)));
+  const avgSpeed = (tests.reduce((a,b)=>a+parseInt(b.wpm),0)/totalTest).toFixed(0);
+  const totalTyped = tests.reduce((a,b)=>a+b.totalWords,0);
+  const totalCorrect = tests.reduce((a,b)=>a+b.correctWords,0);
+  const avgAcc = (tests.reduce((a,b)=>a+parseInt(b.accuracy),0)/totalTest).toFixed(1);
+  const totalBackspace = tests.reduce((a,b)=>a+(parseInt(b.backspace)||0),0); // ✅ कुल Backspace
+  const deletedCount = deleted[lastDate] || 0;
 
-  let userName = localStorage.getItem("userName") || "Anonymous";
-
+  // HTML Create
   let html = `
-    <h2>📜 Typing Report</h2>
-    <p><b>Name:</b> ${userName}, <b>Report Date:</b> ${new Date().toLocaleString()} <button onclick="downloadReport()">⬇️ Download Report PDF</button></p>
+    <h2>📜 Typing Report (Last 20 Tests)</h2>
+    <p><b>Name:</b> ${userName}, <b>Report Date:</b> ${new Date().toLocaleString()}
+      <button onclick="downloadReport()">⬇️ Download PDF</button></p>
 
-    <table>
+    <table id="summaryTable" style="cursor:pointer;">
       <tr>
         <td><b>Date</b></td>
-        <td>Total Test</td>
-        <td>Time Spent</td>
-        <td>Lowest Speed</td>
-        <td>Highest Speed</td>
+        <td>Total Tests</td>
+        <td>Total Time</td>
+        <td>Lowest</td>
+        <td>Highest</td>
         <td>Avg Speed</td>
         <td>Total Words</td>
-        <td>Correct Words</td>
+        <td>Total Correct</td>
         <td>Avg Accuracy</td>
-        <td>Deleted Test</td>
+        <td>Total Backspace</td>
+        <td style="color:#007bff;"><b id="toggleText">🔽 Show</b></td>
       </tr>
       <tr>
         <td>${lastDate}</td>
         <td>${totalTest}</td>
-        <td>${Math.round(timeSpent/60)} m</td>
+        <td>${Math.round(timeSpent/60)}m</td>
         <td>${lowest}</td>
         <td>${highest}</td>
         <td>${avgSpeed}</td>
         <td>${totalTyped}</td>
         <td>${totalCorrect}</td>
         <td>${avgAcc}%</td>
-        <td>${deletedCount}</td>
+        <td>${totalBackspace}</td>
+        <td style="text-align:center;color:#007bff;">▼</td>
       </tr>
     </table>
 
-    <h3>📅 Last Date Report Card</h3>
-    <table>
-      <tr>
-        <td><b>Time Stamp</b></td>
-        <td>Speed WPM</td>
-        <td>Accuracy Speed</td>
-        <td>Accuracy</td>
-        <td>Time</td>
-        <td>Correct Words</td>
-        <td>Wrong Words</td>
-        <td>Total Words</td>
-        <td>Action</td>
-      </tr>
-  `;
+    <div id="detailedReport" class="hidden">
+      <h3 style="margin-top:15px;">📅 Detailed History (Recent 20 Records)</h3>
+      <table>
+        <tr>
+          <td><b>Time Stamp</b></td>
+          <td>WPM</td>
+          <td>Acc. Speed</td>
+          <td>Accuracy</td>
+          <td>Time</td>
+          <td>Correct</td>
+          <td>Wrong</td>
+          <td>Total Words</td>
+          <td>Backspace</td>
+        </tr>`;
 
- tests.forEach((h, idx)=>{
-  let globalIndex = history.findIndex(x => x.date === h.date && x.wpm === h.wpm);
-  html += `
-    <tr>
-      <td>${h.date}</td>
-      <td>${h.wpm}</td>
-      <td>${Math.round((h.wpm*h.accuracy)/100)}</td>
-      <td>${h.accuracy}%</td>
-      <td>${Math.round(h.time/60)} m</td>
-      <td style="color:green;">${h.correctWords}</td>
-      <td style="color:red;">${h.wrongWords}</td>
-      <td>${h.totalWords}</td>
-      <td><button onclick="deleteHistory(${globalIndex})">❌</button></td>
-    </tr>
-  `;
-});
+  tests.forEach(h=>{
+    const highlight = (parseInt(h.wpm) === highest)
+      ? "background:#ffeb3b;font-weight:bold;color:#000;"
+      : "";
+    html += `
+      <tr style="${highlight}">
+        <td>${h.date}</td>
+        <td>${h.wpm}</td>
+        <td>${Math.round((h.wpm*h.accuracy)/100)}</td>
+        <td>${h.accuracy}%</td>
+        <td>${Math.round(h.time/60)} m</td>
+        <td style="color:green;">${h.correctWords}</td>
+        <td style="color:red;">${h.wrongWords}</td>
+        <td>${h.totalWords}</td>
+        <td>${h.backspace || 0}</td>
+      </tr>`;
+  });
 
-  html += "</table>";
+  html += "</table></div>";
   container.innerHTML = html;
+
+  // 🟢 Toggle Show/Hide
+  const summary = document.getElementById("summaryTable");
+  const detail = document.getElementById("detailedReport");
+  const toggleText = document.getElementById("toggleText");
+  summary.addEventListener("click", () => {
+    detail.classList.toggle("hidden");
+    toggleText.textContent = detail.classList.contains("hidden") ? "🔽 Show" : "🔼 Hide";
+  });
 }
-
-  restartBtn.addEventListener("click", ()=>{ initTest(); });
-
-  // First test load
-  initTest();
 </script>
+
+
 <script>
   // ✅ Custom passage function
 function useCustomPassage(){
@@ -817,7 +923,13 @@ window.onload = function(){
   if(savedName){
     document.getElementById("userName").value = savedName;
   }
-}
+  loadBestScore(); 
+  initTest(); 
+  if(localStorage.getItem("darkMode") === "true"){
+    document.body.classList.add("dark-mode");
+  }
+};
+
 </script>
   <script>
     // Get elements
@@ -858,41 +970,19 @@ function updateBestScore(wpm){
     document.getElementById("bestScore").textContent = wpm;
   }
 }
-window.onload = function(){
-  let savedName = localStorage.getItem("userName");
-  if(savedName){
-    document.getElementById("userName").value = savedName;
-  }
-  loadBestScore(); // ✅ Load best score on start
-}
-
-
 </script>
 <script>
-const btn = document.querySelector(".DarkMode"); // बटन को select करें
-
 function toggleDarkMode(){
   document.body.classList.toggle("dark-mode");
-
-  if(document.body.classList.contains("dark-mode")){
-    btn.textContent = "☀️ Light Mode"; // Dark mode में Light Mode दिखाएँ
-    localStorage.setItem("darkMode", "true");
-  } else {
-    btn.textContent = "🌙 Dark Mode"; // Light mode में Dark Mode दिखाएँ
-    localStorage.setItem("darkMode", "false");
-  }
+  localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
 }
 
 window.addEventListener("DOMContentLoaded", ()=>{
   if(localStorage.getItem("darkMode") === "true"){
     document.body.classList.add("dark-mode");
-    btn.textContent = "☀️ Light Mode";
-  } else {
-    btn.textContent = "🌙 Dark Mode";
   }
 });
 </script>
-
 <script>
   // ✅ Time selector functionality
   document.querySelectorAll('.dropdown-content a').forEach(a => {
@@ -905,7 +995,372 @@ window.addEventListener("DOMContentLoaded", ()=>{
       }
     });
   });
+
 </script>
+<script>
+function highlightHighestScore() {
+  let history = JSON.parse(localStorage.getItem("typingHistory") || "[]");
+  if (history.length === 0) return;
+
+  // 🏆 सबसे बड़ा WPM खोजें
+  let highest = Math.max(...history.map(h => parseInt(h.wpm)));
+  localStorage.setItem("highestWpm", highest); // सेव कर दो ताकि हमेशा रहे
+}
+
+</script>
+<script>
+  // ✅ Try Again button working
+  document.getElementById("restartBtn").addEventListener("click", function() {
+    initTest();   // टाइपिंग टेस्ट फिर से शुरू करे
+  });
+</script>
+
+<script>
+function renderWpmChart(){
+  let history = JSON.parse(localStorage.getItem("typingHistory") || "[]");
+  if (history.length === 0) return;
+
+  // 📅 Group by Date — find Best WPM & its duration
+  let grouped = {};
+  let dayDetails = {};
+  history.forEach(h=>{
+    let date = h.date.split(",")[0];
+    let wpm = parseInt(h.wpm);
+    let time = parseInt(h.time);
+    let acc = parseFloat(h.accuracy);
+    if(!grouped[date] || wpm > grouped[date]) {
+      grouped[date] = wpm;
+      dayDetails[date] = { wpm, duration: time, accuracy: acc };
+    }
+  });
+
+  // 📆 Filter only last 30 days
+  const today = new Date();
+  const last30 = Object.keys(grouped).filter(d=>{
+    const dt = new Date(d);
+    return (today - dt) / (1000 * 60 * 60 * 24) <= 30;
+  }).sort((a,b)=>new Date(a)-new Date(b));
+
+  const labels = last30;
+  const wpmData = labels.map(d => dayDetails[d].wpm);
+  const durationData = labels.map(d => Math.round(dayDetails[d].duration));
+
+  const ctx = document.getElementById('wpmChart').getContext('2d');
+  const isDark = document.body.classList.contains("dark-mode");
+  const textColor = isDark ? "#fff" : "#000";
+  const gridColor = isDark ? "#555" : "#ccc";
+
+  if (window.wpmChartInstance) window.wpmChartInstance.destroy();
+
+  window.wpmChartInstance = new Chart(ctx, {
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          type: 'line',
+          label: 'Best Speed (WPM)',
+          data: wpmData,
+          borderColor: '#4caf50',
+          backgroundColor: 'rgba(76,175,80,0.2)',
+          borderWidth: 3,
+          tension: 0.3,
+          pointBackgroundColor: '#ff9800',
+          fill: true,
+          yAxisID: 'y'
+        },
+        {
+          type: 'line',
+          label: 'Duration (Seconds)',
+          data: durationData,
+          borderColor: '#e91e63',
+          backgroundColor: 'rgba(233,30,99,0.2)',
+          borderWidth: 2,
+          tension: 0.4,
+          pointBackgroundColor: '#e91e63',
+          fill: false,
+          yAxisID: 'y2'
+        }
+      ]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: { display: true, text: 'Speed (WPM)', color: textColor },
+          ticks: { color: textColor },
+          grid: { color: gridColor }
+        },
+        y2: {
+          beginAtZero: true,
+          position: 'right',
+          title: { display: true, text: 'Duration (Seconds)', color: textColor },
+          ticks: { color: textColor },
+          grid: { drawOnChartArea: false }
+        },
+        x: {
+          title: { display: true, text: 'Date', color: textColor },
+          ticks: { color: textColor },
+          grid: { color: gridColor }
+        }
+      },
+      plugins: {
+        legend: {
+          labels: { color: textColor }
+        },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              let date = ctx.label;
+              let info = dayDetails[date];
+              return [
+                `WPM: ${info.wpm}`,
+                `Duration: ${info.duration}s`,
+                `Accuracy: ${info.accuracy}%`
+              ];
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+
+// 🕒 24 घंटे वाला चार्ट (जैसा पहले था)
+function renderRecentChart(){
+  let history = JSON.parse(localStorage.getItem("typingHistory") || "[]");
+  if (history.length === 0) return;
+
+  const now = new Date();
+  const last24 = history.filter(h=>{
+    const d = new Date(h.date);
+    return (now - d) / (1000 * 60 * 60) <= 24;
+  });
+
+  if(last24.length === 0) return;
+
+  const labels = last24.map(h => h.date.split(",")[1]?.trim() || h.date);
+  const wpms = last24.map(h => parseInt(h.wpm));
+  const accs = last24.map(h => parseFloat(h.accuracy));
+  const times = last24.map(h => parseInt(h.time));
+
+  const ctx = document.getElementById('recentChart').getContext('2d');
+  const isDark = document.body.classList.contains("dark-mode");
+  const textColor = isDark ? "#fff" : "#000";
+  const gridColor = isDark ? "#555" : "#ccc";
+
+  if (window.recentChartInstance) window.recentChartInstance.destroy();
+
+  window.recentChartInstance = new Chart(ctx, {
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          type: 'bar',
+          label: 'Speed (WPM)',
+          data: wpms,
+          backgroundColor: 'rgba(33,150,243,0.6)',
+          borderColor: '#2196f3',
+          borderWidth: 2
+        },
+        {
+          type: 'line',
+          label: 'Accuracy (%)',
+          data: accs,
+          borderColor: '#ff9800',
+          backgroundColor: 'rgba(255,152,0,0.2)',
+          borderWidth: 2,
+          tension: 0.3,
+          yAxisID: 'y2'
+        }
+      ]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: { display: true, text: 'WPM', color: textColor },
+          ticks: { color: textColor },
+          grid: { color: gridColor }
+        },
+        y2: {
+          beginAtZero: true,
+          position: 'right',
+          title: { display: true, text: 'Accuracy (%)', color: textColor },
+          ticks: { color: textColor },
+          grid: { drawOnChartArea: false }
+        },
+        x: {
+          ticks: { color: textColor },
+          grid: { color: gridColor }
+        }
+      },
+      plugins: {
+        legend: { labels: { color: textColor } },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              const i = ctx.dataIndex;
+              if(ctx.dataset.label.includes("Speed")){
+                return [
+                  `WPM: ${wpms[i]}`,
+                  `Accuracy: ${accs[i]}%`,
+                  `Duration: ${times[i]}s`
+                ];
+              } else {
+                return null;
+              }
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+// 📊 दोनों चार्ट render करें
+function renderAllCharts(){
+  renderWpmChart();
+  renderRecentChart();
+}
+
+// Auto load + dark mode observer
+window.addEventListener("load", renderAllCharts);
+document.addEventListener("DOMContentLoaded", ()=>{
+  const observer = new MutationObserver(renderAllCharts);
+  observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+});
+</script>
+<script>
+let testRunning = false; // स्थिति ट्रैक करने के लिए
+
+function toggleTest() {
+  const btn = document.getElementById("finishBtn");
+  const input = document.getElementById("input");
+
+  // अगर टेस्ट चल रहा है तो रोक दो
+  if (testRunning || started) {
+    // ✅ नया: यूज़र से पुष्टि लो
+    const confirmFinish = confirm("Are you sure you want to finish the test?");
+    if (!confirmFinish) return; // ❌ यूज़र ने Cancel किया तो कुछ मत करो
+
+    testRunning = false;
+    started = false;
+    btn.textContent = "▶️";
+    btn.style.background = "#4caf50"; // 🟢 Start रंग
+    finishTest();
+  } 
+  else {
+    // ▶️ Start Test
+    testRunning = true;
+    started = true;
+    btn.textContent = "⏹";
+    btn.style.background = "#e91e63"; // 🔴 Stop रंग
+    initTest();
+    input.focus();
+  }
+}
+
+// जब textarea पर फोकस आए और टेस्ट स्टार्ट न हुआ हो तो ऑटो स्टार्ट करो
+document.getElementById("input").addEventListener("focus", () => {
+  const btn = document.getElementById("finishBtn");
+  if (!testRunning) {
+    testRunning = true;
+    started = true;
+    btn.textContent = "⏹";
+    btn.style.background = "#e91e63";
+    initTest();
+  }
+});
+
+// पेज लोड पर बटन को हरा रखो
+window.addEventListener("load", () => {
+  const btn = document.getElementById("finishBtn");
+  btn.style.background = "#4caf50";
+});
+</script>
+
+
+
+<script>
+let typingMode = localStorage.getItem("typingMode") || "character"; // डिफ़ॉल्ट मोड
+
+// बटन टेक्स्ट अपडेट करने वाला फ़ंक्शन
+function updateModeButton() {
+  const btn = document.getElementById("modeToggleBtn");
+  btn.textContent = "🔤 Mode: " + (typingMode === "character" ? "Character" : "Word");
+}
+
+// Toggle बटन क्लिक
+function toggleMode() {
+  typingMode = (typingMode === "character") ? "word" : "character";
+  localStorage.setItem("typingMode", typingMode);
+  updateModeButton();
+  initTest(); // नया मोड तुरंत लागू
+}
+
+// टेस्ट शुरू होते ही बटन अपडेट करें
+window.addEventListener("load", updateModeButton);
+</script>
+<script>
+  let typingMode = localStorage.getItem("typingMode") || "character"; // डिफ़ॉल्ट मोड
+
+function updateModeButton() {
+  const btn = document.getElementById("modeToggleBtn");
+  btn.textContent = "🔤 Mode: " + (typingMode === "character" ? "Character" : "Word");
+}
+
+function toggleMode() {
+  typingMode = (typingMode === "character") ? "word" : "character";
+  localStorage.setItem("typingMode", typingMode);
+  updateModeButton();
+  initTest(); // मोड बदलने पर रीस्टार्ट
+}
+
+window.addEventListener("load", updateModeButton);
+
+</script>
+<script>
+let backspaceEnabled = JSON.parse(localStorage.getItem("backspaceEnabled") || "true");
+
+function toggleBackspace() {
+  backspaceEnabled = !backspaceEnabled;
+  localStorage.setItem("backspaceEnabled", backspaceEnabled);
+  updateBackspaceButton();
+}
+
+// बटन का टेक्स्ट अपडेट करें
+function updateBackspaceButton() {
+  const btn = document.getElementById("backspaceToggleBtn");
+  btn.textContent = "⌫ Backspace: " + (backspaceEnabled ? "ON" : "OFF");
+  btn.style.background = backspaceEnabled ? "#4caf50" : "#f44336";
+}
+
+// टाइपिंग इनपुट पर बैकस्पेस रोकें
+document.addEventListener("keydown", function(e) {
+  if (!backspaceEnabled && e.key === "Backspace") {
+    e.preventDefault();
+  }
+});
+
+// पेज लोड पर बटन स्टेट सेट करें
+window.addEventListener("load", updateBackspaceButton);
+</script>
+<script>
+// जब यूज़र textarea में फोकस करे तो ऑटो स्टार्ट हो जाए
+document.getElementById("input").addEventListener("focus", () => {
+  const btn = document.getElementById("finishBtn");
+
+  // अगर अभी टेस्ट नहीं चल रहा है, तो शुरू करें
+  if (!testRunning) {
+    testRunning = true;
+    started = true;
+    btn.textContent = "⏹"; // Stop बटन दिखाओ
+    initTest();             // नया टेस्ट शुरू
+  }
+});
+</script>
+
 
 </body>
 </html>
