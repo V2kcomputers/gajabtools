@@ -1,0 +1,1425 @@
++++
+title = "Typing test Speed Hindi Tradition -Lassion 7"
++++
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typing Tutor - Paragraph Mode</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f7f9fc; margin:0; padding:20px; text-align:center;}
+    h1 { margin-bottom:10px; }
+      #text {
+      max-width:700px; 
+      margin:20px auto; 
+      font-size:30px; 
+      line-height:1.6;
+      text-align:left; 
+      background:#fff; 
+      padding:15px; 
+      border-radius:10px;
+      box-shadow:0 0 10px rgba(0,0,0,0.1); 
+      white-space:pre-wrap;
+      height:3.2em;   /* केवल 2 लाइन की ऊँचाई */
+      overflow:hidden; /* केवल 2 लाइन दिखें */
+      transition: font-size 0.3s ease;
+    }
+ .controls {
+      text-align:center;
+      margin-top:10px;
+    }
+
+    .controls button {
+      font-size:18px;
+      padding:5px 10px;
+      margin:0 5px;
+      border:none;
+      background:#007bff;
+      color:#fff;
+      border-radius:5px;
+      cursor:pointer;
+    }
+
+    .controls button:hover {
+      background:#0056b3;
+    }
+
+    .correct { font-weight: bold; color:green; }
+    .incorrect { font-weight: bold;  color:red; }
+    .active { background:yellow; padding:1px 2px; border-radius:3px; font-weight:bold; }
+    #input {
+      width:90%; max-width:700px; padding:10px; font-size:26px; margin-top:20px;
+      border:2px solid #007bff; border-radius:6px; font-weight: bold;
+    }
+    #stats { margin-top:20px; font-size:18px; }
+    #result { display:none; margin-top:25px; }
+    table {
+      margin:20px auto; border-collapse:collapse; width:400px; background:#fff;
+      box-shadow:0 0 10px rgba(0,0,0,0.1); border-radius:8px; overflow:hidden;
+    }
+    td { padding:12px 15px; border:1px solid #ddd; font-size:16px; }
+    td:first-child { font-weight:bold; background:#f0f4ff; width:180px; text-align:left; }
+    textarea { margin:auto; }
+    #restartBtn {
+      display:none; margin-top:15px; padding:10px 20px; font-size:16px;
+      border:none; border-radius:6px; background:#007bff; color:white; cursor:pointer;
+    }
+
+#popupForm {
+  display: none; 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 300px;
+  text-align: center;
+}
+
+.popup-content h2 {
+  margin: 0;
+  padding: 10px 0;
+}
+
+.popup-content form {
+  display: flex;
+  flex-direction: column;
+}
+
+.popup-content input, .popup-content textarea {
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: red;
+}
+   .timebtn, .wpwbtn, .accbtn {
+  padding: 8px 5px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  margin: 5px;
+}
+/* अलग-अलग रंग */
+.timebtn {
+  border:1px solid #ff9800; /* Orange */
+  
+}
+.accbtn {
+   border:1px solid #2196f3;
+}
+
+.wpwbtn {
+  border:1px solid #4caf50;
+}
+
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-weight: bold;
+}
+
+.dropdown-content a:hover {background-color: #ff9800;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+.dark-mode {
+  background:#222;
+  color:#fff;
+}
+
+.dark-mode #text,
+.dark-mode table,
+.dark-mode .dropdown-content,
+.dark-mode .popup-content {
+  background-color: #333;
+  color: white;
+  border-color: #444;
+}
+.dark-mode td:first-child {
+    color: black;
+    width: 180px;
+   
+}
+
+.dark-mode .correct { color: #4caf50; }
+.dark-mode .incorrect { color: #f44336; }
+.dark-mode .active { background: #ffff00; color:#000; }
+
+.dark-mode textarea,
+.dark-mode input,
+.dark-mode button {
+  background: #555;
+  color: white;
+}
+#finishBtn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #e91e63;
+  color: #fff;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+  display: none;
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+#finishBtn:hover {
+  background: #c2185b;
+  transform: scale(1.1);
+}
+#modeToggleBtn {
+  background:#9c27b0;
+}
+.dark-mode #modeToggleBtn {
+  background:#7b1fa2;
+}
+/* ✅ Result Page Animation */
+#result {
+  display: none;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+#result.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+/* ✅ CSS से Show/Hide Transition */
+#detailedReport {
+  overflow: hidden;
+  transition: all 0.5s ease;
+  opacity: 1;
+}
+#detailedReport.hidden {
+  opacity: 0;
+  max-height: 0;
+  pointer-events: none;
+}
+.halfwrong {
+  font-weight: bold;
+  color: orange;
+}
+  </style>
+</head>
+<body>
+
+  <h1>Typing Speed Test -Gajab Tools </h1>
+
+
+  <div id="stats">
+
+    <button class="accbtn" id="openFormBtn">➕Add Name/Lassion</button>
+    <div class="dropdown">
+      
+ <span class="timebtn">  ⏳ Time Left: <span id="time" style="color: #ff9800;">10:00</span>  </span>
+  <div class="dropdown-content">
+     <a href="#">01:00</a>
+    <a href="#">02:00</a>
+     <a href="#">03:00</a> 
+    <a href="#">05:00</a>
+      <a href="#">10:00</a>
+    <a href="#">20:00</a>
+     <a href="#">30:00</a>
+      <a href="#">60:00</a>
+  </div>
+</div>
+   <button onclick="toggleDarkMode()" class="wpwbtn">🌓 Toggle Dark Mode</button>
+   <button class="accbtn" id="modeToggleBtn" onclick="toggleMode()">🔤 Mode: Character</button>
+   <button class="timebtn" id="backspaceToggleBtn" onclick="toggleBackspace()">⌫ Backspace: ON</button>
+    <span class="wpwbtn"> ⌨️ WPM: <span id="wpm" style="color: #4caf50;">0</span>  </span> 
+     <span class="accbtn">🎯 Accuracy: <span id="accuracy" style="color: #2196f3;">100</span>%  </span>
+       <span class="wpwbtn">⭐ Best Score: <span id="bestScore" style="color:#ff9800;">0</span> WPM </span>
+ <div class="controls">
+   
+    <button onclick="changeSize(-2)">-</button>
+    <button onclick="resetSize()">■</button>
+     <button onclick="changeSize(2)">+</button>
+     <!-- ✅ नया बटन -->
+ <button id="finishBtn" onclick="toggleTest()" data-title="Start / Stop Test">▶</button>
+  </div>
+  </div>
+
+  <!-- Pop-up form -->
+  <div id="popupForm" class="popup-form">
+    <div class="popup-content">
+      <span id="closeBtn" class="close-btn">&times;</span>
+      <h2>Add Your Name & Your Passage</h2>
+   <div style="margin:20px auto; max-width:700px; text-align:left;">
+  <label><b>Enter Your Name:</b></label>
+  <input type="text" id="userName" placeholder="Your Name" style="padding:6px; width:200px; margin-left:10px;" />
+  <button onclick="saveUserName()">💾 Save Name</button>
+  <!-- User Passage Input -->
+<div style="margin:20px auto; max-width:700px; text-align:left;">
+  <label><b>Paste Your Passage:</b></label><br>
+  <textarea id="customPassage" rows="4" style="width:100%; margin-top:5px; padding:8px;" placeholder="Paste your text here..."></textarea><br>
+  <button onclick="useCustomPassage()" >✅ Use Your Passage </button> 
+</div>
+</div>
+    </div>
+  </div>
+
+  <div id="text"></div>
+ <div id="progressBar" style="width:90%; max-width:700px; height:8px; background:#ddd; margin:0px auto 0px auto; border-radius:4px;">
+  <div id="progress" style="height:100%; width:100%; background:#ff9800; border-radius:4px;"></div>
+</div>
+  <textarea id="input" rows="1" placeholder="Start typing here..."></textarea>
+
+
+  <div id="result"></div>
+    <button id="restartBtn">🔄 Try Again</button>
+
+ <div id="historyTable" style="margin-top:40px;"></div>
+
+<!-- 📈 Chart Sections -->
+<div style="max-width:700px;margin:50px auto;">
+  <h3>📈 Best WPM (Last 30 Days)</h3>
+  <canvas id="wpmChart" height="120"></canvas>
+</div>
+
+<div style="max-width:700px;margin:50px auto;">
+  <h3>🕒 All Tests (Last 24 Hours)</h3>
+  <canvas id="recentChart" height="120"></canvas>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// --- Unicode-safe Hindi grapheme utils ---
+const _seg = (Intl && Intl.Segmenter)
+  ? new Intl.Segmenter('hi', { granularity: 'grapheme' })
+  : null;
+
+function toGraphemes(str) {
+  // NFC से canonical normalize + ZWJ/ZWNJ हटाएँ
+  const s = (str || '').normalize('NFC').replace(/[\u200C\u200D]/g, '');
+  if (_seg) return Array.from(_seg.segment(s), x => x.segment);
+  // Fallback: Array.from codepoints (कम सही, पर बेहतर than split(""))
+  return Array.from(s);
+}
+</script>
+
+<script>
+  document.addEventListener('keydown', function(e){
+    if(e.key === "Escape") {
+      initTest(); // ESC to restart
+    }
+    if(e.ctrlKey && e.key === "Enter") {
+      finishTest(); // Ctrl+Enter to finish test
+    }
+    if(e.key === "Tab") {
+      e.preventDefault(); // prevent tab jump
+      input.focus(); // focus on typing input
+    }
+  });
+</script>
+
+  <script>
+    const defaultSize = 30; // px
+
+    function changeSize(delta) {
+      const text = document.getElementById("text");
+      let current = parseInt(window.getComputedStyle(text).fontSize);
+      let newSize = current + delta;
+      if (newSize >= 12 && newSize <= 80) { // limit
+        text.style.fontSize = newSize + "px";
+      }
+    }
+
+    function resetSize() {
+      const text = document.getElementById("text");
+      text.style.fontSize = defaultSize + "px";
+    }
+  </script>
+<script>
+const lessons = [
+`ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ  ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ  ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ  ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ  ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ 
+ओमकारेश्वर मंदिर के पास ठंडी हवा चल रही थी. ओमकारेश्वर मंदिर के पास ठंडी हवा चल रही थी. 
+छत पर रखी छतरी अचानक गिर गई. छत पर रखी छतरी अचानक गिर गई.
+थोड़ा आराम करने से थकान दूर होती है. थोड़ा आराम करने से थकान दूर होती है.
+खेत में अंगूर की फसल अच्छी हुई है. खेत में अंगूर की फसल अच्छी हुई है.
+फल और दूध सेहत के लिए जरूरी हैं. फल और दूध सेहत के लिए जरूरी हैं.`,
+
+`ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ  ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ  ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ  ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ  ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ 
+ऱोज ऱोज अभ्यास करने से टाइपिंग सुधरती है, ऱोज ऱोज अभ्यास करने से टाइपिंग सुधरती है,
+थोड़ा थोड़ा सीखना आगे बढ़ाता है. थोड़ा थोड़ा सीखना आगे बढ़ाता है.
+छात्रों को समय पर फॉर्म भरना चाहिए. छात्रों को समय पर फॉर्म भरना चाहिए.
+खिड़की से ठंडी हवा आ रही है. खिड़की से ठंडी हवा आ रही है.
+ऑनलाइन काम करते समय ध्यान रखें. ऑनलाइन काम करते समय ध्यान रखें.`,
+
+`ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ  ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ  ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ  ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ  ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ 
+एक बार की बात है, लोमड़ी अंगूर तक नहीं पहुंच सकी. एक बार की बात है, लोमड़ी अंगूर तक नहीं पहुंच सकी.
+छोटा बच्चा खिलौने के लिए रोने लगा. छोटा बच्चा खिलौने के लिए रोने लगा.
+थोड़ी मेहनत से बड़ा फल मिलता है. थोड़ी मेहनत से बड़ा फल मिलता है.
+खाना खाने के बाद थोड़ा फल खाना अच्छा है. खाना खाने के बाद थोड़ा फल खाना अच्छा है.
+ओम का जाप मन को शांत करता है. ओम का जाप मन को शांत करता है.`,
+
+`ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ  ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ  ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ  ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ  ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ 
+छतरी बारिश में वरदान से कम नहीं है, छतरी बारिश में वरदान से कम नहीं है,
+थकान होने पर थोड़ा आराम जरूरी होता है. थकान होने पर थोड़ा आराम जरूरी होता है.
+खेत के पास ठेले वाला फल बेच रहा था. खेत के पास ठेले वाला फल बेच रहा था.
+ऑफिस से लौटते समय ठंड बढ़ गई थी. ऑफिस से लौटते समय ठंड बढ़ गई थी.
+ऱोज ऱोज सही अभ्यास करना चाहिए. ऱोज ऱोज सही अभ्यास करना चाहिए.`,
+
+`ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ  ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ  ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ  ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ  ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ ओएअइउइ ऑठछथखऱफऱ 
+छात्रों के लिए थोड़ा अनुशासन जरूरी है. छात्रों के लिए थोड़ा अनुशासन जरूरी है.
+थोड़ा दूध पीना सेहत के लिए अच्छा है. थोड़ा दूध पीना सेहत के लिए अच्छा है.
+खिड़की के बाहर ठंडी हवा चल रही थी. खिड़की के बाहर ठंडी हवा चल रही थी.
+ऑनलाइन फॉर्म भरते समय गलती न करें. ऑनलाइन फॉर्म भरते समय गलती न करें.
+फल खरीदते समय ताजगी देखें. फल खरीदते समय ताजगी देखें.`
+]
+
+
+// 🔹 Global Variables
+let textToType, chars;   
+let startTime, timer, started = false;
+let timeLimit = 600;
+let timeLeft = timeLimit;
+let correctChars = 0, wrongChars = 0;
+let backspaceCount = 0;  // ✅ Backspace counter (global)
+
+const textDiv = document.getElementById("text");
+const input = document.getElementById("input");
+const timeSpan = document.getElementById("time");
+const wpmSpan = document.getElementById("wpm");
+const accSpan = document.getElementById("accuracy");
+const resultDiv = document.getElementById("result");
+const restartBtn = document.getElementById("restartBtn");
+
+// ⏳ Format Time
+function formatTime(seconds) {
+  let m = Math.floor(seconds / 60);
+  let s = seconds % 60;
+  return (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+}
+
+// 🧩 Initialize new test
+function initTest() {
+  textToType = lessons[Math.floor(Math.random() * lessons.length)];
+  chars = toGraphemes(textToType);
+  started = false;
+  timeLeft = timeLimit;
+  correctChars = 0;
+  wrongChars = 0;
+  backspaceCount = 0; // ✅ Reset counter
+
+  input.value = "";
+  input.disabled = false;
+  document.getElementById("stats").style.display = "block";
+  document.getElementById("result").style.display = "none";
+  restartBtn.style.display = "none";
+  textDiv.style.display = "block";
+  input.style.display = "block";
+  renderText([]);
+ timeSpan.textContent = formatTime(timeLimit);
+  wpmSpan.textContent = 0;
+  accSpan.textContent = 100;
+  document.getElementById("finishBtn").style.display = "inline-block";
+}
+
+// 🕐 Update Stats Every Second
+function updateStats() {
+  if (timeLeft <= 0) {
+    finishTest();
+    return;
+  }
+  timeLeft--;
+  timeSpan.textContent = formatTime(timeLeft);
+  document.getElementById("progress").style.width = (timeLeft / timeLimit) * 100 + "%";
+
+  let elapsed = (new Date() - startTime) / 1000;
+  let wpm = (correctChars / 5) / (elapsed / 60);
+  let accuracy = (correctChars + wrongChars)
+    ? (correctChars / (correctChars + wrongChars)) * 100
+    : 100;
+
+  wpmSpan.textContent = wpm.toFixed(0);
+  accSpan.textContent = accuracy.toFixed(0);
+}
+
+// 🟡 Render Text (Character or Word Mode)
+function renderText() {
+  const typedGraphemes = toGraphemes(input.value);
+
+  if (typingMode === "word") {
+    // 🔹 Word Mode (जैसा पहले था)
+    const words = textToType.split(/\s+/);
+    const typedWords = input.value.trim().split(/\s+/);
+    const currentWordIndex = input.value.endsWith(" ")
+      ? typedWords.length
+      : typedWords.length - 1;
+
+    textDiv.innerHTML = words
+      .map((word, i) => {
+        let cls = "";
+        if (typedWords[i] == null) cls = "";
+        else if (typedWords[i] === word) cls = "correct";
+        else cls = "incorrect";
+        return i === currentWordIndex
+          ? `<span class="active">${word}</span>`
+          : `<span class="${cls}">${word}</span>`;
+      })
+      .join(" ");
+  } 
+  else {
+    // 🔸 Character Mode (updated मात्रा logic)
+   // 🔸 Character Mode (fixed मात्रा logic + last-letter fix)
+textDiv.innerHTML = chars.map((g, i) => {
+  const typed = typedGraphemes[i];
+  let cls = "";
+
+  if (typed == null) {
+    cls = "";
+  } else {
+    const t = typed.normalize("NFC");
+    const target = g.normalize("NFC");
+
+    const consonantRegex = /[\u0915-\u0939\u0958-\u095f\u0978-\u097f]/;
+    const matraRegex     = /[\u093e-\u094c\u0962\u0963]/;
+
+    const gCons  = (target.match(consonantRegex)?.[0]) || "";
+    const gMatra = (target.match(matraRegex)?.[0])     || "";
+    const tCons  = (t.match(consonantRegex)?.[0])      || "";
+    const tMatra = (t.match(matraRegex)?.[0])          || "";
+
+    const isConsonantTarget = !!gCons;
+    const matraExpected = gMatra !== "";
+    const matraOk = matraExpected ? (tMatra === gMatra) : (tMatra === "");
+
+    // non-consonant (space, punctuation, independent vowels, newline) → direct equality
+    if (!isConsonantTarget) {
+      cls = (t === target) ? "correct" : "incorrect";
+    } else {
+      const consCorrect = (tCons === gCons);
+      if (consCorrect && matraOk) {
+        cls = "correct";                 // ✅ base + (expected) matra ठीक
+      } else if (consCorrect && !matraOk) {
+        // मात्रा expected थी पर अभी सही/पूरी नहीं है
+        const nextTypedExists = !!typedGraphemes[i + 1];
+        cls = nextTypedExists ? "incorrect" : "halfwrong"; // ⏳ अभी incomplete तो orange, आगे बढ़ गए तो red
+      } else {
+        cls = "incorrect";               // ❌ base ही गलत
+      }
+    }
+  }
+
+  const displayChar = (g === "\n")
+  ? "<span style='color:#999;'>↲</span><br>"
+  : g;
+  return i === typedGraphemes.length
+    ? `<span id="activeChar" class="active">${displayChar}</span>`
+    : `<span class="${cls}">${displayChar}</span>`;
+}).join("");
+
+  }
+
+  // स्क्रॉल एडजस्ट
+  const activeEl = document.querySelector(".active");
+  if (activeEl) {
+    let offset = activeEl.offsetTop - textDiv.offsetTop;
+    textDiv.scrollTop = offset - 25;
+  }
+}
+
+
+
+// 🧠 Typing Input Logic
+input.addEventListener("input", (e) => {
+  const val = e.target.value;
+  const typedGraphemes = toGraphemes(val);
+
+  if (!started && val.length > 0) {
+    started = true;
+    startTime = new Date();
+    timer = setInterval(updateStats, 1000);
+  }
+
+  renderText();
+  correctChars = 0;
+  wrongChars = 0;
+
+  if (typingMode === "character") {
+    typedGraphemes.forEach((g, i) => {
+      if (g === chars[i]) correctChars++;
+      else wrongChars++;
+    });
+  } else {
+    const typedWords = val.trim().split(/\s+/);
+    const targetWords = textToType.trim().split(/\s+/);
+    typedWords.forEach((word, i) => {
+      if (word === targetWords[i]) correctChars += word.length + 1;
+      else wrongChars += word.length + 1;
+    });
+  }
+
+  // 🔁 Auto Repeat logic — 50 words before ending
+  const totalWords = textToType.trim().split(/\s+/).length;
+  const typedWords = val.trim().split(/\s+/).length;
+
+let repeatThreshold = Math.max(30, Math.floor(totalWords * 0.1)); // कुल शब्दों का 10%, कम से कम 30
+if (totalWords - typedWords <= repeatThreshold) {
+  textToType += "\n\n" + textToType;
+  chars = toGraphemes(textToType);
+  renderText();
+}
+});
+
+
+
+
+// ✅ Global Backspace Counter (works everywhere)
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Backspace" && !e.repeat) {
+    backspaceCount++;
+  }
+});
+
+</script>
+
+<script>
+function finishTest(){
+  clearInterval(timer);
+  input.disabled = true;
+  document.getElementById("finishBtn").style.display = "none";
+  if (correctChars + wrongChars === 0) return;
+
+  textDiv.style.display = "none";
+  input.style.display = "none";
+  document.getElementById("stats").style.display = "none";
+
+  resultDiv.classList.remove("show");
+  resultDiv.style.display = "block";
+  setTimeout(() => resultDiv.classList.add("show"), 50);
+  restartBtn.style.display = "inline-block";
+
+  let elapsed = (new Date() - startTime) / 1000; // total seconds
+  let hours = Math.floor(elapsed / 3600);
+  let minutes = Math.floor((elapsed % 3600) / 60);
+  let seconds = Math.floor(elapsed % 60);
+  let formattedTime = 
+      `${hours.toString().padStart(2, '0')}:` +
+      `${minutes.toString().padStart(2, '0')}:` +
+      `${seconds.toString().padStart(2, '0')}`; // ✅ HH:MM:SS format
+
+  let wpm = (correctChars / 5) / (elapsed / 60);
+  let accuracy = (correctChars + wrongChars)
+    ? (correctChars / (correctChars + wrongChars)) * 100
+    : 100;
+  let totalTyped = correctChars + wrongChars;
+
+  updateBestScore(wpm.toFixed(0));
+
+  resultDiv.innerHTML = `
+    <h2>📊 Test Result</h2>
+    <table>
+      <tr><td>Typing Speed</td><td>${wpm.toFixed(0)} WPM</td></tr>
+      <tr><td>Accuracy</td><td>${accuracy.toFixed(0)}%</td></tr>
+      <tr><td>Time Taken</td><td>${formattedTime}</td></tr> <!-- ✅ HH:MM:SS -->
+      <tr><td>Total Typed Characters</td><td>${totalTyped}</td></tr>
+      <tr><td>Correct Characters</td><td style="color:green;">${correctChars}</td></tr>
+      <tr><td>Wrong Characters</td><td style="color:red;">${wrongChars}</td></tr>
+      <tr><td>Correct Words</td><td style="color:green;">${Math.round(correctChars / 5)}</td></tr>
+      <tr><td>Wrong Words</td><td style="color:red;">${Math.round(wrongChars / 5)}</td></tr>
+      <tr><td>Backspace Used</td><td>${backspaceCount}</td></tr>
+    </table>
+  `;
+
+  saveHistory({
+    wpm: wpm.toFixed(0),
+    accuracy: accuracy.toFixed(0),
+    time: elapsed.toFixed(0),
+    totalTyped,
+    correct: correctChars,
+    wrong: wrongChars,
+    backspace: backspaceCount,
+    date: new Date().toLocaleString()
+  });
+
+  renderHistory();
+  document.getElementById("finishBtn").textContent = "▶️";
+  testRunning = false;
+}
+</script>
+
+
+
+
+<script>
+// ✅ Improved saveHistory(): अब Backspace भी सेव होगा
+function saveHistory(entry){
+  let history = JSON.parse(localStorage.getItem("typingHistory") || "[]");
+  
+  // ✅ Words calculation
+  entry.totalWords = Math.round(entry.totalTyped / 5);
+  entry.correctWords = Math.round(entry.correct / 5);
+  entry.wrongWords = Math.round(entry.wrong / 5);
+  entry.backspace = entry.backspace || 0; // 🔹 ensure backspace is saved
+
+  // 🏆 Highest WPM logic
+  let highest = 0;
+  if (history.length > 0) {
+    highest = Math.max(...history.map(h => parseInt(h.wpm)));
+  }
+  if (parseInt(entry.wpm) > highest) {
+    localStorage.setItem("highestWpm", entry.wpm);
+  }
+
+  // ✅ Protect highest WPM record
+  let highestWpm = parseInt(localStorage.getItem("highestWpm") || 0);
+  let highestEntry = history.find(h => parseInt(h.wpm) === highestWpm);
+
+  // नया record जोड़ें
+  history.push(entry);
+
+  // ✅ अगर records 20 से ज्यादा हैं तो oldest delete करें (highest को छोड़कर)
+  if (history.length > 20) {
+    let filtered = history.filter(h => parseInt(h.wpm) === highestWpm);
+    let remaining = history.filter(h => parseInt(h.wpm) !== highestWpm);
+    if (remaining.length > 19) remaining = remaining.slice(-19);
+    history = [...filtered, ...remaining];
+  }
+
+  // ✅ Save final list
+  localStorage.setItem("typingHistory", JSON.stringify(history));
+}
+</script>
+
+<script>
+function downloadReport(){
+  let history = JSON.parse(localStorage.getItem("typingHistory") || "[]");
+  let deleted = JSON.parse(localStorage.getItem("deletedCount") || "{}");
+
+  if(history.length === 0){ 
+    alert("No history!"); 
+    return; 
+  }
+
+  if (history.length > 20) history = history.slice(-20);
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  let userName = localStorage.getItem("userName") || "Anonymous";
+
+  // Group by date
+  let grouped = {};
+  history.forEach(h=>{
+    let d = h.date.split(",")[0];
+    if(!grouped[d]) grouped[d] = [];
+    grouped[d].push(h);
+  });
+  let lastDate = Object.keys(grouped).sort().pop();
+  let tests = grouped[lastDate];
+
+  // Summary calculation
+  let totalTest = tests.length;
+  let timeSpent = tests.reduce((a,b)=>a+parseInt(b.time),0);
+  let lowest = Math.min(...tests.map(t=>parseInt(t.wpm)));
+  let highest = Math.max(...tests.map(t=>parseInt(t.wpm)));
+  let avgSpeed = (tests.reduce((a,b)=>a+parseInt(b.wpm),0)/totalTest).toFixed(0);
+  let totalTyped = tests.reduce((a,b)=>a+b.totalWords,0);
+  let totalCorrect = tests.reduce((a,b)=>a+b.correctWords,0);
+  let avgAcc = (tests.reduce((a,b)=>a+parseInt(b.accuracy),0)/totalTest).toFixed(1);
+  let totalBackspace = tests.reduce((a,b)=>a+(parseInt(b.backspace)||0),0); // ✅ Added
+  let deletedCount = deleted[lastDate] || 0;
+
+  // ===== Header =====
+  doc.setFontSize(16);
+  doc.text("📜 Typing Report (Last 20 Tests)", 14, 20);
+  doc.setFontSize(12);
+  doc.text("Name: " + userName + ", Report Date: " + new Date().toLocaleString(), 14, 30);
+
+  // ===== Summary =====
+  let y = 40;
+  doc.setFontSize(13);
+  doc.text("Summary ("+lastDate+")", 14, y);
+  y += 8;
+  doc.setFontSize(11);
+  doc.text("Total Test: " + totalTest, 14, y); y+=6;
+  doc.text("Time Spent: " + Math.round(timeSpent/60)+" m", 14, y); y+=6;
+  doc.text("Lowest Speed: " + lowest, 14, y); y+=6;
+  doc.text("Highest Speed: " + highest, 14, y); y+=6;
+  doc.text("Avg Speed: " + avgSpeed, 14, y); y+=6;
+  doc.text("Total Words: " + totalTyped, 14, y); y+=6;
+  doc.text("Correct Words: " + totalCorrect, 14, y); y+=6;
+  doc.text("Avg Accuracy: " + avgAcc+"%", 14, y); y+=6;
+  doc.text("Total Backspace: " + totalBackspace, 14, y); y+=6; // ✅ New line
+  doc.text("Deleted Test: " + deletedCount, 14, y); y+=10;
+
+  // ===== Details Table =====
+  doc.setFontSize(13);
+  doc.text("📅 Detailed Report", 14, y);
+  y+=8;
+  doc.setFontSize(11);
+  doc.text("Time", 14, y);
+  doc.text("WPM", 60, y);
+  doc.text("Acc.", 90, y);
+  doc.text("Correct", 120, y);
+  doc.text("Wrong", 150, y);
+  doc.text("Words", 180, y);
+  doc.text("Back", 205, y);
+  y+=6;
+
+  tests.forEach(h=>{
+    doc.text(h.date, 14, y);
+    doc.text(h.wpm.toString(), 60, y);
+    doc.text(h.accuracy+"%", 90, y);
+    doc.text(h.correctWords.toString(), 120, y);
+    doc.text(h.wrongWords.toString(), 150, y);
+    doc.text(h.totalWords.toString(), 180, y);
+    doc.text((h.backspace||0).toString(), 205, y);
+    y+=6;
+    if(y > 280){
+      doc.addPage();
+      y=20;
+    }
+  });
+
+  doc.save(userName.replace(/\s+/g,"_")+"_report.pdf");
+}
+</script>
+
+
+
+<script>
+function renderHistory() {
+  const container = document.getElementById("historyTable");
+  let history = JSON.parse(localStorage.getItem("typingHistory") || "[]");
+  let deleted = JSON.parse(localStorage.getItem("deletedCount") || "{}");
+  if (!container) return;
+
+  if (history.length === 0) {
+    container.innerHTML = "<p>No history yet.</p>";
+    return;
+  }
+
+  // केवल 20 रिकॉर्ड
+  if (history.length > 20) history = history.slice(-20);
+
+  // Group by date
+  const grouped = {};
+  history.forEach(h => {
+    const d = h.date.split(",")[0];
+    if (!grouped[d]) grouped[d] = [];
+    grouped[d].push(h);
+  });
+
+  const lastDate = Object.keys(grouped).sort().pop();
+  const tests = grouped[lastDate];
+  const userName = localStorage.getItem("userName") || "Anonymous";
+
+  const totalTest = tests.length;
+  const timeSpent = tests.reduce((a,b)=>a+parseInt(b.time),0);
+  const lowest = Math.min(...tests.map(t=>parseInt(t.wpm)));
+  const highest = Math.max(...tests.map(t=>parseInt(t.wpm)));
+  const avgSpeed = (tests.reduce((a,b)=>a+parseInt(b.wpm),0)/totalTest).toFixed(0);
+  const totalTyped = tests.reduce((a,b)=>a+b.totalWords,0);
+  const totalCorrect = tests.reduce((a,b)=>a+b.correctWords,0);
+  const avgAcc = (tests.reduce((a,b)=>a+parseInt(b.accuracy),0)/totalTest).toFixed(1);
+  const totalBackspace = tests.reduce((a,b)=>a+(parseInt(b.backspace)||0),0); // ✅ कुल Backspace
+  const deletedCount = deleted[lastDate] || 0;
+
+  // HTML Create
+  let html = `
+    <h2>📜 Typing Report (Last 20 Tests)</h2>
+    <p><b>Name:</b> ${userName}, <b>Report Date:</b> ${new Date().toLocaleString()}
+      <button onclick="downloadReport()">⬇️ Download PDF</button></p>
+
+    <table id="summaryTable" style="cursor:pointer;">
+      <tr>
+        <td><b>Date</b></td>
+        <td>Total Tests</td>
+        <td>Total Time</td>
+        <td>Lowest</td>
+        <td>Highest</td>
+        <td>Avg Speed</td>
+        <td>Total Words</td>
+        <td>Total Correct</td>
+        <td>Avg Accuracy</td>
+        <td>Total Backspace</td>
+        <td style="color:#007bff;"><b id="toggleText">🔽 Show</b></td>
+      </tr>
+      <tr>
+        <td>${lastDate}</td>
+        <td>${totalTest}</td>
+        <td>${Math.round(timeSpent/60)}m</td>
+        <td>${lowest}</td>
+        <td>${highest}</td>
+        <td>${avgSpeed}</td>
+        <td>${totalTyped}</td>
+        <td>${totalCorrect}</td>
+        <td>${avgAcc}%</td>
+        <td>${totalBackspace}</td>
+        <td style="text-align:center;color:#007bff;">▼</td>
+      </tr>
+    </table>
+
+    <div id="detailedReport" class="hidden">
+      <h3 style="margin-top:15px;">📅 Detailed History (Recent 20 Records)</h3>
+      <table>
+        <tr>
+          <td><b>Time Stamp</b></td>
+          <td>WPM</td>
+          <td>Acc. Speed</td>
+          <td>Accuracy</td>
+          <td>Time</td>
+          <td>Correct</td>
+          <td>Wrong</td>
+          <td>Total Words</td>
+          <td>Backspace</td>
+        </tr>`;
+
+  tests.forEach(h=>{
+    const highlight = (parseInt(h.wpm) === highest)
+      ? "background:#ffeb3b;font-weight:bold;color:#000;"
+      : "";
+    html += `
+      <tr style="${highlight}">
+        <td>${h.date}</td>
+        <td>${h.wpm}</td>
+        <td>${Math.round((h.wpm*h.accuracy)/100)}</td>
+        <td>${h.accuracy}%</td>
+        <td>${Math.round(h.time/60)} m</td>
+        <td style="color:green;">${h.correctWords}</td>
+        <td style="color:red;">${h.wrongWords}</td>
+        <td>${h.totalWords}</td>
+        <td>${h.backspace || 0}</td>
+      </tr>`;
+  });
+
+  html += "</table></div>";
+  container.innerHTML = html;
+
+  // 🟢 Toggle Show/Hide
+  const summary = document.getElementById("summaryTable");
+  const detail = document.getElementById("detailedReport");
+  const toggleText = document.getElementById("toggleText");
+  summary.addEventListener("click", () => {
+    detail.classList.toggle("hidden");
+    toggleText.textContent = detail.classList.contains("hidden") ? "🔽 Show" : "🔼 Hide";
+  });
+}
+</script>
+
+
+<script>
+  // ✅ Custom passage function
+function useCustomPassage(){
+  let customText = document.getElementById("customPassage").value.trim();
+  if(customText.length < 20){
+    alert("Please paste at least 20 characters passage!");
+    return;
+  }
+  textToType = customText;
+  chars = toGraphemes(textToType);
+  started=false; timeLeft=timeLimit;
+  correctChars=0; wrongChars=0;
+  input.value="";
+  input.disabled=false;
+  document.getElementById("stats").style.display="block";
+  document.getElementById("result").style.display="none";
+  restartBtn.style.display="none";
+  textDiv.style.display="block";
+  input.style.display="block";
+  renderText([]);
+  timeSpan.textContent=timeLimit;
+  wpmSpan.textContent=0;
+  accSpan.textContent=100;
+}
+
+</script>
+
+<script>
+function saveUserName(){
+  let name = document.getElementById("userName").value.trim();
+  if(name){
+    localStorage.setItem("userName", name);
+    alert("Name saved: " + name);
+  } else {
+    alert("Please enter a valid name!");
+  }
+  let userName = localStorage.getItem("userName") || prompt("Enter your name:");
+if(userName){
+   localStorage.setItem("userName", userName);
+}
+
+}
+
+window.onload = function(){
+  let savedName = localStorage.getItem("userName");
+  if(savedName){
+    document.getElementById("userName").value = savedName;
+  }
+  loadBestScore(); 
+  initTest(); 
+  if(localStorage.getItem("darkMode") === "true"){
+    document.body.classList.add("dark-mode");
+  }
+};
+
+</script>
+  <script>
+    // Get elements
+const openFormBtn = document.getElementById("openFormBtn");
+const popupForm = document.getElementById("popupForm");
+const closeBtn = document.getElementById("closeBtn");
+
+// Show the pop-up form when the button is clicked
+openFormBtn.addEventListener("click", function() {
+  popupForm.style.display = "flex";
+});
+
+// Close the pop-up form when the close button is clicked
+closeBtn.addEventListener("click", function() {
+  popupForm.style.display = "none";
+});
+
+// Close the pop-up form when clicking outside the form
+window.addEventListener("click", function(event) {
+  if (event.target === popupForm) {
+    popupForm.style.display = "none";
+  }
+});
+
+  </script>
+<script>
+  // ✅ Best Score load
+function loadBestScore(){
+  let best = localStorage.getItem("bestScore") || 0;
+  document.getElementById("bestScore").textContent = best;
+}
+
+// ✅ Update Best Score अगर नया WPM ज़्यादा है
+function updateBestScore(wpm){
+  let best = localStorage.getItem("bestScore") || 0;
+  if(parseInt(wpm) > parseInt(best)){
+    localStorage.setItem("bestScore", wpm);
+    document.getElementById("bestScore").textContent = wpm;
+  }
+}
+</script>
+<script>
+function toggleDarkMode(){
+  document.body.classList.toggle("dark-mode");
+  localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+}
+
+window.addEventListener("DOMContentLoaded", ()=>{
+  if(localStorage.getItem("darkMode") === "true"){
+    document.body.classList.add("dark-mode");
+  }
+});
+</script>
+<script>
+  // ✅ Time selector functionality
+  document.querySelectorAll('.dropdown-content a').forEach(a => {
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      const selected = parseInt(this.textContent.split(":")[0]);
+      if (!isNaN(selected)) {
+        timeLimit = selected * 60;
+        initTest(); // Restart test with new time
+      }
+    });
+  });
+
+</script>
+<script>
+function highlightHighestScore() {
+  let history = JSON.parse(localStorage.getItem("typingHistory") || "[]");
+  if (history.length === 0) return;
+
+  // 🏆 सबसे बड़ा WPM खोजें
+  let highest = Math.max(...history.map(h => parseInt(h.wpm)));
+  localStorage.setItem("highestWpm", highest); // सेव कर दो ताकि हमेशा रहे
+}
+
+</script>
+<script>
+  // ✅ Try Again button working
+  document.getElementById("restartBtn").addEventListener("click", function() {
+    initTest();   // टाइपिंग टेस्ट फिर से शुरू करे
+  });
+</script>
+
+<script>
+function renderWpmChart(){
+  let history = JSON.parse(localStorage.getItem("typingHistory") || "[]");
+  if (history.length === 0) return;
+
+  // 📅 Group by Date — find Best WPM & its duration
+  let grouped = {};
+  let dayDetails = {};
+  history.forEach(h=>{
+    let date = h.date.split(",")[0];
+    let wpm = parseInt(h.wpm);
+    let time = parseInt(h.time);
+    let acc = parseFloat(h.accuracy);
+    if(!grouped[date] || wpm > grouped[date]) {
+      grouped[date] = wpm;
+      dayDetails[date] = { wpm, duration: time, accuracy: acc };
+    }
+  });
+
+  // 📆 Filter only last 30 days
+  const today = new Date();
+  const last30 = Object.keys(grouped).filter(d=>{
+    const dt = new Date(d);
+    return (today - dt) / (1000 * 60 * 60 * 24) <= 30;
+  }).sort((a,b)=>new Date(a)-new Date(b));
+
+  const labels = last30;
+  const wpmData = labels.map(d => dayDetails[d].wpm);
+  const durationData = labels.map(d => Math.round(dayDetails[d].duration));
+
+  const ctx = document.getElementById('wpmChart').getContext('2d');
+  const isDark = document.body.classList.contains("dark-mode");
+  const textColor = isDark ? "#fff" : "#000";
+  const gridColor = isDark ? "#555" : "#ccc";
+
+  if (window.wpmChartInstance) window.wpmChartInstance.destroy();
+
+  window.wpmChartInstance = new Chart(ctx, {
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          type: 'line',
+          label: 'Best Speed (WPM)',
+          data: wpmData,
+          borderColor: '#4caf50',
+          backgroundColor: 'rgba(76,175,80,0.2)',
+          borderWidth: 3,
+          tension: 0.3,
+          pointBackgroundColor: '#ff9800',
+          fill: true,
+          yAxisID: 'y'
+        },
+        {
+          type: 'line',
+          label: 'Duration (Seconds)',
+          data: durationData,
+          borderColor: '#e91e63',
+          backgroundColor: 'rgba(233,30,99,0.2)',
+          borderWidth: 2,
+          tension: 0.4,
+          pointBackgroundColor: '#e91e63',
+          fill: false,
+          yAxisID: 'y2'
+        }
+      ]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: { display: true, text: 'Speed (WPM)', color: textColor },
+          ticks: { color: textColor },
+          grid: { color: gridColor }
+        },
+        y2: {
+          beginAtZero: true,
+          position: 'right',
+          title: { display: true, text: 'Duration (Seconds)', color: textColor },
+          ticks: { color: textColor },
+          grid: { drawOnChartArea: false }
+        },
+        x: {
+          title: { display: true, text: 'Date', color: textColor },
+          ticks: { color: textColor },
+          grid: { color: gridColor }
+        }
+      },
+      plugins: {
+        legend: {
+          labels: { color: textColor }
+        },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              let date = ctx.label;
+              let info = dayDetails[date];
+              return [
+                `WPM: ${info.wpm}`,
+                `Duration: ${info.duration}s`,
+                `Accuracy: ${info.accuracy}%`
+              ];
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+
+// 🕒 24 घंटे वाला चार्ट (जैसा पहले था)
+function renderRecentChart(){
+  let history = JSON.parse(localStorage.getItem("typingHistory") || "[]");
+  if (history.length === 0) return;
+
+  const now = new Date();
+  const last24 = history.filter(h=>{
+    const d = new Date(h.date);
+    return (now - d) / (1000 * 60 * 60) <= 24;
+  });
+
+  if(last24.length === 0) return;
+
+  const labels = last24.map(h => h.date.split(",")[1]?.trim() || h.date);
+  const wpms = last24.map(h => parseInt(h.wpm));
+  const accs = last24.map(h => parseFloat(h.accuracy));
+  const times = last24.map(h => parseInt(h.time));
+
+  const ctx = document.getElementById('recentChart').getContext('2d');
+  const isDark = document.body.classList.contains("dark-mode");
+  const textColor = isDark ? "#fff" : "#000";
+  const gridColor = isDark ? "#555" : "#ccc";
+
+  if (window.recentChartInstance) window.recentChartInstance.destroy();
+
+  window.recentChartInstance = new Chart(ctx, {
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          type: 'bar',
+          label: 'Speed (WPM)',
+          data: wpms,
+          backgroundColor: 'rgba(33,150,243,0.6)',
+          borderColor: '#2196f3',
+          borderWidth: 2
+        },
+        {
+          type: 'line',
+          label: 'Accuracy (%)',
+          data: accs,
+          borderColor: '#ff9800',
+          backgroundColor: 'rgba(255,152,0,0.2)',
+          borderWidth: 2,
+          tension: 0.3,
+          yAxisID: 'y2'
+        }
+      ]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: { display: true, text: 'WPM', color: textColor },
+          ticks: { color: textColor },
+          grid: { color: gridColor }
+        },
+        y2: {
+          beginAtZero: true,
+          position: 'right',
+          title: { display: true, text: 'Accuracy (%)', color: textColor },
+          ticks: { color: textColor },
+          grid: { drawOnChartArea: false }
+        },
+        x: {
+          ticks: { color: textColor },
+          grid: { color: gridColor }
+        }
+      },
+      plugins: {
+        legend: { labels: { color: textColor } },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              const i = ctx.dataIndex;
+              if(ctx.dataset.label.includes("Speed")){
+                return [
+                  `WPM: ${wpms[i]}`,
+                  `Accuracy: ${accs[i]}%`,
+                  `Duration: ${times[i]}s`
+                ];
+              } else {
+                return null;
+              }
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+// 📊 दोनों चार्ट render करें
+function renderAllCharts(){
+  renderWpmChart();
+  renderRecentChart();
+}
+
+// Auto load + dark mode observer
+window.addEventListener("load", renderAllCharts);
+document.addEventListener("DOMContentLoaded", ()=>{
+  const observer = new MutationObserver(renderAllCharts);
+  observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+});
+</script>
+<script>
+
+
+function toggleTest() {
+  const btn = document.getElementById("finishBtn");
+  const input = document.getElementById("input");
+
+  // अगर टेस्ट चल रहा है तो रोक दो
+  if (testRunning || started) {
+    // ✅ नया: यूज़र से पुष्टि लो
+    const confirmFinish = confirm("Are you sure you want to finish the test?");
+    if (!confirmFinish) return; // ❌ यूज़र ने Cancel किया तो कुछ मत करो
+
+    testRunning = false;
+    started = false;
+    btn.textContent = "▶️";
+    btn.style.background = "#4caf50"; // 🟢 Start रंग
+    finishTest();
+  } 
+  else {
+    // ▶️ Start Test
+    testRunning = true;
+    started = true;
+    btn.textContent = "⏹";
+    btn.style.background = "#e91e63"; // 🔴 Stop रंग
+    initTest();
+    input.focus();
+  }
+}
+
+let testRunning = false; // स्थिति ट्रैक करने के लिए
+document.getElementById("input").addEventListener("focus", () => {
+  if (!started && !testRunning) {
+    toggleTest();
+  }
+});
+
+
+// पेज लोड पर बटन को हरा रखो
+window.addEventListener("load", () => {
+  const btn = document.getElementById("finishBtn");
+  btn.style.background = "#4caf50";
+});
+</script>
+
+
+
+<script>
+let typingMode = localStorage.getItem("typingMode") || "character"; // डिफ़ॉल्ट मोड
+
+// बटन टेक्स्ट अपडेट करने वाला फ़ंक्शन
+function updateModeButton() {
+  const btn = document.getElementById("modeToggleBtn");
+  btn.textContent = "🔤 Mode: " + (typingMode === "character" ? "Character" : "Word");
+}
+
+// Toggle बटन क्लिक
+function toggleMode() {
+  typingMode = (typingMode === "character") ? "word" : "character";
+  localStorage.setItem("typingMode", typingMode);
+  updateModeButton();
+  initTest(); // नया मोड तुरंत लागू
+}
+
+// टेस्ट शुरू होते ही बटन अपडेट करें
+window.addEventListener("load", updateModeButton);
+</script>
+
+<script>
+let backspaceEnabled = JSON.parse(localStorage.getItem("backspaceEnabled") || "true");
+
+function toggleBackspace() {
+  backspaceEnabled = !backspaceEnabled;
+  localStorage.setItem("backspaceEnabled", backspaceEnabled);
+  updateBackspaceButton();
+}
+
+// बटन का टेक्स्ट अपडेट करें
+function updateBackspaceButton() {
+  const btn = document.getElementById("backspaceToggleBtn");
+  btn.textContent = "⌫ Backspace: " + (backspaceEnabled ? "ON" : "OFF");
+  btn.style.background = backspaceEnabled ? "#4caf50" : "#f44336";
+}
+
+// टाइपिंग इनपुट पर बैकस्पेस रोकें
+document.addEventListener("keydown", function(e) {
+  if (!backspaceEnabled && e.key === "Backspace") {
+    e.preventDefault();
+  }
+});
+
+// पेज लोड पर बटन स्टेट सेट करें
+window.addEventListener("load", updateBackspaceButton);
+</script>
+<script>
+// जब यूज़र textarea में फोकस करे तो ऑटो स्टार्ट हो जाए
+document.getElementById("input").addEventListener("focus", () => {
+  const btn = document.getElementById("finishBtn");
+
+  // अगर अभी टेस्ट नहीं चल रहा है, तो शुरू करें
+  if (!testRunning) {
+    testRunning = true;
+    started = true;
+    btn.textContent = "⏹"; // Stop बटन दिखाओ
+    initTest();             // नया टेस्ट शुरू
+  }
+});
+</script>
+  
+
+</body>
+</html>
