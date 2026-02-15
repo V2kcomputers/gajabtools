@@ -1,0 +1,2 @@
+{{ $main := resources.Get "js/main/mainbase.js" | minify | fingerprint }}
+<script src="{{ $main.Permalink }}" integrity="{{ $main.Data.Integrity }}" defer></script>
