@@ -195,3 +195,45 @@ footer{
     padding:20px;
     margin-top:50px;
 }
+    .logo-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:nowrap; /* line break नहीं होने देगा */
+}
+
+.logo-box img{
+    height:55px;
+    width:auto;
+}
+
+.logo-text h1{
+    margin:0;
+    font-size:24px;
+    font-weight:800;
+    white-space:nowrap; /* text नीचे नहीं जाएगा */
+}
+
+.logo-text span{
+    color:#ff7a00;
+}
+
+/* Mobile */
+@media(max-width:768px){
+    .logo-box{
+        gap:6px;
+    }
+
+    .logo-box img{
+        height:40px;
+    }
+
+    .logo-text h1{
+        font-size:16px;
+    }
+}
+@media(max-width:400px){
+    .logo-text h1{
+        font-size:14px;
+    }
+}

@@ -4,13 +4,54 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gajab Tools- All Tools</title>
+{{ partial "mainbase/seotools.html" . }}
 {{ partial "cssStyles/home.html" . }}
+<style>
+    .logo-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:nowrap; /* line break नहीं होने देगा */
+}
+
+.logo-box img{
+    height:55px;
+    width:auto;
+}
+
+.logo-text h1{
+    margin:0;
+    font-size:24px;
+    font-weight:800;
+    white-space:nowrap; /* text नीचे नहीं जाएगा */
+}
+
+.logo-text span{
+    color:#ff7a00;
+}
+
+/* Mobile */
+@media(max-width:768px){
+    .logo-box{
+        gap:6px;
+    }
+
+    .logo-box img{
+        height:40px;
+    }
+
+    .logo-text h1{
+        font-size:16px;
+    }
+}
+
+</style>
 </head>
 
 <body>
 
 <header>
-    <div class="logo">Gajab Tools</div>
+    {{ partial "mainbase/logo.html" . }}
     <div class="menu-btn" onclick="toggleMenu()">☰</div>
     <div class="nav-links" id="navLinks">
         <div class="close-btn" onclick="closeMenu()">✕</div>
