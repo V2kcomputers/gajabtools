@@ -1,14 +1,14 @@
 :root{
-    --primary:#0056b3;
-    --secondary:#003366;
+    --primary:#ff7a00;
+    --secondary:#470f0f;
     --bg:#f4f6f9;
     --card:#ffffff;
     --text:#222;
 }
 
 body.dark{
-    --primary:#000000;
-    --secondary:#1a1a1a;
+    --primary:#470f0f;
+    --secondary:#ff7a00;
     --bg:#121212;
     --card:#1e1e1e;
     --text:#f1f1f1;
@@ -31,11 +31,12 @@ body{
 header{
     top:0;
     width:100%;
-    background:linear-gradient(135deg,var(--primary),var(--secondary));
+    background:linear-gradient(135deg,var(--card),var(--bg));
     display:flex;
     justify-content:space-between;
     align-items:center;
     padding:15px 30px;
+    
     box-shadow:0 4px 15px rgba(0,0,0,0.15);
     z-index:1000;
 }
@@ -53,9 +54,9 @@ header{
 }
 
 .nav-links a{
-    color:white;
+    color:var(--text);
     text-decoration:none;
-    font-weight:500;
+    font-weight:800;
 }
 
 .toggle-btn{
@@ -164,7 +165,7 @@ header{
 }
 
 .tool-card button{
-    background:linear-gradient(45deg,var(--primary),#00bfff);
+    background:linear-gradient(45deg,var(--primary),var(--secondary));
     color:white;
     padding:10px 18px;
     border:none;
@@ -230,10 +231,5 @@ footer{
 
     .logo-text h1{
         font-size:16px;
-    }
-}
-@media(max-width:400px){
-    .logo-text h1{
-        font-size:14px;
     }
 }
