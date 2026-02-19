@@ -1,0 +1,133 @@
+
++++
+title= "Contact Us - GajabTools.com"
+date= 2026-02-19
+layout= "page"
+url= "/contact/"
++++
+
+
+<style>
+.container{
+    font-family:Arial, Helvetica, sans-serif;
+
+  line-height:1.7;
+  max-width:900px;
+  margin:40px auto;
+  background:var(--card);
+  padding:40px;
+  border-radius:8px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+h1{
+  color:var(--secondary);
+  margin-bottom:10px;
+}
+
+h2{
+  margin-top:30px;
+  color:var(--primary);
+}
+
+.contact-info{
+  background:var(--bg);
+  padding:20px;
+  border-left:4px solid var(--primary);
+  margin-bottom:30px;
+}
+
+form{
+  display:flex;
+  flex-direction:column;
+}
+
+label{
+  margin-top:15px;
+  font-weight:bold;
+}
+
+input, textarea{
+  padding:10px;
+  margin-top:5px;
+  border:1px solid #ccc;
+  border-radius:4px;
+  font-size:14px;
+}
+
+textarea{
+  resize:vertical;
+  min-height:120px;
+}
+
+button{
+  margin-top:20px;
+  padding:12px;
+  background:var(--primary);
+  color:#fff;
+  border:none;
+  border-radius:4px;
+  cursor:pointer;
+  font-size:16px;
+}
+
+button:hover{
+  background:var(--secondary);
+}
+
+.footer-note{
+  margin-top:40px;
+  padding-top:20px;
+  border-top:1px solid #ddd;
+  font-size:14px;
+  color:#666;
+}
+
+@media(max-width:768px){
+  .container{
+    margin:20px;
+    padding:20px;
+  }
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h1>Contact Us</h1>
+
+<p>If you have any questions, suggestions, feedback, or business inquiries, feel free to reach out to us.</p>
+
+<div class="contact-info">
+<strong>Email:</strong> yojnaportalhelp@gmail.com<br>
+<strong>Instagram:</strong> <a href="https://instagram.com/gajabjobs" target="_blank"> Gajab Jobs Instagram</a><br>
+<strong>Website:</strong> https://gajabtools.com
+</div>
+
+<h2>Send Us a Message</h2>
+
+<form action="mailto:yojnaportalhelp@gmail.com" method="post" enctype="text/plain">
+  
+  <label for="name">Your Name</label>
+  <input type="text" id="name" name="Name" required>
+
+  <label for="email">Your Email</label>
+  <input type="email" id="email" name="Email" required>
+
+  <label for="message">Your Message</label>
+  <textarea id="message" name="Message" required></textarea>
+
+  <button type="submit">Send Message</button>
+
+</form>
+
+<div class="footer-note">
+We respect your privacy. We do not store your contact form data on our servers.
+</div>
+
+</div>
+
+</body>
+</html>

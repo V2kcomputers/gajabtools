@@ -2,6 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/about-us/</loc>
+    <lastmod>2026-02-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/about-us/</loc>
+    <lastmod>2026-02-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/contact/</loc>
+    <lastmod>2026-02-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/cookie-policy/</loc>
+    <lastmod>2026-02-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/disclaimer/</loc>
+    <lastmod>2026-02-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/dmca-policy/</loc>
+    <lastmod>2026-02-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/privacy-policy/</loc>
+    <lastmod>2026-02-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/terms-and-conditions/</loc>
+    <lastmod>2026-02-19T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/admin/recruitment/</loc>
     <lastmod>2024-11-08T19:23:23+05:30</lastmod>
   </url><url>
