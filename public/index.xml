@@ -6,14 +6,28 @@
     <description>Recent content in Home on GAJAB TOOLS</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 19 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 23 Feb 2026 10:31:25 +0530</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>What is ChatGPT? Powers, Uses &amp; Future Explained</title>
+      <link>http://localhost:1313/blog/whatis-chatgpt-openai-and-its-power/</link>
+      <pubDate>Mon, 23 Feb 2026 10:31:25 +0530</pubDate>
+      <guid>http://localhost:1313/blog/whatis-chatgpt-openai-and-its-power/</guid>
+      <description>&lt;!DOCTYPE html&gt;&#xA;&lt;html lang=&#34;en&#34;&gt;&#xA;&lt;head&gt;&#xA;&lt;meta charset=&#34;UTF-8&#34;&gt;&#xA;&lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1.0&#34;&gt;&#xA;&lt;meta name=&#34;description&#34; content=&#34;Learn what ChatGPT is, how it works, its powers, uses, benefits, limitations, and future impact in this detailed guide.&#34;&gt;&#xA;&lt;meta name=&#34;keywords&#34; content=&#34;What is ChatGPT, ChatGPT powers, ChatGPT uses, AI chatbot, OpenAI ChatGPT&#34;&gt;&#xA;&lt;meta name=&#34;author&#34; content=&#34;Your Website Name&#34;&gt;&#xA;&#xA;&lt;/head&gt;&#xA;&#xA;&lt;body&gt;&#xA;&#xA;&lt;div class=&#34;container&#34;&gt;&#xA;&#xA;&lt;h1&gt;🤖 What is ChatGPT? Its Powers, Uses &amp; Future&lt;/h1&gt;&#xA;&#xA;&lt;p&gt;&lt;strong&gt;ChatGPT&lt;/strong&gt; is an advanced Artificial Intelligence (AI) chatbot developed by OpenAI. It is designed to understand human language and respond naturally like a human conversation partner.&lt;/p&gt;&#xA;&#xA;&lt;div class=&#34;highlight&#34;&gt;&#xA;ChatGPT is based on GPT (Generative Pre-trained Transformer) technology, trained on vast amounts of text data to generate intelligent responses.&#xA;&lt;/div&gt;&#xA;&#xA;&lt;h2&gt;🧠 How Does ChatGPT Work?&lt;/h2&gt;&#xA;&lt;p&gt;ChatGPT uses machine learning, deep learning, and transformer architecture to understand user input and generate relevant responses. It analyzes context and produces meaningful answers within seconds.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>About Us - GajabTools.com</title>
       <link>http://localhost:1313/about-us/</link>
       <pubDate>Thu, 19 Feb 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/about-us/</guid>
       <description>&lt;style&gt;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;.container{&#xD;&#xA;     font-family:Arial, Helvetica, sans-serif;&#xD;&#xA;  line-height:1.7;&#xD;&#xA;  max-width:900px;&#xD;&#xA;  margin:40px auto;&#xD;&#xA;  background:var(--card);&#xD;&#xA;  padding:40px;&#xD;&#xA;  border-radius:8px;&#xD;&#xA;  box-shadow:0 5px 20px rgba(0,0,0,0.05);&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;h1{&#xD;&#xA;  color:var(--secondary);&#xD;&#xA;  margin-bottom:10px;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;h2{&#xD;&#xA;  margin-top:30px;&#xD;&#xA;  color:var(--primary);&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;ul{&#xD;&#xA;  padding-left:20px;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;.highlight{&#xD;&#xA;  background: var(--bg) ;&#xD;&#xA;  padding:15px;&#xD;&#xA;  border-left:4px solid var(--primary);&#xD;&#xA;  margin:20px 0;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;.footer-note{&#xD;&#xA;  margin-top:40px;&#xD;&#xA;  padding-top:20px;&#xD;&#xA;  border-top:1px solid #ddd;&#xD;&#xA;  font-size:14px;&#xD;&#xA;  color:#666;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;@media(max-width:768px){&#xD;&#xA;  .container{&#xD;&#xA;    margin:20px;&#xD;&#xA;    padding:20px;&#xD;&#xA;  }&#xD;&#xA;}&#xD;&#xA;&lt;/style&gt;&#xD;&#xA;&#xD;&#xA;&lt;/head&gt;&#xD;&#xA;&lt;body&gt;&#xD;&#xA;&#xD;&#xA;&lt;div class=&#34;container&#34;&gt;&#xD;&#xA;&#xD;&#xA;&lt;h1&gt;About Us&lt;/h1&gt;&#xD;&#xA;&#xD;&#xA;&lt;p&gt;Welcome to &lt;strong&gt;GajabTools.com&lt;/strong&gt; — a modern, privacy-focused online tools platform designed to make your digital tasks faster, easier, and more secure.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>About Us - GajabTools.com</title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Thu, 19 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/about/</guid>
+      <description></description>
     </item>
     <item>
       <title>Contact Us - GajabTools.com</title>

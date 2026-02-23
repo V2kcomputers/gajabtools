@@ -11,6 +11,7 @@
       <div class="footer-highlight">
         Client-Side Processing • Privacy First • Fast & Free Tools
       </div>
+      
     </div>
 
     <!-- Quick Links -->
@@ -38,7 +39,7 @@
   </div>
 
   <div class="footer-bottom">
-    © {{ now.Year }}  GajabTools.com | All Rights Reserved
+    © {{ now.Year }}  GajabTools.com | All Rights Reserved | Page Update: <strong>{{ .Date | time.Format "02-01-2006 15:04:05" }}</strong>
   </div>
 
 {{ partial "jsFiles/home.html" . }}

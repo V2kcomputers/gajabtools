@@ -30,6 +30,7 @@ body{
     background:linear-gradient(135deg,var(--bg),#1c1c2b);
     color:var(--text);
     transition:0.5s ease;
+    line-height:1.7;
 }
 html, body{
     overflow-x:hidden;

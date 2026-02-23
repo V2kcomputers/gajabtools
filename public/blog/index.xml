@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blogs on GAJAB TOOLS</title>
+    <link>http://localhost:1313/blog/</link>
+    <description>Recent content in Blogs on GAJAB TOOLS</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 23 Feb 2026 10:31:25 +0530</lastBuildDate>
+    <atom:link href="http://localhost:1313/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>What is ChatGPT? Powers, Uses &amp; Future Explained</title>
+      <link>http://localhost:1313/blog/whatis-chatgpt-openai-and-its-power/</link>
+      <pubDate>Mon, 23 Feb 2026 10:31:25 +0530</pubDate>
+      <guid>http://localhost:1313/blog/whatis-chatgpt-openai-and-its-power/</guid>
+      <description>&lt;!DOCTYPE html&gt;&#xA;&lt;html lang=&#34;en&#34;&gt;&#xA;&lt;head&gt;&#xA;&lt;meta charset=&#34;UTF-8&#34;&gt;&#xA;&lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1.0&#34;&gt;&#xA;&lt;meta name=&#34;description&#34; content=&#34;Learn what ChatGPT is, how it works, its powers, uses, benefits, limitations, and future impact in this detailed guide.&#34;&gt;&#xA;&lt;meta name=&#34;keywords&#34; content=&#34;What is ChatGPT, ChatGPT powers, ChatGPT uses, AI chatbot, OpenAI ChatGPT&#34;&gt;&#xA;&lt;meta name=&#34;author&#34; content=&#34;Your Website Name&#34;&gt;&#xA;&#xA;&lt;/head&gt;&#xA;&#xA;&lt;body&gt;&#xA;&#xA;&lt;div class=&#34;container&#34;&gt;&#xA;&#xA;&lt;h1&gt;🤖 What is ChatGPT? Its Powers, Uses &amp; Future&lt;/h1&gt;&#xA;&#xA;&lt;p&gt;&lt;strong&gt;ChatGPT&lt;/strong&gt; is an advanced Artificial Intelligence (AI) chatbot developed by OpenAI. It is designed to understand human language and respond naturally like a human conversation partner.&lt;/p&gt;&#xA;&#xA;&lt;div class=&#34;highlight&#34;&gt;&#xA;ChatGPT is based on GPT (Generative Pre-trained Transformer) technology, trained on vast amounts of text data to generate intelligent responses.&#xA;&lt;/div&gt;&#xA;&#xA;&lt;h2&gt;🧠 How Does ChatGPT Work?&lt;/h2&gt;&#xA;&lt;p&gt;ChatGPT uses machine learning, deep learning, and transformer architecture to understand user input and generate relevant responses. It analyzes context and produces meaningful answers within seconds.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
