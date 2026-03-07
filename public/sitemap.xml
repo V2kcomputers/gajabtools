@@ -3,33 +3,18 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/blog/</loc>
-    <lastmod>2026-02-23T10:31:25+05:30</lastmod>
+    <lastmod>2026-03-07T18:46:36+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/blog/what-is-google-veo-3/</loc>
+    <lastmod>2026-03-07T18:46:36+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/blog/what-is-google-speech-generator/</loc>
+    <lastmod>2026-03-07T15:31:27+05:30</lastmod>
   </url><url>
     <loc>http://localhost:1313/blog/whatis-chatgpt-openai-and-its-power/</loc>
     <lastmod>2026-02-23T10:31:25+05:30</lastmod>
   </url><url>
-    <loc>http://localhost:1313/about-us/</loc>
-    <lastmod>2026-02-19T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/about/</loc>
-    <lastmod>2026-02-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/contact/</loc>
-    <lastmod>2026-02-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/cookie-policy/</loc>
-    <lastmod>2026-02-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/disclaimer/</loc>
-    <lastmod>2026-02-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/dmca-policy/</loc>
-    <lastmod>2026-02-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/privacy-policy/</loc>
-    <lastmod>2026-02-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/terms-and-conditions/</loc>
     <lastmod>2026-02-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/admin/recruitment/</loc>
