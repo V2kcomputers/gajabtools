@@ -2,8 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/what-is-ai/</loc>
+    <lastmod>2026-03-08T19:20:03+05:30</lastmod>
+  </url><url>
     <loc>http://localhost:1313/blog/</loc>
-    <lastmod>2026-03-08T16:08:03+05:30</lastmod>
+    <lastmod>2026-03-08T19:20:03+05:30</lastmod>
   </url><url>
     <loc>http://localhost:1313/gemini-Ai/</loc>
     <lastmod>2026-03-08T16:08:03+05:30</lastmod>

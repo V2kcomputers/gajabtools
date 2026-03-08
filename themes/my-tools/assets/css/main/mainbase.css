@@ -1,27 +1,60 @@
 :root{
     --primary:#ff7a00;
     --secondary:#470f0f;
-    --tertiary: #123;
-    --highlight: #fffbe9;
     --bg:#f4f6f9;
     --card:rgba(255,255,255,0.7);
     --text:#222;
     --sidebar:rgba(255,255,255,0.85);
     --glass-blur:blur(15px);
+
+    /* STATUS COLORS — LIGHT MODE */
+    --success-bg:#e9f7ef;
+    --success-border:#198754;
+
+    --info-bg:#e7f1ff;
+    --info-border:#0d6efd;
+
+    --warning-bg:#fff3cd;
+    --warning-border:#ffca2c;
+
+    --danger-bg:#fdeaea;
+    --danger-border:#dc3545;
+
+    --neutral-bg:#f1f3f5;
+    --neutral-border:#6c757d;
+
+    --accent-bg:#fff0e6;
+    --accent-border:#ff7a00;
 }
 
 /* DARK MODE */
 body.dark{
     --primary:#ff7a00;
     --secondary:#ff2e63;
-    --tertiary: rgb(67, 209, 67);
     --bg:#0f0f14;
     --card:rgba(30,30,40,0.65);
     --text:#f1f1f1;
     --sidebar:rgba(25,25,35,0.85);
-    --highlight: #1f2022;
-}
 
+    /* STATUS COLORS — DARK MODE */
+    --success-bg:#0f2e1f;
+    --success-border:#20c997;
+
+    --info-bg:#0b2239;
+    --info-border:#3d8bfd;
+
+    --warning-bg:#332701;
+    --warning-border:#ffc107;
+
+    --danger-bg:#2a0f14;
+    --danger-border:#ff6b81;
+
+    --neutral-bg:#1a1d21;
+    --neutral-border:#adb5bd;
+
+    --accent-bg:#2b1a0a;
+    --accent-border:#ff9f43;
+}
 /* RESET */
 *{
     margin:0;
@@ -45,12 +78,7 @@ body{
     padding:25px;
     
 }
-.highlight{
-    background:var(--highlight);
-    padding:10px;
-    border-left:5px solid var(--primary);
-    margin:15px 0;
-}
+
 
 h1{
     color:var(--primary);
@@ -166,6 +194,56 @@ header{
 }
 .btn:hover{
     opacity:0.85;
+}
+.status-box{
+    padding:12px;
+    margin-top:15px;
+    border-left:5px solid;
+    border-radius:6px;
+}
+
+.success{
+    background:var(--success-bg);
+    border-color:var(--success-border);
+}
+
+.info{
+    background:var(--info-bg);
+    border-color:var(--info-border);
+}
+
+.warning{
+    background:var(--warning-bg);
+    border-color:var(--warning-border);
+}
+
+.danger{
+    background:var(--danger-bg);
+    border-color:var(--danger-border);
+}
+
+.neutral{
+    background:var(--neutral-bg);
+    border-color:var(--neutral-border);
+}
+
+.accent{
+    background:var(--accent-bg);
+    border-color:var(--accent-border);
+}
+.highlight{
+    background:var(--highlight-bg);
+    border-left:5px solid var(--highlight-border);
+    padding:12px;
+    margin-top:15px;
+}
+
+.warning{
+    background:var(--warning-bg);
+}
+
+.future{
+    background:var(--future-bg);
 }
 
 @media(max-width:768px){
