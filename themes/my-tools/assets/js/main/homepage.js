@@ -1,9 +1,17 @@
 function toggleMenu(){
-    document.getElementById("navLinks").classList.toggle("active");
+    const nav = document.getElementById("navLinks");
+    nav.classList.toggle("active");
+
+    // ⭐ ADD
+    document.body.classList.toggle("menu-open");
 }
 
 function closeMenu(){
-    document.getElementById("navLinks").classList.remove("active");
+    const nav = document.getElementById("navLinks");
+    nav.classList.remove("active");
+
+    // ⭐ ADD
+    document.body.classList.remove("menu-open");
 }
 
 /* Outside click close */
@@ -13,6 +21,7 @@ document.addEventListener("click", function(event){
 
     if(!nav.contains(event.target) && !menuBtn.contains(event.target)){
         nav.classList.remove("active");
+        document.body.classList.remove("menu-open"); // ⭐ ADD
     }
 });
 

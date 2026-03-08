@@ -29,7 +29,9 @@ body.dark{
     box-sizing:border-box;
     font-family:Arial, sans-serif;
 }
-
+html, body{
+    overflow-x:hidden;
+}
 body{
     background:linear-gradient(135deg,var(--bg),#1c1c2b);
     color:var(--text);
@@ -380,13 +382,80 @@ footer{
   color:#aaa;
 }
 
-@media(max-width:768px){
-  .footer-container{
-    text-align:center;
-  }
+/* ===== MOBILE MENU FIXED ===== */
+/* ===== BODY BLUR WHEN MENU OPEN ===== */
+
+
+/* Scroll lock */
+body.menu-open{
+    overflow:hidden;
+}
+body.menu-open > *:not(header){
+    filter:blur(8px) brightness(0.7);
+    transform:scale(0.98);
 }
 @media(max-width:768px){
-    .logo-box img{
-        height:40px;
+
+    .menu-btn{
+        display:block;
+        font-size:26px;
+        cursor:pointer;
     }
+
+    .nav-links{
+        position:fixed;
+        z-index:1200;
+        top:0;
+        right:0;
+        height:100vh;
+        width:270px;
+
+        display:flex;
+        flex-direction:column;
+        padding-top:100px;
+        gap:35px;
+
+        background:var(--sidebar);
+        backdrop-filter:blur(18px);
+        -webkit-backdrop-filter:blur(18px);
+
+        transform:translateX(100%);
+        transition:transform 0.4s ease;
+    }
+
+    .nav-links.active{
+        transform:translateX(0);
+    }
+
+    .close-btn{
+        display:block;
+        position:absolute;
+        top:20px;
+        right:20px;
+        font-size:22px;
+        cursor:pointer;
+    }
+}
+
+/* Prevent Horizontal Scroll */
+html, body{
+    overflow-x:hidden;
+    max-width:100%;
+}
+
+/* ===== BACKDROP OVERLAY ===== */
+.menu-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.45);
+    backdrop-filter:blur(3px);
+    opacity:0;
+    visibility:hidden;
+    transition:0.3s ease;
+    z-index:1100;
+}
+
+.menu-overlay.active{
+    opacity:1;
+    visibility:visible;
 }

@@ -333,7 +333,10 @@ footer{
 .logo-text span{
     color:var(--primary);
 }
-
+body.menu-open > *:not(header){
+    filter:blur(8px) brightness(0.7);
+    transform:scale(0.98);
+}
 @media(max-width:768px){
     .logo-box img{
         height:40px;
