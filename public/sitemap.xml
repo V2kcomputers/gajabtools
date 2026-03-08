@@ -3,21 +3,33 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/blog/</loc>
-    <lastmod>2026-03-08T12:55:28+05:30</lastmod>
+    <lastmod>2026-03-08T16:08:03+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/gemini-Ai/</loc>
+    <lastmod>2026-03-08T16:08:03+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/Meta-Ai/</loc>
+    <lastmod>2026-03-08T15:15:48+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/kling-ai/</loc>
+    <lastmod>2026-03-08T14:51:32+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/Openai-and-Chatgpt/</loc>
+    <lastmod>2026-03-08T14:25:44+05:30</lastmod>
   </url><url>
     <loc>http://localhost:1313/claude-ai/</loc>
     <lastmod>2026-03-08T12:55:28+05:30</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/what-is-canva/</loc>
+    <loc>http://localhost:1313/canva/</loc>
     <lastmod>2026-03-08T12:28:35+05:30</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/what-is-google-veo-3/</loc>
+    <loc>http://localhost:1313/google-veo-3/</loc>
     <lastmod>2026-03-07T18:46:36+05:30</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/what-is-google-speech-generator/</loc>
+    <loc>http://localhost:1313/google-speech/</loc>
     <lastmod>2026-03-07T15:31:27+05:30</lastmod>
   </url><url>
-    <loc>http://localhost:1313/blog/whatis-chatgpt-openai-and-its-power/</loc>
+    <loc>http://localhost:1313/chatgpt/</loc>
     <lastmod>2026-02-23T10:31:25+05:30</lastmod>
   </url><url>
     <loc>http://localhost:1313/about/</loc>
