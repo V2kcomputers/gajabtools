@@ -1,5 +1,7 @@
 +++
 title = '{{ replace .File.ContentBaseName "-" " " | title }}'
 date = {{ .Date }}
-imageBanner = ""
+url = "/{{ replace .File.ContentBaseName "-" "-" | title }}/"
+imageBanner = "  "
+description = "  "
 +++

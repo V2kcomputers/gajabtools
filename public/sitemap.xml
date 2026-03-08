@@ -3,7 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/blog/</loc>
-    <lastmod>2026-03-07T18:46:36+05:30</lastmod>
+    <lastmod>2026-03-08T12:55:28+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/claude-ai/</loc>
+    <lastmod>2026-03-08T12:55:28+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/blog/what-is-canva/</loc>
+    <lastmod>2026-03-08T12:28:35+05:30</lastmod>
   </url><url>
     <loc>http://localhost:1313/blog/what-is-google-veo-3/</loc>
     <lastmod>2026-03-07T18:46:36+05:30</lastmod>
