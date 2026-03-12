@@ -2,10 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/what-is-ai/</loc>
-    <lastmod>2026-03-08T19:20:03+05:30</lastmod>
-  </url><url>
     <loc>http://localhost:1313/blog/</loc>
+    <lastmod>2026-03-12T10:33:18+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/genspark-ai/</loc>
+    <lastmod>2026-03-12T10:33:18+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/what-is-ai/</loc>
     <lastmod>2026-03-08T19:20:03+05:30</lastmod>
   </url><url>
     <loc>http://localhost:1313/gemini-Ai/</loc>
@@ -70,6 +73,8 @@
   </url><url>
     <loc>http://localhost:1313/</loc>
     <lastmod>2023-01-01T08:00:00-07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/blog/sarvam-ai/</loc>
   </url><url>
     <loc>http://localhost:1313/qr-codes/dotted-qr-generator/</loc>
   </url><url>
