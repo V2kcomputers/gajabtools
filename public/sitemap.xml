@@ -71,6 +71,24 @@
     <loc>http://localhost:1313/about/</loc>
     <lastmod>2026-02-19T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/all-tools/</loc>
+    <lastmod>2026-01-18T09:00:00-07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/list/</loc>
+    <lastmod>2026-01-18T09:00:00-07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/page/</loc>
+    <lastmod>2026-01-18T09:00:00-07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2026-01-18T09:00:00-07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/genspark-ai/</loc>
+    <lastmod>2025-12-12T10:33:18+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/qr-codes/</loc>
+    <lastmod>2025-12-12T10:33:18+05:30</lastmod>
+  </url><url>
     <loc>http://localhost:1313/admin/recruitment/</loc>
     <lastmod>2024-11-08T19:23:23+05:30</lastmod>
   </url><url>
@@ -89,9 +107,6 @@
     <loc>http://localhost:1313/tags/red/</loc>
     <lastmod>2023-03-15T11:00:00-07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2023-03-15T11:00:00-07:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/posts/post-2/</loc>
     <lastmod>2023-02-15T10:00:00-07:00</lastmod>
   </url><url>
@@ -104,13 +119,9 @@
     <loc>http://localhost:1313/</loc>
     <lastmod>2023-01-01T08:00:00-07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/qr-codes/dotted-qr-generator/</loc>
-  </url><url>
     <loc>http://localhost:1313/categories/</loc>
   </url><url>
-    <loc>http://localhost:1313/qr-codes/</loc>
-  </url><url>
-    <loc>http://localhost:1313/typing-speed-test/english/10m/</loc>
+    <loc>http://localhost:1313/typing-test/english/10m/</loc>
   </url><url>
     <loc>http://localhost:1313/typing-speed-test/hindi-copy/10m/</loc>
   </url><url>

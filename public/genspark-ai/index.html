@@ -63,195 +63,234 @@
     <div class="single-post-wrapper">
       <div class="single-post-content">
 
-        
-<!DOCTYPE html>
-<html lang="en">
+        <!DOCTYPE html>
+<html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>Dotted QR Generator</title>
 
-<title>Genspark AI – What It Is, Features, Tools and How to Earn Money</title>
+  <!-- QR Code Styling library -->
+  <script type="text/javascript"
+    src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js">
+  </script>
 
-<meta name="description" content="Learn what Genspark AI is, its features, tools, benefits and how you can earn money using Genspark AI. Complete guide for beginners.">
+  <style>
+    * { box-sizing: border-box; font-family: "Poppins", system-ui, sans-serif; }
 
-<style>
-
-
-.banner{
-width:100%;
-border-radius:10px;
-margin-bottom:20px;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-margin:20px 0;
-}
-
-table th, table td{
-border:1px solid #ddd;
-padding:10px;
-text-align:left;
-}
-
-table th{
-background:#0a4d8c;
-color:white;
-}
-
-.box{
-background:var(--success-bg);
-padding:15px;
-border-left:4px solid #0a4d8c;
-margin:20px 0;
-}
-
-.btn{
-display:inline-block;
-padding:12px 20px;
-background:#ff7a00;
-color:white;
-text-decoration:none;
-border-radius:5px;
-font-weight:bold;
-}
-
-.btn:hover{
-background:#e96b00;
-}
-
-</style>
+    .qr-wrapper {
+      margin: auto;
+      justify-content: center;
+      align-items: center;
+      background: #020617;
+      border-radius: 18px;
+      padding: 24px 22px 26px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 18px 35px rgba(0,0,0,0.45);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+    }
+    .qr-header {
+      font-weight: 700;
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+    .qr-sub {
+      font-size: 13px;
+      color: #9ca3af;
+      margin-bottom: 16px;
+    }
+    label {
+      font-size: 13px;
+      display: block;
+      margin-bottom: 4px;
+      color: #cbd5f5;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #1e293b;
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 14px;
+      outline: none;
+    }
+    input[type="text"]:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.4);
+    }
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      align-items: center;
+    }
+    select, input[type="color"] {
+      padding: 5px 8px;
+      border-radius: 8px;
+      border: 1px solid #1f2933;
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 12px;
+    }
+    .btn {
+      border: none;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 7px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.12s ease;
+      white-space: nowrap;
+    }
+    .btn-generate {
+      background: linear-gradient(135deg, #1d4ed8, #38bdf8);
+      color: white;
+      box-shadow: 0 10px 20px rgba(37,99,235,0.4);
+    }
+    .btn-generate:hover { transform: translateY(-1px); }
+    .btn-download {
+      background: #020617;
+      color: #e5e7eb;
+      border: 1px solid #1f2937;
+    }
+    .btn-download:hover { transform: translateY(-1px); }
+    .qr-output {
+      margin-top: 18px;
+      padding: 10px;
+      border-radius: 14px;
+      background: radial-gradient(circle at top, #0b1120 0, #020617 55%, #000 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #qr-canvas {
+      background: white;
+      border-radius: 12px;
+      padding: 8px;
+    }
+    .note {
+      margin-top: 8px;
+      font-size: 11px;
+      color: #9ca3af;
+      text-align: center;
+    }
+  </style>
 </head>
-
 <body>
+  <div class="qr-wrapper">
+    <div class="qr-header">Dotted QR Generator</div>
+    <div class="qr-sub">Blue dotted QR (same style जैसा aapne photo me diya hai).</div>
 
-<div class="container">
+    <label for="qr-text">Text / URL</label>
+    <input id="qr-text" type="text"
+           placeholder="https://example.com ya koi text likhiye" />
 
-<h1>Genspark AI – Complete Guide, Tools and Uses</h1>
+    <div class="controls">
+      <button class="btn btn-generate" id="btn-generate">
+        ⚡ Generate
+      </button>
 
-<img src="https://images.unsplash.com/photo-1677442136019-21780ecad995" class="banner" alt="Genspark AI Banner">
+      <select id="qr-size" title="Size">
+        <option value="200">200 px</option>
+        <option value="260" selected>260 px</option>
+        <option value="320">320 px</option>
+      </select>
 
-<p>
-<strong>Genspark AI</strong> is a modern artificial intelligence platform designed to help users create content, automate work, and analyze information using AI technology.  
-It combines multiple AI capabilities such as content generation, research tools, automation systems and AI agents in one platform.
-</p>
+      <input type="color" id="qr-color" value="#003a77" title="Dot color" />
+      <button class="btn btn-download" id="btn-download">
+        ⬇ Download PNG
+      </button>
+    </div>
 
-<p>
-Genspark AI is useful for bloggers, developers, marketers, students and businesses who want to increase productivity and complete tasks faster using AI.
-</p>
+    <div class="qr-output">
+      <div id="qr-canvas"></div>
+    </div>
+    <div class="note">
+     Generate Dotted QR Code .
+    </div>
+  </div>
 
-<h2>Key Features of Genspark AI</h2>
+  <script>
+    // Default QR instance
+    let qrCode = new QRCodeStyling({
+      width: 260,
+      height: 260,
+      type: "svg",
+      data: "https://example.com",
+      margin: 0,
+      dotsOptions: {
+        color: "#003a77",   // blue dots
+        type: "dots"        // round dots like your sample
+      },
+      cornersSquareOptions: {
+        color: "#003a77",
+        type: "extra-rounded"  // गोल outer eye
+      },
+      cornersDotOptions: {
+        color: "#003a77"
+      },
+      backgroundOptions: {
+        color: "#ffffff"    // सफेद background
+      }
+    });
 
-<h3>1. AI Content Generation</h3>
-<p>
-Genspark AI can automatically create different types of content including blogs, marketing copy, product descriptions, emails and social media posts.
-</p>
+    const qrCanvas = document.getElementById("qr-canvas");
+    const inputText = document.getElementById("qr-text");
+    const inputSize = document.getElementById("qr-size");
+    const inputColor = document.getElementById("qr-color");
+    const btnGenerate = document.getElementById("btn-generate");
+    const btnDownload = document.getElementById("btn-download");
 
-<h3>2. AI Research Assistant</h3>
-<p>
-The platform can search information, analyze data and summarize important details which helps in research and learning.
-</p>
+    qrCode.append(qrCanvas);
 
-<h3>3. Automation Workflows</h3>
-<p>
-Users can build automated workflows that perform tasks automatically such as generating reports, collecting data and responding to customer queries.
-</p>
+    // Generate / Update QR
+    function updateQR() {
+      const data = inputText.value.trim() || "https://example.com";
+      const size = parseInt(inputSize.value, 10) || 260;
+      const color = inputColor.value || "#003a77";
 
-<h3>4. Data Analysis</h3>
-<p>
-Genspark AI helps in analyzing datasets and generating useful insights which can support business decisions.
-</p>
+      qrCode.update({
+        data,
+        width: size,
+        height: size,
+        dotsOptions: { color, type: "dots" },
+        cornersSquareOptions: { color, type: "extra-rounded" },
+        cornersDotOptions: { color }
+      });
+    }
 
-<h3>5. AI Agents</h3>
-<p>
-AI agents are intelligent assistants that can perform tasks automatically like research, writing and automation processes.
-</p>
+    btnGenerate.addEventListener("click", updateQR);
 
-<h2>Popular Genspark AI Tools</h2>
+    // Download PNG
+    btnDownload.addEventListener("click", () => {
+      qrCode.download({
+        name: "dotted-qr-gajabtools",
+        extension: "png"
+      });
+    });
 
-<table>
-<tr>
-<th>Tool</th>
-<th>Use</th>
-</tr>
-
-<tr>
-<td>AI Writer</td>
-<td>Generate blogs, articles and marketing content</td>
-</tr>
-
-<tr>
-<td>AI Research Tool</td>
-<td>Collect and summarize information</td>
-</tr>
-
-<tr>
-<td>Automation Builder</td>
-<td>Create automated workflows</td>
-</tr>
-
-<tr>
-<td>Data Analyzer</td>
-<td>Analyze and visualize data</td>
-</tr>
-
-<tr>
-<td>AI Agents</td>
-<td>Automate research and writing tasks</td>
-</tr>
-
-<tr>
-<td>Prompt Studio</td>
-<td>Create and test AI prompts</td>
-</tr>
-
-</table>
-
-<h2>Benefits of Genspark AI</h2>
-
-<ul>
-<li>Save time in content creation</li>
-<li>Automate repetitive tasks</li>
-<li>Improve productivity</li>
-<li>Help in research and learning</li>
-<li>Support data analysis</li>
-</ul>
-
-<h2>How to Earn Money Using Genspark AI</h2>
-
-<ul>
-<li>Blog writing using AI generated content</li>
-<li>Freelancing content creation</li>
-<li>Social media marketing services</li>
-<li>Automation services for businesses</li>
-<li>Research reports and documentation</li>
-</ul>
-
-<div class="box">
-<strong>Tip:</strong> If you run a blog or website, you can use Genspark AI to generate high-quality articles quickly and improve your productivity.
-</div>
-
-<br>
-
-<a href="https://www.genspark.ai/" class="btn">Try Genspark AI</a>
-
-</div>
-
+    // First render
+    updateQR();
+  </script>
 </body>
 </html>
-       
-      
-      
-      
-
 
        
+      
+      
+      
 
-<a href ="#image"  id="image"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjb0IjyU-9wR8kUI2ky7CmAISMudlCHM8RGgv0QN_lm5PUZ2D_oqb-6-8T9ObYEsQGXSkNEOBQ_cpfk3INMpWuAhpauH4YBDkXx7KEmWl3wDqR3yc1zaoFj4-2kdNlqtLo_sH_PAxmLjyEpClX1We2G52NTIIxXH-VRzEmFjE3V4SUyNNATrmV8ENXRmQ/s1600/Genspark%20ai.jpg" 
+
+       
+
+<a href ="#image"  id="image"><img src="" 
      loading="lazy"
      sizes="(max-width: 600px) 100vw, 600px"  
-     alt="Genspark AI – What It Is, Features, Tools and How to Earn Money | www.YojnaPortal.com"
+     alt="Dotted QR Code Generater | www.YojnaPortal.com"
      style="display: block; margin: 0 auto; max-width: 900px; height: auto;"> </a>
      
     </div>
@@ -302,7 +341,7 @@ AI agents are intelligent assistants that can perform tasks automatically like r
   </div>
 
   <div class="footer-bottom">
-    © 2026  GajabTools.com | All Rights Reserved | Page Update: <strong>12-03-2026 10:33:18</strong>
+    © 2026  GajabTools.com | All Rights Reserved | Page Update: <strong>12-12-2025 10:33:18</strong>
   </div>
 
 
