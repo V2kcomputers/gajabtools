@@ -9,18 +9,21 @@
 <title> List Card Design  </title>
 
 <style>
-
+.card-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
 /* Card */
 .card {
     display: flex;
-    align-items: center;
-    background:var(--card);
+    background: var(--card);
     border-radius: 10px;
     padding: 10px;
-    margin-bottom: 12px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    height: 100%;   /* important */
 }
-
 /* Image */
 .card img {
     width: 80px;
@@ -52,14 +55,34 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 8px 15px;
+    margin: 5px;
+    background: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.pagination a:hover {
+    background: #0056b3;
+}
 </style>
 
 </head>
-<body>
+
 
 <div class="card-list">
 
-{{ range sort (where .Site.RegularPages "Draft" false) "Date" "desc" }}
+{{ $paginator := .Paginate (where .Site.RegularPages "Draft" false) 12 }}
+
+{{ range $paginator.Pages }}
 
   <div class="card">
     <img src="{{ .Params.image | default "/images/default.jpg" }}" alt="{{ .Title }}">
@@ -78,6 +101,18 @@
 {{ end }}
 
 </div>
-</body>
-</html>
+
+
+<!-- Pagination Buttons -->
+<div class="pagination">
+
+  {{ if $paginator.HasPrev }}
+    <a href="{{ $paginator.Prev.URL }}">⬅ Previous</a>
+  {{ end }}
+
+  {{ if $paginator.HasNext }}
+    <a href="{{ $paginator.Next.URL }}">Next ➡</a>
+  {{ end }}
+
+</div>
 {{ end }}
