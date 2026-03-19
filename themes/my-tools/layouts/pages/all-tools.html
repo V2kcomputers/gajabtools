@@ -80,7 +80,7 @@
 
 <div class="card-list">
 
-{{ $paginator := .Paginate (where .Site.RegularPages "Draft" false) 12 }}
+{{ $paginator := .Paginate (where .Site.RegularPages "Draft" false) 11 }}
 
 {{ range $paginator.Pages }}
 
@@ -99,7 +99,6 @@
   </div>
 
 {{ end }}
-
 </div>
 
 
