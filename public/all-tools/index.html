@@ -14,7 +14,7 @@
 
 
   
-    <link rel="stylesheet" href="/css/main/mainbase.min.0940081cc4f69a9c1a80bea2d333446f571f7b0cdf9303f028d6c5c257cc9ce9.css" integrity="sha256-CUAIHMT2mpwagL6i0zNEb1cfewzfkwPwKNbFwlfMnOk=">
+    <link rel="stylesheet" href="/css/main/mainbase.min.5940dfc8fe7c2b1ef879e1d73e66dda6095afcba450919473adcf8724c5ded60.css" integrity="sha256-WUDfyP58Kx74eeHXPmbdpgla/LpFCRlHOtz4ckxd7WA=">
   
 
    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4855323063398382"
@@ -65,7 +65,8 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 15px;
-    margin-top: 20px;
+    margin:20px auto;
+    max-width: 1200px;
 }
  
 .card {
@@ -89,7 +90,15 @@
 .card-content {
     flex: 1;
 }
-
+.card-content a:link {
+  color: var(--primary);
+  text-decoration:none; }
+  .card-content a:visited {
+    color: var(--text);
+  } 
+  .card-content a:hover {
+    color: green;
+  }
  
 .card-title {
     font-size: 16px;
@@ -108,22 +117,30 @@
     overflow: hidden;
 }
 .pagination {
-    text-align: center;
-    margin-top: 20px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
 }
 
-.pagination a {
-    display: inline-block;
-    padding: 8px 15px;
-    margin: 5px;
-    background: #007bff;
-    color: #fff;
-    border-radius: 5px;
-    text-decoration: none;
+.pagination a,
+.pagination span {
+  padding: 6px 12px;
+  border: 1px solid #ddd;
+  text-decoration: none;
+  color: var(--text);
+  border-radius: 6px;
 }
 
 .pagination a:hover {
-    background: #0056b3;
+  background: var(--card);
+}
+
+.pagination .active {
+  background: var(--primary);
+  color: var(--text);
+  border-color: var(--primary);
 }
 </style>
 
@@ -311,14 +328,49 @@
   </div>
 
 
+
+  <div class="card">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiBmIZAD21qjAMdQHUfJSmWn7Q5ScDRPMGEN9SssiOXgOeFXFgDzXvXsLKeaEQ1MZh8YKcnt4r-qk92XlJQJEOz5vZ481C60DiLQTZ0brmv4sfM1KGTg3ismr1kwEJW1tdMabEcFsk4_p9p0biLVuJBoGB-vbMdKvTzUvN4BuVfmIwz15wveZh8jDKjOw/s1600/future%20with%20ai.jpg" alt="Advantages and Disadvantages of Artificial Intelligence">
+
+    <div class="card-content">
+      <div class="card-title">
+        <a href="/what-is-ai/">Advantages and Disadvantages of Artificial Intelligence</a>
+      </div>
+
+      <div class="card-desc">
+        Learn the advantages and disadvantages of Artificial Intelligence, how AI works with humans, and how the future will change with and without AI. A complete beginner-friendly guide.
+      </div>
+    </div>
+  </div>
+
+
 </div>
+
 
 
 
 <div class="pagination">
 
   
+  
 
+  
+  
+    
+      
+      <span class="active">1</span>
+    
+  
+    
+      <a href="/all-tools/page/2/">2</a>
+    
+  
+    
+      <a href="/all-tools/page/3/">3</a>
+    
+  
+
+  
   
     <a href="/all-tools/page/2/">Next ➡</a>
   

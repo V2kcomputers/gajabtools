@@ -6,7 +6,7 @@
     --text:#222;
     --sidebar:rgba(255,255,255,0.85);
     --glass-blur:blur(15px);
-
+      --outer-box: #BDBDBD;
     /* STATUS COLORS — LIGHT MODE */
     --success-bg:#e9f7ef;
     --success-border:#198754;
@@ -35,7 +35,7 @@ body.dark{
     --card:rgba(30,30,40,0.65);
     --text:#f1f1f1;
     --sidebar:rgba(25,25,35,0.85);
-
+    --outer-box: #1c1c2b;
     /* STATUS COLORS — DARK MODE */
     --success-bg:#0f2e1f;
     --success-border:#20c997;
@@ -66,7 +66,7 @@ html, body{
     overflow-x:hidden;
 }
 body{
-    background:linear-gradient(135deg,var(--bg),#1c1c2b);
+    background:linear-gradient(135deg,var(--bg),var(--outer-box));
     color:var(--text);
     transition:0.5s ease;
     line-height:1.7;

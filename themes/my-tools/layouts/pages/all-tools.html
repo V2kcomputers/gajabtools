@@ -13,7 +13,8 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 15px;
-    margin-top: 20px;
+    margin:20px auto;
+    max-width: 1200px;
 }
 /* Card */
 .card {
@@ -37,7 +38,15 @@
 .card-content {
     flex: 1;
 }
-
+.card-content a:link {
+  color: var(--primary);
+  text-decoration:none; }
+  .card-content a:visited {
+    color: var(--text);
+  } 
+  .card-content a:hover {
+    color: green;
+  }
 /* Title */
 .card-title {
     font-size: 16px;
@@ -56,22 +65,30 @@
     overflow: hidden;
 }
 .pagination {
-    text-align: center;
-    margin-top: 20px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
 }
 
-.pagination a {
-    display: inline-block;
-    padding: 8px 15px;
-    margin: 5px;
-    background: #007bff;
-    color: #fff;
-    border-radius: 5px;
-    text-decoration: none;
+.pagination a,
+.pagination span {
+  padding: 6px 12px;
+  border: 1px solid #ddd;
+  text-decoration: none;
+  color: var(--text);
+  border-radius: 6px;
 }
 
 .pagination a:hover {
-    background: #0056b3;
+  background: var(--card);
+}
+
+.pagination .active {
+  background: var(--primary);
+  color: var(--text);
+  border-color: var(--primary);
 }
 </style>
 
@@ -80,7 +97,7 @@
 
 <div class="card-list">
 
-{{ $paginator := .Paginate (where .Site.RegularPages "Draft" false) 11 }}
+{{ $paginator := .Paginate (where .Site.RegularPages "Draft" false) 12 }}
 
 {{ range $paginator.Pages }}
 
@@ -103,12 +120,25 @@
 
 
 <!-- Pagination Buttons -->
+<!-- Pagination Buttons -->
 <div class="pagination">
 
+  <!-- Previous Button -->
   {{ if $paginator.HasPrev }}
     <a href="{{ $paginator.Prev.URL }}">⬅ Previous</a>
   {{ end }}
 
+  <!-- Page Numbers -->
+  {{ range $paginator.Pagers }}
+    {{ if eq . $paginator }}
+      <!-- Active Page -->
+      <span class="active">{{ .PageNumber }}</span>
+    {{ else }}
+      <a href="{{ .URL }}">{{ .PageNumber }}</a>
+    {{ end }}
+  {{ end }}
+
+  <!-- Next Button -->
   {{ if $paginator.HasNext }}
     <a href="{{ $paginator.Next.URL }}">Next ➡</a>
   {{ end }}
