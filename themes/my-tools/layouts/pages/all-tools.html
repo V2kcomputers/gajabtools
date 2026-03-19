@@ -85,7 +85,7 @@
 {{ range $paginator.Pages }}
 
   <div class="card">
-    <img src="{{ .Params.image | default "/images/default.jpg" }}" alt="{{ .Title }}">
+    <img src="{{ with .Params.imagebanner }}{{ . | relURL }}{{ else }}/images/default.jpg{{ end }}" alt="{{ .Title }}">
 
     <div class="card-content">
       <div class="card-title">

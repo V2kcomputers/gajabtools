@@ -41,16 +41,11 @@
 </section>
 
 <section class="tools">
-  {{ range first 6 (sort .Site.RegularPages "Date" "desc") }}
-
-    <div class="tool-card">
-        <img src="{{ with .Params.imagebanner }}{{ . | relURL }}{{ else }}/images/default.jpg{{ end }}" alt="{{ .Title }}">
-        <h3>{{ .Title }}</h3>
-        <p> </p>
-        <a href="{{ .RelPermalink }}">
-            <button>Open Tool</button>
-        </a>
-    </div>
+  {{ range first 12 (sort .Site.RegularPages "Date" "desc") }}
+ <div class="tool-card">
+   <a href="{{ .RelPermalink }}"><img src="{{ with .Params.imagebanner }}{{ . | relURL }}{{ else }}/images/default.jpg{{ end }}"  alt="{{ .Title }}"loading="lazy" ></a>
+    <div> <h3> <a href="{{ .RelPermalink }}">{{ .Title }} </a></h3> <p>{{ .Params.description | default .Summary }} </p></div>
+</div> 
 
     {{ end }}
 

@@ -6,6 +6,7 @@
     --text:#222;
     --sidebar:rgba(255,255,255,0.85);
     --glass-blur:blur(15px);
+    --outer-box: #BDBDBD;
 }
 
 /* DARK MODE */
@@ -16,6 +17,7 @@ body.dark{
     --card:rgba(30,30,40,0.65);
     --text:#f1f1f1;
     --sidebar:rgba(25,25,35,0.85);
+    --outer-box: #1c1c2b;
 }
 
 /* RESET */
@@ -27,7 +29,7 @@ body.dark{
 }
 
 body{
-    background:linear-gradient(135deg,var(--bg),#1c1c2b);
+    background:linear-gradient(135deg,var(--bg),var(--outer-box));
     color:var(--text);
     transition:0.5s ease;
     line-height:1.7;
@@ -205,6 +207,7 @@ header{
 }
 
 /* HERO */
+
 .hero{
     text-align:center;
     padding:80px 20px;
@@ -249,7 +252,14 @@ header{
     grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
     gap:30px;
 }
-
+.tool-card p{
+    display:-webkit-box;
+    -webkit-line-clamp:2;   /* 👈 max 2 line */
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+    color: #555;
+    text-overflow:ellipsis;
+}
 /* GLASS CARD */
 .tool-card{
     background:var(--card);
@@ -294,7 +304,31 @@ header{
     transform:scale(1.05);
     box-shadow:0 0 20px var(--primary);
 }
+/* TITLE DESIGN */
+.tool-card h3{
+    font-size:18px;
+    font-weight:700;
+    margin-bottom:6px;
+    line-height:1.4;
+}
 
+/* LINK STYLE */
+.tool-card h3 a{
+    text-decoration:none;
+    color:var(--text);
+    transition:0.3s ease;
+
+    display:-webkit-box;
+    -webkit-line-clamp:2;   /* 👈 max 2 line */
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+}
+
+/* HOVER EFFECT */
+.tool-card h3 a:hover{
+    color:var(--primary);
+    text-shadow:0 0 6px var(--primary);
+}
 /* FEATURES */
 .features{
     padding:70px 20px;
@@ -340,5 +374,39 @@ body.menu-open > *:not(header){
 @media(max-width:768px){
     .logo-box img{
         height:40px;
+    }
+}
+@media(max-width:768px){
+
+    .tool-card{
+        display:flex;
+        align-items:center;
+        text-align:left;
+        gap:15px;
+        padding:15px;
+    }
+
+    .tool-card img{
+        width:110px;
+        height:90px;
+        margin:0;
+        flex-shrink:0;
+        border-radius:10px;
+    }
+
+    .tool-card h3{
+        font-size:16px;
+        margin-bottom:5px;
+    }
+
+    .tool-card p{
+        font-size:13px;
+        opacity:0.8;
+    }
+
+    .tool-card button{
+        margin-top:8px;
+        padding:6px 12px;
+        font-size:12px;
     }
 }
