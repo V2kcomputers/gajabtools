@@ -58,14 +58,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> List Card Design  </title>
+<title> All Tools Update </title>
 
 <style>
 .card-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 15px;
-    margin-top: 20px;
+    margin:20px auto;
+    max-width: 1200px;
 }
  
 .card {
@@ -89,7 +90,15 @@
 .card-content {
     flex: 1;
 }
-
+.card-content a:link {
+  color: var(--primary);
+  text-decoration:none; }
+  .card-content a:visited {
+    color: var(--text);
+  } 
+  .card-content a:hover {
+    color: green;
+  }
  
 .card-title {
     font-size: 16px;
@@ -108,22 +117,30 @@
     overflow: hidden;
 }
 .pagination {
-    text-align: center;
-    margin-top: 20px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
 }
 
-.pagination a {
-    display: inline-block;
-    padding: 8px 15px;
-    margin: 5px;
-    background: #007bff;
-    color: #fff;
-    border-radius: 5px;
-    text-decoration: none;
+.pagination a,
+.pagination span {
+  padding: 6px 12px;
+  border: 1px solid #ddd;
+  text-decoration: none;
+  color: var(--text);
+  border-radius: 6px;
 }
 
 .pagination a:hover {
-    background: #0056b3;
+  background: var(--card);
+}
+
+.pagination .active {
+  background: var(--primary);
+  color: var(--text);
+  border-color: var(--primary);
 }
 </style>
 
@@ -137,7 +154,7 @@
 
 
   <div class="card">
-    <img src="/images/default.jpg" alt="Typing test Speed English -10 Minit">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgtex9CZWpA1tbDQKE3J6tz758D5VHr8rTBuXRwO3kVWiik8wOaW3SqCTxhtmXcfUy_8yf12x6g-XnHFBcyxRmjNF4NmNqd4EWreXO_6BFKGBMQcbIPz8yw08sohhws_VSvJz63w7pGObGG1R28vleFNZsAA_L33BnKwx5FIWt5bQ4KmH1q4abiPLvTUQ/s1600/English%20Typing.jpg" alt="Typing test Speed English -10 Minit">
 
     <div class="card-content">
       <div class="card-title">
@@ -171,12 +188,35 @@
 
 
 
+
 <div class="pagination">
 
+  
   
     <a href="/all-tools/page/3/">⬅ Previous</a>
   
 
+  
+  
+    
+      <a href="/all-tools/">1</a>
+    
+  
+    
+      <a href="/all-tools/page/2/">2</a>
+    
+  
+    
+      <a href="/all-tools/page/3/">3</a>
+    
+  
+    
+      
+      <span class="active">4</span>
+    
+  
+
+  
   
 
 </div>

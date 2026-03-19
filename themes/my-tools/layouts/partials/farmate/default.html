@@ -6,17 +6,17 @@
    </style>
   </head>
 
-    <div class="single-post-header">
+    <div class="single-post-header container">
     <div class="single-post-wrapper">
       <div class="single-post-content">
 
         {{ .Content }}
        
-      
+       {{ partial "imp-codes/imageBanner.html" . }}
       <!-- Include partial for tags/terms -->
       {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
 
-       {{ partial "imp-codes/imageBanner.html" . }}
+      
      
     </div>
   </div>

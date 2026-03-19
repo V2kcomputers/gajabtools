@@ -259,7 +259,7 @@ header{
     overflow:hidden;
     color: #555;
     text-overflow:ellipsis;
-}
+} 
 /* GLASS CARD */
 .tool-card{
     background:var(--card);
