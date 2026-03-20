@@ -1,7 +1,9 @@
 
 {{ $imageURL := .Params.imageBanner }}
-<a href ="#image"  id="image"><img src="{{ $imageURL }}" 
-     loading="lazy"
-     sizes="(max-width: 600px) 100vw, 600px"  
-     alt="{{ .Title }} | www.gajabtools.com"
-     style="display: block; margin: 0 auto; max-width: 800px; height: auto;"> </a>
+<a href="#" class="image-link">
+  <img src="{{ $imageURL }}"
+       loading="lazy"
+       sizes="(max-width: 600px) 100vw, 800px"
+       alt="{{ .Title }} | www.gajabtools.com"
+       class="responsive-image">
+</a>

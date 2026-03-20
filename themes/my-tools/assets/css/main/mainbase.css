@@ -177,14 +177,34 @@ header{
 .button-group { margin-top: 20px;
 
 }
-    .btn{
+.btn-container{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin:15px 0;
+}
 
-    padding:12px 20px;
-    text-decoration:none;
-    color:#fff;
-    border-radius:6px;
-    font-weight:bold;
-    transition:0.3s;
+.btn{
+  flex:1;
+  text-align:center;
+  padding:12px 15px;
+  text-decoration:none;
+  color:#fff;
+  font-weight:600;
+  border-radius:8px;
+  transition:0.3s;
+  min-width:140px;
+}
+
+.btn1{ background:#007bff; }
+.btn2{ background:#28a745; }
+.btn3{ background:#ff9800; }
+.btn4{ background:#dc3545; }
+.btn5{ background:#6f42c1; }
+
+.btn:hover{
+  opacity:0.85;
+  transform:translateY(-2px);
 }
 .btn-open{
     background:#10a37f;
@@ -192,9 +212,7 @@ header{
 .btn-login{
     background:#0a58ca;
 }
-.btn:hover{
-    opacity:0.85;
-}
+
 .status-box{
     padding:12px;
     margin-top:15px;
@@ -460,7 +478,20 @@ footer{
   color:#aaa;
 }
 
-/* ===== MOBILE MENU FIXED ===== */
+/* ===== image ===== */
+.image-link {
+    display: block;
+    text-align: center;
+}
+
+.responsive-image {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 10px; /* optional for better UI */
+}
 /* ===== BODY BLUR WHEN MENU OPEN ===== */
 
 
