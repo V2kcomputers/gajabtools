@@ -3,6 +3,24 @@ languageCode = 'en-US'
 title = 'Gajab Tools'
 theme = "my-tools"
 
+# ✅ Enable SEO-friendly URLs
+canonifyURLs = true
+enableRobotsTXT = true
+
+# ✅ Pagination (homepage पर posts दिखाने के लिए)
+paginate = 10
+
+# ✅ Sitemap Settings (VERY IMPORTANT 🔥)
+[sitemap]
+  changefreq = "daily"
+  priority = 0.8
+  filename = "sitemap.xml"
+
+# ✅ Permalink (lowercase slug best practice)
+[permalinks]
+  posts = "/:slug/"
+
+# ✅ Menu
 [[menus.main]]
 name = 'Home'
 pageRef = '/'
@@ -18,6 +36,18 @@ name = 'Tags'
 pageRef = '/tags'
 weight = 30
 
+# ✅ Params (SEO meta ke liye useful)
+[params]
+  description = "Gajab Tools - Free Online Tools, AI Tools, SEO Tools and Guides"
+  author = "Gajab Tools"
+
+# ✅ Markup (better HTML output)
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+# ✅ Module
 [module]
   [module.hugoVersion]
     extended = false
