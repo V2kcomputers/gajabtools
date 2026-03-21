@@ -3,7 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/blog/</loc>
-    <lastmod>2026-03-20T18:45:03+05:30</lastmod>
+    <lastmod>2026-03-21T12:54:58+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/Oxaam-Com/</loc>
+    <lastmod>2026-03-21T12:54:58+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/Filecr-Com/</loc>
+    <lastmod>2026-03-21T11:41:28+05:30</lastmod>
   </url><url>
     <loc>http://localhost:1313/VLC-Media-Player/</loc>
     <lastmod>2026-03-20T18:45:03+05:30</lastmod>
