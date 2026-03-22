@@ -2,8 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/Bandy-Ai/</loc>
+    <lastmod>2026-03-22T16:54:25+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
     <loc>http://localhost:1313/blog/</loc>
-    <lastmod>2026-03-21T12:54:58+05:30</lastmod>
+    <lastmod>2026-03-22T16:54:25+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/modelslab-Com/</loc>
+    <lastmod>2026-03-22T16:07:00+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/Manus-Im-Ai/</loc>
+    <lastmod>2026-03-22T15:04:01+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
@@ -42,7 +57,17 @@
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
+    <loc>http://localhost:1313/tags/ai/</loc>
+    <lastmod>2026-03-20T08:52:37+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
     <loc>http://localhost:1313/luma-ai/</loc>
+    <lastmod>2026-03-20T08:52:37+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/tags/</loc>
     <lastmod>2026-03-20T08:52:37+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
@@ -183,11 +208,6 @@
     <priority>0.8</priority>
   </url><url>
     <loc>http://localhost:1313/page/</loc>
-    <lastmod>2026-01-18T09:00:00-07:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/tags/</loc>
     <lastmod>2026-01-18T09:00:00-07:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
