@@ -2,12 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/Bandy-Ai/</loc>
-    <lastmod>2026-03-22T16:54:25+05:30</lastmod>
+    <loc>http://localhost:1313/capilot-bing-ai/</loc>
+    <lastmod>2026-03-22T18:52:00+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
     <loc>http://localhost:1313/blog/</loc>
+    <lastmod>2026-03-22T18:52:00+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/Bandy-Ai/</loc>
     <lastmod>2026-03-22T16:54:25+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
