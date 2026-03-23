@@ -1,0 +1,56 @@
+{{/* ================= SEO META PARTIAL ================= */}}
+
+<!-- ✅ Canonical URL -->
+
+<link rel="canonical" href="{{ .Permalink }}">
+
+<!-- ================= OPEN GRAPH (Facebook / WhatsApp) ================= -->
+
+<meta property="og:site_name" content="Gajab Tools">
+<meta property="og:url" content="{{ if .Params.shorturl }}{{ .Site.BaseURL }}{{ .Params.shorturl }}{{ else }}{{ .Permalink }}{{ end }}">
+<meta property="og:title" content="{{ with .Params.seo_title }}{{ . }}{{ else }}{{ .Title }}{{ end }}">
+<meta property="og:description" content="{{ with .Params.description }}{{ . }}{{ else }}{{ .Summary | plainify | htmlEscape }}{{ end }}">
+<meta property="og:type" content="article">
+<meta property="og:image" content="{{ with .Params.imageBanner }}{{ . | absURL }}{{ else }}{{ "images/default.jpg" | absURL }}{{ end }}">
+
+<!-- ================= TWITTER CARD ================= -->
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ with .Params.seo_title }}{{ . }}{{ else }}{{ .Title }}{{ end }}">
+<meta name="twitter:description" content="{{ with .Params.description }}{{ . }}{{ else }}{{ .Summary | plainify | htmlEscape }}{{ end }}">
+<meta name="twitter:image" content="{{ with .Params.imageBanner }}{{ . | absURL }}{{ else }}{{ "images/default.jpg" | absURL }}{{ end }}">
+<meta name="twitter:site" content="@gajabtools">
+
+<!-- ================= BASIC SEO ================= -->
+
+<meta name="description" content="{{ with .Params.description }}{{ . }}{{ else }}{{ .Summary | plainify | htmlEscape }}{{ end }}">
+<meta name="keywords" content="{{ if .Params.tags }}{{ delimit .Params.tags ", " }}{{ else }}online tools, free tools, gajab tools{{ end }}">
+<meta name="author" content="Gajab Tools">
+
+<!-- ================= EXTRA META ================= -->
+
+<meta name="application-name" content="Gajab Tools">
+<meta name="theme-color" content="#0084ff">
+<meta name="robots" content="index, follow">
+<meta name="distribution" content="global">
+<meta name="language" content="English">
+
+<!-- ================= FAVICON ================= -->
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+
+<!-- ================= ARTICLE TIME ================= -->
+
+{{- $date := cond (not .Date.IsZero) .Date now }}
+{{- $last := cond (not .Lastmod.IsZero) .Lastmod $date }}
+
+<meta property="article:published_time" content="{{ $date.Format "2006-01-02T15:04:05Z07:00" }}">
+<meta property="article:modified_time" content="{{ $last.Format "2006-01-02T15:04:05Z07:00" }}">
+
+<!-- ================= ANALYTICS ================= -->
+
+{{ partial "imp-codes/analytics.html" . }}
