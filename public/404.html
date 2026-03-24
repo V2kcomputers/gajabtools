@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Not Found - 404</title>
+
+<style>
+    :root{
+        --primary:#4f46e5;
+        --secondary:#06b6d4;
+        --bg:#0f172a;
+        --text:#e2e8f0;
+    }
+
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    body{
+        background: linear-gradient(135deg, var(--bg), #020617);
+        color: var(--text);
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        text-align:center;
+    }
+
+    .container{
+        max-width:600px;
+        padding:30px;
+    }
+
+    .error-code{
+        font-size:120px;
+        font-weight:900;
+        background: linear-gradient(45deg, var(--primary), var(--secondary));
+        -webkit-background-clip:text;
+        color:transparent;
+        animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow{
+        from{ text-shadow:0 0 10px var(--primary); }
+        to{ text-shadow:0 0 25px var(--secondary); }
+    }
+
+    h1{
+        font-size:28px;
+        margin-bottom:10px;
+    }
+
+    p{
+        color:#94a3b8;
+        margin-bottom:25px;
+    }
+
+    .btn{
+        display:inline-block;
+        padding:12px 25px;
+        background: linear-gradient(45deg, var(--primary), var(--secondary));
+        color:white;
+        border-radius:30px;
+        text-decoration:none;
+        transition:0.3s;
+    }
+
+    .btn:hover{
+        transform:scale(1.05);
+        box-shadow:0 0 15px var(--primary);
+    }
+
+    .illustration{
+        margin-top:30px;
+        font-size:60px;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float{
+        0%,100%{ transform:translateY(0); }
+        50%{ transform:translateY(-10px); }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="error-code">404</div>
+    <h1>Oops! Page Not Found</h1>
+    <p>The page you are looking for might have been removed or doesn't exist.</p>
+
+    <a href="/" class="btn">Go Back Home</a>
+
+    <div class="illustration">🚀</div>
+</div>
+
+</body>
+</html>
