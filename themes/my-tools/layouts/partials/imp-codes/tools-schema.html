@@ -17,7 +17,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "Gajab Tools",  
+    "name": "Gajab Tools",
     "logo": {
       "@type": "ImageObject",
       "url": "{{ "images/logo.png" | absURL }}"
@@ -26,7 +26,7 @@
   "datePublished": "{{ with .Date }}{{ .Format "2006-01-02" }}{{ else }}{{ now.Format "2006-01-02" }}{{ end }}",
   "dateModified": "{{ with .Lastmod }}{{ .Format "2006-01-02" }}{{ else }}{{ now.Format "2006-01-02" }}{{ end }}",
   "inLanguage": "en",
-  "articleSection": "Tools",
-  "keywords": "{{ delimit .Params.tags ", " }}"
+  "articleSection": "Tools"{{ with .Params.tags }},
+  "keywords": "{{ delimit . ", " }}"{{ end }}
 }
 </script>
