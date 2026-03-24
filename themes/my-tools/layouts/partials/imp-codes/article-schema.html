@@ -1,4 +1,3 @@
-<!-- ARTICLE SCHEMA -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -24,9 +23,9 @@
     }
   },
   "datePublished": "{{ with .Date }}{{ .Format "2006-01-02" }}{{ else }}{{ now.Format "2006-01-02" }}{{ end }}",
-  "dateModified": "{{ with .Lastmod }}{{ .Format    "2006-01-02" }}{{ else }}{{ now.Format "2006-01-02" }}{{ end }}",
+  "dateModified": "{{ with .Lastmod }}{{ .Format "2006-01-02" }}{{ else }}{{ now.Format "2006-01-02" }}{{ end }}",
   "inLanguage": "en",
-  "articleSection": "Tools",
-   {{ with .Params.tags }}"keywords": "{{ delimit . ", " }}"{{ end }}
+  "articleSection": "Tools"{{ with .Params.tags }},
+  "keywords": "{{ delimit . ", " }}"{{ end }}
 }
-</script> 
+</script>
