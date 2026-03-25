@@ -7,7 +7,7 @@
     "@id": "{{ .Permalink }}"
   },
   "headline": "{{ .Title }}",
-  "description": "{{ .Params.description | default "Get complete details about this tool, features, usage, and benefits." }}",
+  "description": "{{ .Params.description | default "Get complete details about this tool, features, usage, and benefits." | safeJS }}",
   "image": "{{ .Params.featuredImage | absURL }}",
   "author": {
     "@type": "Organization",
