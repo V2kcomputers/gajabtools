@@ -138,9 +138,46 @@
     <head>
     <meta name="robots" content="index, follow">
     <link rel="shortcut icon" href="/favicon.ico">
- 
-    <style>
-   </style>
+ <style>
+.post-navigation {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.post-navigation div {
+  flex: 1;
+  padding: 15px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  background: #fafafa;
+  transition: 0.3s;
+}
+
+.post-navigation div:hover {
+  background: #f0f8ff;
+  transform: translateY(-3px);
+}
+
+.post-navigation span {
+  display: block;
+  font-size: 13px;
+  color: #777;
+}
+
+.post-navigation a {
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+  text-decoration: none;
+}
+
+.post-navigation a:hover {
+  color: #007bff;
+}
+</style>
   </head>
 
     <div class="single-post-header container">
@@ -351,7 +388,31 @@
      
     </div>
   </div>
+<br><hr>
+
+
+
+
+<div class="post-navigation">
+
+  
+    <div class="prev-post">
+      <span>⬅ Previous Post</span>
+      <a href="/luma-ai/">Luma AI – Complete Guide</a>
+    </div>
+  
+
+  
+    <div class="next-post">
+      <span>Up Next ➡</span>
+      <a href="/ugenc-ai/">ugenc.ai – Complete Information</a>
+    </div>
+  
+
+</div>
   </div>
+ 
+
 
 
   </main>

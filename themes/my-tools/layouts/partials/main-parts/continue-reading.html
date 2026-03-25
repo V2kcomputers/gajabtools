@@ -1,0 +1,24 @@
+<br><hr>
+{{ $pages := where .Site.RegularPages "Section" .Section }}
+{{ $pages = $pages.ByDate.Reverse }}
+<div class="post-navigation">
+{{ with $pages.Prev . }}
+    <a href="{{ .RelPermalink }}" class="nav-card prev">
+      {{ with .Params.imageBanner }}
+    <img src="{{ . }}" alt="{{ $.Title }}">
+  {{ end }}
+      <span class="label">⬅ Previous</span>
+      <span class="title">{{ .Title }}</span>
+    </a>
+  {{ end }}
+
+  {{ with $pages.Next . }}
+    <a href="{{ .RelPermalink }}" class="nav-card next">
+      {{ with .Params.imageBanner }}
+    <img src="{{ . }}" alt="{{ $.Title }}">
+  {{ end }}
+      <span class="label">Up Next ➡</span>
+      <span class="title">{{ .Title }}</span>
+    </a>
+  {{ end }}
+</div>
