@@ -617,11 +617,6 @@ body.menu-open > *:not(header){
     }
 }
 
-/* Prevent Horizontal Scroll */
-html, body{
-    overflow-x:hidden;
-    max-width:100%;
-}
 
 /* ===== BACKDROP OVERLAY ===== */
 .menu-overlay{

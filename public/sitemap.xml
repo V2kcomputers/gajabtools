@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/legal-pages/</loc>
+    <lastmod>2026-03-26T09:39:50+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
     <loc>http://localhost:1313/autoae-online/</loc>
     <lastmod>2026-03-25T17:39:19+05:30</lastmod>
     <changefreq>daily</changefreq>
@@ -229,11 +234,6 @@
   </url><url>
     <loc>http://localhost:1313/chatgpt/</loc>
     <lastmod>2026-02-23T10:31:25+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/about/</loc>
-    <lastmod>2026-02-19T00:00:00+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
