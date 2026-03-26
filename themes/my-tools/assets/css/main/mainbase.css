@@ -280,8 +280,8 @@ header{
   padding: 18px;
   border-radius: 14px;
   text-decoration: none;
-  background: linear-gradient(135deg, #ffffff, #f8fbff);
-  border: 1px solid #e6e6e6;
+  background: var(--card);
+  border: 1px solid var(--card);
   transition: all 0.3s ease;
   box-shadow: 0 5px 15px rgba(0,0,0,0.05);
   display: flex;
