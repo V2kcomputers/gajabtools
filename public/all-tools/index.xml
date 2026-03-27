@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>All Tools on GAJAB TOOLS</title>
-    <link>http://localhost:1313/all-tools/</link>
+    <link>https://www.gajabtools.com/all-tools/</link>
     <description>Recent content in All Tools on GAJAB TOOLS</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate></lastBuildDate>
-    <atom:link href="http://localhost:1313/all-tools/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://www.gajabtools.com/all-tools/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on GAJAB TOOLS</title>
-    <link>http://localhost:1313/tags/</link>
+    <link>https://www.gajabtools.com/tags/</link>
     <description>Recent content in Tags on GAJAB TOOLS</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 20 Mar 2026 08:52:37 +0530</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://www.gajabtools.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Ai</title>
-      <link>http://localhost:1313/tags/ai/</link>
+      <link>https://www.gajabtools.com/tags/ai/</link>
       <pubDate>Fri, 20 Mar 2026 08:52:37 +0530</pubDate>
-      <guid>http://localhost:1313/tags/ai/</guid>
+      <guid>https://www.gajabtools.com/tags/ai/</guid>
       <description></description>
     </item>
     <item>
       <title>List</title>
-      <link>http://localhost:1313/tags/list/</link>
+      <link>https://www.gajabtools.com/tags/list/</link>
       <pubDate>Sun, 18 Jan 2026 09:00:00 -0700</pubDate>
-      <guid>http://localhost:1313/tags/list/</guid>
+      <guid>https://www.gajabtools.com/tags/list/</guid>
       <description></description>
     </item>
   </channel>
