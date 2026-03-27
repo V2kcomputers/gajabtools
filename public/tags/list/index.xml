@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>List on GAJAB TOOLS</title>
-    <link>https://www.gajabtools.com/tags/list/</link>
+    <link>http://localhost:1313/tags/list/</link>
     <description>Recent content in List on GAJAB TOOLS</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 18 Jan 2026 09:00:00 -0700</lastBuildDate>
-    <atom:link href="https://www.gajabtools.com/tags/list/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/list/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>All Tools</title>
-      <link>https://www.gajabtools.com/all-tools/</link>
+      <link>http://localhost:1313/all-tools/</link>
       <pubDate>Sun, 18 Jan 2026 09:00:00 -0700</pubDate>
-      <guid>https://www.gajabtools.com/all-tools/</guid>
+      <guid>http://localhost:1313/all-tools/</guid>
       <description></description>
     </item>
   </channel>
