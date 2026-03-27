@@ -4,11 +4,11 @@
   "@type": "Article",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "{{ .Permalink }}"
+    "@id": "https://www.gajabtools.com{{ .RelPermalink }}"
   },
   "headline": "{{ .Title }}",
   "description": "{{ .Params.description | default "Get complete details about this tool, features, usage, and benefits." | safeJS }}",
-  "image": "{{ .Params.featuredImage | absURL }}",
+  "image": "{{ .Params.BannerImage | absURL }}",
   "author": {
     "@type": "Organization",
     "name": "Gajab Tools",
@@ -19,7 +19,7 @@
     "name": "Gajab Tools",
     "logo": {
       "@type": "ImageObject",
-      "url": "{{ "images/logo.png" | absURL }}"
+      "url": "{{ "https://www.gajabtools.com/android-chrome-192x192.png" | absURL }}"
     }
   },
   "datePublished": "{{ with .Date }}{{ .Format "2006-01-02T15:04:05Z07:00" }}{{ else }}{{ now.Format "2006-01-02T15:04:05Z07:00" }}{{ end }}",

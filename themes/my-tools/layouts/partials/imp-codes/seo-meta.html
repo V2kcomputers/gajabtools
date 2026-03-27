@@ -2,12 +2,12 @@
 
 <!-- ✅ Canonical URL -->
 
-<link rel="canonical" href="{{ .Permalink }}">
+<link rel="canonical" href="https://www.gajabtools.com{{ .RelPermalink }}">
 
 <!-- ================= OPEN GRAPH (Facebook / WhatsApp) ================= -->
 
 <meta property="og:site_name" content="Gajab Tools">
-<meta property="og:url" content="{{ if .Params.shorturl }}{{ .Site.BaseURL }}{{ .Params.shorturl }}{{ else }}{{ .Permalink }}{{ end }}">
+<meta property="og:url" content="https://www.gajabtools.com{{ .RelPermalink }}">
 <meta property="og:title" content="{{ with .Params.seo_title }}{{ . }}{{ else }}{{ .Title }}{{ end }}">
 <meta property="og:description" content="{{ with .Params.description }}{{ . }}{{ else }}{{ .Summary | plainify | htmlEscape }}{{ end }}">
 <meta property="og:type" content="article">
