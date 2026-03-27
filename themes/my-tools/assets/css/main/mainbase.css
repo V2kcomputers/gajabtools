@@ -306,7 +306,7 @@ header{
 .nav-card .title {
   font-size: 16px;
   font-weight: 600;
-  color: #222;
+  color:var(--text);
   line-height: 1.4;
 }
 
