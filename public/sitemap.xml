@@ -2,6 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/blog/</loc>
+    <lastmod>2026-03-28T11:20:19+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/picsart-com/</loc>
+    <lastmod>2026-03-28T11:20:19+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/remove-bg/</loc>
+    <lastmod>2026-03-28T10:39:54+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/notebooklm-by-google/</loc>
+    <lastmod>2026-03-28T10:20:09+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
     <loc>http://localhost:1313/policy-pages/</loc>
     <lastmod>2026-03-26T11:22:33+05:30</lastmod>
     <changefreq>daily</changefreq>
@@ -48,11 +68,6 @@
     <priority>0.8</priority>
   </url><url>
     <loc>http://localhost:1313/autoae-online/</loc>
-    <lastmod>2026-03-25T17:39:19+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/blog/</loc>
     <lastmod>2026-03-25T17:39:19+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
