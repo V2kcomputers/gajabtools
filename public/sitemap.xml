@@ -2,8 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/developer/</loc>
+    <lastmod>2026-03-28T19:18:37+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/w3schools-com/</loc>
+    <lastmod>2026-03-28T19:18:37+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/codepen-io/</loc>
+    <lastmod>2026-03-28T18:50:08+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/archive-org/</loc>
+    <lastmod>2026-03-28T18:17:05+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
     <loc>http://localhost:1313/blog/</loc>
-    <lastmod>2026-03-28T16:33:23+05:30</lastmod>
+    <lastmod>2026-03-28T18:17:05+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
@@ -154,11 +174,6 @@
   </url><url>
     <loc>http://localhost:1313/ugenc-ai/</loc>
     <lastmod>2026-03-20T17:30:56+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/developer/</loc>
-    <lastmod>2026-03-20T16:41:25+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
