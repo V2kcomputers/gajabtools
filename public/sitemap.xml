@@ -2,6 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/developer/</loc>
+    <lastmod>2026-03-29T15:44:24+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/cloudflare/</loc>
+    <lastmod>2026-03-29T15:44:24+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/gitlab-com/</loc>
+    <lastmod>2026-03-29T15:18:40+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/github-com/</loc>
+    <lastmod>2026-03-29T14:46:06+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
     <loc>http://localhost:1313/creator/</loc>
     <lastmod>2026-03-29T13:20:15+05:30</lastmod>
     <changefreq>daily</changefreq>
@@ -14,11 +34,6 @@
   </url><url>
     <loc>http://localhost:1313/youtube-create-app/</loc>
     <lastmod>2026-03-29T12:56:34+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/developer/</loc>
-    <lastmod>2026-03-29T12:08:48+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
