@@ -6,8 +6,29 @@
     <description>Recent content in Home on GAJAB TOOLS</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 29 Mar 2026 15:44:24 +0530</lastBuildDate>
+    <lastBuildDate>Sun, 29 Mar 2026 17:56:45 +0530</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Freepik - Graphic Resource Platform - Gajab Tools</title>
+      <link>http://localhost:1313/what-is-freepik/</link>
+      <pubDate>Sun, 29 Mar 2026 17:56:45 +0530</pubDate>
+      <guid>http://localhost:1313/what-is-freepik/</guid>
+      <description>&lt;!DOCTYPE html&gt;&#xD;&#xA;&lt;html lang=&#34;en&#34;&gt;&#xD;&#xA;&lt;head&gt;&#xD;&#xA;  &lt;meta charset=&#34;UTF-8&#34;&gt;&#xD;&#xA;  &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1.0&#34;&gt;&#xD;&#xA;  &lt;title&gt;Freepik - Graphic Resource Platform&lt;/title&gt;&#xD;&#xA;  &lt;meta name=&#34;description&#34; content=&#34;Freepik is a popular graphic resource platform that provides vectors, images, PSD templates, icons, and design assets for designers and developers.&#34;&gt;&#xD;&#xA;  &lt;style&gt;&#xD;&#xA;&#xD;&#xA;    ul {&#xD;&#xA;      padding-left: 20px;&#xD;&#xA;    }&#xD;&#xA;    .box {&#xD;&#xA;      background: var(--info-bg);&#xD;&#xA;      padding: 15px;&#xD;&#xA;      border-left: 5px solid #0d6efd;&#xD;&#xA;      margin: 20px 0;&#xD;&#xA;    }&#xD;&#xA;  &lt;/style&gt;&#xD;&#xA;&#xD;&#xA;  &lt;h1&gt;What is Freepik?&lt;/h1&gt;&#xD;&#xA;&#xD;&#xA;  &lt;p&gt;&#xD;&#xA;    &lt;strong&gt;Freepik&lt;/strong&gt; is a popular online graphic resource platform that provides high-quality design assets such as vectors, stock images, PSD templates, icons, and illustrations. &#xD;&#xA;    It is widely used by graphic designers, web developers, bloggers, and digital marketers.&#xD;&#xA;  &lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>What is VS Code - Complete Guide - Gajab Tools</title>
+      <link>http://localhost:1313/vs-code/</link>
+      <pubDate>Sun, 29 Mar 2026 17:21:38 +0530</pubDate>
+      <guid>http://localhost:1313/vs-code/</guid>
+      <description>&lt;style&gt;&#xD;&#xA;&#xD;&#xA;  .card {&#xD;&#xA;    background: var(--card);&#xD;&#xA;    padding: 15px;&#xD;&#xA;    border-radius: 10px;&#xD;&#xA;    margin-top: 15px;&#xD;&#xA;    box-shadow: 0 4px 10px rgba(0,0,0,0.05);&#xD;&#xA;  }&#xD;&#xA;  ul {&#xD;&#xA;    padding-left: 20px;&#xD;&#xA;  }&#xD;&#xA;&lt;/style&gt;&#xD;&#xA;&lt;/head&gt;&#xD;&#xA;&#xD;&#xA;&lt;body&gt;&#xD;&#xA;&#xD;&#xA;&lt;div class=&#34;container&#34;&gt;&#xD;&#xA;&#xD;&#xA;  &lt;!-- Banner --&gt;&#xD;&#xA;  &lt;div class=&#34;banner&#34;&gt;&#xD;&#xA;    &lt;h1&gt;Visual Studio Code (VS Code)&lt;/h1&gt;&#xD;&#xA;    &lt;p&gt;Complete Beginner to Advanced Guide&lt;/p&gt;&#xD;&#xA;  &lt;/div&gt;&#xD;&#xA;&lt;div class=&#34;btn-container&#34;&gt;&#xD;&#xA;  &#xD;&#xA;&#xD;&#xA;  &#xD;&#xA;    &#xD;&#xA;      &#xD;&#xA;      &#xD;&#xA;      &#xD;&#xA;&#xD;&#xA;      &lt;a href=&#34;https://code.visualstudio.com/Download&#34; target=&#34;_blank&#34;&#xD;&#xA;         class=&#34;btn btn1&#34;&gt;&#xD;&#xA;        Download VS Code&#xD;&#xA;      &lt;/a&gt;&#xD;&#xA;    &#xD;&#xA;  &#xD;&#xA;&lt;/div&gt;&#xD;&#xA;  &lt;!-- Introduction --&gt;&#xD;&#xA;  &lt;div class=&#34;card&#34;&gt;&#xD;&#xA;    &lt;h2&gt;💻 What is VS Code?&lt;/h2&gt;&#xD;&#xA;    &lt;p&gt;&lt;strong&gt;Visual Studio Code (VS Code)&lt;/strong&gt; is a free and lightweight code editor developed by Microsoft. It is used for writing, editing, and managing code for websites, apps, and software.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>How to Build an App Using Tile.dev (Step-by-Step Guide) - Gajab Tools</title>
+      <link>http://localhost:1313/build-an-app-using-tile-dev/</link>
+      <pubDate>Sun, 29 Mar 2026 16:54:55 +0530</pubDate>
+      <guid>http://localhost:1313/build-an-app-using-tile-dev/</guid>
+      <description>&lt;style&gt;&#xD;&#xA;.banner {&#xD;&#xA;  background:var(--success-bg);&#xD;&#xA;  padding: 40px;&#xD;&#xA;  border-radius: 12px;&#xD;&#xA;  text-align: center;&#xD;&#xA;}&#xD;&#xA;.banner h1 {&#xD;&#xA;  font-size: 32px;&#xD;&#xA;  margin-bottom: 10px;&#xD;&#xA;}&#xD;&#xA;.section {&#xD;&#xA;  margin-top: 30px;&#xD;&#xA;  padding: 20px;&#xD;&#xA;  background: var(--card);&#xD;&#xA;  border-radius: 10px;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;.code {&#xD;&#xA;  background: var(--bg);&#xD;&#xA;  padding: 15px;&#xD;&#xA;&#xD;&#xA;  border-radius: 8px;&#xD;&#xA;  font-family: monospace;&#xD;&#xA;  overflow-x: auto;&#xD;&#xA;}&#xD;&#xA;ul {&#xD;&#xA;  padding-left: 20px;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;&lt;/style&gt;&#xD;&#xA;&lt;/head&gt;&#xD;&#xA;&#xD;&#xA;&lt;body&gt;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;  &lt;!-- Banner --&gt;&#xD;&#xA;  &lt;div class=&#34;banner&#34;&gt;&#xD;&#xA;    &lt;h1&gt;🚀 Build an App Using Tile.dev&lt;/h1&gt;&#xD;&#xA;    &lt;p&gt;Step-by-Step Guide to Create Mobile Apps Faster with AI&lt;/p&gt;&#xD;&#xA;  &lt;/div&gt;&#xD;&#xA;&lt;div class=&#34;btn-container&#34;&gt;&#xD;&#xA;  &#xD;&#xA;&#xD;&#xA;  &#xD;&#xA;    &#xD;&#xA;      &#xD;&#xA;      &#xD;&#xA;      &#xD;&#xA;&#xD;&#xA;      &lt;a href=&#34;https://tile.dev&#34; target=&#34;_blank&#34;&#xD;&#xA;         class=&#34;btn btn1&#34;&gt;&#xD;&#xA;        Build App Now&#xD;&#xA;      &lt;/a&gt;&#xD;&#xA;    &#xD;&#xA;  &#xD;&#xA;&lt;/div&gt;&#xD;&#xA;  &lt;!-- Introduction --&gt;&#xD;&#xA;  &lt;div class=&#34;section&#34;&gt;&#xD;&#xA;    &lt;h2&gt;📌 What is Tile.dev?&lt;/h2&gt;&#xD;&#xA;    &lt;p&gt;&#xD;&#xA;      Tile.dev is an AI-powered app development platform that helps developers&#xD;&#xA;      build mobile apps faster using automation, APIs, and intelligent agents.&#xD;&#xA;    &lt;/p&gt;</description>
+    </item>
     <item>
       <title>What is Cloudflare? - Complete Guide</title>
       <link>http://localhost:1313/cloudflare/</link>
