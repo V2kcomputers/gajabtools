@@ -6,8 +6,15 @@
     <description>Recent content in Developers on GAJAB TOOLS</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 29 Mar 2026 17:21:38 +0530</lastBuildDate>
+    <lastBuildDate>Mon, 30 Mar 2026 09:31:32 +0530</lastBuildDate>
     <atom:link href="http://localhost:1313/developer/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Msty AI - Complete Guide - Gajab Tools</title>
+      <link>http://localhost:1313/msty-ai-complete-guide/</link>
+      <pubDate>Mon, 30 Mar 2026 09:31:32 +0530</pubDate>
+      <guid>http://localhost:1313/msty-ai-complete-guide/</guid>
+      <description>&lt;style&gt;&#xD;&#xA;.section {&#xD;&#xA;  background: var(--card);&#xD;&#xA;  padding: 20px;&#xD;&#xA;  margin-top: 20px;&#xD;&#xA;  border-radius: 10px;&#xD;&#xA;  box-shadow: 0 4px 10px rgba(0,0,0,0.05);&#xD;&#xA;}&#xD;&#xA;h1, h2 {&#xD;&#xA;  margin-top: 0;&#xD;&#xA;}&#xD;&#xA;ul {&#xD;&#xA;  padding-left: 20px;&#xD;&#xA;}&#xD;&#xA;.table {&#xD;&#xA;  width: 100%;&#xD;&#xA;  border-collapse: collapse;&#xD;&#xA;}&#xD;&#xA;.table th, .table td {&#xD;&#xA;  border: 1px solid #ddd;&#xD;&#xA;  padding: 10px;&#xD;&#xA;  text-align: left;&#xD;&#xA;}&#xD;&#xA;.table th {&#xD;&#xA;  background: #4a00e0;&#xD;&#xA;  color: white;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;&lt;/style&gt;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;  &lt;!-- Header --&gt;&#xD;&#xA;  &lt;div class=&#34;header&#34;&gt;&#xD;&#xA;    &lt;h1&gt;Msty AI Complete Guide&lt;/h1&gt;&#xD;&#xA;    &lt;p&gt;What is Msty AI, Uses, Safety &amp; Offline Working&lt;/p&gt;</description>
+    </item>
     <item>
       <title>What is VS Code - Complete Guide - Gajab Tools</title>
       <link>http://localhost:1313/vs-code/</link>

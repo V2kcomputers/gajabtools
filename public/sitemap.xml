@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/developer/</loc>
+    <lastmod>2026-03-30T09:31:32+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/msty-ai-complete-guide/</loc>
+    <lastmod>2026-03-30T09:31:32+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
     <loc>http://localhost:1313/creator/</loc>
     <lastmod>2026-03-29T19:56:58+05:30</lastmod>
     <changefreq>daily</changefreq>
@@ -24,11 +34,6 @@
   </url><url>
     <loc>http://localhost:1313/what-is-freepik/</loc>
     <lastmod>2026-03-29T17:56:45+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/developer/</loc>
-    <lastmod>2026-03-29T17:21:38+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
