@@ -6,8 +6,22 @@
     <description>Recent content in Developers on GAJAB TOOLS</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 Apr 2026 18:32:39 +0530</lastBuildDate>
+    <lastBuildDate>Wed, 01 Apr 2026 19:58:30 +0530</lastBuildDate>
     <atom:link href="http://localhost:1313/developer/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>What is Hugo? Complete Guide with Comparison - Gajab Tools</title>
+      <link>http://localhost:1313/what-is-hugo-complete-guide/</link>
+      <pubDate>Wed, 01 Apr 2026 19:58:30 +0530</pubDate>
+      <guid>http://localhost:1313/what-is-hugo-complete-guide/</guid>
+      <description>&lt;style&gt;&#xD;&#xA;&#xD;&#xA;table{width:100%; border-collapse:collapse; margin:20px 0;}&#xD;&#xA;table, th, td{border:1px solid #ddd;}&#xD;&#xA;th, td{padding:10px; text-align:left;}&#xD;&#xA;th{background:#2c3e50; color:#fff;}&#xD;&#xA;.highlight{background:var(--info-bg); padding:10px; border-left:4px solid #3498db;}&#xD;&#xA;&lt;/style&gt;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&lt;h1&gt;What is Hugo? Complete Guide with Comparison&lt;/h1&gt;&#xD;&#xA;&#xD;&#xA;&lt;p&gt;&lt;strong&gt;Hugo&lt;/strong&gt; is one of the fastest static website generators. It helps you build modern websites without using a database. Hugo converts your content into static HTML files, making your website extremely fast, secure, and easy to host.&lt;/p&gt;&#xD;&#xA;&#xD;&#xA;&lt;div class=&#34;highlight&#34;&gt;&#xD;&#xA;&lt;strong&gt;Simple Definition:&lt;/strong&gt; Hugo is a static site generator that creates websites using Markdown and templates without requiring a database.&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&#xD;&#xA;&lt;h2&gt;How Hugo Works&lt;/h2&gt;&#xD;&#xA;&lt;ul&gt;&#xD;&#xA;&lt;li&gt;You write content in Markdown (.md)&lt;/li&gt;&#xD;&#xA;&lt;li&gt;Apply a theme or template&lt;/li&gt;&#xD;&#xA;&lt;li&gt;Hugo generates static HTML files&lt;/li&gt;&#xD;&#xA;&lt;li&gt;Upload your site to hosting platforms like GitHub Pages, Netlify, or Cloudflare Pages&lt;/li&gt;&#xD;&#xA;&lt;/ul&gt;&#xD;&#xA;&#xD;&#xA;&lt;h2&gt;Key Features of Hugo&lt;/h2&gt;&#xD;&#xA;&#xD;&#xA;&lt;h3&gt;1. Super Fast Performance&lt;/h3&gt;&#xD;&#xA;&lt;p&gt;Hugo is known for its blazing fast speed. It can build thousands of pages in seconds.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Wordpress Complete Career Guide - Gajab Tools</title>
+      <link>http://localhost:1313/wordpress-complete-career-guide/</link>
+      <pubDate>Wed, 01 Apr 2026 19:40:10 +0530</pubDate>
+      <guid>http://localhost:1313/wordpress-complete-career-guide/</guid>
+      <description>&lt;style&gt;&#xD;&#xA;&#xD;&#xA;.card{background:var(--card); padding:20px; margin-bottom:20px; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.08);}&#xD;&#xA;ul{padding-left:20px;}&#xD;&#xA;.banner{background:linear-gradient(135deg,#0073aa,#00c6ff); color:#fff; padding:40px 20px; text-align:center; border-radius:12px;}&#xD;&#xA;.highlight{color:#0073aa; font-weight:bold;}&#xD;&#xA;table{width:100%; border-collapse:collapse; margin-top:10px;}&#xD;&#xA;table,th,td{border:1px solid #ccc;}&#xD;&#xA;th,td{padding:10px; text-align:left;}&#xD;&#xA;th{background:#0073aa; color:#fff;}&#xD;&#xA;&lt;/style&gt;&#xD;&#xA;&lt;br&gt;&#xD;&#xA;&lt;div class=&#34;banner&#34;&gt;&#xD;&#xA;&lt;h1&gt;WordPress Complete Career Guide&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;Learn What WordPress Is, How to Build a Career, Earn Money &amp; Secure Your Future&lt;/p&gt;&#xD;&#xA;&lt;/div&gt; &lt;br&gt;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&lt;div class=&#34;card&#34;&gt;&#xD;&#xA;&lt;h2&gt;What is WordPress?&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;&lt;strong&gt;WordPress&lt;/strong&gt; is a powerful Content Management System (CMS) that allows you to create websites without advanced coding knowledge. It is used for blogs, business websites, eCommerce stores, portfolios, and more.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Blogger Guide: What to Write &amp; How to Improve - Gajab Tools</title>
       <link>http://localhost:1313/blogger-complete-guide/</link>
