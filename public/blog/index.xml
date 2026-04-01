@@ -6,8 +6,15 @@
     <description>Recent content in Blogs on GAJAB TOOLS</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 28 Mar 2026 19:45:20 +0530</lastBuildDate>
+    <lastBuildDate>Wed, 01 Apr 2026 08:57:26 +0530</lastBuildDate>
     <atom:link href="http://localhost:1313/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Equal AI – AI Call Assistant - Gajab Tools</title>
+      <link>http://localhost:1313/equal-ai-call-assistant/</link>
+      <pubDate>Wed, 01 Apr 2026 08:57:26 +0530</pubDate>
+      <guid>http://localhost:1313/equal-ai-call-assistant/</guid>
+      <description>&lt;!DOCTYPE html&gt;&#xD;&#xA;&lt;html lang=&#34;en&#34;&gt;&#xD;&#xA;&lt;head&gt;&#xD;&#xA;&lt;meta charset=&#34;UTF-8&#34;&gt;&#xD;&#xA;&lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1.0&#34;&gt;&#xD;&#xA;&lt;title&gt;Equal AI – AI Call Assistant&lt;/title&gt;&#xD;&#xA;&#xD;&#xA;&lt;style&gt;&#xD;&#xA;ul {&#xD;&#xA;  padding-left: 20px;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;li {&#xD;&#xA;  margin-bottom: 8px;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;.highlight {&#xD;&#xA;  background: var(--info-bg);&#xD;&#xA;  padding: 10px;&#xD;&#xA;  border-left: 5px solid #2196f3;&#xD;&#xA;  margin: 15px 0;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;.table-box {&#xD;&#xA;  overflow-x: auto;&#xD;&#xA;  margin-top: 15px;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;table {&#xD;&#xA;  width: 100%;&#xD;&#xA;  border-collapse: collapse;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;table, th, td {&#xD;&#xA;  border: 1px solid #ddd;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;th {&#xD;&#xA;  background: #2196f3;&#xD;&#xA;  color: #fff;&#xD;&#xA;  padding: 10px;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;td {&#xD;&#xA;  padding: 10px;&#xD;&#xA;  text-align: left;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;.footer {&#xD;&#xA;  text-align: center;&#xD;&#xA;  margin-top: 30px;&#xD;&#xA;  font-size: 14px;&#xD;&#xA;  color: #777;&#xD;&#xA;}&#xD;&#xA;&lt;/style&gt;&#xD;&#xA;&lt;/head&gt;&#xD;&#xA;&#xD;&#xA;&lt;body&gt;&#xD;&#xA;&#xD;&#xA;&lt;div class=&#34;container&#34;&gt;&#xD;&#xA;&#xD;&#xA;&lt;h1&gt;Equal AI – AI Call Assistant&lt;/h1&gt;&#xD;&#xA;&#xD;&#xA;&lt;p&gt;&lt;strong&gt;Equal AI Call Assistant&lt;/strong&gt; is a smart artificial intelligence-powered tool that can automatically handle phone calls. It works like a virtual receptionist that answers calls, talks to people, records information, and helps manage communication efficiently.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Google Vids - Complete Guide - Gajab Tools</title>
       <link>http://localhost:1313/google-vids/</link>
