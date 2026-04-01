@@ -2,6 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/developer/</loc>
+    <lastmod>2026-04-01T17:19:05+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/google-adsense-complete-guide/</loc>
+    <lastmod>2026-04-01T17:19:05+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/blog/</loc>
+    <lastmod>2026-04-01T16:49:50+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/bridgefy-offline-messaging-app-complete-guide/</loc>
+    <lastmod>2026-04-01T16:49:50+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
     <loc>http://localhost:1313/creator/</loc>
     <lastmod>2026-04-01T15:30:06+05:30</lastmod>
     <changefreq>daily</changefreq>
@@ -12,18 +32,8 @@
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
-    <loc>http://localhost:1313/developer/</loc>
-    <lastmod>2026-04-01T10:19:37+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
     <loc>http://localhost:1313/quickref-me-complete-guide/</loc>
     <lastmod>2026-04-01T10:19:37+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/blog/</loc>
-    <lastmod>2026-04-01T08:57:26+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>

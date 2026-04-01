@@ -6,8 +6,15 @@
     <description>Recent content in Blogs on GAJAB TOOLS</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 Apr 2026 08:57:26 +0530</lastBuildDate>
+    <lastBuildDate>Wed, 01 Apr 2026 16:49:50 +0530</lastBuildDate>
     <atom:link href="http://localhost:1313/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bridgefy - Offline Messaging App Complete Guide- Gajab Tools</title>
+      <link>http://localhost:1313/bridgefy-offline-messaging-app-complete-guide/</link>
+      <pubDate>Wed, 01 Apr 2026 16:49:50 +0530</pubDate>
+      <guid>http://localhost:1313/bridgefy-offline-messaging-app-complete-guide/</guid>
+      <description>&lt;style&gt;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;.banner h1{&#xD;&#xA;  font-size:32px;&#xD;&#xA;}&#xD;&#xA;.box{&#xD;&#xA;  background:var(--info-bg);&#xD;&#xA;  padding:15px;&#xD;&#xA;  border-left:5px solid #2a5298;&#xD;&#xA;  margin:15px 0;&#xD;&#xA;  border-radius:6px;&#xD;&#xA;}&#xD;&#xA;table{&#xD;&#xA;  width:100%;&#xD;&#xA;  border-collapse:collapse;&#xD;&#xA;  margin:20px 0;&#xD;&#xA;}&#xD;&#xA;table,th,td{&#xD;&#xA;  border:1px solid #ccc;&#xD;&#xA;}&#xD;&#xA;th{&#xD;&#xA;  background:#2a5298;&#xD;&#xA;  color:#fff;&#xD;&#xA;  padding:10px;&#xD;&#xA;}&#xD;&#xA;td{&#xD;&#xA;  padding:10px;&#xD;&#xA;}&#xD;&#xA;ul{&#xD;&#xA;  padding-left:20px;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;&lt;/style&gt;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&lt;div class=&#34;banner&#34;&gt;&#xD;&#xA;  &lt;h1&gt;Bridgefy - Offline Messaging App&lt;/h1&gt;&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&#xD;&#xA;&lt;h2&gt;What is Bridgefy?&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;&#xD;&#xA;Bridgefy is an offline messaging application that allows users to send and receive messages without using the internet. It works using Bluetooth technology, making it extremely useful in areas where there is no mobile network or WiFi.&#xD;&#xA;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Equal AI – AI Call Assistant - Gajab Tools</title>
       <link>http://localhost:1313/equal-ai-call-assistant/</link>
