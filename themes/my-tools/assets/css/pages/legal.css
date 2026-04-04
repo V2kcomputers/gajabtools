@@ -29,7 +29,19 @@ ul{
   border-left:4px solid var(--primary);
   margin:20px 0;
 }
-
+.box {
+  background: var(--info-bg);
+  padding: 15px;
+  border-left: 5px solid #007bff;
+  margin: 15px 0;
+}
+ .card, .section {
+    padding: 20px;
+    margin: 15px;
+    background: var(--card);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
 .footer-note{
   margin-top:40px;
   padding-top:20px;
@@ -71,7 +83,22 @@ textarea{
   min-height:120px;
 }
 
-
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  table, th, td {
+    border: 1px solid #ccc;
+  }
+  th, td {
+    padding: 10px;
+    text-align: left;
+  }
+  th {
+    background: #4285F4;
+    color: white;
+  }
 table a {
     color: #1a73e8;
     text-decoration: none;

@@ -2,12 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/google-forms-complete-detailed-guide/</loc>
-    <lastmod>2026-04-04T06:00:23+05:30</lastmod>
+    <loc>http://localhost:1313/online-tools/</loc>
+    <lastmod>2026-04-04T10:07:31+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
-    <loc>http://localhost:1313/online-tools/</loc>
+    <loc>http://localhost:1313/zoho-forms-complete-guide/</loc>
+    <lastmod>2026-04-04T10:07:31+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/google-forms-complete-detailed-guide/</loc>
     <lastmod>2026-04-04T06:00:23+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>

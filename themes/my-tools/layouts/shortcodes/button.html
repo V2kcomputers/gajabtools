@@ -1,0 +1,11 @@
+<div class="btn-container">
+  {{ $colors := slice "btn1" "btn2" "btn3" "btn4" "btn5" }}
+  {{ with .Page.Params.links }}
+    {{ range $index, $item := . }}
+      <a href="{{ $item.url }}" target="_blank"
+         class="btn {{ index $colors (mod $index (len $colors)) }}">
+        {{ $item.title }}
+      </a>
+    {{ end }}
+  {{ end }}
+</div>
