@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Online-Tools on GAJAB TOOLS</title>
+    <link>http://localhost:1313/online-tools/</link>
+    <description>Recent content in Online-Tools on GAJAB TOOLS</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 04 Apr 2026 06:00:23 +0530</lastBuildDate>
+    <atom:link href="http://localhost:1313/online-tools/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Google Forms Complete Guide - Gajab Tools</title>
+      <link>http://localhost:1313/google-forms-complete-detailed-guide/</link>
+      <pubDate>Sat, 04 Apr 2026 06:00:23 +0530</pubDate>
+      <guid>http://localhost:1313/google-forms-complete-detailed-guide/</guid>
+      <description>&lt;!DOCTYPE html&gt;&#xD;&#xA;&lt;html lang=&#34;en&#34;&gt;&#xD;&#xA;&lt;head&gt;&#xD;&#xA;&lt;meta charset=&#34;UTF-8&#34;&gt;&#xD;&#xA;&lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1.0&#34;&gt;&#xD;&#xA;&lt;title&gt;Google Forms Complete Guide&lt;/title&gt;&#xD;&#xA;&lt;style&gt;&#xD;&#xA;&#xD;&#xA;  section {&#xD;&#xA;    padding: 20px;&#xD;&#xA;    margin: 15px;&#xD;&#xA;    background: #fff;&#xD;&#xA;    border-radius: 8px;&#xD;&#xA;    box-shadow: 0 2px 5px rgba(0,0,0,0.1);&#xD;&#xA;  }&#xD;&#xA;  h2 {&#xD;&#xA;    color: #333;&#xD;&#xA;  }&#xD;&#xA;  ul {&#xD;&#xA;    padding-left: 20px;&#xD;&#xA;  }&#xD;&#xA;  table {&#xD;&#xA;    width: 100%;&#xD;&#xA;    border-collapse: collapse;&#xD;&#xA;    margin-top: 10px;&#xD;&#xA;  }&#xD;&#xA;  table, th, td {&#xD;&#xA;    border: 1px solid #ccc;&#xD;&#xA;  }&#xD;&#xA;  th, td {&#xD;&#xA;    padding: 10px;&#xD;&#xA;    text-align: left;&#xD;&#xA;  }&#xD;&#xA;  th {&#xD;&#xA;    background: #4285F4;&#xD;&#xA;    color: white;&#xD;&#xA;  }&#xD;&#xA;&#xD;&#xA;&lt;/style&gt;&#xD;&#xA;&#xD;&#xA;&lt;header&gt;&#xD;&#xA;  &lt;h1&gt;Google Forms - Complete Detailed Guide&lt;/h1&gt;&#xD;&#xA;  &lt;p&gt;Create Surveys, Quizzes, and Online Forms Easily&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
