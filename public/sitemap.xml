@@ -2,8 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/clideo-video-editor-complete-guide/</loc>
+    <lastmod>2026-04-04T12:19:43+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/creator/</loc>
+    <lastmod>2026-04-04T12:19:43+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/google-sheets-complete-guide/</loc>
+    <lastmod>2026-04-04T11:57:29+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
     <loc>http://localhost:1313/online-tools/</loc>
-    <lastmod>2026-04-04T10:07:31+05:30</lastmod>
+    <lastmod>2026-04-04T11:57:29+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/microsoft-forms-complete-guide/</loc>
+    <lastmod>2026-04-04T11:35:16+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
@@ -54,11 +74,6 @@
   </url><url>
     <loc>http://localhost:1313/bridgefy-offline-messaging-app-complete-guide/</loc>
     <lastmod>2026-04-01T16:49:50+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/creator/</loc>
-    <lastmod>2026-04-01T15:30:06+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
