@@ -155,3 +155,67 @@ button:hover{
     padding:20px;
   }
 }
+/* --------------------you may like-------------------------------*/
+.link-list {
+  margin: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--card);
+}
+/* Each Row */
+.link-list a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: #0d6efd;
+  font-size: 15px;
+  border-bottom: 1px solid #ddd;
+  transition: 0.2s;
+}
+
+/* Left side (text + date) */
+.left {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Title */
+.link-text {
+  font-size: 15px;
+  color: #0d6efd;
+}
+
+/* Date */
+.left small {
+  font-size: 12px;
+   color: #e63946;
+  font-weight: 500;
+  margin-top: 3px;
+}
+
+/* Arrow */
+.link-list a span {
+  font-size: 18px;
+  color: #888;
+  transition: transform 0.3s;
+}
+
+/* Hover */
+.link-list a:hover {
+  background: var(--info-bg);
+}
+
+.link-list a:hover span {
+  transform: translateX(6px);
+}
+
+/* Remove last border */
+.link-list a:last-child {
+  border-bottom: none;
+}
+/* Last item border remove */
+.link-list a:last-child {
+  border-bottom: none;
+} 
