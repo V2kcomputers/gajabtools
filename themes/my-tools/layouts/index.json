@@ -1,12 +1,11 @@
-[
+{{- $index := slice -}}
 {{- range .Site.RegularPages -}}
-{
-  "title": "{{ .Title }}",
-  "link": "{{ .RelPermalink }}",
-  "content": {{ .Summary | jsonify }},
-  "image": "{{ with .Params.imageBanner }}{{ . }}{{ else }}/default.png{{ end }}",
-  "date": "{{ .Date.Format "02 Jan 2006" }}"
-}
-{{- if not (last 1 .Site.RegularPages) -}},{{- end -}}
+  {{- $index = $index | append (dict 
+    "title" .Title 
+    "content" (.Summary | plainify)
+    "link" .RelPermalink 
+    "date" (.Date.Format "02 Jan 2006")
+    "image" (or .Params.imageBanner "/default.jpg")
+  ) -}}
 {{- end -}}
-]
+{{ $index | jsonify }}

@@ -1,5 +1,5 @@
-{{ define "main" }}
 
+{{ define "main" }}
 <div class="search-container">
   <input type="text" id="searchInput" placeholder="🔍 Search schemes, jobs, tools...">
 
@@ -79,7 +79,7 @@
 let fuse;
 let data = [];
 
-fetch("https://www.gajabtools.com/index.json")
+fetch("/index.json")
   .then(res => res.json())
   .then(json => {
     data = json;
@@ -117,11 +117,11 @@ document.getElementById("searchInput").addEventListener("input", function () {
 
     return `
       <a href="${item.link}" class="result-card">
-        <img src="${item.image || '/default.jpg'}" class="result-img">
+        <img src="${item.image || '/default.png'}" class="result-img">
         <div class="result-content">
           <div class="result-title">${highlight(item.title, query)}</div>
           <div class="result-desc">${item.content.substring(0, 80)}...</div>
-          <div class="result-date">${item.date}</div>
+    
         </div>
       </a>
     `;
@@ -130,4 +130,4 @@ document.getElementById("searchInput").addEventListener("input", function () {
   resultsDiv.innerHTML = output;
 });
 </script>
-{{ end }}
+{{ end}}
