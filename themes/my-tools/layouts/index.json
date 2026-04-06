@@ -3,8 +3,8 @@
 {
   "title": "{{ .Title }}",
   "link": "{{ .RelPermalink }}",
-  "content": {{ .Plain | jsonify }},
-  "image": "{{ .Params.image }}",
+  "content": {{ .Summary | jsonify }},
+  "image": "{{ with .Params.imageBanner }}{{ . }}{{ else }}/default.png{{ end }}",
   "date": "{{ .Date.Format "02 Jan 2006" }}"
 }
 {{- if not (last 1 .Site.RegularPages) -}},{{- end -}}
