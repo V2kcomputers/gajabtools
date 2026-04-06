@@ -1,0 +1,130 @@
+<div class="search-container">
+  <input type="text" id="searchInput" placeholder="🔍 Search schemes, jobs, tools...">
+
+  <div id="results"></div>
+</div>
+
+<style>
+.search-container {
+  max-width: 700px;
+  margin: 30px auto;
+  padding: 10px;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  outline: none;
+}
+
+#searchInput:focus {
+  border-color: #007bff;
+}
+
+.result-card {
+  display: flex;
+  gap: 12px;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  text-decoration: none;
+  color: #000;
+}
+
+.result-card:hover {
+  background: #f8f9fa;
+}
+
+.result-img {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.result-content {
+  flex: 1;
+}
+
+.result-title {
+  font-weight: 600;
+  font-size: 16px;
+  color: #007bff;
+}
+
+.result-desc {
+  font-size: 13px;
+  color: #555;
+}
+
+.result-date {
+  font-size: 12px;
+  color: #999;
+}
+
+.no-result {
+  text-align: center;
+  padding: 15px;
+  color: red;
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+
+<script>
+let fuse;
+let data = [];
+
+fetch("/index.json")
+  .then(res => res.json())
+  .then(json => {
+    data = json;
+
+    fuse = new Fuse(data, {
+      keys: ["title", "content"],
+      threshold: 0.4,
+      includeMatches: true
+    });
+  });
+
+function highlight(text, query) {
+  let regex = new RegExp(`(${query})`, "gi");
+  return text.replace(regex, `<mark>$1</mark>`);
+}
+
+document.getElementById("searchInput").addEventListener("input", function () {
+  let query = this.value.trim();
+  let resultsDiv = document.getElementById("results");
+
+  if (!fuse || query === "") {
+    resultsDiv.innerHTML = "";
+    return;
+  }
+
+  let results = fuse.search(query).slice(0, 6);
+
+  if (results.length === 0) {
+    resultsDiv.innerHTML = `<div class="no-result">No results found</div>`;
+    return;
+  }
+
+  let output = results.map(r => {
+    let item = r.item;
+
+    return `
+      <a href="${item.link}" class="result-card">
+        <img src="${item.image || '/default.jpg'}" class="result-img">
+        <div class="result-content">
+          <div class="result-title">${highlight(item.title, query)}</div>
+          <div class="result-desc">${item.content.substring(0, 80)}...</div>
+          <div class="result-date">${item.date}</div>
+        </div>
+      </a>
+    `;
+  }).join("");
+
+  resultsDiv.innerHTML = output;
+});
+</script>

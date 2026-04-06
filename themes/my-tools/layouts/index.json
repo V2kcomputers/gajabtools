@@ -1,0 +1,12 @@
+[
+{{- range .Site.RegularPages -}}
+{
+  "title": "{{ .Title }}",
+  "link": "{{ .RelPermalink }}",
+  "content": {{ .Plain | jsonify }},
+  "image": "{{ .Params.image }}",
+  "date": "{{ .Date.Format "02 Jan 2006" }}"
+}
+{{- if not (last 1 .Site.RegularPages) -}},{{- end -}}
+{{- end -}}
+]
