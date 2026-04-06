@@ -41,5 +41,13 @@
   <div class="footer-bottom">
     © {{ now.Year }}  GajabTools.com | All Rights Reserved | Page Update: <strong>{{ .Date | time.Format "02-01-2006 15:04:05" }}</strong>
   </div>
-
+    {{ with .Params.jsFiles }}
+    {{ range . }}
+      {{ $js := resources.Get . | minify | fingerprint }}
+      <script src="{{ $js.Permalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+    {{ end }}
+  {{ else }}
+    <!-- No custom JS files -->
+  {{ end }}
+  
 {{ partial "jsFiles/home.html" . }}

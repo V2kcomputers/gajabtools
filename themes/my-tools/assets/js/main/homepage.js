@@ -42,12 +42,7 @@ if(localStorage.getItem("theme")==="dark"){
     document.querySelector(".toggle-btn").textContent="☀";
 }
 
-function searchTool(){
-    let input = document.getElementById("searchInput").value.toLowerCase();
-    let cards = document.querySelectorAll(".tool-card");
-
-    cards.forEach(card=>{
-        let title = card.querySelector("h3").textContent.toLowerCase();
-        card.style.display = title.includes(input) ? "block" : "none";
-    });
+//-------------------Click to Url Change-----------------------------
+function goToSearchPage() {
+    window.location.href = "/search/";
 }

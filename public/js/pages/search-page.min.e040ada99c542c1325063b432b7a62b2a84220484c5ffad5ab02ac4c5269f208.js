@@ -1,0 +1,9 @@
+let fuse,data=[];const input=document.getElementById("searchInput"),resultsDiv=document.getElementById("results"),clearBtn=document.getElementById("clearBtn"),params=new URLSearchParams(window.location.search),queryParam=params.get("q")||"";input.value=queryParam;function highlight(e,t){let n=new RegExp(`(${t})`,"gi");return e.replace(n,`<mark>$1</mark>`)}function runSearch(e){if(!fuse||e===""){resultsDiv.innerHTML="";return}let t=fuse.search(e).slice(0,6);if(t.length===0){resultsDiv.innerHTML=`<div class="no-result">No results found</div>`;return}let n=t.map(t=>{let n=t.item;return`
+      <a href="${n.link}" class="result-card">
+        <img src="${n.image||"/default.png"}" class="result-img">
+        <div class="result-content">
+          <div class="result-title">${highlight(n.title,e)}</div>
+          <div class="result-desc">${n.content?n.content.substring(0,80):""}...</div>
+        </div>
+      </a>
+    `}).join("");resultsDiv.innerHTML=n}async function initSearch(){const e=await fetch("/index.json");data=await e.json(),fuse=new Fuse(data,{keys:["title","content"],threshold:.4,ignoreLocation:!0}),queryParam&&runSearch(queryParam)}initSearch(),input.addEventListener("input",function(){const e=this.value.trim(),t=e?`/search/?q=${encodeURIComponent(e)}`:`/search/`;history.replaceState(null,"",t),clearBtn.style.display=e?"block":"none",runSearch(e)}),clearBtn.addEventListener("click",function(){input.value="",resultsDiv.innerHTML="",clearBtn.style.display="none",history.replaceState(null,"","/search/"),input.focus()}),document.addEventListener("keydown",function(e){e.key==="Escape"&&(input.value="",resultsDiv.innerHTML="",clearBtn.style.display="none")}),document.addEventListener("keydown",function(e){e.ctrlKey&&e.key.toLowerCase()==="k"&&(e.preventDefault(),input.focus())}),window.addEventListener("load",()=>{window.innerWidth>768&&input.focus()})

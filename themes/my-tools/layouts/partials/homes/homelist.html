@@ -17,8 +17,9 @@
     <div class="menu-btn" onclick="toggleMenu()">☰</div>
     <div class="nav-links" id="navLinks">
         <div class="close-btn" onclick="closeMenu()">✕</div>
-        <a href="/" onclick="closeMenu()">Home</a>
-        <a href="/all-tools/" onclick="closeMenu()">All Tools</a>
+        <a href="/" onclick="closeMenu()">🏠 Home</a>
+        <a href="/all-tools/" onclick="closeMenu()">🛠️ All Tools</a>
+        <a href="/search/" onclick="closeMenu()">🔎 Search</a>
         <button class="toggle-btn" onclick="toggleDarkMode()">🌙</button>
     </div>
 </header>
@@ -26,9 +27,15 @@
 <section class="hero">
     <h1>All Online Tools</h1>
     <p>हमारे सभी उपयोगी टूल्स एक ही जगह पर।</p>
-    <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Search Tool..." onkeyup="searchTool()">
-    </div>
+  <div class="search-box">
+    <input 
+        type="text" 
+        id="searchInput" 
+        placeholder="Search Tool..." 
+        onfocus="goToSearchPage()"
+        onkeyup="searchTool()"
+    >
+</div>
 </section>
 
 <section class="tools">

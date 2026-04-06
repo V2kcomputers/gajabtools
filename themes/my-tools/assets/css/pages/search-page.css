@@ -1,0 +1,161 @@
+.search-container {
+ 
+  margin: 30px auto;
+  padding: 10px;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  outline: none;
+}
+
+#searchInput:focus {
+  border-color: #007bff;
+}
+
+.result-card {
+  display: flex;
+  gap: 12px;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  text-decoration: none;
+  background: var(--card);
+  color: var(--text);
+}
+
+.result-card:hover {
+  background:var(--bg);
+}
+
+.result-img {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.result-content {
+  flex: 1;
+}
+
+.result-title {
+  font-weight: 600;
+  font-size: 16px;
+  color: #007bff;
+}
+
+.result-desc {
+  font-size: 13px;
+  color: #555;
+}
+
+.result-date {
+  font-size: 12px;
+  color: #999;
+}
+
+.no-result {
+  text-align: center;
+  padding: 15px;
+  color: red;
+}
+.search-box {
+  position: relative;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 12px 40px 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+}
+
+#clearBtn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  cursor: pointer;
+  display: none;
+  color: #999;
+}
+
+#clearBtn:hover {
+  color: #000;
+}
+
+
+.search-container {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 10px;
+}
+#results {
+  transition: opacity 0.2s ease;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+.fade-in {
+  opacity: 1;
+}
+/* Sticky mobile */
+@media (max-width: 768px) {
+  .search-container {
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 999;
+  }
+}
+
+.search-box {
+  position: relative;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 12px 40px 12px 15px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  transition: 0.2s;
+}
+
+#searchInput:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0,123,255,0.2);
+}
+
+#clearBtn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  cursor: pointer;
+  display: none;
+  color: #999;
+}
+
+#clearBtn:hover {
+  color: #000;
+}
+
+/* Result animation */
+.result-card {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(5px);}
+  to {opacity: 1; transform: translateY(0);}
+}
