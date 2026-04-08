@@ -6,8 +6,15 @@
     <description>Recent content in Developers on GAJAB TOOLS</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 06 Apr 2026 18:44:16 +0530</lastBuildDate>
+    <lastBuildDate>Wed, 08 Apr 2026 13:00:03 +0530</lastBuildDate>
     <atom:link href="http://localhost:1313/developer/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>What is Schema Markup? Types, Examples &amp; Complete SEO Guide (2026)</title>
+      <link>http://localhost:1313/schema-markup/</link>
+      <pubDate>Wed, 08 Apr 2026 13:00:03 +0530</pubDate>
+      <guid>http://localhost:1313/schema-markup/</guid>
+      <description>&lt;!-- ================= TITLE ================= --&gt;&#xD;&#xA;&lt;h1&gt;What is Schema Markup? Types, Examples &amp; Complete SEO Guide (2026)&lt;/h1&gt;&#xD;&#xA;&#xD;&#xA;&lt;p&gt;&lt;strong&gt;Schema Markup&lt;/strong&gt; is a type of structured data that helps search engines like Google understand your website content better. By using schema, your site can appear in &lt;strong&gt;rich results&lt;/strong&gt;, which improves your visibility, click-through rate (CTR), and overall SEO performance.&lt;/p&gt;&#xD;&#xA;&#xD;&#xA;&lt;!-- ================= OVERVIEW TABLE ================= --&gt;&#xD;&#xA;&lt;table border=&#34;1&#34; cellpadding=&#34;8&#34; style=&#34;border-collapse: collapse;&#34;&gt;&#xD;&#xA;&lt;tr&gt;&lt;th&gt;Feature&lt;/th&gt;&lt;th&gt;Details&lt;/th&gt;&lt;/tr&gt;&#xD;&#xA;&lt;tr&gt;&lt;td&gt;Type&lt;/td&gt;&lt;td&gt;Structured Data&lt;/td&gt;&lt;/tr&gt;&#xD;&#xA;&lt;tr&gt;&lt;td&gt;Format&lt;/td&gt;&lt;td&gt;JSON-LD&lt;/td&gt;&lt;/tr&gt;&#xD;&#xA;&lt;tr&gt;&lt;td&gt;Purpose&lt;/td&gt;&lt;td&gt;SEO Optimization&lt;/td&gt;&lt;/tr&gt;&#xD;&#xA;&lt;tr&gt;&lt;td&gt;Main Benefit&lt;/td&gt;&lt;td&gt;Rich Snippets &amp; Higher CTR&lt;/td&gt;&lt;/tr&gt;&#xD;&#xA;&lt;/table&gt;&#xD;&#xA;&#xD;&#xA;&lt;!-- ================= TYPES ================= --&gt;&#xD;&#xA;&lt;h2&gt;Types of Schema Markup&lt;/h2&gt;&#xD;&#xA;&#xD;&#xA;&lt;p&gt;There are many types of schema markup, but the most important ones for SEO are:&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Blackbox AI Complete Guide</title>
       <link>http://localhost:1313/blackbox-ai-complete-guide/</link>

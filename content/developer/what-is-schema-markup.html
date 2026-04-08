@@ -1,0 +1,207 @@
++++
+
+date = 2026-04-08T13:00:03+05:30
+url = "/schema-markup/"
+imageBanner = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhk9JmRp3FdOa1OFBJ0spoIxk3-7B6TRyLfsD-ykUzkxs-B3KCbldhaUVylkJkJSbPitCCUTDpIcPi70onWKb782HY8x3jvFI-BoNhKLBOZKiMwofD5O1dMuj4MKlRcpSgKV9M5JgF5MJvC44FadUSNMnokIuiBeFTscsMq2xdxAWvWxKhDrnNmvoQiiQ/s1600/Schema%20Markup.jpg"
+title = "What is Schema Markup? Types, Examples & Complete SEO Guide (2026)"
+
+description = "Learn what schema markup is, its types, examples, and how to use it for SEO. Improve rankings, CTR, and get rich results in Google with this complete guide."
+links = [
+  "Google Search Console = https://search.google.com/search-console",
+  "Google Rich Results Test = https://search.google.com/test/rich-results",
+  "Schema.org Official = https://schema.org"
+]
+cssStyles = ["css/pages/legal.css"]
++++
+<!-- ================= TITLE ================= -->
+<h1>What is Schema Markup? Types, Examples & Complete SEO Guide (2026)</h1>
+
+<p><strong>Schema Markup</strong> is a type of structured data that helps search engines like Google understand your website content better. By using schema, your site can appear in <strong>rich results</strong>, which improves your visibility, click-through rate (CTR), and overall SEO performance.</p>
+
+<!-- ================= OVERVIEW TABLE ================= -->
+<table border="1" cellpadding="8" style="border-collapse: collapse;">
+<tr><th>Feature</th><th>Details</th></tr>
+<tr><td>Type</td><td>Structured Data</td></tr>
+<tr><td>Format</td><td>JSON-LD</td></tr>
+<tr><td>Purpose</td><td>SEO Optimization</td></tr>
+<tr><td>Main Benefit</td><td>Rich Snippets & Higher CTR</td></tr>
+</table>
+
+<!-- ================= TYPES ================= -->
+<h2>Types of Schema Markup</h2>
+
+<p>There are many types of schema markup, but the most important ones for SEO are:</p>
+
+<ul>
+<li>Article Schema</li>
+<li>FAQ Schema</li>
+<li>Breadcrumb Schema</li>
+<li>Organization Schema</li>
+<li>WebSite Schema</li>
+<li>HowTo Schema</li>
+</ul>
+
+<!-- ================= ARTICLE ================= -->
+<h2>1. Article Schema</h2>
+<p>This schema is used for blog posts and articles.</p>
+
+<pre>
+&lt;script type="application/ld+json"&gt;
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Schema Guide 2026",
+ "author": {
+   "@type": "Person",
+   "name": "Yojna Portal"
+ },
+ "datePublished": "2026-04-08",
+ "dateModified": "2026-04-08"
+}
+&lt;/script&gt;
+</pre>
+
+<!-- ================= FAQ ================= -->
+<h2>2. FAQ Schema</h2>
+<p>This schema is used for frequently asked questions.</p>
+
+<pre>
+&lt;script type="application/ld+json"&gt;
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is schema markup?",
+   "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Schema markup is structured data that helps search engines understand your content."
+   }
+  }
+ ]
+}
+&lt;/script&gt;
+</pre>
+
+<!-- ================= BREADCRUMB ================= -->
+<h2>3. Breadcrumb Schema</h2>
+<p>This schema helps display your site navigation in search results.</p>
+
+<pre>
+&lt;script type="application/ld+json"&gt;
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://example.com"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Schema Guide",
+   "item": "https://example.com/schema"
+  }
+ ]
+}
+&lt;/script&gt;
+</pre>
+
+<!-- ================= ORGANIZATION ================= -->
+<h2>4. Organization Schema</h2>
+<p>This schema defines your brand or website identity.</p>
+
+<pre>
+&lt;script type="application/ld+json"&gt;
+{
+ "@context": "https://schema.org",
+ "@type": "Organization",
+ "name": "Yojna Portal",
+ "url": "https://yojnaportal.com",
+ "logo": "https://yojnaportal.com/logo.png"
+}
+&lt;/script&gt;
+</pre>
+
+<!-- ================= WEBSITE ================= -->
+<h2>5. WebSite Schema</h2>
+<p>This schema enables a search box in Google results.</p>
+
+<pre>
+&lt;script type="application/ld+json"&gt;
+{
+ "@context": "https://schema.org",
+ "@type": "WebSite",
+ "url": "https://yojnaportal.com",
+ "potentialAction": {
+   "@type": "SearchAction",
+   "target": "https://yojnaportal.com/search?q={search_term_string}",
+   "query-input": "required name=search_term_string"
+ }
+}
+&lt;/script&gt;
+</pre>
+
+<!-- ================= HOWTO ================= -->
+<h2>6. HowTo Schema</h2>
+<p>This schema is used for step-by-step guides.</p>
+
+<pre>
+&lt;script type="application/ld+json"&gt;
+{
+ "@context": "https://schema.org",
+ "@type": "HowTo",
+ "name": "How to Apply Online",
+ "step": [
+  {
+   "@type": "HowToStep",
+   "text": "Visit the official website"
+  },
+  {
+   "@type": "HowToStep",
+   "text": "Complete registration"
+  },
+  {
+   "@type": "HowToStep",
+   "text": "Fill out the application form"
+  }
+ ]
+}
+&lt;/script&gt;
+</pre>
+
+<!-- ================= HOW TO ADD ================= -->
+<h2>How to Add Schema Markup to Your Website</h2>
+
+<ol>
+<li>Identify your content type (article, FAQ, etc.)</li>
+<li>Create schema code in JSON-LD format</li>
+<li>Add it inside a &lt;script&gt; tag</li>
+<li>Test using Google Rich Results Test</li>
+</ol>
+
+<!-- ================= BENEFITS ================= -->
+<h2>Benefits of Schema Markup</h2>
+
+<ul>
+<li>Enables rich snippets in search results</li>
+<li>Improves click-through rate (CTR)</li>
+<li>Enhances search visibility</li>
+<li>Helps search engines understand content better</li>
+</ul>
+{{<buttons>}}
+<!-- ================= FAQs ================= -->
+<h2>FAQs</h2>
+
+<h3>What is schema markup?</h3>
+<p>Schema markup is structured data that helps search engines understand your content.</p>
+
+<h3>Is schema a ranking factor?</h3>
+<p>Schema is not a direct ranking factor, but it improves CTR and visibility.</p>
+
+<h3>Which schema types are most important?</h3>
+<p>Article, FAQ, and Breadcrumb schema are the most important for SEO.</p>
