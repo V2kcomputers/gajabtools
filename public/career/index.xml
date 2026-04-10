@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Careers on GAJAB TOOLS</title>
+    <link>http://localhost:1313/career/</link>
+    <description>Recent content in Careers on GAJAB TOOLS</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 10 Apr 2026 19:33:09 +0530</lastBuildDate>
+    <atom:link href="http://localhost:1313/career/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>5 Books for Lazy People - Gajab Tools</title>
+      <link>http://localhost:1313/5-books-for-lazy-people/</link>
+      <pubDate>Fri, 10 Apr 2026 19:33:09 +0530</pubDate>
+      <guid>http://localhost:1313/5-books-for-lazy-people/</guid>
+      <description>&lt;!DOCTYPE html&gt;&#xD;&#xA;&#xD;&#xA;&lt;html lang=&#34;en&#34;&gt;&#xD;&#xA;&lt;head&gt;&#xD;&#xA;&lt;meta charset=&#34;UTF-8&#34;&gt;&#xD;&#xA;&lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1.0&#34;&gt;&#xD;&#xA;&lt;title&gt;5 Books for Lazy People&lt;/title&gt;&#xD;&#xA;&#xD;&#xA;&lt;style&gt;&#xD;&#xA;.card img{width:100px;height:140px;object-fit:cover;border-radius:6px}&#xD;&#xA;&lt;/style&gt;&#xD;&#xA;&#xD;&#xA;&lt;script&gt;&#xD;&#xA;function searchBooks(val){&#xD;&#xA;  let cards=document.querySelectorAll(&#39;.card&#39;);&#xD;&#xA;  val=val.toLowerCase();&#xD;&#xA;  cards.forEach(c=&gt;{&#xD;&#xA;    let text=c.innerText.toLowerCase();&#xD;&#xA;    c.style.display=text.includes(val)?&#39;flex&#39;:&#39;none&#39;;&#xD;&#xA;  });&#xD;&#xA;}&#xD;&#xA;&lt;/script&gt;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&lt;h1&gt;📚 5 Best Books for Lazy People&lt;/h1&gt;&#xD;&#xA;&#xD;&#xA;&lt;input type=&#34;text&#34; placeholder=&#34;Search book...&#34; onkeyup=&#34;searchBooks(this.value)&#34;&gt;&#xD;&#xA;&#xD;&#xA;&lt;div class=&#34;card&#34;&gt;&#xD;&#xA;&lt;img src=&#34;https://images-na.ssl-images-amazon.com/images/I/81wgcld4wxL.jpg&#34;&gt;&#xD;&#xA;&lt;div&gt;&#xD;&#xA;&lt;h3&gt;Atomic Habits&lt;/h3&gt;&#xD;&#xA;&lt;p&gt;&lt;b&gt;Author:&lt;/b&gt; James Clear&lt;/p&gt;&#xD;&#xA;&lt;p&gt;Build small habits that create big life changes.&lt;/p&gt;&#xD;&#xA;&lt;p&gt;&lt;b&gt;Why read:&lt;/b&gt; Simple system to improve daily routine.&lt;/p&gt;&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&#xD;&#xA;&lt;div class=&#34;card&#34;&gt;&#xD;&#xA;&lt;img src=&#34;https://images-na.ssl-images-amazon.com/images/I/71zytzrg6lL.jpg&#34;&gt;&#xD;&#xA;&lt;div&gt;&#xD;&#xA;&lt;h3&gt;The 5 AM Club&lt;/h3&gt;&#xD;&#xA;&lt;p&gt;&lt;b&gt;Author:&lt;/b&gt; Robin Sharma&lt;/p&gt;&#xD;&#xA;&lt;p&gt;Master your mornings to boost productivity.&lt;/p&gt;&#xD;&#xA;&lt;p&gt;&lt;b&gt;Why read:&lt;/b&gt; Builds discipline and focus.&lt;/p&gt;&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&#xD;&#xA;&lt;div class=&#34;card&#34;&gt;&#xD;&#xA;&lt;img src=&#34;https://images-na.ssl-images-amazon.com/images/I/61Qe0euJJZL.jpg&#34;&gt;&#xD;&#xA;&lt;div&gt;&#xD;&#xA;&lt;h3&gt;Do It Today&lt;/h3&gt;&#xD;&#xA;&lt;p&gt;&lt;b&gt;Author:&lt;/b&gt; Darius Foroux&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Top 5 Best Books to Read for Success &amp; Self Growth</title>
+      <link>http://localhost:1313/top-5-best-books-you-should-read/</link>
+      <pubDate>Fri, 10 Apr 2026 19:01:33 +0530</pubDate>
+      <guid>http://localhost:1313/top-5-best-books-you-should-read/</guid>
+      <description>&lt;div class=&#34;post-container&#34; style=&#34;font-family: Arial, sans-serif; line-height:1.6;&#34;&gt;&#xD;&#xA;&#xD;&#xA;  &lt;!-- Banner --&gt;&#xD;&#xA;&#xD;&#xA;  &lt;h1 style=&#34;margin-top:20px;&#34;&gt;📚 Top 5 Best Books You Should Read&lt;/h1&gt;&#xD;&#xA;&#xD;&#xA;  &lt;p&gt;&#xD;&#xA;    If you want to improve your mindset, grow financially, and become successful in life,&#xD;&#xA;    these 5 books can completely change your thinking. These books are highly recommended&#xD;&#xA;    worldwide and are easy to understand for beginners as well.&#xD;&#xA;  &lt;/p&gt;&#xD;&#xA;&#xD;&#xA;  &lt;!-- Book 1 --&gt;&#xD;&#xA;  &lt;div style=&#34;border:1px solid #ddd; padding:15px; border-radius:10px; margin-top:20px;&#34;&gt;&#xD;&#xA;    &lt;h2&gt;1. Rich Dad Poor Dad – Robert Kiyosaki&lt;/h2&gt;&#xD;&#xA;    &lt;img src=&#34;https://source.unsplash.com/400x300/?finance,money&#34; style=&#34;width:100%; border-radius:8px;&#34; alt=&#34;&#34;&gt;&#xD;&#xA;    &#xD;&#xA;    &lt;p&gt;&lt;strong&gt;About Book:&lt;/strong&gt; This book explains the difference between rich and poor mindset and teaches how money works.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
