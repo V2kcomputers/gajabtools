@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/blog/</loc>
+    <lastmod>2026-04-10T15:17:30+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/bhashini-complete-guide/</loc>
+    <lastmod>2026-04-10T15:17:30+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
     <loc>http://localhost:1313/developer/</loc>
     <lastmod>2026-04-08T13:00:03+05:30</lastmod>
     <changefreq>daily</changefreq>
@@ -54,11 +64,6 @@
   </url><url>
     <loc>http://localhost:1313/what-is-follow-it/</loc>
     <lastmod>2026-04-05T10:17:05+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/blog/</loc>
-    <lastmod>2026-04-04T19:43:38+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
@@ -432,7 +437,7 @@
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
-    <loc>http://localhost:1313/Aieasi-Ai/</loc>
+    <loc>http://localhost:1313/aieasi-ai/</loc>
     <lastmod>2026-03-19T18:05:26+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
@@ -562,61 +567,6 @@
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
-    <loc>http://localhost:1313/typing-test/hindi/l10/</loc>
-    <lastmod>2026-01-10T18:34:52+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/typing-speed-test/</loc>
-    <lastmod>2026-01-10T18:34:52+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/typing-test/hindi/l9/</loc>
-    <lastmod>2026-01-09T18:34:52+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/typing-test/hindi/l8/</loc>
-    <lastmod>2026-01-08T18:34:52+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/typing-test/hindi/l7/</loc>
-    <lastmod>2026-01-07T18:34:52+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/typing-test/hindi/l6/</loc>
-    <lastmod>2026-01-06T18:34:52+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/typing-test/hindi/l1/</loc>
-    <lastmod>2026-01-05T18:34:52+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/typing-test/hindi/l1/</loc>
-    <lastmod>2026-01-04T18:34:52+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/typing-test/hindi/l1/</loc>
-    <lastmod>2026-01-03T18:34:52+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/typing-test/hindi/l1/</loc>
-    <lastmod>2026-01-02T18:34:52+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/typing-test/hindi/l1/</loc>
-    <lastmod>2026-01-01T18:34:52+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
     <loc>http://localhost:1313/dotted-qr-code/</loc>
     <lastmod>2025-12-12T10:33:18+05:30</lastmod>
     <changefreq>daily</changefreq>
@@ -633,14 +583,6 @@
     <priority>0.8</priority>
   </url><url>
     <loc>http://localhost:1313/categories/</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/typing-test/english/10m/</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/typing-test/english/10m/</loc>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
