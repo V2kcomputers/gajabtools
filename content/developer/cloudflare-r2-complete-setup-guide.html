@@ -1,0 +1,175 @@
++++
+title = 'Cloudflare R2 Complete Setup Guide - Gajab Tools'
+date = 2026-04-11T14:49:56+05:30
+url = "/cloudflare-r2-complete-setup-guide/"
+imageBanner = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhHqqdeuwxT5WyQ_wu4z0LkKDIpYAdfXuFzLLWqhuS2eoLmoCt5drx-8Dr52RGuGgOwsTWsqzTdu09RUyRj57YsmPrsjnSTkslBUADu6V4c5Ina0O_e3h0ieSdm1zgyljtOHu4QgTHeVO79uwhKCsu4WWwNwQb_E1MCA79ypM8Y3GkdM2xk0XbkNnUhYg/s1600/Cloudflare%20R2.jpg"
+description = "Learn what Cloudflare R2 is, how it works, its uses, pricing, advantages, and step-by-step setup guide. Best object storage for static websites and developers."
+links = [
+  { title = "Cloudflare Official Website", url = "https://www.cloudflare.com/" },
+  { title = "Cloudflare R2 Overview", url = "https://www.cloudflare.com/products/r2/" },
+  { title = "R2 Pricing Details", url = "https://developers.cloudflare.com/r2/pricing/" },
+  { title = "R2 Documentation", url = "https://developers.cloudflare.com/r2/" },
+  { title = "Cloudflare Dashboard Login", url = "https://dash.cloudflare.com/" }
+]
+cssStyles = ["css/pages/legal.css"]
++++
+<h1>Cloudflare R2: Complete Guide (What, Uses, Pricing & Setup)</h1>
+
+<p><strong>Cloudflare R2</strong> is an object storage service provided by Cloudflare that allows users to store and deliver large amounts of data such as images, videos, backups, and documents efficiently and at a lower cost.</p>
+
+<div class="highlight">
+<strong>Main Advantage:</strong> Cloudflare R2 offers <b>Zero Egress Fees</b>, meaning you do not pay for data transfer when users download your files.
+</div>
+
+<hr>
+
+<h2>What is Cloudflare R2?</h2>
+
+<p>Cloudflare R2 is similar to Amazon S3 and Google Cloud Storage, but it is designed to eliminate high bandwidth costs. It stores data in the form of objects inside containers called buckets.</p>
+
+<ul>
+<li>Store files (images, videos, PDFs)</li>
+<li>Access via public URL or API</li>
+<li>Integrates with Cloudflare CDN</li>
+<li>Works well with static websites like Hugo</li>
+</ul>
+
+<hr>
+
+<h2>How Cloudflare R2 Works</h2>
+
+<ol>
+<li>Create a bucket</li>
+<li>Upload files into the bucket</li>
+<li>Each file gets a unique URL</li>
+<li>Use that URL in your website or app</li>
+</ol>
+
+<p>Cloudflare CDN automatically caches and delivers files quickly to users worldwide.</p>
+
+<hr>
+
+<h2>Uses of Cloudflare R2</h2>
+
+<h3>1. Website Media Hosting</h3>
+<p>Store images, banners, PDFs, and other static files for fast delivery.</p>
+
+<h3>2. Backup Storage</h3>
+<p>Save database backups and website backups securely.</p>
+
+<h3>3. Video Hosting</h3>
+<p>Host small video files for websites and applications.</p>
+
+<h3>4. Static Website Optimization</h3>
+<p>Reduce GitHub or server load by storing assets in R2.</p>
+
+<h3>5. App Development</h3>
+<p>Use R2 as a backend storage system with APIs.</p>
+
+<hr>
+
+<h2>Cloudflare R2 Pricing</h2>
+
+<table>
+<tr>
+<th>Feature</th>
+<th>Details</th>
+</tr>
+
+<tr>
+<td>Free Storage</td>
+<td>10 GB/month</td>
+</tr>
+
+<tr>
+<td>Paid Storage</td>
+<td>~$0.015 per GB/month</td>
+</tr>
+
+<tr>
+<td>Data Transfer (Egress)</td>
+<td>FREE</td>
+</tr>
+
+<tr>
+<td>Requests</td>
+<td>Free limit + low cost after</td>
+</tr>
+</table>
+
+<div class="highlight">
+Compared to Amazon S3, where data transfer costs can be high, Cloudflare R2 saves significant money due to zero egress charges.
+</div>
+
+<hr>
+
+<h2>Advantages of Cloudflare R2</h2>
+
+<ul>
+<li>Zero egress fees</li>
+<li>Cost-effective storage</li>
+<li>Fast delivery via Cloudflare CDN</li>
+<li>S3-compatible API</li>
+<li>Ideal for static sites (Hugo, Blogger, etc.)</li>
+</ul>
+
+<hr>
+
+<h2>Limitations of Cloudflare R2</h2>
+
+<ul>
+<li>Not a full video streaming platform</li>
+<li>Requires basic technical knowledge</li>
+<li>No advanced media processing</li>
+</ul>
+
+<hr>
+
+<h2>Step-by-Step Setup Guide</h2>
+
+<h3>Step 1: Create Cloudflare Account</h3>
+<p>Sign up or log in to your Cloudflare account.</p>
+
+<h3>Step 2: Enable R2</h3>
+<p>Go to Dashboard → R2 → Click "Get Started"</p>
+
+<h3>Step 3: Create Bucket</h3>
+<p>Click on "Create Bucket" and give a unique name (example: my-images)</p>
+
+<h3>Step 4: Upload Files</h3>
+<p>Upload files manually or using API tools.</p>
+
+<h3>Step 5: Enable Public Access</h3>
+<p>Make bucket public or connect a custom domain.</p>
+
+<h3>Step 6: Use in Website</h3>
+
+<pre>
+&lt;img src="https://your-bucket.r2.dev/image.jpg"&gt;
+</pre>
+
+<hr>
+
+<h2>Best Use Case for Developers</h2>
+
+<p>If you are running a static website (like Hugo), Cloudflare R2 is perfect for storing images and files separately. This improves website speed and reduces hosting load.</p>
+
+<hr>
+
+<h2>Pro Tips</h2>
+
+<ul>
+<li>Use custom CDN domain (cdn.yoursite.com)</li>
+<li>Compress images before upload</li>
+<li>Use WebP format for better performance</li>
+<li>Combine with Cloudflare caching</li>
+</ul>
+
+<hr>
+{{<button>}}
+<h2>Conclusion</h2>
+
+<p>Cloudflare R2 is a powerful, cost-effective object storage solution, especially for developers and website owners who want to reduce bandwidth costs and improve performance.</p>
+
+<p>With zero egress fees and seamless CDN integration, it is one of the best alternatives to traditional cloud storage services.</p>
+

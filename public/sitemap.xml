@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/cloudflare-r2-complete-setup-guide/</loc>
+    <lastmod>2026-04-11T14:49:56+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/developer/</loc>
+    <lastmod>2026-04-11T14:49:56+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
     <loc>http://localhost:1313/5-books-for-lazy-people/</loc>
     <lastmod>2026-04-10T19:33:09+05:30</lastmod>
     <changefreq>daily</changefreq>
@@ -24,11 +34,6 @@
   </url><url>
     <loc>http://localhost:1313/bhashini-complete-guide/</loc>
     <lastmod>2026-04-10T15:17:30+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/developer/</loc>
-    <lastmod>2026-04-08T13:00:03+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
