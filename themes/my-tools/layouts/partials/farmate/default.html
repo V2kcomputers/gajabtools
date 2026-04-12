@@ -7,14 +7,16 @@
     <div class="single-post-wrapper">
       <div class="single-post-content">
     <h1 class="post-title" >{{ .Title }}</h1>
-     {{ partial "imp-codes/imageBanner.html" . }}
+   
      {{ .Content }}
     <!-- Include partial for tags/terms -->
       {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
  </div>
   </div>
   {{ partial "main-parts/you-may-like.html" . }}
+   {{ partial "imp-codes/imageBanner.html" . }}
 {{ partial "main-parts/continue-reading.html" . }}
+ 
   </div>
  
 

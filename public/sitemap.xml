@@ -2,6 +2,36 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/creator/</loc>
+    <lastmod>2026-04-12T17:41:56+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/heygen-ai-video-generator-guide/</loc>
+    <lastmod>2026-04-12T17:41:56+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/career/</loc>
+    <lastmod>2026-04-12T17:13:12+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/top-business-books-to-read-before-starting-a-business/</loc>
+    <lastmod>2026-04-12T17:13:12+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/best-books-for-students/</loc>
+    <lastmod>2026-04-12T16:41:34+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/edugames-uz-complete-details/</loc>
+    <lastmod>2026-04-12T15:57:57+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
     <loc>http://localhost:1313/cloudflare-r2-complete-setup-guide/</loc>
     <lastmod>2026-04-11T14:49:56+05:30</lastmod>
     <changefreq>daily</changefreq>
@@ -13,11 +43,6 @@
     <priority>0.8</priority>
   </url><url>
     <loc>http://localhost:1313/5-books-for-lazy-people/</loc>
-    <lastmod>2026-04-10T19:33:09+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/career/</loc>
     <lastmod>2026-04-10T19:33:09+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
@@ -98,11 +123,6 @@
     <priority>0.8</priority>
   </url><url>
     <loc>http://localhost:1313/clideo-video-editor-complete-guide/</loc>
-    <lastmod>2026-04-04T12:19:43+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/creator/</loc>
     <lastmod>2026-04-04T12:19:43+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
