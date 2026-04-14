@@ -2,8 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/developer/</loc>
+    <lastmod>2026-04-14T19:46:00+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/netlify-hosting-platform-features-pricing-uses/</loc>
+    <lastmod>2026-04-14T19:46:00+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/deepseek-ai-tool-complete-guide/</loc>
+    <lastmod>2026-04-14T19:32:06+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/online-tools/</loc>
+    <lastmod>2026-04-14T19:32:06+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
     <loc>http://localhost:1313/creator/</loc>
-    <lastmod>2026-04-12T17:41:56+05:30</lastmod>
+    <lastmod>2026-04-14T18:45:35+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/risks-of-buying-followers-views-and-subscribers/</loc>
+    <lastmod>2026-04-14T18:45:35+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
@@ -33,11 +58,6 @@
     <priority>0.8</priority>
   </url><url>
     <loc>http://localhost:1313/cloudflare-r2-complete-setup-guide/</loc>
-    <lastmod>2026-04-11T14:49:56+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/developer/</loc>
     <lastmod>2026-04-11T14:49:56+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
@@ -128,11 +148,6 @@
     <priority>0.8</priority>
   </url><url>
     <loc>http://localhost:1313/google-sheets-complete-guide/</loc>
-    <lastmod>2026-04-04T11:57:29+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/online-tools/</loc>
     <lastmod>2026-04-04T11:57:29+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
@@ -452,17 +467,7 @@
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
-    <loc>http://localhost:1313/tags/ai/</loc>
-    <lastmod>2026-03-20T08:52:37+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
     <loc>http://localhost:1313/luma-ai/</loc>
-    <lastmod>2026-03-20T08:52:37+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/tags/</loc>
     <lastmod>2026-03-20T08:52:37+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
@@ -472,7 +477,7 @@
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
-    <loc>http://localhost:1313/yojnaportal-Com/</loc>
+    <loc>http://localhost:1313/yojnaportal-com/</loc>
     <lastmod>2026-03-19T19:43:10+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
@@ -603,6 +608,11 @@
     <priority>0.8</priority>
   </url><url>
     <loc>http://localhost:1313/page/</loc>
+    <lastmod>2026-01-18T09:00:00-07:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/tags/</loc>
     <lastmod>2026-01-18T09:00:00-07:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
