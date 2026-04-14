@@ -5,7 +5,7 @@
     "content" (.Summary | plainify)
     "link" .RelPermalink 
     "date" (.Date.Format "02 Jan 2006")
-    "image" (or .Params.imageBanner "/default.jpg")
+    "image" (or .Params.imageBanner "/default.png")
   ) -}}
 {{- end -}}
 {{ $index | jsonify }}
