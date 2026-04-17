@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/muse-spark-ai/</loc>
+    <lastmod>2026-04-17T12:29:44+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/online-tools/</loc>
+    <lastmod>2026-04-17T12:29:44+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
     <loc>http://localhost:1313/creator/</loc>
     <lastmod>2026-04-16T20:26:03+05:30</lastmod>
     <changefreq>daily</changefreq>
@@ -33,11 +43,6 @@
     <priority>0.8</priority>
   </url><url>
     <loc>http://localhost:1313/deepseek-ai-tool-complete-guide/</loc>
-    <lastmod>2026-04-14T19:32:06+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/online-tools/</loc>
     <lastmod>2026-04-14T19:32:06+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
