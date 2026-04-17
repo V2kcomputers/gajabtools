@@ -1,6 +1,7 @@
 
 
 <div class= "container">
+     <h1 class="post-title" >{{ .Title }}</h1>
 <div class="section">
   <h2>1. Introduction</h2>
   {{ range .Params.introduction }}
@@ -98,6 +99,7 @@
 </div>
 {{ if and .Params.links (gt (len .Params.faqs) 0) }}
 <div class="section">
+    🖇️ Important Links :
 {{ partial "main-parts/buttons" . }}
 </div>
 {{ end }}
