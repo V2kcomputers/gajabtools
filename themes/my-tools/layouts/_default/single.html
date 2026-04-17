@@ -2,8 +2,8 @@
   {{- $type := .Type -}}
   {{- if eq $type "yojna" -}}
     {{ partial "farmate/yojna.html" . }}
-  {{- else if eq $type "job" -}}
-    {{ partial "farmate/jobs.html" . }}
+  {{- else if eq $type "info" -}}
+    {{ partial "farmate/info.html" . }}
   {{- else if eq $type "form" -}}
     {{ partial "farmate/form.html" . }}
   {{- else if eq $type "admission" -}}

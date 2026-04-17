@@ -1,13 +1,12 @@
 +++
 date = {{ .Date }}
-title = '{{ replace .File.ContentBaseName "-" " " | title }} - Gajab Tools'
-description = "  "
 links = [
 "Visit Tools = https://gajabtools.com"
 ]
 url = "/{{ .File.ContentBaseName | lower }}/"
-
 imageBanner = "  "
-
 cssStyles = ["css/pages/legal.css"]
+title = '{{ replace .File.ContentBaseName "-" " " | title }} - Gajab Tools'
+description = "  "
+
 +++

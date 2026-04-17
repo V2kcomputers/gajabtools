@@ -7,3 +7,6 @@
 {{ partial "imp-codes/adsense.html" . }}
 {{ partial "imp-codes/analytics.html" . }}
 {{ partial "cssStyles/main.html" . }}
+{{ if and .Params.faqs (gt (len .Params.faqs) 0) }}
+  {{ partial "imp-codes/json_ld_faqs.html" . }}
+{{ end }}
