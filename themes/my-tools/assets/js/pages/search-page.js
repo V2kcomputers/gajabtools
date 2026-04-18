@@ -42,7 +42,7 @@ function runSearch(query) {
     return;
   }
 
-  let results = fuse.search(query).slice(0, 6);
+  let results = fuse.search(query).slice(0, 16);
 
   if (results.length === 0) {
     updateResults(`<div class="no-result">No results found</div>`);
