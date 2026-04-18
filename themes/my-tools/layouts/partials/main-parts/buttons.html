@@ -1,16 +1,22 @@
+<div class="section">
+    🖇️ Important Links :
 <div class="btn-container">
   {{ $colors := slice "btn1" "btn2" "btn3" "btn4" "btn5" }}
 
   {{ with .Page.Params.links }}
     {{ range $index, $item := . }}
+
       {{ $parts := split $item "=" }}
+
       {{ $text := trim (index $parts 0) " " }}
-      {{ $link := trim (index $parts 1) " " }}
+      {{ $link := trim (delimit (after 1 $parts) "=") " " }}
 
       <a href="{{ $link }}" target="_blank"
          class="btn {{ index $colors (mod $index (len $colors)) }}">
         {{ $text }}
       </a>
+
     {{ end }}
   {{ end }}
+</div>
 </div>
