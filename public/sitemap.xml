@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/creator/</loc>
+    <lastmod>2026-04-18T15:37:21+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/runway-ai-tool/</loc>
+    <lastmod>2026-04-18T15:37:21+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
     <loc>http://localhost:1313/developer/</loc>
     <lastmod>2026-04-17T19:05:57+05:30</lastmod>
     <changefreq>daily</changefreq>
@@ -9,11 +19,6 @@
   </url><url>
     <loc>http://localhost:1313/replit-ai-coding-platform/</loc>
     <lastmod>2026-04-17T19:05:57+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/creator/</loc>
-    <lastmod>2026-04-17T16:38:55+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
