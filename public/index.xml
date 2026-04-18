@@ -6,8 +6,15 @@
     <description>Recent content in Home on GAJAB TOOLS</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 18 Apr 2026 15:37:21 +0530</lastBuildDate>
+    <lastBuildDate>Sat, 18 Apr 2026 16:36:31 +0530</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RecCloud AI Tool – Screen Recording, Video Editing &amp; Cloud Storage Platform</title>
+      <link>http://localhost:1313/reccloud-ai-tool/</link>
+      <pubDate>Sat, 18 Apr 2026 16:36:31 +0530</pubDate>
+      <guid>http://localhost:1313/reccloud-ai-tool/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Runway AI Tool – Create Videos and Images with AI Easily</title>
       <link>http://localhost:1313/runway-ai-tool/</link>
@@ -839,7 +846,7 @@
       <link>http://localhost:1313/dotted-qr-code/</link>
       <pubDate>Fri, 12 Dec 2025 10:33:18 +0530</pubDate>
       <guid>http://localhost:1313/dotted-qr-code/</guid>
-      <description>&lt;head&gt;&#xD;&#xA; &#xD;&#xA;  &lt;!-- QR Code Styling library --&gt;&#xD;&#xA;  &lt;script type=&#34;text/javascript&#34;&#xD;&#xA;    src=&#34;https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js&#34;&gt;&#xD;&#xA;  &lt;/script&gt;&#xD;&#xA;&lt;/head&gt; &lt;br&gt; &#xD;&#xA;  &lt;div class=&#34;qr-wrapper&#34;&gt;&#xD;&#xA;    &lt;div class=&#34;qr-header&#34;&gt;Dotted QR Generator&lt;/div&gt;&#xD;&#xA;    &lt;div class=&#34;qr-sub&#34;&gt;Blue dotted QR (same style जैसा aapne photo me diya hai).&lt;/div&gt;&#xD;&#xA;&#xD;&#xA;    &lt;label for=&#34;qr-text&#34;&gt;Text / URL&lt;/label&gt;&#xD;&#xA;    &lt;input id=&#34;qr-text&#34; type=&#34;text&#34;&#xD;&#xA;           placeholder=&#34;https://example.com ya koi text likhiye&#34; /&gt;&#xD;&#xA;&#xD;&#xA;    &lt;div class=&#34;controls&#34;&gt;&#xD;&#xA;      &lt;button class=&#34;btn btn-generate&#34; id=&#34;btn-generate&#34;&gt;&#xD;&#xA;        ⚡ Generate&#xD;&#xA;      &lt;/button&gt;&#xD;&#xA;&#xD;&#xA;      &lt;select id=&#34;qr-size&#34; title=&#34;Size&#34;&gt;&#xD;&#xA;        &lt;option value=&#34;200&#34;&gt;200 px&lt;/option&gt;&#xD;&#xA;        &lt;option value=&#34;260&#34; selected&gt;260 px&lt;/option&gt;&#xD;&#xA;        &lt;option value=&#34;320&#34;&gt;320 px&lt;/option&gt;&#xD;&#xA;      &lt;/select&gt;&#xD;&#xA;&#xD;&#xA;      &lt;input type=&#34;color&#34; id=&#34;qr-color&#34; value=&#34;#003a77&#34; title=&#34;Dot color&#34; /&gt;&#xD;&#xA;      &lt;button class=&#34;btn btn-download&#34; id=&#34;btn-download&#34;&gt;&#xD;&#xA;        ⬇ Download PNG&#xD;&#xA;      &lt;/button&gt;&#xD;&#xA;    &lt;/div&gt;&#xD;&#xA;&#xD;&#xA;    &lt;div class=&#34;qr-output&#34;&gt;&#xD;&#xA;      &lt;div id=&#34;qr-canvas&#34;&gt;&lt;/div&gt;&#xD;&#xA;    &lt;/div&gt;&#xD;&#xA;    &lt;div class=&#34;note&#34;&gt;&#xD;&#xA;     Generate QR Code .&#xD;&#xA;    &lt;/div&gt;&#xD;&#xA;  &lt;/div&gt;</description>
+      <description>&lt;head&gt;&#xD;&#xA; &#xD;&#xA;  &lt;!-- QR Code Styling library --&gt;&#xD;&#xA;  &lt;script type=&#34;text/javascript&#34;&#xD;&#xA;    src=&#34;https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js&#34;&gt;&#xD;&#xA;  &lt;/script&gt;&#xD;&#xA;&lt;/head&gt; &lt;br&gt; &#xD;&#xA;  &lt;div class=&#34;qr-wrapper&#34;&gt;&#xD;&#xA;    &lt;div class=&#34;qr-header&#34;&gt;Dotted QR Generator&lt;/div&gt;&#xD;&#xA;    &lt;div class=&#34;qr-sub&#34;&gt;Genetate Fast Dotted QR Code&lt;/div&gt;&#xD;&#xA;&#xD;&#xA;    &lt;label for=&#34;qr-text&#34;&gt;Text / URL&lt;/label&gt;&#xD;&#xA;    &lt;input id=&#34;qr-text&#34; type=&#34;text&#34;&#xD;&#xA;           placeholder=&#34;https://example.com ya koi text likhiye&#34; /&gt;&#xD;&#xA;&#xD;&#xA;    &lt;div class=&#34;controls&#34;&gt;&#xD;&#xA;      &lt;button class=&#34;btn btn-generate&#34; id=&#34;btn-generate&#34;&gt;&#xD;&#xA;        ⚡ Generate&#xD;&#xA;      &lt;/button&gt;&#xD;&#xA;&#xD;&#xA;      &lt;select id=&#34;qr-size&#34; title=&#34;Size&#34;&gt;&#xD;&#xA;        &lt;option value=&#34;200&#34;&gt;200 px&lt;/option&gt;&#xD;&#xA;        &lt;option value=&#34;260&#34; selected&gt;260 px&lt;/option&gt;&#xD;&#xA;        &lt;option value=&#34;320&#34;&gt;320 px&lt;/option&gt;&#xD;&#xA;      &lt;/select&gt;&#xD;&#xA;&#xD;&#xA;      &lt;input type=&#34;color&#34; id=&#34;qr-color&#34; value=&#34;#000000&#34; title=&#34;Dot color&#34; /&gt;&#xD;&#xA;      &lt;button class=&#34;btn btn-download&#34; id=&#34;btn-download&#34;&gt;&#xD;&#xA;        ⬇ Download PNG&#xD;&#xA;      &lt;/button&gt;&#xD;&#xA;    &lt;/div&gt;&#xD;&#xA;&#xD;&#xA;    &lt;div class=&#34;qr-output&#34;&gt;&#xD;&#xA;      &lt;div id=&#34;qr-canvas&#34;&gt;&lt;/div&gt;&#xD;&#xA;    &lt;/div&gt;&#xD;&#xA;    &lt;div class=&#34;note&#34;&gt;&#xD;&#xA;     Generate QR Code .&#xD;&#xA;    &lt;/div&gt;&#xD;&#xA;  &lt;/div&gt;</description>
     </item>
   </channel>
 </rss>
