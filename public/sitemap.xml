@@ -2,6 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/creator/</loc>
+    <lastmod>2026-04-19T12:24:05+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/laxica-art-create-and-explore-stunning-ai-images/</loc>
+    <lastmod>2026-04-19T12:24:05+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/leonardo-ai-cinematic-image-generator/</loc>
+    <lastmod>2026-04-19T12:05:32+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/jasper-ai-content-writing-assistant/</loc>
+    <lastmod>2026-04-19T11:39:13+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
     <loc>http://localhost:1313/developer/</loc>
     <lastmod>2026-04-18T18:59:58+05:30</lastmod>
     <changefreq>daily</changefreq>
@@ -24,11 +44,6 @@
   </url><url>
     <loc>http://localhost:1313/cursor-coding-with-ai/</loc>
     <lastmod>2026-04-18T18:19:13+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/creator/</loc>
-    <lastmod>2026-04-18T17:18:50+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
