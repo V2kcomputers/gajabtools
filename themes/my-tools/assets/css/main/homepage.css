@@ -100,6 +100,37 @@ header{
     box-shadow:0 0 15px var(--primary);
 }
 
+/* About Sections */
+.about-section {
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 50px 20px;
+}
+
+.about-section .container {
+  max-width: 900px;
+  margin: auto;
+  line-height: 1.7;
+}
+
+.about-section h2 {
+  text-align: center;
+  color: #38bdf8;
+  margin-bottom: 20px;
+}
+
+.about-section h3 {
+  margin-top: 30px;
+  color: #7dd3fc;
+}
+
+.about-section ul {
+  padding-left: 20px;
+}
+
+.about-section li {
+  margin-bottom: 10px;
+}
 /* MOBILE MENU */
 .menu-btn{
     display:none;
