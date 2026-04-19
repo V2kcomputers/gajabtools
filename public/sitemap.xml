@@ -3,7 +3,12 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/creator/</loc>
-    <lastmod>2026-04-19T16:47:20+05:30</lastmod>
+    <lastmod>2026-04-19T20:08:39+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/magiclight-ai-create-cinematic-videos/</loc>
+    <lastmod>2026-04-19T20:08:39+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
