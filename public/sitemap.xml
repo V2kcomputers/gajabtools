@@ -2,6 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/online-tools/</loc>
+    <lastmod>2026-04-20T18:36:54+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/pointer-pointer-fun-website/</loc>
+    <lastmod>2026-04-20T18:36:54+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/career/</loc>
+    <lastmod>2026-04-20T18:07:55+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/hubble-birthday-project-find-your-birthday-space-image/</loc>
+    <lastmod>2026-04-20T18:07:55+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
     <loc>http://localhost:1313/creator/</loc>
     <lastmod>2026-04-19T20:08:39+05:30</lastmod>
     <changefreq>daily</changefreq>
@@ -17,22 +37,12 @@
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
-    <loc>http://localhost:1313/career/</loc>
-    <lastmod>2026-04-19T15:47:36+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
     <loc>http://localhost:1313/learnvern-free-skill-learning-platform/</loc>
     <lastmod>2026-04-19T15:47:36+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
     <loc>http://localhost:1313/giz-ai-smart-all-in-one-ai-tool/</loc>
-    <lastmod>2026-04-19T15:23:21+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/online-tools/</loc>
     <lastmod>2026-04-19T15:23:21+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
