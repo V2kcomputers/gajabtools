@@ -2,6 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/copy-ai-content-writing-tool/</loc>
+    <lastmod>2026-04-21T18:20:23+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/creator/</loc>
+    <lastmod>2026-04-21T18:20:23+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/writesonic-ai-tool/</loc>
+    <lastmod>2026-04-21T18:01:41+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
     <loc>http://localhost:1313/career/</loc>
     <lastmod>2026-04-21T11:43:13+05:30</lastmod>
     <changefreq>daily</changefreq>
@@ -9,11 +24,6 @@
   </url><url>
     <loc>http://localhost:1313/notion-ai-smart-writing-and-productivity/</loc>
     <lastmod>2026-04-21T11:43:13+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/creator/</loc>
-    <lastmod>2026-04-21T11:12:27+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
@@ -602,7 +612,7 @@
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
-    <loc>http://localhost:1313/opus-Pro-click/</loc>
+    <loc>http://localhost:1313/opus-pro-click/</loc>
     <lastmod>2026-03-20T12:32:24+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
