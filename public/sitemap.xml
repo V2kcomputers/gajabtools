@@ -3,7 +3,12 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/amazing/</loc>
-    <lastmod>2026-04-20T19:56:14+05:30</lastmod>
+    <lastmod>2026-04-21T10:05:52+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/artbreeder-ai-tool-create-faces/</loc>
+    <lastmod>2026-04-21T10:05:52+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
