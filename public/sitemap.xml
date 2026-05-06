@@ -2,6 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/amazing/</loc>
+    <lastmod>2026-05-06T11:55:03+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/your-name-in-landsat-by-nasa/</loc>
+    <lastmod>2026-05-06T11:55:03+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/creator/</loc>
+    <lastmod>2026-05-06T11:24:59+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/cvoice-ai/</loc>
+    <lastmod>2026-05-06T11:24:59+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
     <loc>http://localhost:1313/career/</loc>
     <lastmod>2026-04-23T08:19:11+05:30</lastmod>
     <changefreq>daily</changefreq>
@@ -17,11 +37,6 @@
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
-    <loc>http://localhost:1313/amazing/</loc>
-    <lastmod>2026-04-22T12:07:59+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
     <loc>http://localhost:1313/kimi-ai-document-analysis/</loc>
     <lastmod>2026-04-22T10:12:44+05:30</lastmod>
     <changefreq>daily</changefreq>
@@ -33,11 +48,6 @@
     <priority>0.8</priority>
   </url><url>
     <loc>http://localhost:1313/copy-ai-content-writing-tool/</loc>
-    <lastmod>2026-04-21T18:20:23+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/creator/</loc>
     <lastmod>2026-04-21T18:20:23+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>

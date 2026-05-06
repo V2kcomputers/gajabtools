@@ -3,14 +3,14 @@
 <div class= "container">
      <h1 class="post-title" >{{ .Title }}</h1>
 <div class="section">
-  <h2>1. Introduction</h2>
+  <h2> Introduction of {{ .Params.tool_name }}</h2>
   {{ range .Params.introduction }}
   <p>{{ . }}</p>
   {{ end }}
 </div>
 
 <div class="section card">
-  <h2>2. Tool Overview</h2>
+  <h2> Tool Overview : {{ .Params.tool_name }}</h2>
   <ul>
     <li><strong>Tool Name:</strong> {{ .Params.tool_name }}</li>
     <li><strong>Category:</strong> {{ .Params.category }}</li>
@@ -29,7 +29,7 @@
   {{ .Content }}
 </div>
 <div class="section">
-  <h2>3. Key Features</h2> 
+  <h2>{{ .Params.tool_name }}'s Key Features</h2> 
   <ul>
     {{ range .Params.features }}
     <li>{{ . }}</li>
@@ -38,7 +38,7 @@
 </div>
 
 <div class="section">
-  <h2>4. Use Cases</h2>
+  <h2> Use Cases of {{ .Params.tool_name }}</h2>
   <ul>
     {{ range .Params.use_cases }}
     <li>{{ . }}</li>
@@ -47,7 +47,7 @@
 </div>
 
 <div class="section">
-  <h2>5. Step-by-Step Process (How to Use)</h2>
+  <h2>Step-by-Step Process (How to Use {{ .Params.tool_name }})</h2>
   <ol>
     {{ range .Params.steps }}
     <li>{{ . }}</li>
@@ -56,7 +56,7 @@
 </div>
 
 <div class="section card">
-  <h2>6. Pros & Cons</h2>
+  <h2>{{ .Params.tool_name }}'s Pros & Cons</h2>
 
   <p><strong>Pros:</strong></p>
   <ul>
@@ -74,14 +74,14 @@
 </div>
 
 <div class="section">
-  <h2>7. Pricing Details</h2>
+  <h2> Pricing Details for {{ .Params.tool_name }}</h2>
   {{ range .Params.pricing_details }}
   <p>{{ . }}</p>
   {{ end }}
 </div>
 
 <div class="section">
-  <h2>8. Alternatives</h2>
+  <h2>Alternatives as {{ .Params.tool_name }}</h2>
   <ul>
     {{ range .Params.alternatives }}
     <li>{{ . }}</li>
@@ -90,7 +90,7 @@
 </div>
 
 <div class="section card">
-  <h2>9. FAQs</h2>
+  <h2>{{ .Params.tool_name }} : FAQs</h2>
   <ul>
     {{ range .Params.faqs }}
     <li>
@@ -106,7 +106,7 @@
 
 {{ end }}
 <div class="section">
-  <h2>10. Conclusion</h2>
+  <h2> Summary of {{ .Params.tool_name }}</h2>
   {{ range .Params.conclusion }}
   <p>{{ . }}</p>
   {{ end }}
