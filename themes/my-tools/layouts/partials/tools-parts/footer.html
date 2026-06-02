@@ -1,5 +1,13 @@
-<footer class="tool-footer">
 
+<footer class="tool-footer">
+  {{ with .Params.jsFiles }}
+    {{ range . }}
+      {{ $js := resources.Get . | minify | fingerprint }}
+      <script src="{{ $js.Permalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+    {{ end }}
+  {{ else }}
+    <!-- No custom JS files -->
+  {{ end }}
     <div class="tool-footer-container">
 
         <div class="tool-footer-brand">
