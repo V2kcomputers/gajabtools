@@ -1,0 +1,1233 @@
+{{ define "tools" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<title>Resume/CV/Biodata Form</title>
+
+
+<body>
+
+<div class="resume-container">
+
+<div class="resume-header">
+<h1>Resume/CV/Biodata Form</h1>
+</div>
+
+<div class="radio-group">
+<label><input type="radio" name="type" checked> Resume</label>
+<label><input type="radio" name="type"> Curriculum Vitae</label>
+<label><input type="radio" name="type"> Biodata</label>
+</div>
+
+<div class="form-group">
+<label>Candidate Name</label>
+<div class="input-group">
+<i class="fa-solid fa-user input-icon"></i>
+<input type="text" id="candidateName" placeholder="Full Name">
+</div>
+</div>
+
+<div class="form-group">
+<label>Candidate Address</label>
+<div class="input-group textarea-group">
+<i class="fa-solid fa-house input-icon"></i>
+<textarea id="address" placeholder="Address"></textarea>
+</div>
+</div>
+
+<div class="form-group">
+<label>Mobile Number</label>
+<div class="input-group">
+<i class="fa-solid fa-phone input-icon"></i>
+<input type="text" id="mobile" placeholder="Mobile Number">
+</div>
+</div>
+
+<div class="form-group">
+<label>Email Address</label>
+<div class="input-group">
+<i class="fa-solid fa-envelope input-icon"></i>
+<input type="email" id="email" placeholder="Email Address">
+</div>
+</div>
+
+<div class="form-group">
+<label>Date of Birth</label>
+<div class="input-group">
+<i class="fa-solid fa-calendar-days input-icon"></i>
+<input type="text" id="dob">
+</div>
+</div>
+
+<div class="form-group">
+<label>Father Name</label>
+<div class="input-group">
+<i class="fa-solid fa-person input-icon"></i>
+<input type="text" id="fatherName" placeholder="Father Name">
+</div>
+</div>
+
+<div class="form-group">
+<label>Mother Name</label>
+<div class="input-group">
+<i class="fa-solid fa-person-dress input-icon"></i>
+<input type="text" id="motherName" placeholder="Mother Name">
+</div>
+</div>
+
+<div class="form-group">
+<label>Gender</label>
+<div class="input-group">
+<i class="fa-solid fa-venus-mars input-icon"></i>
+<select id="gender">
+<option>Male</option>
+<option>Female</option>
+<option>Other</option>
+</select>
+</div>
+</div>
+
+<div class="form-group">
+<label>Nationality</label>
+<div class="input-group">
+<i class="fa-solid fa-flag input-icon"></i>
+<input type="text" id="nationality" placeholder="Nationality">
+</div>
+</div>
+
+<div class="form-group">
+<label>Marital Status</label>
+<div class="input-group">
+<i class="fa-solid fa-ring input-icon"></i>
+<input type="text" id="maritalStatus" placeholder="Marital Status">
+</div>
+</div>
+
+<div class="form-group">
+<label>Language Known</label>
+<div class="input-group">
+<i class="fa-solid fa-language input-icon"></i>
+<input type="text" id="language" placeholder="Language Known">
+</div>
+</div>
+
+<div class="form-group">
+<label>Your Hobbies</label>
+<div class="input-group">
+<i class="fa-solid fa-heart input-icon"></i>
+<input type="text" id="hobbies" placeholder="Your Hobbies">
+</div>
+</div>
+
+<div class="form-group">
+    <label>Career Objective</label>
+<div class="input-group">
+<i class="fa-solid fa-bullseye input-icon"></i>
+    <select id="careerObjectiveSelect">
+        <option value="">-- Select Career Objective --</option>
+
+        <option value="To secure a challenging position in a reputable organization to expand my learnings, knowledge, and skills.">
+            To secure a challenging position in a reputable organization to expand my learnings, knowledge, and skills.
+        </option>
+
+        <option value="To work in an environment which encourages me to succeed and grow professionally where I can utilize my skills and knowledge appropriately.">
+           To work in an environment which encourages me to succeed and grow professionally where I can utilize my skills and knowledge appropriately.
+        </option>
+
+        <option value="Seeking a responsible career opportunity to fully utilize my training and skills while making a significant contribution to the success of the company.">
+          Seeking a responsible career opportunity to fully utilize my training and skills while making a significant contribution to the success of the company.
+        </option>
+
+        <option value="To obtain a position that allows me to apply my technical and communication skills for organizational growth.">
+          To obtain a position that allows me to apply my technical and communication skills for organizational growth.
+        </option>
+
+        <option value="To build a long-term career in a professional organization with opportunities for growth and learning.">
+          To build a long-term career in a professional organization with opportunities for growth and learning.
+        </option>
+
+        <option value="custom">
+            Custom Career Objective
+        </option>
+
+    </select>
+</div>
+    <textarea
+        id="careerObjective"
+        placeholder="Career Objective"
+        style="margin-top:10px;display:none;"
+    ></textarea>
+
+</div>
+
+<h3 class="section-title">Academic Qualification</h3>
+
+<table id="academicTable">
+<tr>
+<th>Exam Name</th>
+<th>Board / University</th>
+<th>Passing Year</th>
+<th>Marks %</th>
+<th>Division</th>
+<th>Action</th>
+</tr>
+</table>
+
+<button type="button" class="add-btn" onclick="addAcademicRow()">
+Add Academic Row
+</button>
+
+<h3 class="section-title">Professional Qualification</h3>
+
+<table id="professionalTable">
+<tr>
+<th>Exam Name</th>
+<th>Board / University</th>
+<th>Passing Year</th>
+<th>Marks %</th>
+<th>Division</th>
+<th>Action</th>
+</tr>
+</table>
+
+<button type="button" class="add-btn" onclick="addProfessionalRow()">
+Add Professional Row
+</button>
+
+<h3 class="section-title">Extra Qualification</h3>
+
+<div id="extraQualificationContainer"></div>
+
+<button type="button" class="add-btn" onclick="addExtraQualification()">
+Add Extra Qualification
+</button>
+
+<div class="form-group">
+<label>Work Experience</label>
+
+<div class="input-group textarea-group">
+<i class="fa-solid fa-briefcase input-icon"></i>
+
+<textarea
+id="workExperience"
+placeholder="Work Experience">
+</textarea>
+
+</div>
+</div>
+
+<div class="form-group">
+<label>Upload Your Photo</label>
+
+<div class="input-group">
+<i class="fa-solid fa-camera input-icon"></i>
+
+<input
+type="file"
+id="photoInput"
+accept="image/*"
+hidden>
+
+<div id="photoDropArea" class="photo-drop-area">
+
+📷 Click, Drag & Drop or Paste Image Here
+
+</div>
+
+</div>
+</div>
+
+<div class="photo-preview">
+
+<img
+id="preview"
+src="https://images.vexels.com/media/users/3/131734/isolated/preview/05d86a9b63d1930d6298b27081ddc345-photo-preview-frame-icon.png"
+alt="Preview">
+
+</div>
+
+<button class="generate-btn" onclick="generateResume()"> Generate Resume </button>
+<div class="action-buttons">
+
+    <button
+    type="button"
+    class="btn-example"
+    onclick="fillExampleData()">
+        📄 Fill Example Data
+    </button>
+
+    <button
+    type="button"
+    class="btn-clear"
+    onclick="clearForm()">
+        🗑️ Clear Form
+    </button>
+
+</div>
+
+<div class="template-switcher">
+
+    <label class="template-card">
+        <input type="radio"
+               name="template"
+               value="/classic-resume-black/"
+               data-slug="classic"
+               checked>
+
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgmTTUuBVLFcJlDOMAeeMFZ5mDnwrG-9RTNA&s"
+             alt="Classic Resume">
+
+        <span>Classic Resume</span>
+    </label>
+
+    <label class="template-card">
+        <input type="radio"
+               name="template"
+               value="/classic-resume-blue/"
+               data-slug="professional">
+
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiz2gEoAEtDkd9mOUNYVw2nmCBBx5MOxLuXA&s"
+             alt="Professional Resume">
+
+        <span>Professional Resume</span>
+    </label>
+
+    <label class="template-card">
+        <input type="radio"
+               name="template"
+               value="/classic-resume-green/"
+               data-slug="modern">
+
+        <img src="https://imgv2-2-f.scribdassets.com/img/document/652127967/298x396/7e799ba572/1714382142?v=1"
+             alt="Modern Resume">
+
+        <span>Modern Resume</span>
+    </label>
+
+</div>
+
+<script>
+
+function addAcademicRow(){
+
+const row=document.createElement("tr");
+
+row.innerHTML=`
+<td><input type="text"></td>
+<td><input type="text"></td>
+<td><input type="text"></td>
+<td><input type="text"></td>
+<td><input type="text"></td>
+<td>
+<button type="button"
+class="delete-btn"
+onclick="this.closest('tr').remove();saveFormData();">
+Delete
+</button>
+</td>
+`;
+
+document.getElementById("academicTable")
+.appendChild(row);
+saveFormData();
+}
+
+function addProfessionalRow(){
+
+const row=document.createElement("tr");
+
+row.innerHTML=`
+<td><input type="text"></td>
+<td><input type="text"></td>
+<td><input type="text"></td>
+<td><input type="text"></td>
+<td><input type="text"></td>
+<td>
+<button type="button"
+class="delete-btn"
+onclick="this.closest('tr').remove();saveFormData();">
+Delete
+</button>
+</td>
+`;
+
+document.getElementById("professionalTable")
+.appendChild(row);
+saveFormData();
+}
+
+function addExtraQualification(){
+
+const div=document.createElement("div");
+
+div.className="extra-row";
+
+div.innerHTML=`
+<input type="text"
+placeholder="Extra Qualification">
+
+<button type="button"
+class="delete-btn"
+onclick="this.parentElement.remove();saveFormData();">
+Delete
+</button>
+`;
+
+document
+.getElementById("extraQualificationContainer")
+.appendChild(div);
+saveFormData();
+}
+
+document
+.getElementById("photoInput")
+.addEventListener("change",function(){
+
+    const file=this.files[0];
+
+    if(!file) return;
+
+    const reader=new FileReader();
+
+    reader.onload=function(e){
+
+        const imageData=e.target.result;
+
+        document.getElementById(
+        "preview"
+        ).src=imageData;
+
+        saveFormData(); // Photo save
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
+const photoInput =
+document.getElementById("photoInput");
+
+const preview =
+document.getElementById("preview");
+
+const dropArea =
+document.getElementById("photoDropArea");
+
+
+// Preview Click
+preview.addEventListener("click",()=>{
+
+    photoInput.click();
+
+});
+
+
+// Drop Area Click
+dropArea.addEventListener("click",()=>{
+
+    photoInput.click();
+
+});
+
+
+// File Input Upload
+photoInput.addEventListener(
+"change",
+function(){
+
+    if(this.files[0]){
+        loadPhoto(this.files[0]);
+    }
+
+});
+
+
+// Drag Enter
+dropArea.addEventListener(
+"dragover",
+e=>{
+
+    e.preventDefault();
+
+    dropArea.classList.add(
+    "dragover"
+    );
+
+});
+
+
+// Drag Leave
+dropArea.addEventListener(
+"dragleave",
+()=>{
+
+    dropArea.classList.remove(
+    "dragover"
+    );
+
+});
+
+
+// Drop
+dropArea.addEventListener(
+"drop",
+e=>{
+
+    e.preventDefault();
+
+    dropArea.classList.remove(
+    "dragover"
+    );
+
+    const file =
+    e.dataTransfer.files[0];
+
+    if(
+    file &&
+    file.type.startsWith(
+    "image/"
+    )
+    ){
+        loadPhoto(file);
+    }
+
+});
+
+
+// Paste Image
+document.addEventListener(
+"paste",
+e=>{
+
+    const items =
+    e.clipboardData.items;
+
+    for(
+    let item of items
+    ){
+
+        if(
+        item.type.startsWith(
+        "image/"
+        )
+        ){
+
+            const file =
+            item.getAsFile();
+
+            loadPhoto(file);
+
+            break;
+        }
+
+    }
+
+});
+
+
+// Load Image
+function loadPhoto(file){
+
+    const reader =
+    new FileReader();
+
+    reader.onload =
+    function(e){
+
+        preview.src =
+        e.target.result;
+
+        saveFormData();
+
+    };
+
+    reader.readAsDataURL(
+    file
+    );
+
+}
+
+function generateResume(){
+
+    const academic = [];
+    document.querySelectorAll("#academicTable tr").forEach((row,index)=>{
+        if(index===0) return;
+
+        const inputs=row.querySelectorAll("input");
+
+        if(inputs.length<5) return;
+
+        academic.push({
+            exam:inputs[0].value,
+            board:inputs[1].value,
+            year:inputs[2].value,
+            marks:inputs[3].value,
+            division:inputs[4].value
+        });
+    });
+
+    const professional = [];
+    document.querySelectorAll("#professionalTable tr").forEach((row,index)=>{
+        if(index===0) return;
+
+        const inputs=row.querySelectorAll("input");
+
+        if(inputs.length<5) return;
+
+        professional.push({
+            exam:inputs[0].value,
+            board:inputs[1].value,
+            year:inputs[2].value,
+            marks:inputs[3].value,
+            division:inputs[4].value
+        });
+    });
+
+    const extraQualifications=[];
+
+    document.querySelectorAll(
+        "#extraQualificationContainer input"
+    ).forEach(input=>{
+
+        if(input.value.trim()){
+            extraQualifications.push(
+                input.value.trim()
+            );
+        }
+
+    });
+
+    let objective="";
+
+    if(
+        careerObjectiveSelect.value==="custom"
+    ){
+        objective=careerObjective.value;
+    }else{
+        objective=careerObjectiveSelect.value;
+    }
+
+    const data={
+
+        type:
+        document.querySelector(
+        'input[name="type"]:checked'
+        ).parentElement.textContent.trim(),
+
+        candidateName:
+        candidateName.value,
+
+        address:
+        address.value,
+
+        mobile:
+        mobile.value,
+
+        email:
+        email.value,
+
+        dob:
+        dob.value,
+
+        fatherName:
+        fatherName.value,
+
+        motherName:
+        motherName.value,
+
+        gender:
+        gender.value,
+
+        nationality:
+        nationality.value,
+
+        maritalStatus:
+        maritalStatus.value,
+
+        language:
+        language.value,
+
+        hobbies:
+        hobbies.value,
+
+        objective:
+        objective,
+
+        workExperience:
+        workExperience.value,
+
+        academic:
+        academic,
+
+        professional:
+        professional,
+
+        extraQualifications:
+        extraQualifications,
+
+        photo:
+        document.getElementById(
+        "preview"
+        ).src
+
+    };
+
+    const resume_id =
+    "resume_" +
+    Date.now();
+
+    localStorage.setItem(
+        resume_id,
+        JSON.stringify(data)
+    );
+const selectedTemplateUrl =
+document.querySelector(
+'input[name="template"]:checked'
+).value;
+
+location.href =
+selectedTemplateUrl +
+"?resume_id=" +
+resume_id;
+}
+
+</script>
+
+
+
+
+
+<script>
+
+document.querySelectorAll(
+'input[name="template"]'
+).forEach(radio=>{
+
+    radio.addEventListener("change",function(){
+
+        const url =
+        new URL(location.href);
+
+        url.searchParams.set(
+            "template",
+            this.dataset.slug
+        );
+
+        history.replaceState(
+            {},
+            "",
+            url
+        );
+
+    });
+
+});
+
+</script>
+<script>
+
+const currentTemplate =
+new URLSearchParams(
+location.search
+).get("template");
+
+if(currentTemplate){
+
+    const radio =
+    document.querySelector(
+        `input[data-slug="${currentTemplate}"]`
+    );
+
+    if(radio){
+        radio.checked = true;
+    }
+
+}
+
+</script>
+
+
+<script>
+
+const objectiveSelect =
+document.getElementById("careerObjectiveSelect");
+
+const objectiveTextarea =
+document.getElementById("careerObjective");
+
+objectiveSelect.addEventListener("change", function(){
+
+    if(this.value === "custom"){
+
+        objectiveTextarea.style.display = "block";
+        objectiveTextarea.value = "";
+        objectiveTextarea.focus();
+
+    }else{
+
+        objectiveTextarea.style.display = "none";
+
+        if(this.value){
+            objectiveTextarea.value = this.value;
+        }
+
+    }
+
+});
+
+</script>
+
+<script>
+
+function saveFormData(){
+
+    const academic = [];
+    document.querySelectorAll("#academicTable tr").forEach((row,index)=>{
+        if(index===0) return;
+
+        const inputs=row.querySelectorAll("input");
+
+        academic.push({
+            exam:inputs[0]?.value || "",
+            board:inputs[1]?.value || "",
+            year:inputs[2]?.value || "",
+            marks:inputs[3]?.value || "",
+            division:inputs[4]?.value || ""
+        });
+    });
+
+    const professional = [];
+    document.querySelectorAll("#professionalTable tr").forEach((row,index)=>{
+        if(index===0) return;
+
+        const inputs=row.querySelectorAll("input");
+
+        professional.push({
+            exam:inputs[0]?.value || "",
+            board:inputs[1]?.value || "",
+            year:inputs[2]?.value || "",
+            marks:inputs[3]?.value || "",
+            division:inputs[4]?.value || ""
+        });
+    });
+
+    const extraQualifications = [];
+
+    document.querySelectorAll(
+    "#extraQualificationContainer input"
+    ).forEach(input=>{
+
+        extraQualifications.push(
+        input.value
+        );
+
+    });
+
+    const data = {
+
+        type:
+        document.querySelector(
+        'input[name="type"]:checked'
+        )?.parentElement.textContent.trim(),
+
+        candidateName:
+        candidateName.value,
+
+        address:
+        address.value,
+
+        mobile:
+        mobile.value,
+
+        email:
+        email.value,
+
+        dob:
+        dob.value,
+
+        fatherName:
+        fatherName.value,
+
+        motherName:
+        motherName.value,
+
+        gender:
+        gender.value,
+
+        nationality:
+        nationality.value,
+
+        maritalStatus:
+        maritalStatus.value,
+
+        language:
+        language.value,
+
+        hobbies:
+        hobbies.value,
+
+        workExperience:
+        workExperience.value,
+
+        careerObjectiveSelect:
+        careerObjectiveSelect.value,
+
+        careerObjective:
+        careerObjective.value,
+
+        academic:
+        academic,
+
+        professional:
+        professional,
+
+        extraQualifications:
+        extraQualifications,
+
+        template:
+        document.querySelector(
+        'input[name="template"]:checked'
+        )?.dataset.slug,
+
+        photo:
+        document.getElementById("preview").src
+
+    };
+
+    localStorage.setItem(
+    "resumeFormData",
+    JSON.stringify(data)
+    );
+
+}
+
+function loadFormData(){
+
+    const data =
+    JSON.parse(
+    localStorage.getItem(
+    "resumeFormData"
+    )
+    );
+
+    if(!data) return;
+
+    candidateName.value =
+    data.candidateName || "";
+
+    address.value =
+    data.address || "";
+
+    mobile.value =
+    data.mobile || "";
+
+    email.value =
+    data.email || "";
+
+    dob.value =
+    data.dob || "";
+
+    fatherName.value =
+    data.fatherName || "";
+
+    motherName.value =
+    data.motherName || "";
+
+    gender.value =
+    data.gender || "Male";
+
+    nationality.value =
+    data.nationality || "";
+
+    maritalStatus.value =
+    data.maritalStatus || "";
+
+    language.value =
+    data.language || "";
+
+    hobbies.value =
+    data.hobbies || "";
+
+    workExperience.value =
+    data.workExperience || "";
+
+    careerObjectiveSelect.value =
+    data.careerObjectiveSelect || "";
+
+    careerObjective.value =
+    data.careerObjective || "";
+
+    if(data.careerObjectiveSelect==="custom"){
+        careerObjective.style.display="block";
+    }
+
+    if(
+    data.photo &&
+    data.photo.startsWith("data:image")
+){
+
+    document.getElementById(
+    "preview"
+    ).src=data.photo;
+
+}
+
+    if(data.academic){
+
+        data.academic.forEach(item=>{
+
+            addAcademicRow();
+
+            const row =
+            document.querySelectorAll(
+            "#academicTable tr"
+            )[
+            document.querySelectorAll(
+            "#academicTable tr"
+            ).length-1
+            ];
+
+            const inputs =
+            row.querySelectorAll("input");
+
+            inputs[0].value=item.exam;
+            inputs[1].value=item.board;
+            inputs[2].value=item.year;
+            inputs[3].value=item.marks;
+            inputs[4].value=item.division;
+
+        });
+
+    }
+
+    if(data.professional){
+
+        data.professional.forEach(item=>{
+
+            addProfessionalRow();
+
+            const row =
+            document.querySelectorAll(
+            "#professionalTable tr"
+            )[
+            document.querySelectorAll(
+            "#professionalTable tr"
+            ).length-1
+            ];
+
+            const inputs =
+            row.querySelectorAll("input");
+
+            inputs[0].value=item.exam;
+            inputs[1].value=item.board;
+            inputs[2].value=item.year;
+            inputs[3].value=item.marks;
+            inputs[4].value=item.division;
+
+        });
+
+    }
+
+    if(data.extraQualifications){
+
+        data.extraQualifications.forEach(text=>{
+
+            addExtraQualification();
+
+            const inputs =
+            document.querySelectorAll(
+            "#extraQualificationContainer input"
+            );
+
+            inputs[
+            inputs.length-1
+            ].value=text;
+
+        });
+
+    }
+
+    if(data.template){
+
+        const radio =
+        document.querySelector(
+        `[data-slug="${data.template}"]`
+        );
+
+        if(radio){
+            radio.checked=true;
+        }
+
+    }
+
+}
+
+document.addEventListener(
+"input",
+saveFormData
+);
+
+document.addEventListener(
+"change",
+saveFormData
+);
+
+window.addEventListener(
+"load",
+loadFormData
+);
+
+</script>
+<script>
+    function clearForm(){
+
+    if(
+        !confirm(
+        "Are you sure you want to clear all form data?"
+        )
+    ){
+        return;
+    }
+
+    localStorage.removeItem(
+    "resumeFormData"
+    );
+
+    localStorage.removeItem(
+    "resumeDraft"
+    );
+
+    location.reload();
+
+}
+</script>
+<script>
+    function fillExampleData(){
+
+    candidateName.value = "Vikram Singh";
+    address.value = "Tikrapara, Raipur, Chhattisgarh";
+    mobile.value = "9876543210";
+    email.value = "vikram@example.com";
+    dob.value = "1998-05-15";
+
+    fatherName.value = "Ramesh Singh";
+    motherName.value = "Sushila Singh";
+
+    gender.value = "Male";
+    nationality.value = "Indian";
+    maritalStatus.value = "Single";
+
+    language.value = "Hindi, English";
+    hobbies.value = "Reading, Computer, Video Editing";
+
+    careerObjectiveSelect.value = "To obtain a position that allows me to apply my technical and communication skills for organizational growth.";
+    careerObjective.value = careerObjectiveSelect.value;
+
+    workExperience.value =
+    "2 Years experience in Computer Operator and Web Development.";
+
+    document.querySelectorAll(
+    "#academicTable tr:not(:first-child)"
+    ).forEach(row=>row.remove());
+
+    document.querySelectorAll(
+    "#professionalTable tr:not(:first-child)"
+    ).forEach(row=>row.remove());
+
+    document.getElementById(
+    "extraQualificationContainer"
+    ).innerHTML="";
+
+    // Academic
+
+    addAcademicRow();
+
+    let row =
+    document.querySelectorAll(
+    "#academicTable tr"
+    )[1];
+
+    let inputs =
+    row.querySelectorAll("input");
+
+    inputs[0].value="10th";
+    inputs[1].value="CBSE";
+    inputs[2].value="2014";
+    inputs[3].value="78";
+    inputs[4].value="First";
+
+    addAcademicRow();
+
+    row =
+    document.querySelectorAll(
+    "#academicTable tr"
+    )[2];
+
+    inputs =
+    row.querySelectorAll("input");
+
+    inputs[0].value="12th";
+    inputs[1].value="CBSE";
+    inputs[2].value="2016";
+    inputs[3].value="82";
+    inputs[4].value="First";
+
+    addAcademicRow();
+
+    row =
+    document.querySelectorAll(
+    "#academicTable tr"
+    )[3];
+
+    inputs =
+    row.querySelectorAll("input");
+
+    inputs[0].value="BCA";
+    inputs[1].value="Pt. Ravishankar University";
+    inputs[2].value="2019";
+    inputs[3].value="75";
+    inputs[4].value="First";
+
+    // Professional
+
+    addProfessionalRow();
+
+    row =
+    document.querySelectorAll(
+    "#professionalTable tr"
+    )[1];
+
+    inputs =
+    row.querySelectorAll("input");
+
+    inputs[0].value="PGDCA";
+    inputs[1].value="Makhanlal University";
+    inputs[2].value="2020";
+    inputs[3].value="85";
+    inputs[4].value="First";
+
+    // Extra Qualification
+
+    addExtraQualification();
+
+    document.querySelector(
+    "#extraQualificationContainer input"
+    ).value =
+    "HTML, CSS, JavaScript";
+
+    addExtraQualification();
+
+    document.querySelectorAll(
+    "#extraQualificationContainer input"
+    )[1].value =
+    "MS Office & Internet";
+    preview.src =
+"https://i.pravatar.cc/300?img=12";
+    saveFormData();
+
+}
+</script>
+{{ end }}

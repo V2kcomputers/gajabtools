@@ -1,0 +1,861 @@
++++
+date = 2026-06-02T18:58:18+05:30
+links = [
+"Visit Tools = https://gajabtools.com"
+]
+url = "/classic-resume-black/"
+imageBanner = "  "
+cssStyles = ["css/pages/legal.css"]
+title = 'Classic Resume Black - Gajab Tools'
+description = "  "
+
++++
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://unpkg.com/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
+<style>
+
+.resume{
+    max-width:900px;
+    margin:auto;
+    background:#fff;
+    padding:25px;
+    padding-bottom:40px; /* extra bottom space */
+    border:1px solid #000;
+}
+.title{
+text-align:center;
+font-size:28px;
+font-weight:bold;
+text-decoration:underline;
+margin-bottom:20px;
+}
+
+.resume-header{
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+}
+
+.info{
+ font-weight:bold;
+line-height:1.5;
+}
+
+.photo{
+width:100px;
+height:120px;
+border:1px solid #000;
+object-fit:cover;
+}
+
+.resume-section{
+margin-top:20px;
+}
+
+.resume-section h3{
+border-bottom:1px solid #000;
+padding-bottom:5px;
+margin-bottom:10px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+table th,
+table td{
+border:1px solid #000;
+padding:8px;
+text-align:center;
+}
+.personal {border: none;}
+.personal td{
+border:none;
+text-align:left;
+padding:5px;
+}
+
+.signature{
+margin-top:40px;
+text-align:right;
+font-weight:bold;
+}
+
+.print-btn{
+display:block;
+margin:20px auto;
+padding:12px 25px;
+font-size:18px;
+cursor:pointer;
+}
+.resume-footer{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-top:20px;
+    width:100%;
+  page-break-inside: avoid;
+    break-inside: avoid;
+}
+hr{
+    border:none;
+    border-top:1px dotted #000;
+    margin:15px 0;
+}
+.resume-footer .left{
+    text-align:left;
+}
+
+.resume-footer .right{
+    text-align:center;
+    min-width:180px;
+}
+
+.resume-footer .left,
+.resume-footer .right{
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+.pdf-mode{
+    max-width:100% !important;
+    border:none !important;
+    background:#fff !important;
+    padding:5px !important;
+}
+
+.pdf-mode .action-buttons{
+    display:none !important;
+}
+@media print {
+
+       @page{
+        size:A4;
+        margin:12mm;
+    }
+
+
+
+    body{
+        background:#fff;
+    }
+
+    .resume{
+        width:100%;
+        border:none;
+        padding-bottom:20mm; /* bottom margin */
+        page-break-after:auto;
+        padding:25px 25px 40px;
+    }
+
+   
+   .resume-footer{
+        page-break-before: auto;
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    .resume-section{
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+
+}
+  
+  .action-buttons{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+}
+
+.action-buttons button{
+    padding:10px 18px;
+    border:none;
+    background:#0d6efd;
+    color:#fff;
+    cursor:pointer;
+    border-radius:5px;
+    font-size:15px;
+}
+
+.action-buttons button:hover{
+    opacity:.9;
+}
+
+
+@media print{
+    .action-buttons{
+        display:none;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="action-buttons">
+
+  <button onclick="printResume()">🖨️ Print </button>
+
+    <button onclick="savePDF()">
+        📄 Save PDF
+    </button>
+
+    <button onclick="saveImage()">
+        🖼️ Save Image
+    </button>
+
+    <button onclick="editResume()">
+        ✏️ Edit Resume
+    </button>
+
+</div>
+<div class="resume">
+
+    <div class="title" id="resumeType">
+        Resume
+    </div>
+
+    <!-- Header -->
+
+    <div class="resume-header">
+
+        <div class="info">
+
+           <div class="profile-info">
+            <h4  id="r_name"> </h4><br>
+            <span id ="r_address"> </span><br>
+             <b>Contact No.</b>: <span id="r_mobile"> </span><br>
+             <b>Email ID</b>: <span id="r_email"> </span>
+        </div>
+
+        </div> 
+
+        <img
+            id="r_photo"
+            class="photo"
+            src=""
+            alt="Photo"
+        >
+
+    </div><hr>
+
+    <!-- Career Objective -->
+
+    <div class="resume-section">
+
+        <h3>Career Objective</h3>
+
+        <p id="r_objective"></p>
+
+    </div>
+
+    <!-- Academic Qualification -->
+
+    <div class="resume-section">
+
+        <h3>Academic Qualification</h3>
+
+        <table id="academicData">
+
+            <thead>
+                <tr>
+                    <th>Exam Name</th>
+                    <th>Board / University</th>
+                    <th>Passing Year</th>
+                    <th>Marks %</th>
+                    <th>Division</th>
+                </tr>
+            </thead>
+
+            <tbody></tbody>
+
+        </table>
+
+    </div>
+
+    <!-- Professional Qualification -->
+
+    <div class="resume-section">
+
+        <h3>Professional Qualification</h3>
+
+        <table id="professionalData">
+
+            <thead>
+                <tr>
+                    <th>Exam Name</th>
+                    <th>Board / University</th>
+                    <th>Passing Year</th>
+                    <th>Marks %</th>
+                    <th>Division</th>
+                </tr>
+            </thead>
+
+            <tbody></tbody>
+
+        </table>
+
+    </div>
+
+    <!-- Extra Qualification -->
+
+    <div class="resume-section">
+
+        <h3>Extra Qualification</h3>
+
+        <ul id="extraQualificationList"></ul>
+
+    </div>
+
+    <!-- Work Experience -->
+
+    <div class="resume-section">
+
+        <h3>Work Experience</h3>
+
+        <p id="r_workExperience"></p>
+
+    </div>
+
+    <!-- Personal Information -->
+
+    <div class="resume-section">
+
+        <h3>Personal Information</h3>
+
+        <table class="personal">
+
+            <tr>
+                <td>Date of Birth</td>
+                <td>:</td>
+                <td id="r_dob"></td>
+            </tr>
+
+            <tr>
+                <td>Father's Name</td>
+                <td>:</td>
+                <td id="r_father"></td>
+            </tr>
+
+            <tr>
+                <td>Mother's Name</td>
+                <td>:</td>
+                <td id="r_mother"></td>
+            </tr>
+
+            <tr>
+                <td>Gender</td>
+                <td>:</td>
+                <td id="r_gender"></td>
+            </tr>
+
+            <tr>
+                <td>Nationality</td>
+                <td>:</td>
+                <td id="r_nationality"></td>
+            </tr>
+
+            <tr>
+                <td>Marital Status</td>
+                <td>:</td>
+                <td id="r_marital"></td>
+            </tr>
+
+            <tr>
+                <td>Language Known</td>
+                <td>:</td>
+                <td id="r_language"></td>
+            </tr>
+
+            <tr>
+                <td>Hobbies</td>
+                <td>:</td>
+                <td id="r_hobbies"></td>
+            </tr>
+
+        </table>
+
+    </div>
+
+    <!-- Declaration -->
+
+    <div class="resume-section">
+
+        <h3>Declaration</h3>
+
+        <p>
+            I hereby declare that the information furnished above is true,
+            complete and correct to the best of my knowledge and belief.
+        </p>
+
+    </div>
+
+    <!-- Footer -->
+
+    <div class="resume-footer">
+
+        <div class="left">
+
+            <p>
+                <strong>Date :</strong>
+                <span id="r_date"></span>
+            </p>
+
+            <p>
+                <strong>Place :</strong>
+                <span id="r_place"></span>
+            </p>
+
+        </div>
+
+        <div class="right">
+
+            <p> <strong>Signature</strong></p> <p> (<span id="r_signature"></span>)  </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+const resume_id=
+new URLSearchParams(
+location.search
+).get("resume_id");
+
+if(!resume_id){
+
+alert("Invalid resume_id");
+location.href="/resume-generator/";
+
+}
+
+const raw=
+localStorage.getItem(resume_id);
+
+if(!raw){
+
+alert("Resume Not Found");
+location.href="/resume-generator/";
+
+}
+
+const data=
+JSON.parse(raw);
+
+// Basic Details
+
+r_name.textContent=
+data.candidateName||"";
+
+r_signature.textContent=
+data.candidateName||"";
+
+r_address.textContent=
+data.address||"";
+
+r_mobile.textContent=
+data.mobile||"";
+
+r_email.textContent=
+data.email||"";
+
+r_dob.textContent=
+data.dob||"";
+
+r_father.textContent=
+data.fatherName||"";
+
+r_mother.textContent=
+data.motherName||"";
+
+r_gender.textContent=
+data.gender||"";
+
+r_nationality.textContent=
+data.nationality||"";
+
+r_marital.textContent=
+data.maritalStatus||"";
+
+r_language.textContent=
+data.language||"";
+
+r_hobbies.textContent=
+data.hobbies||"";
+
+r_objective.textContent=
+data.objective||"";
+
+r_workExperience.textContent=
+data.workExperience||"";
+
+resumeType.textContent=
+data.type||"Resume";
+
+r_photo.src=
+data.photo||"";
+
+
+// Academic Qualification
+
+const academicTable=
+document.getElementById(
+"academicData"
+);
+
+data.academic.forEach(item=>{
+
+const tr=
+document.createElement("tr");
+
+tr.innerHTML=`
+<td>${item.exam}</td>
+<td>${item.board}</td>
+<td>${item.year}</td>
+<td>${item.marks}</td>
+<td>${item.division}</td>
+`;
+
+academicTable.appendChild(tr);
+
+});
+
+
+// Professional Qualification
+
+const professionalTable=
+document.getElementById(
+"professionalData"
+);
+
+data.professional.forEach(item=>{
+
+const tr=
+document.createElement("tr");
+
+tr.innerHTML=`
+<td>${item.exam}</td>
+<td>${item.board}</td>
+<td>${item.year}</td>
+<td>${item.marks}</td>
+<td>${item.division}</td>
+`;
+
+professionalTable.appendChild(tr);
+
+});
+
+
+// Extra Qualification
+
+const extraList=
+document.getElementById(
+"extraQualificationList"
+);
+
+data.extraQualifications.forEach(
+item=>{
+
+const li=
+document.createElement("li");
+
+li.textContent=item;
+
+extraList.appendChild(li);
+
+});
+
+</script>
+
+  <script>
+
+// Edit Resume
+
+function editResume(){
+
+    location.href =
+    "/resume-generator/?resume_id=" + resume_id;
+
+}
+
+
+// Save as Image
+
+async function saveImage(){
+
+    const resume =
+    document.querySelector(".resume");
+
+    const canvas =
+    await html2canvas(resume,{
+        scale:2,
+        useCORS:true
+    });
+
+    const link =
+    document.createElement("a");
+
+    const fileName =
+    (data.candidateName || "resume")
+    .replace(/\s+/g,"-")
+    + "-resume.jpg";
+
+    link.download =
+    fileName;
+
+    link.href =
+    canvas.toDataURL(
+        "image/jpeg",
+        1
+    );
+
+    link.click();
+
+}
+
+
+// Save as PDF
+
+async function savePDF(){
+
+    const element =
+    document.querySelector(".resume");
+
+    const fileName =
+    (data.candidateName || "resume")
+    .replace(/\s+/g,"-")
+    + "-resume.pdf";
+
+    html2pdf()
+    .set({
+
+        margin:[12,12,12,12],
+
+        filename:fileName,
+
+        image:{
+            type:"jpeg",
+            quality:1
+        },
+
+        html2canvas:{
+            scale:2,
+            useCORS:true
+        },
+
+        jsPDF:{
+            unit:"mm",
+            format:"a4",
+            orientation:"portrait"
+        },
+
+        pagebreak:{
+            mode:[
+                "avoid-all",
+                "css",
+                "legacy"
+            ]
+        }
+
+    })
+    .from(element)
+    .save();
+
+}
+
+</script>
+   <script>
+
+const PRINT_CSS = `
+@page{
+    size:A4;
+    margin:12mm;
+}
+
+
+}
+
+.resume{
+    max-width:100%;
+    margin:auto;
+    background:#fff;
+    padding:5px;
+    border:none;
+}
+
+.title{
+    text-align:center;
+    font-size:28px;
+    font-weight:bold;
+    text-decoration:underline;
+    margin-bottom:10px;
+}
+
+.resume-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+}
+
+.photo{
+    width:100px;
+    height:120px;
+    border:1px solid #000;
+    object-fit:cover;
+}
+
+.resume-section{
+    margin-top: 5px;
+    page-break-inside:avoid;
+    break-inside:avoid;
+}
+
+.resume-section h3{
+    border-bottom:1px solid #000;
+    padding-bottom:2px;
+    margin-bottom:5px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+table th,
+table td{
+    border:1px solid #000;
+    padding:8px;
+    text-align:center;
+}
+
+.personal td{
+    border:none;
+    text-align:left;
+}
+
+.resume-footer{
+    display:flex;
+    justify-content:space-between;
+    margin-top:10px;
+    page-break-inside:avoid;
+    break-inside:avoid;
+}
+
+.resume-footer .left,
+.resume-footer .right{
+    page-break-inside:avoid;
+    break-inside:avoid;
+}
+`;
+
+
+// PRINT
+
+function printResume(){
+
+    const resumeHtml =
+    document.querySelector(".resume").outerHTML;
+
+    const printWindow =
+    window.open("", "_blank");
+
+    printWindow.document.write(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Resume Print</title>
+
+        <style>
+            ${PRINT_CSS}
+        </style>
+
+    </head>
+
+    <body>
+
+        ${resumeHtml}
+
+        <script>
+        window.onload=function(){
+            window.print();
+            window.close();
+        }
+        <\/script>
+
+    </body>
+    </html>
+    `);
+
+    printWindow.document.close();
+
+}
+
+
+// PDF
+
+async function savePDF(){
+
+    const element =
+    document.querySelector(".resume");
+
+    // PDF के लिए special CSS activate
+    element.classList.add("pdf-mode");
+
+    const fileName =
+    (data.candidateName || "resume")
+    .replace(/\s+/g,"-")
+    + "-resume.pdf";
+
+    await html2pdf()
+    .set({
+
+        filename:fileName,
+
+        margin:[12,12,12,12],
+
+        image:{
+            type:"jpeg",
+            quality:1
+        },
+
+        html2canvas:{
+            scale:2,
+            useCORS:true
+        },
+
+        jsPDF:{
+            unit:"mm",  
+            format:"a4",
+            orientation:"portrait"
+        },
+
+        pagebreak:{
+            mode:["avoid-all","css","legacy"]
+        }
+
+    })
+    .from(element)
+    .save();
+    element.classList.remove("pdf-mode");
+
+}
+</script>
+</script>
+</body>
+</html>
