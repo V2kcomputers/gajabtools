@@ -28,10 +28,7 @@ description = "  "
     <button onclick="saveImage()">
         🖼️ Save Image
     </button>
-
-    <button onclick="editResume()">
-        ✏️ Edit Resume
-    </button>
+ <button onclick="history.length > 1 ? history.back() : location.href='/resume-generator/'">✏️ Edit Resume</button>
 
 </div>
 <div class="resume">
@@ -459,7 +456,8 @@ async function savePDF(){
     html2pdf()
     .set({
 
-        margin:[12,12,12,12],
+        margin:[0],
+        padding:[0],
 
         filename:fileName,
 
@@ -625,49 +623,29 @@ function printResume(){
 
 async function savePDF(){
 
-    const element =
-    document.querySelector(".resume");
+    const element = document.querySelector(".resume");
 
-    // PDF के लिए special CSS activate
-    element.classList.add("pdf-mode");
-
-    const fileName =
-    (data.candidateName || "resume")
-    .replace(/\s+/g,"-")
-    + "-resume.pdf";
-
-    await html2pdf()
-    .set({
-
-        filename:fileName,
-
-        margin:[12,12,12,12],
-
-        image:{
-            type:"jpeg",
-            quality:1
-        },
-
-        html2canvas:{
-            scale:2,
-            useCORS:true
-        },
-
-        jsPDF:{
-            unit:"mm",  
-            format:"a4",
-            orientation:"portrait"
-        },
-
-        pagebreak:{
-            mode:["avoid-all","css","legacy"]
+    const opt = {
+        margin: 10,
+        filename: "resume.pdf",
+        image: { type: "jpeg", quality: 1 },
+        html2canvas: { scale: 2 },
+        jsPDF: {
+            unit: "mm",
+            format: "a4",
+            orientation: "portrait"
         }
+    };
 
-    })
-    .from(element)
-    .save();
-    element.classList.remove("pdf-mode");
+    const worker = html2pdf().set(opt).from(element);
 
+    const pdf = await worker.toPdf().get('pdf');
+
+    const blob = pdf.output('blob');
+
+    const url = URL.createObjectURL(blob);
+
+    window.open(url, '_blank');
 }
 </script>
 </script>
