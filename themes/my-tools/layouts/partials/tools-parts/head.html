@@ -1,6 +1,6 @@
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=599">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 {{ partial "imp-codes/seo-meta.html" . }}
 {{ with .Params.cssStyles }}{{ range . }}{{ $css := resources.Get . | resources.Minify | resources.Fingerprint }}<link rel="stylesheet" href="{{ $css.Permalink }}" integrity="{{ $css.Data.Integrity }}">{{ end }}{{ end }}
