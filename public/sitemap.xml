@@ -7,6 +7,11 @@
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
+    <loc>http://localhost:1313/classic-resume-blue/</loc>
+    <lastmod>2026-06-02T19:58:18+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
     <loc>http://localhost:1313/tools/</loc>
     <lastmod>2026-06-02T19:58:18+05:30</lastmod>
     <changefreq>daily</changefreq>
@@ -824,10 +829,6 @@
   </url><url>
     <loc>http://localhost:1313/</loc>
     <lastmod>2023-01-01T08:00:00-07:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/tools/simple-resume/classic-resume-blue/</loc>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>

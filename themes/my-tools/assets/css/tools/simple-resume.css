@@ -1,10 +1,10 @@
-
 .resume-container{
 max-width:900px;
 margin:auto;
 background:#fff;
 padding:15px;
 margin-top: 20px;
+box-shadow: 1px 2px 12px  black;
 border-radius: 5px;
 }
 
@@ -16,7 +16,7 @@ margin-bottom:15px;
 }
 
 .resume-header h1{
-font-size:42px;
+font-size:28px;
 }
 
 .form-group{
@@ -34,7 +34,7 @@ input[type=email],
 input[type=date],
 textarea,
 select{
-width:100%;
+width:98%;
 padding:8px;
 border:1px solid #ccc;
 }
@@ -77,6 +77,8 @@ border-right:1px solid #ccc;
 color:#444;
 font-size:16px;
 }
+
+
 
 .input-group input,
 .input-group select,
@@ -130,7 +132,7 @@ margin-bottom:10px;
 table th,
 table td{
 border:1px solid #000;
-padding:5px;
+
 text-align:center;
 }
 
@@ -147,13 +149,15 @@ cursor:pointer;
 }
 
 .delete-btn{
-background:red;
+background:#fff;
+border-radius: 50%;
+font-size: 12px;
 color:#fff;
 border:none;
-padding:5px 10px;
+padding:5px;
 cursor:pointer;
 }
-
+.delete-btn:hover { background:#fff2cf;}
 .extra-row{
 display:flex;
 gap:10px;
@@ -249,13 +253,19 @@ color:#2d62dc;
 .generate-btn{
 width:100%;
 padding:18px;
-background:#2d62dc;
+background:#009625;
 color:#fff;
 font-size:26px;
 border:none;
 cursor:pointer;
 margin-top:20px;
+ border-radius:12px;
+ font-weight: 800;
+ cursor:pointer;
+ text-shadow: 1px 2px 8px black;
+transition:.3s;
 }
+.generate-btn:hover {transform:translateY(-2px); }
 .template-switcher{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
