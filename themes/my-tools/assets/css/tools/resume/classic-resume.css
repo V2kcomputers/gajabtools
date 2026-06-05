@@ -185,7 +185,63 @@ hr{
 
 }
   
+   .download-menu{
+    position:relative;
+    display:inline-block;
+}
 
+.download-options{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    min-width:180px;
+    background:green;
+    border:1px solid #ddd;
+    border-radius:8px;
+    box-shadow:0 4px 10px rgba(0,0,0,.15);
+    z-index:999;
+}
+
+.download-options button{
+    width:100%;
+    border:none;
+    background:#010057;
+    padding:12px;
+    text-align:left;
+    cursor:pointer;
+}
+
+.download-options button:hover{
+    background:#003010;
+}
+
+.download-options.show{
+    display:block;
+}
+.loading{
+    pointer-events:none;
+    opacity:.8;
+}
+
+.loading::before{
+    content:"";
+    display:inline-block;
+    width:14px;
+    height:14px;
+    margin-right:8px;
+    border:2px solid #fff;
+    border-top-color:transparent;
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+    vertical-align:middle;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
 
 
 
