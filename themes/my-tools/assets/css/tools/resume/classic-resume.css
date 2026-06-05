@@ -1,10 +1,10 @@
 .resume{
-    max-width:900px;
+    max-width:600px;
     margin:auto;
     background:#fff;
-    padding:25px;
+    padding:5px;
     padding-bottom:40px; /* extra bottom space */
-    border:1px solid #000;
+    border:3px solid red !important;
 }
 .title{
 text-align:center;
@@ -101,12 +101,7 @@ hr{
     page-break-inside: avoid;
     break-inside: avoid;
 }
-.pdf-mode{
-    max-width:100% !important;
-    border:none !important;
-    background:#fff !important;
-    padding:5px !important;
-}
+
 
 .pdf-mode .action-buttons{
     display:none !important;

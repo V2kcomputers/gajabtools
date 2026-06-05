@@ -6,7 +6,7 @@ links = [
 url = "/classic-resume-black/"
 imageBanner = "  "
 cssStyles = ["css/tools/resume/classic-resume.css"]
-jsFiles = ["js/pages/disabled.js"]
+
 title = 'Classic Resume Black - Gajab Tools'
 description = "  "
 
@@ -15,23 +15,221 @@ description = "  "
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://unpkg.com/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
+<style>
+.pdf-page{
+    width:230mm;
+    min-height:277mm;
+    box-sizing:border-box;
+    page-break-after:always;
+    margin:auto; 
+}
+
+.resume{
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin:auto;
+    background:#fff;
+    padding:2mm;
+    padding-bottom:40px; /* extra bottom space */
+    border:1px solid #fff !important;
+    
+}
+
+
+.resume-border{
+    border:1px solid #9c9c9c;
+    padding:5mm;
+    
+}
+
+.title{
+text-align:center;
+font-size:28px;
+font-weight:bold;
+text-decoration:underline;
+margin-bottom:20px;
+}
+
+.resume-header{
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+}
+
+.info{
+ font-weight:bold;
+line-height:1.5;
+}
+
+.photo{
+width:100px;
+height:120px;
+border:1px solid #000;
+object-fit:cover;
+}
+
+.resume-section{
+margin-top:20px;
+}
+
+.resume-section h3{
+border-bottom:1px solid #000;
+padding-bottom:5px;
+margin-bottom:10px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+table th,
+table td{
+border:1px solid #000;
+padding:8px;
+text-align:center;
+}
+.personal {border: none;}
+.personal td{
+border:none;
+text-align:left;
+padding:5px;
+}
+
+.signature{
+margin-top:40px;
+text-align:right;
+font-weight:bold;
+}
+
+.print-btn{
+display:block;
+margin:20px auto;
+padding:12px 25px;
+font-size:18px;
+cursor:pointer;
+}
+.resume-footer{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-top:20px;
+    width:100%;
+  page-break-inside: avoid;
+    break-inside: avoid;
+}
+hr{
+    border:none;
+    border-top:1px dotted #000;
+    margin:15px 0;
+}
+.resume-footer .left{
+    text-align:left;
+}
+
+.resume-footer .right{
+    text-align:center;
+    min-width:180px;
+}
+
+.resume-footer .left,
+.resume-footer .right{
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+
+.pdf-mode .action-buttons{
+    display:none !important;
+}
+@media print {
+
+       @page{
+        size:A4;
+        margin:2mm;
+    }
+
+
+
+    body{
+        background:#fff;
+    }
+
+    .resume{
+        width:100%;
+        border:none;
+        padding-bottom:20mm; /* bottom margin */
+        page-break-after:auto;
+        padding:0;
+    }
+
+   
+   .resume-footer{
+        page-break-before: auto;
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    .resume-section{
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+    header , footer {display: none;}
+
+
+}
+  
+  .action-buttons{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+}
+
+.action-buttons button{
+    padding:10px 18px;
+    border:none;
+    background:#0d6efd;
+    color:#fff;
+    cursor:pointer;
+    border-radius:5px;
+    font-size:15px;
+}
+
+.action-buttons button:hover{
+    opacity:.9;
+}
+
+
+@media print{
+    .action-buttons{
+        display:none;
+    }
+}
+
+</style>
+
 <body>
 
 <div class="action-buttons">
-
-  <button onclick="printResume()">🖨️ Print </button>
-
-    <button onclick="savePDF()">
-        📄 Save PDF
-    </button>
-
-    <button onclick="saveImage()">
-        🖼️ Save Image
-    </button>
  <button onclick="history.length > 1 ? history.back() : location.href='/resume-generator/'">✏️ Edit Resume</button>
+  <button onclick="printResume()">🖨️ Print </button>
+ <button onclick="saveImage()">
+        🖼️ Save as Image
+    </button>
+    <button onclick="downloadPDF()">
+    📄 Download as PDF
+</button>
+   <button onclick="savePDF()">
+        📄 Open as PDF
+    </button>
 
 </div>
+<div class="pdf-page">
 <div class="resume">
+     <div class="resume-border">
 
     <div class="title" id="resumeType">
         Resume
@@ -44,7 +242,7 @@ description = "  "
         <div class="info">
 
            <div class="profile-info">
-            <h4  id="r_name"> </h4><br>
+            <span style="font-size: 32px;" id="r_name"> </span><br><br>
             <span id ="r_address"> </span><br>
              <b>Contact No.</b>: <span id="r_mobile"> </span><br>
              <b>Email ID</b>: <span id="r_email"> </span>
@@ -237,7 +435,8 @@ description = "  "
         </div>
 
     </div>
-
+</div>
+</div>
 </div>
 
 
@@ -448,46 +647,54 @@ async function savePDF(){
     const element =
     document.querySelector(".resume");
 
+    // PDF Mode ON
+    element.classList.add("pdf-mode");
+
     const fileName =
     (data.candidateName || "resume")
     .replace(/\s+/g,"-")
     + "-resume.pdf";
 
-    html2pdf()
-    .set({
+    try{
 
-        margin:[0],
-        padding:[0],
+        await html2pdf()
+        .set({
 
-        filename:fileName,
+            filename:fileName,
 
-        image:{
-            type:"jpeg",
-            quality:1
-        },
+           margin:[15,15,15,15],
 
-        html2canvas:{
-            scale:2,
-            useCORS:true
-        },
+            image:{
+                type:"jpeg",
+                quality:1
+            },
 
-        jsPDF:{
-            unit:"mm",
-            format:"a4",
-            orientation:"portrait"
-        },
+            html2canvas:{
+                scale:3,
+                useCORS:true,
+                scrollY:0
+            },
 
-        pagebreak:{
-            mode:[
-                "avoid-all",
-                "css",
-                "legacy"
-            ]
-        }
+            jsPDF:{
+                unit:"mm",
+                format:"letter",
+                orientation:"portrait"
+            },
 
-    })
-    .from(element)
-    .save();
+            pagebreak:{
+                mode:["avoid-all","css","legacy"]
+            }
+
+        })
+        .from(element)
+        .save();
+
+    }finally{
+
+        // PDF Mode OFF
+        element.classList.remove("pdf-mode");
+
+    }
 
 }
 
@@ -497,12 +704,20 @@ async function savePDF(){
 const PRINT_CSS = `
 @page{
     size:A4;
-    margin:12mm;
+    margin:2mm;
 }
 
 
 }
-
+.pdf-page{
+    width:190mm;
+    min-height:277mm;
+    border:2px solid #000;
+    box-sizing:border-box;
+  
+    margin:auto;
+    page-break-after:always;
+}
 .resume{
     max-width:100%;
     margin:auto;
@@ -510,7 +725,11 @@ const PRINT_CSS = `
     padding:5px;
     border:none;
 }
-
+.resume-border{
+    border:1px solid rgb(10, 10, 10);
+    padding:3mm;
+    page-break-after:always;
+}
 .title{
     text-align:center;
     font-size:28px;
@@ -648,4 +867,37 @@ async function savePDF(){
     window.open(url, '_blank');
 }
 </script>
+<script>
+async function downloadPDF(){
+
+    const element =
+    document.querySelector(".resume");
+
+    const fileName =
+    (data.candidateName || "resume")
+    .replace(/\s+/g,"-")
+    + "-resume.pdf";
+
+    await html2pdf()
+    .set({
+        filename:fileName,
+        margin:[10,10,10,10],
+        image:{
+            type:"jpeg",
+            quality:1
+        },
+        html2canvas:{
+            scale:2,
+            useCORS:true
+        },
+        jsPDF:{
+            unit:"mm",
+            format:"a4",
+            orientation:"portrait"
+        }
+    })
+    .from(element)
+    .save();
+
+}
 </script>
