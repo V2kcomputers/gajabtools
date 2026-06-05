@@ -1,11 +1,30 @@
+.pdf-page{
+    width:230mm;
+    min-height:277mm;
+    box-sizing:border-box;
+    page-break-after:always;
+    margin:auto; 
+}
+
 .resume{
-    max-width:600px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
     margin:auto;
     background:#fff;
-    padding:5px;
+    padding:2mm;
     padding-bottom:40px; /* extra bottom space */
-    border:3px solid red !important;
+    border:1px solid #fff !important;
+    
 }
+
+
+.resume-border{
+    border:1px solid #9c9c9c;
+    padding:5mm;
+    
+}
+
 .title{
 text-align:center;
 font-size:28px;
@@ -106,48 +125,14 @@ hr{
 .pdf-mode .action-buttons{
     display:none !important;
 }
-@media print {
 
-       @page{
-        size:A4;
-        margin:12mm;
-    }
-
-
-
-    body{
-        background:#fff;
-    }
-
-    .resume{
-        width:100%;
-        border:none;
-        padding-bottom:20mm; /* bottom margin */
-        page-break-after:auto;
-        padding:25px 25px 40px;
-    }
-
-   
-   .resume-footer{
-        page-break-before: auto;
-        page-break-inside: avoid;
-        break-inside: avoid;
-    }
-
-    .resume-section{
-        page-break-inside: avoid;
-        break-inside: avoid;
-    }
-
-
-}
-  
   .action-buttons{
     display:flex;
     gap:10px;
     justify-content:center;
     flex-wrap:wrap;
-    margin-bottom:20px;
+    margin-bottom:10px;
+    margin-top: 20px
 }
 
 .action-buttons button{
@@ -163,10 +148,44 @@ hr{
 .action-buttons button:hover{
     opacity:.9;
 }
+@media print {
 
-
-@media print{
-    .action-buttons{
-        display:none;
+       @page{
+        size:A4;
+        margin:2mm;
     }
+
+
+
+    body{
+        background:#fff;
+    }
+
+    .resume{
+        width:100%;
+        border:none;
+        padding-bottom:20mm; /* bottom margin */
+        page-break-after:auto;
+        padding:0;
+    }
+
+   
+   .resume-footer{
+        page-break-before: auto;
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    .resume-section{
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+    header , footer, .action-buttons {display: none;}
+
+
 }
+  
+
+
+
+

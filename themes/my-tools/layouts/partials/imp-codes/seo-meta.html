@@ -32,7 +32,7 @@
 
 <meta name="application-name" content="Gajab Tools">
 <meta name="theme-color" content="#0084ff">
-<meta name="robots" content="index, follow">
+{{ if eq .Params.robots "nofollow" }}<meta name="robots" content="noindex, nofollow">{{ else }}<meta name="robots" content="index, follow">{{ end }}
 <meta name="distribution" content="global">
 <meta name="language" content="English">
 
