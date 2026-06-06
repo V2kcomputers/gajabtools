@@ -1,0 +1,305 @@
+:root{
+
+    /* Colors */
+    --primary-color:#000000;
+    --secondary-color:#6d6d6d;
+    --table-header-bg:linear-gradient( 135deg, #6d6d6d 0%,#bfbfbf 25%, #ffffff 50%,#bfbfbf 75%,#6d6d6d 100%);
+
+    --resume-bg:#ffffff;
+    --text-color:#000000;
+
+    --button-bg: linear-gradient( 135deg, #6d6d6d 0%,#bfbfbf 25%, #ffffff 50%,#bfbfbf 75%,#6d6d6d 100%);
+    --button-text:#000000;
+
+    --download-bg:#010057;
+    --download-hover:#003010;
+
+    /* Sizes */
+    --page-width:230mm;
+    --page-height:277mm;
+
+    --photo-width:100px;
+    --photo-height:120px;
+
+    --title-size:28px;
+    --body-font-size:16px;
+
+    /* Borders */
+    --resume-border-width:1px;
+    --resume-border-color:#6d6d6d;
+
+    --table-border-color:#6d6d6d;
+
+    /* Spacing */
+    --resume-padding:2mm;
+    --resume-border-padding:5mm;
+
+    --section-gap:20px;
+    --footer-gap:20px;
+
+    --button-padding:10px 18px;
+    --button-radius:5px;
+
+    --table-cell-padding:8px;
+
+    --shadow:0 4px 10px rgba(0,0,0,.15);
+}
+
+.pdf-page{
+    width:var(--page-width);
+    min-height:var(--page-height);
+    box-sizing:border-box;
+    page-break-after:always;
+    margin:auto;
+}
+
+.resume{
+    width:100%;
+    max-width:100%;
+    box-sizing:border-box;
+    margin:auto;
+    background:var(--resume-bg);
+    padding:var(--resume-padding);
+    padding-bottom:40px;
+    border:1px solid var(--resume-bg) !important;
+    font-size:var(--body-font-size);
+    color:var(--text-color);
+}
+
+.resume-border{
+    border:var(--resume-border-width) solid var(--resume-border-color);
+    padding:var(--resume-border-padding);
+}
+
+.title{
+    text-align:center;
+    font-size:var(--title-size);
+    font-weight:bold;
+    text-decoration:underline;
+    margin-bottom:20px;
+}
+
+.resume-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+}
+
+.info{
+    font-weight:bold;
+    line-height:1.5;
+}
+
+.photo{
+    width:var(--photo-width);
+    height:var(--photo-height);
+    border:1px solid #000;
+    object-fit:cover;
+}
+
+.resume-section{
+    margin-top:var(--section-gap);
+}
+
+.resume-section h3{
+    border-bottom:1px solid var(--table-border-color);
+    padding-bottom:5px;
+    margin-bottom:10px;
+    color:var(--primary-color);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    color:var(--primary-color);
+    background:var(--table-header-bg);
+}
+
+table th,
+table td{
+    border:1px solid var(--table-border-color);
+    padding:var(--table-cell-padding);
+    text-align:center;
+}
+
+.personal{
+    border:none;
+}
+
+.personal td{
+    border:none;
+    text-align:left;
+    padding:5px;
+}
+
+.signature{
+    margin-top:40px;
+    text-align:right;
+    font-weight:bold;
+}
+
+.print-btn{
+    display:block;
+    margin:20px auto;
+    padding:12px 25px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.resume-footer{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-top:var(--footer-gap);
+    width:100%;
+    page-break-inside:avoid;
+    break-inside:avoid;
+}
+
+hr{
+    border:none;
+    border-top:1px dotted #000;
+    margin:15px 0;
+}
+
+.resume-footer .left{
+    text-align:left;
+}
+
+.resume-footer .right{
+    text-align:center;
+    min-width:180px;
+}
+
+.resume-footer .left,
+.resume-footer .right{
+    page-break-inside:avoid;
+    break-inside:avoid;
+}
+
+.pdf-mode .action-buttons{
+    display:none !important;
+}
+
+.action-buttons{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-bottom:10px;
+    margin-top:20px;
+}
+
+.action-buttons button{
+    padding:var(--button-padding);
+    border:none;
+    background:var(--button-bg);
+    color:var(--button-text);
+    cursor:pointer;
+    border-radius:var(--button-radius);
+    font-size:15px;
+}
+
+.action-buttons button:hover{
+    opacity:.9;
+}
+
+@media print{
+
+    @page{
+        size:A4;
+        margin:2mm;
+    }
+
+    body{
+        background:#fff;
+    }
+
+    .resume{
+        width:100%;
+        border:none;
+        padding-bottom:20mm;
+        page-break-after:auto;
+        padding:0;
+    }
+
+    .resume-footer{
+        page-break-before:auto;
+        page-break-inside:avoid;
+        break-inside:avoid;
+    }
+
+    .resume-section{
+        page-break-inside:avoid;
+        break-inside:avoid;
+    }
+
+    header,
+    footer,
+    .action-buttons{
+        display:none;
+    }
+}
+
+.download-menu{
+    position:relative;
+    display:inline-block;
+}
+
+.download-options{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    min-width:180px;
+    background:green;
+    border:1px solid #ddd;
+    border-radius:8px;
+    box-shadow:var(--shadow);
+    z-index:999;
+}
+
+.download-options button{
+    width:100%;
+    border:none;
+    background:var(--download-bg);
+    color:#fff;
+    padding:12px;
+    text-align:left;
+    cursor:pointer;
+}
+
+.download-options button:hover{
+    background:var(--download-hover);
+}
+
+.download-options.show{
+    display:block;
+}
+
+.loading{
+    pointer-events:none;
+    opacity:.8;
+}
+
+.loading::before{
+    content:"";
+    display:inline-block;
+    width:14px;
+    height:14px;
+    margin-right:8px;
+    border:2px solid #fff;
+    border-top-color:transparent;
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+    vertical-align:middle;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
