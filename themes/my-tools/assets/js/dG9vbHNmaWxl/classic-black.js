@@ -1,13 +1,12 @@
 
 
-const resume_id=
+const resume_id =
 new URLSearchParams(
 location.search
 ).get("resume_id");
 
 if(!resume_id){
 
-alert("Invalid resume_id");
 location.href="/resume-generator/";
 
 }
@@ -17,7 +16,6 @@ localStorage.getItem(resume_id);
 
 if(!raw){
 
-alert("Resume Not Found");
 location.href="/resume-generator/";
 
 }

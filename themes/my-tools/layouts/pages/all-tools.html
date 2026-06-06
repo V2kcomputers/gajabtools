@@ -97,7 +97,7 @@
 
 <div class="card-list">
 
-{{ $paginator := .Paginate (where .Site.RegularPages "Draft" false) 12 }}
+{{ $paginator := .Paginate (sort (where .Site.RegularPages "Section" "ne" "farmate") "Date" "desc") 12 }}
 
 {{ range $paginator.Pages }}
 

@@ -1,5 +1,5 @@
 {{- $index := slice -}}
-{{- range .Site.RegularPages -}}
+{{- range where .Site.RegularPages "Section" "ne" "farmate" -}}
   {{- $index = $index | append (dict 
     "title" .Title 
     "content" (.Summary | plainify)

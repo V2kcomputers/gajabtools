@@ -17,7 +17,7 @@
     <div class="nav-links" id="navLinks">
         <div class="close-btn" onclick="closeMenu()">✕</div>
         <a href="/" onclick="closeMenu()">🏠 Home</a>
-        <a href="/all-tools/" onclick="closeMenu()">🛠️ All Tools</a>
+        <a href="/tools/" onclick="closeMenu()">🛠️ All Tools</a>
         <a href="/search/" onclick="closeMenu()">🔎 Search</a>
         <button class="toggle-btn" onclick="toggleDarkMode()">🌙</button>
     </div>
@@ -38,7 +38,7 @@
 </section>
 
 <section class="tools">
-  {{ range first 8 (where (sort .Site.RegularPages "Date" "desc") "Section" "ne" "tools") }}
+  {{ range first 8 (where (sort .Site.RegularPages "Date" "desc") "Section" "ne" "farmate") }}
 
   <div class="tool-card">
     <a href="{{ .RelPermalink }}">

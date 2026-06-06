@@ -5,7 +5,7 @@
   {{ $currentSection := .Section }}
 
   <!-- ✅ Latest 50 Posts -->
-  {{ $latest := first 50 (sort .Site.RegularPages "Date" "desc") }}
+  {{ $latest := first 50 (sort (where .Site.RegularPages "Section" "ne" "farmate") "Date" "desc") }}
 
   <!-- ✅ SAME SECTION -->
   {{ $same := where $latest "Section" $currentSection }}
