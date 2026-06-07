@@ -3,3 +3,6 @@
 <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
 {{ partialCached "head/css.html" . }}
 {{ partialCached "head/js.html" . }}
+{{ if eq .Params.adsense "yes" }}
+  {{ partial "imp-codes/adsense.html" . }}
+{{ end }}
