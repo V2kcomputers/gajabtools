@@ -37,6 +37,279 @@
   <h1>Farmate - Gajab Tools</h1>
   
   
+    <h2><a href="/matrimonial-biodata/">Matrimonial Biodata - Gajab Tools</a></h2>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matrimonial Biodata</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+.hero-section{
+    display:flex;
+    gap:35px;
+    align-items:center;
+    margin-bottom:35px;
+    padding:25px;
+    background:linear-gradient(
+        135deg,
+        #fffef9,
+        #f5ead0
+    );
+    border:2px solid #d8bc73;
+    border-radius:20px;
+}
+
+.profile-photo{
+    width:220px;
+    height:280px;
+    flex-shrink:0;
+    overflow:hidden;
+    border-radius:16px;
+    border:4px solid #b8943d;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.profile-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.hero-info{
+    flex:1;
+}
+
+.hero-info h1{
+    font-size:48px;
+    color:#7a5b15;
+    margin-bottom:20px;
+}
+
+.hero-grid{
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:12px 25px;
+}
+
+.biodata-section{
+    margin-top:25px;
+    padding:25px;
+    background:#fff;
+    border-radius:18px;
+    border:1px solid #ead9aa;
+    box-shadow:0 4px 15px rgba(0,0,0,.05);
+}
+
+.section-title{
+    color:#b38a24;
+    font-size:28px;
+    font-weight:700;
+    margin-bottom:18px;
+    border-bottom:2px solid #ead9aa;
+    padding-bottom:10px;
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:240px 1fr;
+    gap:12px 25px;
+}
+
+.label{
+    font-weight:700;
+    color:#7a5b15;
+}
+
+.value{
+    color:#333;
+}
+
+.about{
+    line-height:1.9;
+    font-size:18px;
+}
+
+.biodata-footer{
+    margin-top:35px;
+    text-align:center;
+    color:#888;
+    font-size:14px;
+}
+</style>
+</head>
+<body>
+
+<div class="biodata">
+
+    <!-- Header -->
+
+    <div class="hero-section">
+
+        <div class="profile-photo">
+            <img id="photo" src="" alt="Photo">
+        </div>
+
+        <div class="hero-info">
+
+            <h1 id="fullName"></h1>
+
+            <div
+                id="basicInfo"
+                class="hero-grid">
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- About -->
+
+    <div class="biodata-section">
+
+        <div class="section-title">
+            About Me
+        </div>
+
+        <div
+            class="about"
+            id="about">
+        </div>
+
+    </div>
+
+    <!-- Personal -->
+
+    <div class="biodata-section">
+
+        <div class="section-title">
+            Personal Details
+        </div>
+
+        <div
+            id="personalInfo"
+            class="info-grid">
+        </div>
+
+    </div>
+
+    <!-- Family -->
+
+    <div class="biodata-section">
+
+        <div class="section-title">
+            Family Details
+        </div>
+
+        <div
+            id="familyInfo"
+            class="info-grid">
+        </div>
+
+    </div>
+
+    <!-- Contact -->
+
+    <div class="biodata-section">
+
+        <div class="section-title">
+            Contact Details
+        </div>
+
+        <div
+            id="contactInfo"
+            class="info-grid">
+        </div>
+
+    </div>
+
+    <div class="biodata-footer">
+        Matrimonial Biodata
+    </div>
+
+</div>
+
+<script>
+// Complete Biodata JavaScript
+
+async function openDB(){
+    return new Promise((resolve,reject)=>{
+        const request = indexedDB.open("BiodataDB", 2);
+        request.onsuccess = ()=>resolve(request.result);
+        request.onerror = ()=>reject(request.error);
+    });
+}
+
+async function getPhoto(photoId){
+    const db = await openDB();
+
+    return new Promise((resolve,reject)=>{
+        const tx = db.transaction("photos","readonly");
+        const request = tx.objectStore("photos").get(photoId);
+
+        request.onsuccess = ()=>resolve(request.result?.file);
+        request.onerror = ()=>reject(request.error);
+    });
+}
+
+const token = new URLSearchParams(location.search).get("token");
+const data = JSON.parse(localStorage.getItem(token));
+
+function renderSection(containerId, fields){
+    const container = document.getElementById(containerId);
+    if(!container || !fields) return;
+
+    container.innerHTML = "";
+
+    fields.forEach(field=>{
+        const label = document.createElement("div");
+        label.className = "label";
+        label.textContent = field.label;
+
+        const value = document.createElement("div");
+        value.className = "value";
+        value.textContent = field.value;
+
+        container.append(label,value);
+    });
+}
+
+if(data){
+    const fullName = document.getElementById("fullName");
+    if(fullName) fullName.textContent = data.fullName || "";
+
+    const about = document.getElementById("about");
+    if(about) about.textContent = data.about || "";
+
+    renderSection("basicInfo", data.sections?.basicInfo);
+    renderSection("personalInfo", data.sections?.personalInfo);
+    renderSection("familyInfo", data.sections?.familyInfo);
+    renderSection("contactInfo", data.sections?.contactInfo);
+    renderSection("educationInfo", data.sections?.educationInfo);
+
+    (async()=>{
+        if(data.photoId){
+            try{
+                const file = await getPhoto(data.photoId);
+                if(file){
+                    document.getElementById("photo").src =
+                        URL.createObjectURL(file);
+                }
+            }catch(err){
+                console.error(err);
+            }
+        }
+    })();
+}
+
+</script>
+
+</body>
+</html>
+  
     <h2><a href="/classic-resume-golden/">Classic Resume Golden - Gajab Tools</a></h2>
     <script> history.replaceState( {}, "", "/resume-generator/" + window.location.search + window.location.hash ); </script><div class="action-buttons"><button onclick="history.length > 1 ? history.back() : location.href='/resume-generator/'">✏️ Edit Resume</button><div class="download-menu"><button onclick="toggleDownloadMenu()"> ⬇️ Download Resume </button><div id="downloadOptions" class="download-options"><button id="pdfBtn" onclick="downloadPDF()"> 📄 PDF Resume </button><button id="imgBtn" onclick="saveImage()"> 🖼️ JPG Resume </button></div></div><button onclick="savePDF()"> 👁️‍🗨️ View Resume pdf </button><button onclick="printResume()">🖨️ Print </button></div><div class="pdf-page"><div class="resume"><div class="resume-border"><div class="title" id="resumeType"> Resume </div><div class="resume-header"><div class="info"><div class="profile-info"><span style="font-size: 32px;" id="r_name"></span><br><br><span id ="r_address"></span><br><b>Contact No.</b>: <span id="r_mobile"></span><br><b>Email ID</b>: <span id="r_email"></span></div></div><img id="r_photo" class="photo" src="" alt="Photo" ></div><hr><div class="resume-section"><h3>Career Objective</h3><p id="r_objective"></p></div><div class="resume-section"><h3>Academic Qualification</h3><table id="academicData"><thead><tr><th>Exam Name</th><th>Board / University</th><th>Passing Year</th><th>Marks %</th><th>Division</th></tr></thead><tbody></tbody></table></div><div class="resume-section"><h3>Professional Qualification</h3><table id="professionalData"><thead><tr><th>Exam Name</th><th>Board / University</th><th>Passing Year</th><th>Marks %</th><th>Division</th></tr></thead><tbody></tbody></table></div><div class="resume-section"><h3>Extra Qualification</h3><ul id="extraQualificationList"></ul></div><div class="resume-section"><h3>Work Experience</h3><p id="r_workExperience"></p></div><div class="resume-section"><h3>Personal Information</h3><table class="personal"><tr><td>Date of Birth</td><td>:</td><td id="r_dob"></td></tr><tr><td>Father's Name</td><td>:</td><td id="r_father"></td></tr><tr><td>Mother's Name</td><td>:</td><td id="r_mother"></td></tr><tr><td>Gender</td><td>:</td><td id="r_gender"></td></tr><tr><td>Nationality</td><td>:</td><td id="r_nationality"></td></tr><tr><td>Marital Status</td><td>:</td><td id="r_marital"></td></tr><tr><td>Language Known</td><td>:</td><td id="r_language"></td></tr><tr><td>Hobbies</td><td>:</td><td id="r_hobbies"></td></tr></table></div><div class="resume-section"><h3>Declaration</h3><p> I hereby declare that the information furnished above is true, complete and correct to the best of my knowledge and belief. </p>
   

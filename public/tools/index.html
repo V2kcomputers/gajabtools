@@ -4,6 +4,1185 @@
   <h1>Tools</h1>
   
   
+    <h2><a href="/create-biodata/">Matrimonial Biodata - Gajab Tools</a></h2>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Biodata</title>
+
+<style>
+:root{
+    --primary:#b38a24;
+    --primary-dark:#8d6b15;
+    --bg:#f4f6fb;
+    --white:#ffffff;
+    --border:#e5e7eb;
+    --text:#222;  
+}
+
+body{
+    margin:0;
+    padding:30px 15px;
+    background:var(--bg);
+    font-family:'Segoe UI',sans-serif;
+}
+
+.biodata-container{
+    max-width:950px;
+    margin:auto;
+}
+
+.biodata-container h1{
+    text-align:center;
+    color:var(--primary);
+    margin-bottom:30px;
+    font-size:32px;
+}
+
+.biodata-section{
+    background:#fff;
+    border-radius:16px;
+    padding:25px;
+    margin-bottom:25px;
+    box-shadow:0 4px 20px rgba(0,0,0,.06);
+    border:1px solid #eee;
+}
+
+.biodata-section h2{
+    margin:0 0 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:#333;
+    font-size:22px;
+    padding-bottom:12px;
+    border-bottom:2px solid #f0f0f0;
+}
+
+.form-group{
+    position:relative;
+    background:#fafafa;
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:15px;
+    transition:.3s;
+}
+
+.form-group:hover{
+    border-color:var(--primary);
+    box-shadow:0 4px 12px rgba(179,138,36,.12);
+}
+
+.form-group label{
+    display:block;
+    font-weight:600;
+    margin-bottom:8px;
+    color:#444;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    font-size:15px;
+    outline:none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{
+    border-color:var(--primary);
+}
+
+.drag-handle{
+    position:absolute;
+    left:12px;
+    top:12px;
+    font-size:22px;
+    color:#888;
+    cursor:grab;
+}
+
+.form-group label,
+.form-group input,
+.form-group textarea,
+.form-group select{
+    margin-left:28px;
+    width:calc(100% - 28px);
+}
+
+.form-group button{
+    position:absolute;
+    right:12px;
+    top:12px;
+    width:34px;
+    height:34px;
+    border:none;
+    border-radius:50%;
+    background:#ef4444;
+    color:#fff;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.form-group button:hover{
+    background:#dc2626;
+}
+
+.preview{
+    margin-top:15px;
+    width:180px;
+    height:220px;
+    border-radius:12px;
+    overflow:hidden;
+    border:3px solid #eee;
+}
+
+.preview img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.dynamic-field{
+    position:relative;
+    display:flex;
+    gap:10px;
+    align-items:center;
+    padding:15px 55px 15px 40px;
+    margin-bottom:12px;
+    background:#fafafa;
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+    transition:.3s;
+}
+
+.dynamic-field:hover{
+    border-color:#b38a24;
+    box-shadow:0 4px 12px rgba(179,138,36,.12);
+}
+
+.dynamic-field .drag-handle{
+    position:absolute;
+    left:12px;
+    top:50%;
+    transform:translateY(-50%);
+    cursor:grab;
+    font-size:20px;
+    color:#777;
+    user-select:none;
+}
+
+.dynamic-field input{
+    flex:1;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    font-size:15px;
+}
+
+.dynamic-field input:focus{
+    outline:none;
+    border-color:#b38a24;
+}
+
+.dynamic-field button{
+    position:absolute;
+    right:12px;
+    top:50%;
+    transform:translateY(-50%);
+    width:34px;
+    height:34px;
+    border:none;
+    border-radius:50%;
+    background:#ef4444;
+    color:#fff;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.dynamic-field button:hover{
+    background:#dc2626;
+}
+h2 button{
+    width:auto !important;
+    height:auto !important;
+    position:static !important;
+    padding:10px 16px;
+    border-radius:8px !important;
+    background:var(--primary) !important;
+    color:#fff;
+    font-size:14px;
+}
+
+h2 button:hover{
+    background:var(--primary-dark) !important;
+}
+
+button[type="submit"]{
+    width:100%;
+    padding:18px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(
+        135deg,
+        #c9a227,
+        #9d7918
+    );
+    color:#fff;
+    font-size:20px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+button[type="submit"]:hover{
+    transform:translateY(-2px);
+}
+
+.dragging{
+    opacity:.4;
+    background:#fff8e1;
+    border:2px dashed var(--primary);
+}
+</style>
+</head>
+<body>
+
+<div class="biodata-container">
+
+<h1>Create Matrimonial Biodata</h1>
+
+<form id="biodataForm">
+
+<div class="biodata-section">
+<h2>Basic Information</h2>
+<div id="basicInfoContainer">
+
+    <!-- Full Name -->
+    <div class="form-group">
+        <span class="drag-handle">☰</span>
+        <label>Full Name</label>
+        <input type="text" id="fullName" required>
+        <button type="button" onclick="removeField(this)">✖</button>
+    </div>
+
+    <!-- Date of Birth -->
+    <div class="form-group">
+        <span class="drag-handle">☰</span>
+        <label>Date of Birth</label>
+        <input type="date" id="dob">
+        <button type="button" onclick="removeField(this)">✖</button>
+    </div>
+
+    <!-- Time of Birth -->
+    <div class="form-group">
+        <span class="drag-handle">☰</span>
+        <label>Time of Birth</label>
+        <input type="time" id="timeBirth">
+        <button type="button" onclick="removeField(this)">✖</button>
+    </div>
+
+    <!-- Place of Birth -->
+    <div class="form-group">
+        <span class="drag-handle">☰</span>
+        <label>Place of Birth</label>
+        <input type="text" id="placeBirth">
+        <button type="button" onclick="removeField(this)">✖</button>
+    </div>
+
+</div>
+<div class="form-group">
+<label>Photo</label>
+<input type="file" id="photo" accept="image/*">
+<div class="preview" id="preview">
+<img id="previewImg">
+</div>
+</div>
+
+</div>
+
+<div class="biodata-section" >
+<h2>About Me</h2>
+<div class="form-group">
+<label>About Me</label>
+
+<select id="aboutSelect" onchange="toggleAboutCustom()">
+    <option value="">Select About</option>
+
+    <option value="Simple and Family Oriented Person">
+        Simple and Family Oriented Person
+    </option>
+
+    <option value="Well Educated and Career Focused">
+        Well Educated and Career Focused
+    </option>
+
+    <option value="Traditional with Modern Values">
+        Traditional with Modern Values
+    </option>
+
+    <option value="custom">
+        Write Custom
+    </option>
+</select>
+
+<textarea
+    id="aboutCustom"
+    placeholder="Write About Yourself"
+    style="display:none;margin-top:10px;">
+</textarea>
+</div>
+
+</div>
+
+
+<div class="biodata-section"  >
+<h2>Personal Details</h2>
+<div id="personalInfoContainer">
+<div class="form-group">
+     <span class="drag-handle">☰</span>
+<label>Height</label>
+<input type="text" id="height" >
+  <button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+<div class="form-group">
+     <span class="drag-handle">☰</span>
+<label>Weight</label>
+<input type="text" id="weight">
+  <button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+<div class="form-group">
+
+      <span class="drag-handle">☰</span>
+<label>Complexion</label>
+
+<select id="complexion" onchange="toggleComplexionCustom()">
+
+    <option value="">Select Complexion</option>
+
+    <option value="Fair">Fair</option>
+    <option value="Wheatish">Wheatish</option>
+    <option value="Medium">Medium</option>
+    <option value="Dark">Dark</option>
+
+    <option value="custom">
+        Other (Write Custom)
+    </option>
+
+</select>
+
+<input
+    type="text"
+    id="complexionCustom"
+    placeholder="Enter Complexion"
+    style="display:none;margin-top:10px;">
+  <button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+<div class="form-group">
+     <span class="drag-handle">☰</span>
+<label>Religion</label>
+
+<select id="religion" onchange="toggleReligionCustom()">
+    <option value="">Select Religion</option>
+
+    <option value="Hindu">Hindu</option>
+    <option value="Muslim">Muslim</option>
+    <option value="Sikh">Sikh</option>
+    <option value="Christian">Christian</option>
+    <option value="Jain">Jain</option>
+    <option value="Buddhist">Buddhist</option>
+
+    <option value="custom">
+        Other (Write Custom)
+    </option>
+</select>
+
+<input
+    type="text"
+    id="religionCustom"
+    placeholder="Enter Religion"
+    style="display:none;margin-top:10px;">
+
+  <button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+<div class="form-group">
+     <span class="drag-handle">☰</span>
+<label>Caste</label>
+<input type="text" id="caste">
+ <button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+<div class="form-group">
+     <span class="drag-handle">☰</span>
+<label>Gotra</label>
+<input type="text" id="gotra">
+ <button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+<div class="form-group">
+    <span class="drag-handle">☰</span>
+<label>Rashi</label>
+
+<select id="rashi" onchange="toggleRashiCustom()">
+
+    <option value="">Select Rashi</option>
+
+    <option value="Mesh (Aries)">Mesh (Aries)</option>
+    <option value="Vrishabh (Taurus)">Vrishabh (Taurus)</option>
+    <option value="Mithun (Gemini)">Mithun (Gemini)</option>
+    <option value="Kark (Cancer)">Kark (Cancer)</option>
+    <option value="Singh (Leo)">Singh (Leo)</option>
+    <option value="Kanya (Virgo)">Kanya (Virgo)</option>
+    <option value="Tula (Libra)">Tula (Libra)</option>
+    <option value="Vrishchik (Scorpio)">Vrishchik (Scorpio)</option>
+    <option value="Dhanu (Sagittarius)">Dhanu (Sagittarius)</option>
+    <option value="Makar (Capricorn)">Makar (Capricorn)</option>
+    <option value="Kumbh (Aquarius)">Kumbh (Aquarius)</option>
+    <option value="Meen (Pisces)">Meen (Pisces)</option>
+
+    <option value="custom">
+        Other (Write Custom)
+    </option>
+
+</select>
+
+<input
+    type="text"
+    id="rashiCustom"
+    placeholder="Enter Rashi"
+    style="display:none;margin-top:10px;">
+    <button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+<div class="form-group">
+     <span class="drag-handle">☰</span>
+<label>Nakshatra</label>
+<input type="text" id="nakshatra">
+ <button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+<div class="form-group">
+     <span class="drag-handle">☰</span>
+<label>Manglik</label>
+<select id="manglik">
+<option>No</option>
+<option>Yes</option>
+</select>
+ <button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+    <h2> <button type="button" onclick="addField('personalContainer')">
+            + Add More Personal Details Field
+        </button> </h2>
+
+    <div id="personalContainer">
+
+        <div class="dynamic-field">
+            <input type="text" class="field-label" placeholder="Field Name">
+            <input type="text" class="field-value" placeholder="Field Value">
+            <button type="button" onclick="removeField(this)">✖</button>
+        </div>
+
+    </div>
+  </div>
+<div class="biodata-section" >
+<h2>Education & Career</h2>
+<div id="educationContainer">
+<div class="form-group">
+    <span class="drag-handle">☰</span>
+<label>Education</label>
+<input type="text" id="education">
+<button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+<div class="form-group">
+    <span class="drag-handle">☰</span>
+<label>Occupation</label>
+<input type="text" id="occupation">
+<button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+</div> </div>
+
+<div class="biodata-section">
+<h2>Family Details</h2>
+<div id="familyInfoContainer">
+<div class="form-group">
+      <span class="drag-handle">☰</span>
+<label>Father Name</label>
+<input type="text" id="fatherName">
+<button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+<div class="form-group">
+      <span class="drag-handle">☰</span>
+<label>Father Occupation</label>
+<input type="text" id="fatherOccupation">
+<button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+<div class="form-group">
+      <span class="drag-handle">☰</span>
+<label>Mother Name</label>
+<input type="text" id="motherName">
+<button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+<div class="form-group">
+      <span class="drag-handle">☰</span>
+<label>Mother Occupation</label>
+<input type="text" id="motherOccupation">
+<button type="button" onclick="removeField(this)">✖</button>
+</div>
+<div class="form-group">
+    <span class="drag-handle">☰</span>
+    <label>Siblings</label>
+    <input type="text" id="siblings">
+    <button type="button" onclick="removeField(this)">✖</button>
+</div> </div>
+<h2> <button type="button" onclick="addField('familyContainer')"> + Add More Family Details Field</button></h2>
+
+    <div id="familyContainer">
+
+        <div class="dynamic-field">
+            <input type="text" class="field-label" placeholder="Field Name">
+            <input type="text" class="field-value" placeholder="Field Value">
+            <button type="button" onclick="removeField(this)">✖</button>
+        </div>
+
+    </div> </div>
+
+
+<div class="biodata-section">
+<h2>Contact Details</h2>
+<div id="contactInfoContainer">
+<div class="form-group">
+    <span class="drag-handle">☰</span>
+<label>Mobile Number</label>
+<input type="text" id="mobile">
+ <button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+<div class="form-group">
+    <span class="drag-handle">☰</span>
+<label>Address</label>
+<textarea id="address"></textarea>
+ <button type="button" onclick="removeField(this)">✖</button>
+</div> </div>
+ <h2>
+        <button type="button" onclick="addField('contactContainer')">
+            + Add More Contact Details Field
+        </button>
+    </h2>
+
+    <div id="contactContainer">
+
+        <div class="dynamic-field">
+            <input type="text" class="field-label" placeholder="Field Name">
+            <input type="text" class="field-value" placeholder="Field Value">
+            <button type="button" onclick="removeField(this)">✖</button>
+        </div>
+
+    </div>
+</div>
+<button type="button" onclick="clearFormData()">
+    Clear Saved Data
+</button>
+<button type="submit">
+Generate Biodata
+</button>
+
+</form>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+
+<script>
+function removeField(btn){
+    btn.closest(".form-group").remove();
+}
+
+[
+"basicInfoContainer",
+"personalInfoContainer",
+"educationContainer",
+"familyInfoContainer",
+"contactInfoContainer"
+].forEach(id=>{
+
+    new Sortable(
+        document.getElementById(id),
+        {
+            animation:150,
+            handle:".drag-handle"
+        }
+    );
+
+});
+</script>
+<script>
+
+// ===========================
+// PHOTO PREVIEW
+// ===========================
+
+// ===========================
+// PHOTO PREVIEW + COMPRESS
+// ===========================
+
+let uploadedPhoto = null;
+
+document
+.getElementById("photo")
+.addEventListener(
+"change",
+function(){
+
+    const file =
+    this.files[0];
+
+    if(!file) return;
+
+    uploadedPhoto = file;
+
+    const url =
+    URL.createObjectURL(file);
+
+    document
+    .getElementById("preview")
+    .style.display =
+    "block";
+
+    document
+    .getElementById("previewImg")
+    .src = url;
+
+});
+
+// ===========================
+// ADD / REMOVE FIELD
+// ===========================
+
+function addField(containerId){
+
+    const row = document.createElement("div");
+
+    row.className = "dynamic-field";
+
+    row.innerHTML = `
+        <input
+            type="text"
+            class="field-label"
+            placeholder="Field Name">
+
+        <input
+            type="text"
+            class="field-value"
+            placeholder="Field Value">
+
+        <button
+            type="button"
+            onclick="removeDynamicField(this)">
+            ✖
+        </button>
+    `;
+
+    document
+    .getElementById(containerId)
+    .appendChild(row);
+
+}
+
+function removeDynamicField(btn){
+
+    btn.closest(".dynamic-field").remove();
+
+}
+
+
+// ===========================
+// COLLECT DYNAMIC FIELDS
+// ===========================
+
+function collectFields(containerId){
+
+    const fields = [];
+
+    document
+    .querySelectorAll(
+        `#${containerId} .dynamic-field`
+    )
+    .forEach(row=>{
+
+        const label =
+        row.querySelector(".field-label")
+        .value
+        .trim();
+
+        const value =
+        row.querySelector(".field-value")
+        .value
+        .trim();
+
+        if(label || value){
+
+            fields.push({
+                label,
+                value
+            });
+
+        }
+
+    });
+
+    return fields;
+
+}
+
+
+// ===========================
+// FORM SUBMIT
+// ===========================
+
+// ===========================
+// GET SECTION DATA WITH ORDER
+// ===========================
+function getSectionData(containerId){
+
+    const fields = [];
+
+    document
+    .querySelectorAll(
+        `#${containerId} .form-group`
+    )
+    .forEach(item=>{
+
+        const label =
+        item.querySelector("label")
+        ?.innerText
+        ?.trim();
+
+        const input =
+        item.querySelector(
+            "input:not([type='file']), textarea, select"
+        );
+
+        if(!label || !input){
+            return;
+        }
+
+        fields.push({
+            label: label,
+            value: input.value
+        });
+
+    });
+
+    return fields;
+}
+
+function collectFields(containerId){
+
+    const fields = [];
+
+    document
+    .querySelectorAll(
+        `#${containerId} .dynamic-field`
+    )
+    .forEach(row=>{
+
+        const label =
+        row.querySelector(".field-label")
+        .value
+        .trim();
+
+        const value =
+        row.querySelector(".field-value")
+        .value
+        .trim();
+
+        if(label || value){
+
+            fields.push({
+                label,
+                value
+            });
+
+        }
+
+    });
+
+    return fields;
+}
+
+async function openDB(){
+
+    return new Promise((resolve,reject)=>{
+
+        const request = indexedDB.open("BiodataDB", 2);
+
+        request.onupgradeneeded = function(e){
+
+            console.log("UPGRADE RUNNING");
+
+            const db = e.target.result;
+
+            console.log(
+                "Stores:",
+                db.objectStoreNames
+            );
+
+            if(!db.objectStoreNames.contains("photos")){
+
+                console.log(
+                    "CREATING PHOTOS STORE"
+                );
+
+                db.createObjectStore(
+                    "photos",
+                    {
+                        keyPath:"id"
+                    }
+                );
+            }
+        };
+
+        request.onsuccess = function(){
+
+            console.log(
+                "DB OPENED"
+            );
+
+            resolve(request.result);
+        };
+
+        request.onerror = function(){
+
+            console.log(
+                "DB ERROR",
+                request.error
+            );
+
+            reject(request.error);
+        };
+
+    });
+}
+
+async function savePhoto(photoId,file){
+
+    const db = await openDB();
+
+    return new Promise((resolve,reject)=>{
+
+        const tx = db.transaction(
+            "photos",
+            "readwrite"
+        );
+
+        tx.objectStore("photos").put({
+            id: photoId,
+            file: file
+        });
+
+        tx.oncomplete = () => resolve();
+
+        tx.onerror = () => reject(tx.error);
+
+    });
+
+}
+// ===========================
+// FORM SUBMIT
+// ===========================
+
+document
+.getElementById("biodataForm")
+.addEventListener(
+"submit",
+async function(e){
+
+    e.preventDefault();
+
+    const token =
+    "bio_" +
+    Date.now();
+
+    const personalInfo =
+    getSectionData(
+        "personalInfoContainer"
+    );
+
+    personalInfo.push(
+        ...collectFields(
+            "personalContainer"
+        )
+    );
+
+    const familyInfo =
+    getSectionData(
+        "familyInfoContainer"
+    );
+
+    familyInfo.push(
+        ...collectFields(
+            "familyContainer"
+        )
+    );
+
+    const contactInfo =
+    getSectionData(
+        "contactInfoContainer"
+    );
+
+    contactInfo.push(
+        ...collectFields(
+            "contactContainer"
+        )
+    );
+
+const about =
+document.getElementById("aboutSelect").value === "custom"
+? document.getElementById("aboutCustom").value
+: document.getElementById("aboutSelect").value;
+
+const religion =
+document.getElementById("religion").value === "custom"
+? document.getElementById("religionCustom").value
+: document.getElementById("religion").value;
+
+const complexion =
+document.getElementById("complexion").value === "custom"
+? document.getElementById("complexionCustom").value
+: document.getElementById("complexion").value;
+
+const rashi =
+document.getElementById("rashi").value === "custom"
+? document.getElementById("rashiCustom").value
+: document.getElementById("rashi").value;
+const photoId =
+"photo_" +
+Date.now();
+
+try{
+
+    if(uploadedPhoto){
+
+        await savePhoto(
+            photoId,
+            uploadedPhoto
+        );
+
+    }
+
+}catch(err){
+
+    console.error(err);
+
+}
+const biodata = {
+
+    token,
+
+    photoId,
+
+    fullName:
+    document
+    .getElementById(
+        "fullName"
+    ).value,
+
+    about,
+    religion,
+    complexion,
+    rashi,
+
+    sections:{
+        basicInfo:
+        getSectionData(
+            "basicInfoContainer"
+        ),
+
+        personalInfo,
+
+        familyInfo,
+
+        contactInfo,
+
+        educationInfo:
+        getSectionData(
+            "educationContainer"
+        )
+    }
+
+};
+
+    localStorage.setItem(
+        token,
+        JSON.stringify(
+            biodata
+        )
+    );
+
+    location.href =
+    "/matrimonial-biodata/?token="
+    +
+    encodeURIComponent(
+        token
+    );
+
+});
+
+</script>
+
+<script>
+    
+   const AUTOSAVE_KEY = "biodataDraft";
+
+function saveDraft(){
+
+    const data = {};
+
+    document
+    .querySelectorAll("input, textarea, select")
+    .forEach(el=>{
+
+        if(el.type==="file") return;
+
+        data[el.id || el.name || Math.random()] =
+        el.value;
+
+    });
+
+    localStorage.setItem(
+        AUTOSAVE_KEY,
+        JSON.stringify(data)
+    );
+}
+
+document.addEventListener(
+    "input",
+    saveDraft
+);
+window.addEventListener(
+    "DOMContentLoaded",
+    ()=>{
+
+        const saved =
+        localStorage.getItem(
+            AUTOSAVE_KEY
+        );
+
+        if(!saved) return;
+
+        const data =
+        JSON.parse(saved);
+
+        document
+        .querySelectorAll(
+            "input, textarea, select"
+        )
+        .forEach(el=>{
+
+            if(el.type==="file") return;
+
+            const key =
+            el.id || el.name;
+
+            if(data[key]!==undefined){
+
+                el.value =
+                data[key];
+
+            }
+
+        });
+
+    }
+);
+function clearFormData(){
+
+    if(
+        !confirm(
+            "Are you sure you want to clear all saved data?"
+        )
+    ) return;
+
+    localStorage.removeItem(
+    AUTOSAVE_KEY
+);
+ location.reload();
+} 
+</script>
+<script>
+    function toggleAboutCustom(){
+
+    const select =
+    document.getElementById("aboutSelect");
+
+    const custom =
+    document.getElementById("aboutCustom");
+
+    custom.style.display =
+    select.value === "custom"
+    ? "block"
+    : "none";
+}
+
+function toggleReligionCustom(){
+
+    const select =
+    document.getElementById("religion");
+
+    const custom =
+    document.getElementById("religionCustom");
+
+    custom.style.display =
+    select.value === "custom"
+    ? "block"
+    : "none";
+}
+function toggleComplexionCustom(){
+
+    const select =
+    document.getElementById("complexion");
+
+    const custom =
+    document.getElementById("complexionCustom");
+
+    custom.style.display =
+    select.value === "custom"
+    ? "block"
+    : "none";
+}
+function toggleRashiCustom(){
+
+    const select =
+    document.getElementById("rashi");
+
+    const custom =
+    document.getElementById("rashiCustom");
+
+    custom.style.display =
+    select.value === "custom"
+    ? "block"
+    : "none";
+}
+</script>
+</body>
+</html>
+  
     <h2><a href="/resume-generator/">Resume Generator - Gajab Tools</a></h2>
     
   

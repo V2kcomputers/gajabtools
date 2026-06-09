@@ -1,0 +1,297 @@
+ +++
+date = 2026-06-08T18:58:18+05:30
+links = [
+"Visit Tools = https://gajabtools.com"
+]
+url = "/matrimonial-biodata/"
+imageBanner = "  "
+cssStyles = ["css/tools/resume/classic-resume.css"]
+jsFiles = ["js/dG9vbHNmaWxl/classic-black.js", "js/pages/disabled.js"] # js/toolsfile/clasic-black.js
+jsFile = [
+"https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js",
+"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js",
+"https://unpkg.com/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"
+]
+title = 'Matrimonial Biodata - Gajab Tools'
+description = "  "
+type= "tools"
+pageWidth = "870"
+robots = "nofollow"
+[sitemap]
+  disable = true
++++
+ 
+ 
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matrimonial Biodata</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    .biodata { padding: 20px;
+    max-width: 900px;
+    margin: auto;
+    }
+.hero-section{
+    display:flex;
+    gap:35px;
+    align-items:center;
+    margin-bottom:35px;
+    padding:25px;
+    background:linear-gradient(
+        135deg,
+        #fffef9,
+        #f5ead0
+    );
+    border:2px solid #d8bc73;
+    border-radius:20px;
+}
+
+.profile-photo{
+    width:130px;
+    height:160px;
+    flex-shrink:0;
+    overflow:hidden;
+    border-radius:16px;
+    border:4px solid #b8943d;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.profile-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.hero-info{
+    flex:1;
+}
+
+.hero-info h1{
+    font-size:48px;
+    color:#7a5b15;
+    margin-bottom:20px;
+}
+
+.hero-grid{
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:12px 25px;
+}
+
+.biodata-section{
+    margin-top:2px;
+    padding:5px;
+    background:#fff;
+    border-radius:18px;
+ 
+    box-shadow:0 4px 15px rgba(0,0,0,.05);
+}
+
+.section-title{
+    color:#b38a24;
+    font-size:28px;
+    font-weight:700;
+    margin-bottom:18px;
+    border-bottom:2px solid #ead9aa;
+    padding-bottom:10px;
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:240px 1fr;
+    gap:12px 25px;
+}
+
+.label{
+    font-weight:700;
+    color:#7a5b15;
+}
+
+.value{
+    color:#333;
+}
+
+.about{
+    line-height:1.9;
+    font-size:18px;
+}
+
+.biodata-footer{
+    margin-top:35px;
+    text-align:center;
+    color:#888;
+    font-size:14px;
+}
+</style>
+</head>
+<body>
+
+<div class="biodata">
+
+    <!-- Header -->
+
+    <div class="hero-section">
+
+        <div class="profile-photo">
+            
+            <img id="photo" src="" alt="Photo">
+        </div>
+
+        <div class="hero-info">
+ Matrimonial Biodata
+            <h1 id="fullName"></h1>
+
+            <div
+                id="basicInfo"
+                class="hero-grid">
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- About -->
+
+    <div class="biodata-section">
+
+        <div class="section-title">
+            About Me
+        </div>
+
+        <div
+            class="about"
+            id="about">
+        </div>
+
+    </div>
+
+    <!-- Personal -->
+
+    <div class="biodata-section">
+
+        <div class="section-title">
+            Personal Details
+        </div>
+
+        <div
+            id="personalInfo"
+            class="info-grid">
+        </div>
+
+    </div>
+
+    <!-- Family -->
+
+    <div class="biodata-section">
+
+        <div class="section-title">
+            Family Details
+        </div>
+
+        <div
+            id="familyInfo"
+            class="info-grid">
+        </div>
+
+    </div>
+
+    <!-- Contact -->
+
+    <div class="biodata-section">
+
+        <div class="section-title">
+            Contact Details
+        </div>
+
+        <div
+            id="contactInfo"
+            class="info-grid">
+        </div>
+
+    </div>
+
+
+</div>
+
+<script>
+// Complete Biodata JavaScript
+
+async function openDB(){
+    return new Promise((resolve,reject)=>{
+        const request = indexedDB.open("BiodataDB", 2);
+        request.onsuccess = ()=>resolve(request.result);
+        request.onerror = ()=>reject(request.error);
+    });
+}
+
+async function getPhoto(photoId){
+    const db = await openDB();
+
+    return new Promise((resolve,reject)=>{
+        const tx = db.transaction("photos","readonly");
+        const request = tx.objectStore("photos").get(photoId);
+
+        request.onsuccess = ()=>resolve(request.result?.file);
+        request.onerror = ()=>reject(request.error);
+    });
+}
+
+const token = new URLSearchParams(location.search).get("token");
+const data = JSON.parse(localStorage.getItem(token));
+
+function renderSection(containerId, fields){
+    const container = document.getElementById(containerId);
+    if(!container || !fields) return;
+
+    container.innerHTML = "";
+
+    fields.forEach(field=>{
+        const label = document.createElement("div");
+        label.className = "label";
+        label.textContent = field.label;
+
+        const value = document.createElement("div");
+        value.className = "value";
+        value.textContent = field.value;
+
+        container.append(label,value);
+    });
+}
+
+if(data){
+    const fullName = document.getElementById("fullName");
+    if(fullName) fullName.textContent = data.fullName || "";
+
+    const about = document.getElementById("about");
+    if(about) about.textContent = data.about || "";
+
+    renderSection("basicInfo", data.sections?.basicInfo);
+    renderSection("personalInfo", data.sections?.personalInfo);
+    renderSection("familyInfo", data.sections?.familyInfo);
+    renderSection("contactInfo", data.sections?.contactInfo);
+    renderSection("educationInfo", data.sections?.educationInfo);
+
+    (async()=>{
+        if(data.photoId){
+            try{
+                const file = await getPhoto(data.photoId);
+                if(file){
+                    document.getElementById("photo").src =
+                        URL.createObjectURL(file);
+                }
+            }catch(err){
+                console.error(err);
+            }
+        }
+    })();
+}
+
+</script>
+
+</body>
+</html>
