@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Religious Symbol Library</title>
+
+<style>
+:root{
+    --primary:#b38a24;
+    --bg:#f5f6fa;
+    --card:#ffffff;
+    --border:#e5e7eb;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    padding:20px;
+    background:var(--bg);
+    font-family:Segoe UI,sans-serif;
+}
+
+.header{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.header h1{
+    margin:0;
+    color:#333;
+}
+
+.header p{
+    color:#666;
+}
+
+.toolbar{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:25px;
+}
+
+.toolbar input,
+.toolbar select{
+    padding:12px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    font-size:15px;
+}
+
+.toolbar input{
+    flex:1;
+    min-width:250px;
+}
+
+.symbol-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fill,minmax(150px,1fr));
+    gap:20px;
+}
+
+.symbol-card{
+    background:var(--card);
+    border:2px solid var(--border);
+    border-radius:14px;
+    padding:15px;
+    text-align:center;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.symbol-card:hover{
+    border-color:var(--primary);
+    transform:translateY(-4px);
+    box-shadow:0 10px 20px rgba(0,0,0,.08);
+}
+
+.symbol-card img{
+    width:80px;
+    height:80px;
+    object-fit:contain;
+}
+
+.symbol-card span{
+    display:block;
+    margin-top:10px;
+    font-weight:600;
+    color:#333;
+}
+
+.category{
+    font-size:12px;
+    color:#888;
+    margin-top:5px;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Religious Symbol Library</h1>
+    <p>Select any symbol to use in Biodata</p>
+</div>
+
+<div class="toolbar">
+
+    <input
+    type="text"
+    id="searchBox"
+    placeholder="Search Symbol...">
+
+    <select id="categoryFilter">
+        <option value="all">All Categories</option>
+        <option value="hindu">Hindu</option>
+        <option value="islam">Islam</option>
+        <option value="sikh">Sikh</option>
+        <option value="christian">Christian</option>
+        <option value="jain">Jain</option>
+        <option value="buddhist">Buddhist</option>
+    </select>
+
+</div>
+
+
+
+<div class="symbol-grid">
+
+
+
+<div class="symbol-card"
+     data-category="hindu"
+     data-name="om"
+     data-url="https://cdn.pixabay.com/photo/2018/04/12/04/39/om-3312546_1280.png"
+     onclick="selectSymbol(this.dataset.url)">
+
+    <img
+        src="https://cdn.pixabay.com/photo/2018/04/12/04/39/om-3312546_1280.png"
+        alt="ॐ">
+
+    <span>ॐ</span>
+
+    <div class="category">
+        Hindu
+    </div>
+
+</div>
+
+
+
+<div class="symbol-card"
+     data-category="islam"
+     data-name="allah"
+     data-url="https://upload.wikimedia.org/wikipedia/commons/f/fa/Allah3.svg"
+     onclick="selectSymbol(this.dataset.url)">
+
+    <img
+        src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Allah3.svg"
+        alt="Allah">
+
+    <span>Allah</span>
+
+    <div class="category">
+        Islam
+    </div>
+
+</div>
+
+
+
+<div class="symbol-card"
+     data-category="jain"
+     data-name="Jain_Prateek"
+     data-url="https://upload.wikimedia.org/wikipedia/commons/8/8c/Jain_Prateek_Chihna.svg"
+     onclick="selectSymbol(this.dataset.url)">
+
+    <img
+        src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Jain_Prateek_Chihna.svg"
+        alt="Jain Prateek">
+
+    <span>Jain Prateek</span>
+
+    <div class="category">
+        Jain
+    </div>
+
+</div>
+
+
+
+<div class="symbol-card"
+     data-category="sikh"
+     data-name="khanda"
+     data-url="https://cdn.pixabay.com/photo/2012/04/24/16/52/sikhism-40414_1280.png"
+     onclick="selectSymbol(this.dataset.url)">
+
+    <img
+        src="https://cdn.pixabay.com/photo/2012/04/24/16/52/sikhism-40414_1280.png"
+        alt="Khanda">
+
+    <span>Khanda</span>
+
+    <div class="category">
+        Sikh
+    </div>
+
+</div>
+
+
+
+<div class="symbol-card"
+     data-category="christian"
+     data-name="cross"
+     data-url="https://upload.wikimedia.org/wikipedia/commons/8/87/Christian_cross.svg"
+     onclick="selectSymbol(this.dataset.url)">
+
+    <img
+        src="https://upload.wikimedia.org/wikipedia/commons/8/87/Christian_cross.svg"
+        alt="Cross">
+
+    <span>Cross</span>
+
+    <div class="category">
+        Christian
+    </div>
+
+</div>
+
+
+
+<div class="symbol-card"
+     data-category="hindu"
+     data-name="Om"
+     data-url="https://cdn.pixabay.com/photo/2015/08/11/12/10/calligraphy-884268_1280.png"
+     onclick="selectSymbol(this.dataset.url)">
+
+    <img
+        src="https://cdn.pixabay.com/photo/2015/08/11/12/10/calligraphy-884268_1280.png"
+        alt="Om">
+
+    <span>Om</span>
+
+    <div class="category">
+        Hindu
+    </div>
+
+</div>
+
+
+
+<div class="symbol-card"
+     data-category="islam"
+     data-name="Masjid"
+     data-url="https://cdn.pixabay.com/photo/2024/02/06/05/37/ai-generated-8555957_960_720.jpg"
+     onclick="selectSymbol(this.dataset.url)">
+
+    <img
+        src="https://cdn.pixabay.com/photo/2024/02/06/05/37/ai-generated-8555957_960_720.jpg"
+        alt="Masjid">
+
+    <span>Masjid</span>
+
+    <div class="category">
+        Islam
+    </div>
+
+</div>
+
+
+
+<div class="symbol-card"
+     data-category="buddhist"
+     data-name="Meditation"
+     data-url="https://cdn.pixabay.com/photo/2018/08/08/16/15/meditation-3592516_1280.png"
+     onclick="selectSymbol(this.dataset.url)">
+
+    <img
+        src="https://cdn.pixabay.com/photo/2018/08/08/16/15/meditation-3592516_1280.png"
+        alt="Buddha Meditation">
+
+    <span>Buddha Meditation</span>
+
+    <div class="category">
+        Buddhist
+    </div>
+
+</div>
+
+
+
+</div>
+
+
+<script>
+
+function selectSymbol(url){
+
+    if(window.opener){
+
+        window.opener.postMessage({
+            type:"selected-symbol",
+            url:url
+        },"*");
+
+        window.close();
+
+    }else{
+
+        alert(
+        "This page must be opened from Biodata Generator."
+        );
+
+    }
+
+}
+
+const searchBox =
+document.getElementById(
+"searchBox"
+);
+
+const categoryFilter =
+document.getElementById(
+"categoryFilter"
+);
+
+function filterSymbols(){
+
+    const search =
+    searchBox.value.toLowerCase();
+
+    const category =
+    categoryFilter.value;
+
+    document
+    .querySelectorAll(".symbol-card")
+    .forEach(card=>{
+
+        const name =
+        card.dataset.name.toLowerCase();
+
+        const cardCategory =
+        card.dataset.category;
+
+        const matchSearch =
+        name.includes(search);
+
+        const matchCategory =
+        category === "all" ||
+        cardCategory === category;
+
+        card.style.display =
+        matchSearch &&
+        matchCategory
+        ? "block"
+        : "none";
+
+    });
+
+}
+
+searchBox.addEventListener(
+"input",
+filterSymbols
+);
+
+categoryFilter.addEventListener(
+"change",
+filterSymbols
+);
+
+</script>
+
+
+
+<script>
+function selectSymbol(url){
+
+    if(window.opener){
+
+        window.opener.postMessage({
+            type:"selected-symbol",
+            url:url
+        },"*");
+
+        window.close();
+    }
+
+}
+function selectSymbol(url){
+
+window.parent.postMessage({
+    type:"selected-symbol",
+    url:url
+},"*");
+
+}
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,48 @@
+[[items]]
+name = "ॐ"
+slug = "om"
+category = "hindu"
+image = "https://cdn.pixabay.com/photo/2018/04/12/04/39/om-3312546_1280.png"
+
+[[items]]
+name = "Allah"
+slug = "allah"
+category = "islam"
+image = "https://upload.wikimedia.org/wikipedia/commons/f/fa/Allah3.svg"
+
+[[items]]
+name = "Jain Prateek"
+slug = "Jain_Prateek"
+category = "jain"
+image = "https://upload.wikimedia.org/wikipedia/commons/8/8c/Jain_Prateek_Chihna.svg"
+
+[[items]]
+name = "Khanda"
+slug = "khanda"
+category = "sikh"
+image = "https://cdn.pixabay.com/photo/2012/04/24/16/52/sikhism-40414_1280.png"
+
+[[items]]
+name = "Cross"
+slug = "cross"
+category = "christian"
+image = "https://upload.wikimedia.org/wikipedia/commons/8/87/Christian_cross.svg"
+
+
+[[items]]
+name = "Om"
+slug = "Om"
+category = "hindu"
+image = "https://cdn.pixabay.com/photo/2015/08/11/12/10/calligraphy-884268_1280.png"
+
+[[items]]
+name = "Masjid"
+slug = "Masjid"
+category = "islam"
+image = "https://cdn.pixabay.com/photo/2024/02/06/05/37/ai-generated-8555957_960_720.jpg"
+
+[[items]]
+name = "Buddha Meditation"
+slug = "Meditation"
+category = "buddhist"
+image = "https://cdn.pixabay.com/photo/2018/08/08/16/15/meditation-3592516_1280.png"

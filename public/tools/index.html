@@ -250,6 +250,113 @@ button[type="submit"]:hover{
     background:#fff8e1;
     border:2px dashed var(--primary);
 }
+.template-switcher{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+.template-card{
+display:block;
+cursor:pointer;
+border:3px solid #e5e7eb;
+border-radius:14px;
+overflow:hidden;
+background:#fff;
+transition:.3s;
+}
+
+.template-card img{
+width:100%;
+height:280px;
+object-fit:cover;
+display:block;
+}
+
+.template-card span{
+display:block;
+padding:12px;
+font-weight:600;
+text-align:center;
+}
+
+.template-card input{
+display:none;
+}
+
+.template-card:has(input:checked){
+border-color:#b38a24;
+box-shadow:0 0 0 4px rgba(179,138,36,.2);
+transform:translateY(-3px);
+}
+
+.selected-symbol{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:15px;
+    border:2px dashed #ccc;
+    border-radius:12px;
+    cursor:pointer;
+}
+
+.selected-symbol img{
+    width:60px;
+    height:60px;
+    object-fit:contain;
+}
+
+.symbol-picker{
+    margin-top:15px;
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fill,minmax(100px,1fr));
+    gap:15px;
+}
+
+.symbol-item{
+    text-align:center;
+    padding:10px;
+    border:2px solid #eee;
+    border-radius:12px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.symbol-item:hover{
+    border-color:#b38a24;
+}
+
+.symbol-item img{
+    width:50px;
+    height:50px;
+    object-fit:contain;
+}
+.symbol-popup{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.5);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+
+.popup-box{
+background:#fff;
+padding:25px;
+border-radius:12px;
+width:320px;
+text-align:center;
+}
+
+.popup-box button{
+display:block;
+width:100%;
+margin:10px 0;
+padding:12px;
+cursor:pointer;
+}
 </style>
 </head>
 <body>
@@ -261,18 +368,107 @@ button[type="submit"]:hover{
 <form id="biodataForm">
 
 <div class="biodata-section">
+    <h2>Religious Symbol</h2>
+
+    <div class="selected-symbol" id="selectedSymbolBox">
+        <img id="selectedSymbolPreview"
+             src="https://breathetogetheryoga.com/wp-content/uploads/om-by-martialred.jpg"
+             alt="Selected Symbol">
+
+        <span>Click to Change Symbol</span>
+    </div>
+
+    <input
+        type="hidden"
+        id="selectedSymbol"
+        value="https://breathetogetheryoga.com/wp-content/uploads/om-by-martialred.jpg">
+
+    <div
+        class="symbol-picker"
+        id="symbolPicker"
+        style="display:none;">
+
+        <div class="symbol-item"
+             data-symbol="https://breathetogetheryoga.com/wp-content/uploads/om-by-martialred.jpg">
+            <img src="https://breathetogetheryoga.com/wp-content/uploads/om-by-martialred.jpg">
+            <span>ॐ</span>
+        </div>
+
+        <div class="symbol-item"
+             data-symbol="https://upload.wikimedia.org/wikipedia/commons/f/fa/Allah3.svg">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Allah3.svg">
+            <span>Allah</span>
+        </div>
+
+        <div class="symbol-item"
+             data-symbol="https://static.vecteezy.com/system/resources/thumbnails/005/199/735/small/khanda-symbol-sikhi-sign-icon-black-color-illustration-flat-style-simple-image-vector.jpg">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/005/199/735/small/khanda-symbol-sikhi-sign-icon-black-color-illustration-flat-style-simple-image-vector.jpg">
+            <span>Khanda</span>
+        </div>
+
+        <div class="symbol-item"
+             data-symbol="https://media.istockphoto.com/id/1425978448/vector/black-and-gray-christian-cross-icon-in-flat-design-vector-illustration-abstract-linear.jpg?s=612x612&w=0&k=20&c=C8WaaJvhZo1mrrrYRlPVfImErMWJ6FSOKpHZUIY8x7Y=">
+            <img src="https://media.istockphoto.com/id/1425978448/vector/black-and-gray-christian-cross-icon-in-flat-design-vector-illustration-abstract-linear.jpg?s=612x612&w=0&k=20&c=C8WaaJvhZo1mrrrYRlPVfImErMWJ6FSOKpHZUIY8x7Y=">
+            <span>Cross</span>
+        </div>
+
+        <div class="symbol-item custom-upload"
+     id="openCustomPopup">
+    <span>+ Custom</span>
+</div>
+
+    </div>
+    <div
+id="customSymbolPopup"
+style="display:none;"
+class="symbol-popup">
+
+    <div class="popup-box">
+
+        <h3>Select Symbol</h3>
+
+        <button
+        type="button"
+        id="uploadDirectBtn">
+            Upload From Device
+        </button>
+
+        <button
+        type="button"
+        id="uploadLibraryBtn">
+            Choose From Library
+        </button>
+
+        <button
+        type="button"
+        id="closePopupBtn">
+            Close
+        </button>
+
+    </div>
+
+</div>
+
+<input
+type="file"
+id="customSymbolInput"
+accept=".png,.svg,image/*"
+style="display:none;">
+</div>
+
+
+
+<div class="biodata-section">
 <h2>Basic Information</h2>
-<div id="basicInfoContainer">
+
 
     <!-- Full Name -->
     <div class="form-group">
         <span class="drag-handle">☰</span>
         <label>Full Name</label>
-        <input type="text" id="fullName" required>
-        <button type="button" onclick="removeField(this)">✖</button>
+        <input type="text" id="fullName" required placeholder="Full Name">
     </div>
-
-    <!-- Date of Birth -->
+<div id="basicInfoContainer">
     <div class="form-group">
         <span class="drag-handle">☰</span>
         <label>Date of Birth</label>
@@ -595,6 +791,10 @@ button[type="submit"]:hover{
 
     </div>
 </div>
+
+
+
+
 <button type="button" onclick="clearFormData()">
     Clear Saved Data
 </button>
@@ -603,7 +803,57 @@ Generate Biodata
 </button>
 
 </form>
+<div class="biodata-section">
 
+<h2>Select Template</h2>
+
+<div class="template-switcher">
+
+<label class="template-card">
+<input
+type="radio"
+name="template"
+value="/matrimonial-biodata/"
+data-slug="classic"
+checked>
+
+<img
+src="https://resumekraft.com/wp-content/uploads/2023/07/Job-Biodata-template-2-724x1024.jpg"
+alt="Classic Template">
+
+<span>Classic Template</span>
+</label>
+
+<label class="template-card">
+<input
+type="radio"
+name="template"
+value="/matrimonial-biodata-modern/"
+data-slug="modern">
+
+<img
+src="https://freebiodatamaker.com/images/templates/preview/abstract-yellow-en-template.webp"
+alt="Modern Template">
+
+<span>Modern Template</span>
+</label>
+
+<label class="template-card">
+<input
+type="radio"
+name="template"
+value="/matrimonial-biodata-premium/"
+data-slug="premium">
+
+<img
+src="https://resumesector.com/wp-content/uploads/2025/04/Bio-Data-Format.jpg"
+alt="Premium Template">
+
+<span>Premium Template</span>
+</label>
+
+</div>
+</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
@@ -997,6 +1247,11 @@ const biodata = {
 
     photoId,
 
+     religiousSymbol:
+document.getElementById(
+"selectedSymbol"
+).value,
+
     fullName:
     document
     .getElementById(
@@ -1034,14 +1289,15 @@ const biodata = {
             biodata
         )
     );
+const selectedTemplateUrl =
+document.querySelector(
+'input[name="template"]:checked'
+).value;
 
-    location.href =
-    "/matrimonial-biodata/?token="
-    +
-    encodeURIComponent(
-        token
-    );
-
+location.href =
+selectedTemplateUrl +
+"?token=" +
+encodeURIComponent(token);
 });
 
 </script>
@@ -1058,9 +1314,12 @@ function saveDraft(){
     .querySelectorAll("input, textarea, select")
     .forEach(el=>{
 
-        if(el.type==="file") return;
+        if(
+            el.type === "file" ||
+            el.type === "radio"
+        ) return;
 
-        data[el.id || el.name || Math.random()] =
+        data[el.id || el.name] =
         el.value;
 
     });
@@ -1070,7 +1329,6 @@ function saveDraft(){
         JSON.stringify(data)
     );
 }
-
 document.addEventListener(
     "input",
     saveDraft
@@ -1179,6 +1437,218 @@ function toggleRashiCustom(){
     ? "block"
     : "none";
 }
+</script>
+<script>
+document
+.querySelectorAll('input[name="template"]')
+.forEach(radio=>{
+
+radio.addEventListener("change",function(){
+
+const url = new URL(location.href);
+
+url.searchParams.set(
+"template",
+this.dataset.slug
+);
+
+history.replaceState(
+{},
+"",
+url
+);
+
+});
+
+});
+const currentTemplate =
+new URLSearchParams(location.search)
+.get("template");
+
+if(currentTemplate){
+
+const radio =
+document.querySelector(
+`input[data-slug="${currentTemplate}"]`
+);
+
+if(radio){
+radio.checked = true;
+}
+
+}
+</script>
+<script>
+    const selectedBox =
+document.getElementById(
+"selectedSymbolBox"
+);
+
+const picker =
+document.getElementById(
+"symbolPicker"
+);
+
+selectedBox.onclick=()=>{
+
+    picker.style.display =
+    picker.style.display==="none"
+    ? "grid"
+    : "none";
+
+};
+
+document
+.querySelectorAll(".symbol-item")
+.forEach(item=>{
+
+    item.addEventListener(
+    "click",
+    function(){
+
+        const symbol =
+        this.dataset.symbol;
+
+        if(!symbol) return;
+
+        document
+        .getElementById(
+        "selectedSymbol"
+        )
+        .value = symbol;
+
+        document
+        .getElementById(
+        "selectedSymbolPreview"
+        )
+        .src = symbol;
+
+        picker.style.display =
+        "none";
+
+    });
+
+});
+
+document
+.getElementById(
+"customSymbolInput"
+)
+.addEventListener(
+"change",
+function(){
+
+    const file =
+    this.files[0];
+
+    if(!file) return;
+
+    const url =
+    URL.createObjectURL(file);
+
+    document
+    .getElementById(
+    "selectedSymbol"
+    )
+    .value = url;
+
+    document
+    .getElementById(
+    "selectedSymbolPreview"
+    )
+    .src = url;
+
+});
+</script>
+<script>
+    const popup =
+document.getElementById(
+"customSymbolPopup"
+);
+
+document
+.getElementById(
+"openCustomPopup"
+)
+.onclick=()=>{
+
+popup.style.display="flex";
+
+};
+
+document
+.getElementById(
+"closePopupBtn"
+)
+.onclick=()=>{
+
+popup.style.display="none";
+
+};
+
+// Direct Upload
+
+document
+.getElementById(
+"uploadDirectBtn"
+)
+.onclick=()=>{
+
+popup.style.display="none";
+
+document
+.getElementById(
+"customSymbolInput"
+)
+.click();
+
+};
+
+// Library Upload
+
+document
+.getElementById(
+"uploadLibraryBtn"
+)
+.onclick=()=>{
+
+popup.style.display="none";
+
+window.open(
+"/symbol-library/",
+"SymbolLibrary",
+"width=1200,height=800"
+);
+
+};
+</script>
+<script>
+    window.addEventListener(
+"message",
+function(e){
+
+    if(
+        e.data &&
+        e.data.type === "selected-symbol"
+    ){
+
+        document
+        .getElementById(
+        "selectedSymbol"
+        )
+        .value =
+        e.data.url;
+
+        document
+        .getElementById(
+        "selectedSymbolPreview"
+        )
+        .src =
+        e.data.url;
+
+    }
+
+});
 </script>
 </body>
 </html>

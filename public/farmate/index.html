@@ -37,6 +37,12 @@
   <h1>Farmate - Gajab Tools</h1>
   
   
+    <h2><a href="/symbol-library/">Upload Image - Gajab Tools</a></h2>
+    
+  
+    <h2><a href="/upload/">Upload Image - Gajab Tools</a></h2>
+    
+  
     <h2><a href="/matrimonial-biodata/">Matrimonial Biodata - Gajab Tools</a></h2>
     <!DOCTYPE html>
 <html lang="en">
@@ -48,6 +54,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+    .biodata { padding: 20px;
+    max-width: 900px;
+    margin: auto;
+    }
 .hero-section{
     display:flex;
     gap:35px;
@@ -64,8 +74,8 @@
 }
 
 .profile-photo{
-    width:220px;
-    height:280px;
+    width:130px;
+    height:160px;
     flex-shrink:0;
     overflow:hidden;
     border-radius:16px;
@@ -83,10 +93,11 @@
     flex:1;
 }
 
-.hero-info h1{
+.hero-info #fullName{
     font-size:48px;
     color:#7a5b15;
-    margin-bottom:20px;
+    margin-bottom:0px;
+    font-weight: 900;
 }
 
 .hero-grid{
@@ -96,11 +107,11 @@
 }
 
 .biodata-section{
-    margin-top:25px;
-    padding:25px;
+    margin-top:2px;
+    padding:5px;
     background:#fff;
     border-radius:18px;
-    border:1px solid #ead9aa;
+ 
     box-shadow:0 4px 15px rgba(0,0,0,.05);
 }
 
@@ -139,61 +150,156 @@
     color:#888;
     font-size:14px;
 }
+
+
+.action-buttons{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin:20px 0;
+}
+
+.action-buttons button{
+    padding:12px 18px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    background:#b38a24;
+    color:#fff;
+    font-weight:600;
+}
+
+.download-menu{
+    position:relative;
+}
+
+.download-options{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    background:#fff;
+    border-radius:10px;
+    box-shadow:0 5px 20px rgba(0,0,0,.15);
+    min-width:180px;
+    z-index:999;
+}
+
+.download-options button{
+    width:100%;
+    border-radius:0;
+    background:#fff;
+    color:#333;
+    text-align:left;
+}
+
+.download-options.show{
+    display:block;
+}
+.top-header{
+    display:block;
+    align-items:center;
+    gap:15px;
+    margin-bottom:15px;
+}
+
+.religious-symbol{
+    width:60px;
+    height:60px;
+    left: 30%;
+    top: 0px;
+    position:relative;
+    object-fit:contain;
+    flex-shrink:0;
+}
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
 </head>
 <body>
+<div class="action-buttons">
 
+<button onclick="history.length > 1 ? history.back() : location.href='/create-biodata/'">
+    ✏️ Edit Biodata
+</button>
+
+<button onclick="printBiodata()">
+    🖨️ Print
+</button>
+
+<div class="download-menu">
+
+    <button onclick="toggleDownloadMenu()">
+        ⬇️ Download Biodata
+    </button>
+
+    <div id="downloadOptions" class="download-options">
+
+        <button id="pdfBtn" onclick="downloadPDF()">
+            📄 PDF Biodata
+        </button>
+
+        <button id="imgBtn" onclick="saveImage()">
+            🖼️ JPG Biodata
+        </button>
+
+    </div>
+
+</div>
+
+<button onclick="savePDF()">
+    👁️‍🗨️ View Biodata PDF
+</button>
+
+</div>
+<div id="symbolModal" class="modal">
+    <div class="modal-content">
+        <iframe
+            src="/upload/"
+            width="100%"
+            height="100%"
+            frameborder="0">
+        </iframe>
+    </div>
+</div>
 <div class="biodata">
 
     <!-- Header -->
 
     <div class="hero-section">
 
-        <div class="profile-photo">
-            <img id="photo" src="" alt="Photo">
-        </div>
+       <div class="profile-photo" id="selectPhoto">
+
+    <img id="photo" src="" alt="Photo">
+<input type="hidden" id="libraryPhoto">
+</div>
 
         <div class="hero-info">
+ <img  id="religiousSymbol"  class="religious-symbol" src="">
+ <div class="top-header">
+ <div> <div id="fullName"></div> <div class="about" id="about">Simple and Family Oriented Person </div></div> </div>
 
-            <h1 id="fullName"></h1>
+        </div>  </div>
 
-            <div
-                id="basicInfo"
-                class="hero-grid">
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- About -->
-
-    <div class="biodata-section">
-
-        <div class="section-title">
-            About Me
-        </div>
-
-        <div
-            class="about"
-            id="about">
-        </div>
-
-    </div>
 
     <!-- Personal -->
 
     <div class="biodata-section">
-
+      
         <div class="section-title">
             Personal Details
         </div>
-
+             <div
+                id="basicInfo"
+                class="info-grid">
+            </div> <br>
         <div
             id="personalInfo"
             class="info-grid">
         </div>
-
+ 
     </div>
 
     <!-- Family -->
@@ -226,9 +332,6 @@
 
     </div>
 
-    <div class="biodata-footer">
-        Matrimonial Biodata
-    </div>
 
 </div>
 
@@ -278,6 +381,19 @@ function renderSection(containerId, fields){
 }
 
 if(data){
+
+    const symbol =
+document.getElementById(
+"religiousSymbol"
+);
+
+if(
+    symbol &&
+    data.religiousSymbol
+){
+    symbol.src =
+    data.religiousSymbol;
+}
     const fullName = document.getElementById("fullName");
     if(fullName) fullName.textContent = data.fullName || "";
 
@@ -306,7 +422,302 @@ if(data){
 }
 
 </script>
+<script>
+document
+.getElementById("selectPhoto")
+.onclick = ()=>{
 
+ document.getElementById(
+"symbolModal"
+).style.display = "block";
+};
+
+window.addEventListener("message",(e)=>{
+
+    if(
+        e.data.type !==
+        "selected-image"
+    ) return;
+
+    document
+    .getElementById("photo")
+    .src = e.data.image;
+
+    document
+    .getElementById("libraryPhoto")
+    .value = e.data.image;
+
+});
+</script>
+<script>
+    /*================================================Download Toogle================================================== */
+    function toggleDownloadMenu(){
+
+    document
+    .getElementById("downloadOptions")
+    .classList
+    .toggle("show");
+
+}
+    /*================================================Same Image================================================== */
+    async function saveImage(){
+
+    const btn =
+    document.getElementById("imgBtn");
+
+    const oldText =
+    btn.innerHTML;
+
+    btn.innerHTML =
+    "Downloading JPG...";
+
+    try{
+
+        const biodata =
+        document.querySelector(".biodata");
+
+        const canvas =
+        await html2canvas(biodata,{
+            scale:2,
+            useCORS:true
+        });
+
+        const link =
+        document.createElement("a");
+
+        const fileName =
+        (data.fullName || "biodata")
+        .replace(/\s+/g,"-")
+        + "-biodata.jpg";
+
+        link.download =
+        fileName;
+
+        link.href =
+        canvas.toDataURL(
+            "image/jpeg",
+            1
+        );
+
+        link.click();
+
+    }finally{
+
+        btn.innerHTML =
+        oldText;
+
+    }
+
+}
+  /*================================================Save PDF================================================== */
+async function savePDF(){
+
+    const element =
+    document.querySelector(".biodata");
+
+    const opt = {
+
+        margin:10,
+
+        filename:
+        (data.fullName || "biodata")
+        .replace(/\s+/g,"-")
+        + "-biodata.pdf",
+
+        image:{
+            type:"jpeg",
+            quality:1
+        },
+
+        html2canvas:{
+            scale:2
+        },
+
+        jsPDF:{
+            unit:"mm",
+            format:"a4",
+            orientation:"portrait"
+        }
+
+    };
+
+    const worker =
+    html2pdf()
+    .set(opt)
+    .from(element);
+
+    const pdf =
+    await worker
+    .toPdf()
+    .get("pdf");
+
+    const blob =
+    pdf.output("blob");
+
+    const url =
+    URL.createObjectURL(blob);
+
+    window.open(
+        url,
+        "_blank"
+    );
+
+}
+/*================================================Download PDF================================================== */
+async function downloadPDF(){
+
+    const btn =
+    document.getElementById("pdfBtn");
+
+    const oldText =
+    btn.innerHTML;
+
+    btn.innerHTML =
+    "Downloading PDF...";
+
+    try{
+
+        await html2pdf()
+        .set({
+
+            filename:
+            (data.fullName || "biodata")
+            .replace(/\s+/g,"-")
+            + "-biodata.pdf",
+
+            margin:[10,10,10,10],
+
+            image:{
+                type:"jpeg",
+                quality:1
+            },
+
+            html2canvas:{
+                scale:2,
+                useCORS:true
+            },
+
+            jsPDF:{
+                unit:"mm",
+                format:"a4",
+                orientation:"portrait"
+            }
+
+        })
+        .from(
+            document.querySelector(".biodata")
+        )
+        .save();
+
+    }finally{
+
+        btn.innerHTML =
+        oldText;
+
+    }
+
+}
+/*================================================Print Biodata================================================== */
+function printBiodata(){
+
+    const html =
+    document.querySelector(".biodata")
+    .outerHTML;
+
+    const styles =
+    [...document.querySelectorAll("style")]
+    .map(s=>s.outerHTML)
+    .join("");
+
+    const printCSS = `
+
+    /* Hide Buttons */
+
+    .action-buttons,
+    .download-menu{
+        display:none !important;
+    }
+
+    /* Remove Background */
+
+    body{
+        background:#fff !important;
+        padding:0 !important;
+        margin:0 !important;
+    }
+
+    /* Full Width */
+
+    .biodata{
+        max-width:100% !important;
+        margin:0 auto !important;
+    }
+
+    /* Remove Shadows */
+
+    .hero-section,
+    .biodata-section,
+    .profile-photo{
+        box-shadow:none !important;
+    }
+
+    /* Clean Border */
+
+    .hero-section{
+        border:1px solid #ccc !important;
+    }
+
+    @page{
+        size:A4;
+        margin:2mm;
+    }
+
+    `;
+
+    const win =
+    window.open("", "_blank");
+
+    win.document.write(`
+    <!DOCTYPE html>
+    <html>
+
+    <head>
+
+        <title>
+            Biodata Print
+        </title>
+
+        ${styles}
+
+        <style>
+            ${printCSS}
+        </style>
+
+    </head>
+
+    <body>
+
+        ${html}
+
+        <script>
+        window.onload=function(){
+
+            window.print();
+
+            window.close();
+
+        }
+        <\/script>
+
+    </body>
+
+    </html>
+    `);
+
+    win.document.close();
+
+}
+</script>
 </body>
 </html>
   
