@@ -254,16 +254,6 @@
 </button>
 
 </div>
-<div id="symbolModal" class="modal">
-    <div class="modal-content">
-        <iframe
-            src="/upload/"
-            width="100%"
-            height="100%"
-            frameborder="0">
-        </iframe>
-    </div>
-</div>
 <div class="biodata">
 
     <!-- Header -->
@@ -427,9 +417,12 @@ document
 .getElementById("selectPhoto")
 .onclick = ()=>{
 
- document.getElementById(
-"symbolModal"
-).style.display = "block";
+    window.open(
+        "/upload",
+        "ImageLibrary",
+        "width=1200,height=800"
+    );
+
 };
 
 window.addEventListener("message",(e)=>{

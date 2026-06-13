@@ -357,6 +357,41 @@ margin:10px 0;
 padding:12px;
 cursor:pointer;
 }
+
+
+.symbol-library-modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.6);
+    z-index:99999;
+}
+
+.symbol-library-box{
+    position:absolute;
+    inset:20px;
+    background:#fff;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+.symbol-library-box iframe{
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+#closeLibraryModal{
+    position:absolute;
+    top:10px;
+    right:10px;
+    z-index:10;
+    width:40px;
+    height:40px;
+    border:none;
+    border-radius:50%;
+    cursor:pointer;
+}
 </style>
 </head>
 <body>
@@ -414,7 +449,19 @@ cursor:pointer;
 
         <div class="symbol-item custom-upload"
      id="openCustomPopup">
-    <span>+ Custom</span>
+
+    <img
+        id="customSymbolThumb"
+        src=""
+        style="
+        width:50px;
+        height:50px;
+        object-fit:contain;
+        display:none;">
+
+    <span id="customSymbolText">
+        + Custom
+    </span>
 </div>
 
     </div>
@@ -855,6 +902,30 @@ alt="Premium Template">
 </div>
 </div>
 </div>
+
+
+<div id="symbolLibraryModal" class="symbol-library-modal">
+
+    <div class="symbol-library-box">
+
+        <button
+        type="button"
+        id="closeLibraryModal">
+            ✕
+        </button>
+
+        <iframe
+        id="symbolLibraryFrame"
+        src=""
+        loading="lazy">
+        </iframe>
+
+    </div>
+
+</div>
+
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 
@@ -1527,6 +1598,25 @@ document
         "none";
 
     });
+    document
+.getElementById(
+"customSymbolThumb"
+)
+.src = url;
+
+document
+.getElementById(
+"customSymbolThumb"
+)
+.style.display =
+"block";
+
+document
+.getElementById(
+"customSymbolText"
+)
+.textContent =
+"Custom Symbol";
 
 });
 
@@ -1557,6 +1647,7 @@ function(){
     "selectedSymbolPreview"
     )
     .src = url;
+    
 
 });
 </script>
@@ -1614,13 +1705,89 @@ document
 
 popup.style.display="none";
 
-window.open(
-"/symbol-library/",
-"SymbolLibrary",
-"width=1200,height=800"
-);
+document
+.getElementById(
+"symbolLibraryModal"
+)
+.style.display =
+"block";
+
+document
+.getElementById(
+"symbolLibraryFrame"
+)
+.src =
+"/symbol-library/";
 
 };
+document
+.getElementById(
+"closeLibraryModal"
+)
+.onclick=()=>{
+
+document
+.getElementById(
+"symbolLibraryModal"
+)
+.style.display =
+"none";
+
+};
+</script>
+<script>
+window.addEventListener(
+"message",
+function(e){
+
+if(
+e.data &&
+e.data.type==="selected-symbol"
+){
+
+document
+.getElementById(
+"selectedSymbol"
+)
+.value =
+e.data.url;
+
+document
+.getElementById(
+"selectedSymbolPreview"
+)
+.src =
+e.data.url;
+
+document
+.getElementById(
+"symbolLibraryModal"
+)
+.style.display =
+"none";
+
+}
+document
+.getElementById(
+"customSymbolThumb"
+)
+.src =
+e.data.url;
+
+document
+.getElementById(
+"customSymbolThumb"
+)
+.style.display =
+"block";
+
+document
+.getElementById(
+"customSymbolText"
+)
+.textContent =
+"Change✏️";
+});
 </script>
 <script>
     window.addEventListener(
