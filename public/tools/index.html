@@ -392,6 +392,41 @@ cursor:pointer;
     border-radius:50%;
     cursor:pointer;
 }
+.action-buttons{
+    display:flex;
+    gap:12px;
+    margin-bottom:20px;
+}
+
+.action-buttons button{
+    flex:1;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.action-buttons button:first-child{
+    background:#10b981;
+    color:#fff;
+}
+
+.action-buttons button:last-child{
+    background:#ef4444;
+    color:#fff;
+}
+
+.action-buttons button:hover{
+    opacity:.9;
+}
+
+
+@media (max-width: 600px) { 
+.dynamic-field {display: block}
+ }
+}
 </style>
 </head>
 <body>
@@ -519,7 +554,7 @@ style="display:none;">
     <div class="form-group">
         <span class="drag-handle">☰</span>
         <label>Date of Birth</label>
-        <input type="date" id="dob">
+        <input type="text" id="dob">
         <button type="button" onclick="removeField(this)">✖</button>
     </div>
 
@@ -527,7 +562,7 @@ style="display:none;">
     <div class="form-group">
         <span class="drag-handle">☰</span>
         <label>Time of Birth</label>
-        <input type="time" id="timeBirth">
+        <input type="text" id="timeBirth">
         <button type="button" onclick="removeField(this)">✖</button>
     </div>
 
@@ -723,20 +758,12 @@ style="display:none;">
 </select>
  <button type="button" onclick="removeField(this)">✖</button>
 </div>
-
+<div id="personalContainer"> </div>
     <h2> <button type="button" onclick="addField('personalContainer')">
             + Add More Personal Details Field
         </button> </h2>
 
-    <div id="personalContainer">
-
-        <div class="dynamic-field">
-            <input type="text" class="field-label" placeholder="Field Name">
-            <input type="text" class="field-value" placeholder="Field Value">
-            <button type="button" onclick="removeField(this)">✖</button>
-        </div>
-
-    </div>
+    
   </div>
 <div class="biodata-section" >
 <h2>Education & Career</h2>
@@ -793,17 +820,10 @@ style="display:none;">
     <input type="text" id="siblings">
     <button type="button" onclick="removeField(this)">✖</button>
 </div> </div>
+<div id="familyContainer"> </div> 
 <h2> <button type="button" onclick="addField('familyContainer')"> + Add More Family Details Field</button></h2>
 
-    <div id="familyContainer">
-
-        <div class="dynamic-field">
-            <input type="text" class="field-label" placeholder="Field Name">
-            <input type="text" class="field-value" placeholder="Field Value">
-            <button type="button" onclick="removeField(this)">✖</button>
-        </div>
-
-    </div> </div>
+    </div>
 
 
 <div class="biodata-section">
@@ -822,32 +842,28 @@ style="display:none;">
 <textarea id="address"></textarea>
  <button type="button" onclick="removeField(this)">✖</button>
 </div> </div>
- <h2>
-        <button type="button" onclick="addField('contactContainer')">
+ 
+    <div id="contactContainer"> </div>
+ <h2> <button type="button" onclick="addField('contactContainer')">
             + Add More Contact Details Field
         </button>
     </h2>
 
-    <div id="contactContainer">
-
-        <div class="dynamic-field">
-            <input type="text" class="field-label" placeholder="Field Name">
-            <input type="text" class="field-value" placeholder="Field Value">
-            <button type="button" onclick="removeField(this)">✖</button>
-        </div>
-
-    </div>
 </div>
-
-
-
-
-<button type="button" onclick="clearFormData()">
-    Clear Saved Data
-</button>
+<div class="biodata-section">
 <button type="submit">
-Generate Biodata
-</button>
+✨ Generate Biodata
+</button> <hr>
+
+<div class="action-buttons">
+    <button type="button" onclick="fillExampleBiodata()">
+        🪄 Example Biodata
+    </button>
+
+    <button type="button" onclick="clearFormData()">
+       🧼 Clear form
+    </button>
+</div> </div>
 
 </form>
 <div class="biodata-section">
@@ -1598,26 +1614,7 @@ document
         "none";
 
     });
-    document
-.getElementById(
-"customSymbolThumb"
-)
-.src = url;
-
-document
-.getElementById(
-"customSymbolThumb"
-)
-.style.display =
-"block";
-
-document
-.getElementById(
-"customSymbolText"
-)
-.textContent =
-"Custom Symbol";
-
+    
 });
 
 document
@@ -1647,7 +1644,25 @@ function(){
     "selectedSymbolPreview"
     )
     .src = url;
-    
+    document
+.getElementById(
+"customSymbolThumb"
+)
+.src = url;
+
+document
+.getElementById(
+"customSymbolThumb"
+)
+.style.display =
+"block";
+
+document
+.getElementById(
+"customSymbolText"
+)
+.textContent =
+"Change ✏️";
 
 });
 </script>
@@ -1736,86 +1751,102 @@ document
 };
 </script>
 <script>
-window.addEventListener(
-"message",
-function(e){
+window.addEventListener("message", function(e){
 
-if(
-e.data &&
-e.data.type==="selected-symbol"
-){
+    if(
+        !e.data ||
+        e.data.type !== "selected-symbol"
+    ){
+        return;
+    }
 
-document
-.getElementById(
-"selectedSymbol"
-)
-.value =
-e.data.url;
+    document.getElementById(
+        "selectedSymbol"
+    ).value = e.data.url;
 
-document
-.getElementById(
-"selectedSymbolPreview"
-)
-.src =
-e.data.url;
+    document.getElementById(
+        "selectedSymbolPreview"
+    ).src = e.data.url;
 
-document
-.getElementById(
-"symbolLibraryModal"
-)
-.style.display =
-"none";
+    document.getElementById(
+        "customSymbolThumb"
+    ).src = e.data.url;
 
-}
-document
-.getElementById(
-"customSymbolThumb"
-)
-.src =
-e.data.url;
+    document.getElementById(
+        "customSymbolThumb"
+    ).style.display = "block";
 
-document
-.getElementById(
-"customSymbolThumb"
-)
-.style.display =
-"block";
+    document.getElementById(
+        "customSymbolText"
+    ).textContent = "Change ✏️";
 
-document
-.getElementById(
-"customSymbolText"
-)
-.textContent =
-"Change✏️";
+    document.getElementById(
+        "symbolLibraryModal"
+    ).style.display = "none";
+
 });
 </script>
 <script>
-    window.addEventListener(
-"message",
-function(e){
+function fillExampleBiodata(){
 
-    if(
-        e.data &&
-        e.data.type === "selected-symbol"
-    ){
+    document.getElementById("fullName").value = "Rahul Sharma";
 
-        document
-        .getElementById(
-        "selectedSymbol"
-        )
-        .value =
-        e.data.url;
+    document.getElementById("dob").value = "15-05-1998";
+    document.getElementById("timeBirth").value = "08:30 PM";
+    document.getElementById("placeBirth").value = "Bhopal, Madhya Pradesh";
 
-        document
-        .getElementById(
-        "selectedSymbolPreview"
-        )
-        .src =
-        e.data.url;
+    document.getElementById("aboutSelect").value =
+    "Traditional with Modern Values";
 
-    }
+    document.getElementById("height").value = "5 Feet 8 Inch";
+    document.getElementById("weight").value = "70 Kg";
 
-});
+    document.getElementById("complexion").value = "Fair";
+    document.getElementById("religion").value = "Hindu";
+
+    document.getElementById("caste").value = "Brahmin";
+    document.getElementById("gotra").value = "Bharadwaj";
+
+    document.getElementById("rashi").value =
+    "Mesh (Aries)";
+
+    document.getElementById("nakshatra").value =
+    "Ashwini";
+
+    document.getElementById("manglik").value =
+    "No";
+
+    document.getElementById("education").value =
+    "B.Tech Computer Science";
+
+    document.getElementById("occupation").value =
+    "Software Engineer";
+
+    document.getElementById("fatherName").value =
+    "Mahesh Sharma";
+
+    document.getElementById("fatherOccupation").value =
+    "Businessman";
+
+    document.getElementById("motherName").value =
+    "Sunita Sharma";
+
+    document.getElementById("motherOccupation").value =
+    "Homemaker";
+
+    document.getElementById("siblings").value =
+    "1 Brother";
+
+    document.getElementById("mobile").value =
+    "9876543210";
+
+    document.getElementById("address").value =
+    "Bhopal, Madhya Pradesh";
+
+    saveDraft();
+
+    alert("Example Biodata Filled Successfully!");
+}
 </script>
 </body>
 </html>

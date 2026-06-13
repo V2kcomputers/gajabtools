@@ -213,6 +213,43 @@
     object-fit:contain;
     flex-shrink:0;
 }
+.image-library-popup{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    background:#fff;
+    z-index:999999;
+    display:none;
+    flex-direction:column;
+}
+
+.image-library-popup.show{
+    display:flex;
+}
+
+.popup-header{
+    height:60px;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    padding:10px;
+    border-bottom:1px solid #ddd;
+    background:#fff;
+}
+
+.popup-header button{
+    padding:10px 20px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+#imageLibraryFrame{
+    width:100%;
+    height:calc(100vh - 60px);
+    border:none;
+}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -254,6 +291,23 @@
 </button>
 
 </div>
+
+<div id="imageLibraryPopup" class="image-library-popup">
+
+    <div class="popup-header">
+        <button onclick="closeImageLibrary()">
+            ✖ Close
+        </button>
+    </div>
+
+    <iframe
+        id="imageLibraryFrame"
+        src=""
+        loading="lazy">
+    </iframe>
+
+</div>
+
 <div class="biodata">
 
     <!-- Header -->
@@ -417,13 +471,25 @@ document
 .getElementById("selectPhoto")
 .onclick = ()=>{
 
-    window.open(
-        "/upload",
-        "ImageLibrary",
-        "width=1200,height=800"
-    );
+    document
+    .getElementById("imageLibraryPopup")
+    .classList
+    .add("show");
+
+    document
+    .getElementById("imageLibraryFrame")
+    .src = "/upload";
 
 };
+
+function closeImageLibrary(){
+
+    document
+    .getElementById("imageLibraryPopup")
+    .classList
+    .remove("show");
+
+}
 
 window.addEventListener("message",(e)=>{
 
@@ -439,6 +505,8 @@ window.addEventListener("message",(e)=>{
     document
     .getElementById("libraryPhoto")
     .value = e.data.image;
+
+    closeImageLibrary();
 
 });
 </script>
