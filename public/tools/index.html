@@ -5,14 +5,7 @@
   
   
     <h2><a href="/create-biodata/">Matrimonial Biodata - Gajab Tools</a></h2>
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Create Biodata</title>
-
-<style>
+    <style>
 :root{
     --primary:#b38a24;
     --primary-dark:#8d6b15;
@@ -23,8 +16,7 @@
 }
 
 body{
-    margin:0;
-    padding:30px 15px;
+
     background:var(--bg);
     font-family:'Segoe UI',sans-serif;
 }
@@ -426,7 +418,7 @@ cursor:pointer;
 @media (max-width: 600px) { 
 .dynamic-field {display: block}
  }
-}
+
 </style>
 </head>
 <body>
@@ -1252,7 +1244,7 @@ async function(e){
 
     e.preventDefault();
 
-    const token =
+    const biodata_id =
     "bio_" +
     Date.now();
 
@@ -1330,7 +1322,7 @@ try{
 }
 const biodata = {
 
-    token,
+    biodata_id,
 
     photoId,
 
@@ -1371,7 +1363,7 @@ document.getElementById(
 };
 
     localStorage.setItem(
-        token,
+        biodata_id,
         JSON.stringify(
             biodata
         )
@@ -1383,8 +1375,8 @@ document.querySelector(
 
 location.href =
 selectedTemplateUrl +
-"?token=" +
-encodeURIComponent(token);
+"?biodata_id=" +
+encodeURIComponent(biodata_id);
 });
 
 </script>

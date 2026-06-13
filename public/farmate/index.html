@@ -44,16 +44,7 @@
     
   
     <h2><a href="/matrimonial-biodata/">Matrimonial Biodata - Gajab Tools</a></h2>
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Matrimonial Biodata</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
+    <style>
     .biodata { padding: 20px;
     max-width: 900px;
     margin: auto;
@@ -404,8 +395,36 @@ async function getPhoto(photoId){
     });
 }
 
-const token = new URLSearchParams(location.search).get("token");
-const data = JSON.parse(localStorage.getItem(token));
+let data;
+
+try{
+
+    const token =
+    new URLSearchParams(
+        location.search
+    ).get("biodata_id");
+
+    if(!token)
+        throw new Error();
+
+    const rawData =
+    localStorage.getItem(
+        token
+    );
+
+    if(!rawData)
+        throw new Error();
+
+    data =
+    JSON.parse(rawData);
+
+}catch{
+
+    location.replace(
+        "/create-biodata/"
+    );
+
+}
 
 function renderSection(containerId, fields){
     const container = document.getElementById(containerId);
