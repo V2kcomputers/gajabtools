@@ -20,18 +20,7 @@ robots = "nofollow"
 [sitemap]
   disable = true
 +++
- 
- 
- 
- 
- <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Matrimonial Biodata</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
     .biodata { padding: 20px;
@@ -269,7 +258,9 @@ robots = "nofollow"
 <button onclick="savePDF()">
     👁️‍🗨️ View Biodata PDF
 </button>
-
+<button onclick="sharePDF()">
+    📤 Share Biodata
+</button>
 </div>
 
 <div id="imageLibraryPopup" class="image-library-popup">
@@ -382,8 +373,36 @@ async function getPhoto(photoId){
     });
 }
 
-const token = new URLSearchParams(location.search).get("token");
-const data = JSON.parse(localStorage.getItem(token));
+let data;
+
+try{
+
+    const token =
+    new URLSearchParams(
+        location.search
+    ).get("biodata_id");
+
+    if(!token)
+        throw new Error();
+
+    const rawData =
+    localStorage.getItem(
+        token
+    );
+
+    if(!rawData)
+        throw new Error();
+
+    data =
+    JSON.parse(rawData);
+
+}catch{
+
+    location.replace(
+        "/create-biodata/"
+    );
+
+}
 
 function renderSection(containerId, fields){
     const container = document.getElementById(containerId);
@@ -756,6 +775,90 @@ function printBiodata(){
     `);
 
     win.document.close();
+
+}
+</script>
+<script>
+async function sharePDF(){
+
+    try{
+
+        const element =
+        document.querySelector(".biodata");
+
+        const worker =
+        html2pdf()
+        .set({
+
+            margin:10,
+
+            filename:
+            (data.fullName || "biodata")
+            .replace(/\s+/g,"-")
+            + "-biodata.pdf",
+
+            image:{
+                type:"jpeg",
+                quality:1
+            },
+
+            html2canvas:{
+                scale:2
+            },
+
+            jsPDF:{
+                unit:"mm",
+                format:"a4",
+                orientation:"portrait"
+            }
+
+        })
+        .from(element);
+
+        const pdf =
+        await worker
+        .toPdf()
+        .get("pdf");
+
+        const blob =
+        pdf.output("blob");
+
+        const file =
+        new File(
+            [blob],
+            (data.fullName || "biodata") + ".pdf",
+            {
+                type:"application/pdf"
+            }
+        );
+
+        if(
+            navigator.canShare &&
+            navigator.canShare({
+                files:[file]
+            })
+        ){
+
+            await navigator.share({
+                title:"Biodata",
+                text:"My Biodata",
+                files:[file]
+            });
+
+        }else{
+
+            const url =
+            URL.createObjectURL(blob);
+
+            window.open(url,"_blank");
+
+        }
+
+    }catch(err){
+
+        console.log(err);
+
+    }
 
 }
 </script>

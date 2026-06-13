@@ -289,7 +289,9 @@
 <button onclick="savePDF()">
     👁️‍🗨️ View Biodata PDF
 </button>
-
+<button onclick="sharePDF()">
+    📤 Share Biodata
+</button>
 </div>
 
 <div id="imageLibraryPopup" class="image-library-popup">
@@ -776,6 +778,90 @@ function printBiodata(){
     `);
 
     win.document.close();
+
+}
+</script>
+<script>
+async function sharePDF(){
+
+    try{
+
+        const element =
+        document.querySelector(".biodata");
+
+        const worker =
+        html2pdf()
+        .set({
+
+            margin:10,
+
+            filename:
+            (data.fullName || "biodata")
+            .replace(/\s+/g,"-")
+            + "-biodata.pdf",
+
+            image:{
+                type:"jpeg",
+                quality:1
+            },
+
+            html2canvas:{
+                scale:2
+            },
+
+            jsPDF:{
+                unit:"mm",
+                format:"a4",
+                orientation:"portrait"
+            }
+
+        })
+        .from(element);
+
+        const pdf =
+        await worker
+        .toPdf()
+        .get("pdf");
+
+        const blob =
+        pdf.output("blob");
+
+        const file =
+        new File(
+            [blob],
+            (data.fullName || "biodata") + ".pdf",
+            {
+                type:"application/pdf"
+            }
+        );
+
+        if(
+            navigator.canShare &&
+            navigator.canShare({
+                files:[file]
+            })
+        ){
+
+            await navigator.share({
+                title:"Biodata",
+                text:"My Biodata",
+                files:[file]
+            });
+
+        }else{
+
+            const url =
+            URL.createObjectURL(blob);
+
+            window.open(url,"_blank");
+
+        }
+
+    }catch(err){
+
+        console.log(err);
+
+    }
 
 }
 </script>
