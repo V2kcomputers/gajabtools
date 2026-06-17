@@ -1,0 +1,35 @@
+
+
+[
+{{- range $i, $p := first 20 ((where site.RegularPages "Section" "ne" "farmate").ByDate.Reverse) }}
+{{- if $i }},{{ end }}
+{
+  "title": {{ $p.Title | jsonify }},
+  "date": "{{ $p.Date.Format "2006-01-02T15:04:05Z07:00" }}",
+  "url": {{ $p.Permalink | jsonify }},
+
+  "image": {{ with $p.Params.imagePoster }}
+      {{ . | jsonify }}
+    {{ else }}
+      {{ with $p.Params.imageBanner }}
+        {{ . | jsonify }}
+      {{ else }}
+        ""
+      {{ end }}
+    {{ end }},
+
+  "description": {{ with $p.Params.Hindi_Sharing }}
+      {{ index . 0 | jsonify }}
+    {{ else }}
+      {{ with $p.Params.Description }}
+        {{ . | jsonify }}
+      {{ else }}
+        {{ $p.Summary | plainify | jsonify }}
+      {{ end }}
+    {{ end }}
+}
+{{- end }}
+]
+
+
+

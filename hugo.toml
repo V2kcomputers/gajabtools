@@ -5,6 +5,12 @@ theme = "my-tools"
 
 [outputs]
   home = ["HTML", "JSON", "RSS"]
+  page = ["HTML", "JSON"]
+
+[outputFormats.channel]
+mediaType = "application/json"
+baseName = "channel"
+isPlainText = true
 
 [sitemap]
   changefreq = "daily"
