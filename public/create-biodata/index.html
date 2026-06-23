@@ -1360,23 +1360,74 @@ try{
     console.error(err);
 
 }
+// Restore Symbol
+
+const selectedSymbol =
+localStorage.getItem(
+    "selectedSymbol"
+);
+
+if(selectedSymbol){
+
+    // Custom Symbol
+    if(
+        selectedSymbol.startsWith(
+            "symbol_"
+        )
+    ){
+
+        const file =
+        await getPhoto(
+            selectedSymbol
+        );
+
+        if(file){
+
+            const url =
+            URL.createObjectURL(file);
+
+            document.getElementById(
+                "selectedSymbol"
+            ).value =
+            selectedSymbol;
+
+            document.getElementById(
+                "selectedSymbolPreview"
+            ).src =
+            url;
+
+        }
+
+    }else{
+
+        // Normal Symbol
+        document.getElementById(
+            "selectedSymbol"
+        ).value =
+        selectedSymbol;
+
+        document.getElementById(
+            "selectedSymbolPreview"
+        ).src =
+        selectedSymbol;
+
+    }
+
+}
+
 const biodata = {
 
     biodata_id,
 
     photoId,
 
-     religiousSymbol:
-document.getElementById(
-"selectedSymbol"
-).value,
+    religiousSymbol:
+    selectedSymbol,
 
     fullName:
-    document
-    .getElementById(
+    document.getElementById(
         "fullName"
     ).value,
-
     about,
     religion,
     complexion,
@@ -1456,15 +1507,98 @@ window.addEventListener(
 "DOMContentLoaded",
 async ()=>{
 
-   
- const symbol =
-    document.getElementById(
+    const savedSymbol =
+    localStorage.getItem(
         "selectedSymbol"
-    ).value;
+    );
 
-    document.getElementById(
-        "selectedSymbolPreview"
-    ).src = symbol;
+    if(savedSymbol){
+
+        // Custom Symbol
+        if(
+            savedSymbol.startsWith(
+                "symbol_"
+            )
+        ){
+
+            const file =
+            await getPhoto(
+                savedSymbol
+            );
+
+            if(file){
+
+                const url =
+                URL.createObjectURL(file);
+
+                document
+                .getElementById(
+                    "selectedSymbol"
+                )
+                .value =
+                savedSymbol;
+
+                document
+                .getElementById(
+                    "selectedSymbolPreview"
+                )
+                .src =
+                url;
+
+            }
+
+        }else{
+
+            // Normal Symbol
+            document
+            .getElementById(
+                "selectedSymbol"
+            )
+            .value =
+            savedSymbol;
+
+            document
+            .getElementById(
+                "selectedSymbolPreview"
+            )
+            .src =
+            savedSymbol;
+
+        }
+
+    }
+  
+const customSymbolId =
+localStorage.getItem(
+    "customSymbolId"
+);
+
+if(customSymbolId){
+
+    const file =
+    await getPhoto(
+        customSymbolId
+    );
+
+    if(file){
+
+        const url =
+        URL.createObjectURL(file);
+
+        document.getElementById(
+            "selectedSymbol"
+        ).value =
+        customSymbolId;
+
+        document.getElementById(
+            "selectedSymbolPreview"
+        ).src =
+        url;
+
+    }
+
+}
+
 
 
     // Photo Restore
@@ -1550,7 +1684,9 @@ function selectSymbol(symbol){
     .getElementById(
         "selectedSymbolPreview"
     ).src = symbol;
+    
 
+    
 }
 function clearFormData(){
 
@@ -1697,73 +1833,101 @@ document
 
         if(!symbol) return;
 
+        // Custom symbol remove
+        localStorage.removeItem(
+            "customSymbolId"
+        );
+
         document
         .getElementById(
-        "selectedSymbol"
+            "selectedSymbol"
         )
         .value = symbol;
 
         document
         .getElementById(
-        "selectedSymbolPreview"
+            "selectedSymbolPreview"
         )
         .src = symbol;
+
+        localStorage.setItem(
+            "selectedSymbol",
+            symbol
+        );
 
         picker.style.display =
         "none";
 
     });
-    
+
 });
 
 document
-.getElementById(
-"customSymbolInput"
-)
+.getElementById("customSymbolInput")
 .addEventListener(
 "change",
-function(){
+async function(){
 
-    const file =
-    this.files[0];
+    const file = this.files[0];
 
     if(!file) return;
+
+    const symbolId =
+    "symbol_" + Date.now();
+
+    await savePhoto(
+        symbolId,
+        file
+    );
+
+    // Save custom symbol
+    localStorage.setItem(
+        "customSymbolId",
+        symbolId
+    );
+
 
     const url =
     URL.createObjectURL(file);
 
     document
     .getElementById(
-    "selectedSymbol"
+        "selectedSymbol"
     )
-    .value = url;
+    .value = symbolId;
 
     document
     .getElementById(
-    "selectedSymbolPreview"
+        "selectedSymbolPreview"
     )
     .src = url;
+
     document
-.getElementById(
-"customSymbolThumb"
-)
-.src = url;
+    .getElementById(
+        "customSymbolThumb"
+    )
+    .src = url;
 
-document
-.getElementById(
-"customSymbolThumb"
-)
-.style.display =
-"block";
+    document
+    .getElementById(
+        "customSymbolThumb"
+    )
+    .style.display = "block";
 
-document
-.getElementById(
-"customSymbolText"
-)
-.textContent =
-"Change ✏️";
+    document
+    .getElementById(
+        "customSymbolText"
+    )
+    .textContent =
+    "Change ✏️";
+
+    picker.style.display = "none";
 
 });
+localStorage.setItem(
+    "selectedSymbol",
+    symbolId
+);
 </script>
 <script>
     const popup =
@@ -1848,6 +2012,10 @@ document
 "none";
 
 };
+localStorage.setItem(
+    "selectedSymbol",
+    symbolId
+);
 </script>
 <script>
 window.addEventListener("message", function(e){
@@ -1858,6 +2026,17 @@ window.addEventListener("message", function(e){
     ){
         return;
     }
+
+    // Save selected library symbol
+    localStorage.setItem(
+        "selectedSymbol",
+        e.data.url
+    );
+
+    // Remove custom symbol selection
+    localStorage.removeItem(
+        "customSymbolId"
+    );
 
     document.getElementById(
         "selectedSymbol"
@@ -1884,6 +2063,10 @@ window.addEventListener("message", function(e){
     ).style.display = "none";
 
 });
+localStorage.setItem(
+    "selectedSymbol",
+    e.data.url
+);
 </script>
 <script>
 function fillExampleBiodata(){

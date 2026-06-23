@@ -434,27 +434,31 @@ cursor:pointer;
 
     <div class="selected-symbol" id="selectedSymbolBox">
         <img id="selectedSymbolPreview"
-             src="\svg\Om-Symbol-Silhouette.svg"
+             src="/svg/Om-Symbol-Silhouette.svg"
              alt="Selected Symbol">
 
+
+             
         <span>Click to Change Symbol</span>
     </div>
 
     <input
-        type="hidden"
-        id="selectedSymbol"
-        value="https://breathetogetheryoga.com/wp-content/uploads/om-by-martialred.jpg">
+type="hidden"
+id="selectedSymbol"
+value="/svg/Om-Symbol-Silhouette.svg">
 
     <div
         class="symbol-picker"
         id="symbolPicker"
         style="display:none;">
+<div class="symbol-item"
+data-symbol="/svg/Om-Symbol-Silhouette.svg">
 
-        <div class="symbol-item"
-             data-symbol="https://breathetogetheryoga.com/wp-content/uploads/om-by-martialred.jpg">
-            <img src="https://breathetogetheryoga.com/wp-content/uploads/om-by-martialred.jpg">
-            <span>ॐ</span>
-        </div>
+    <img src="/svg/Om-Symbol-Silhouette.svg">
+
+    <span>ॐ</span>
+
+</div>
 
         <div class="symbol-item"
              data-symbol="https://upload.wikimedia.org/wikipedia/commons/f/fa/Allah3.svg">
@@ -1452,6 +1456,21 @@ document.addEventListener(
 window.addEventListener(
 "DOMContentLoaded",
 async ()=>{
+ 
+    selectSymbol(
+        document.getElementById(
+            "selectedSymbol"
+        ).value
+    );
+ const symbol =
+    document.getElementById(
+        "selectedSymbol"
+    ).value;
+
+    document.getElementById(
+        "selectedSymbolPreview"
+    ).src = symbol;
+
 
     // Photo Restore
     const draftPhotoId =
@@ -1524,6 +1543,20 @@ async ()=>{
     });
 
 });
+
+function selectSymbol(symbol){
+
+    document
+    .getElementById(
+        "selectedSymbol"
+    ).value = symbol;
+
+    document
+    .getElementById(
+        "selectedSymbolPreview"
+    ).src = symbol;
+
+}
 function clearFormData(){
 
     if(!confirm(

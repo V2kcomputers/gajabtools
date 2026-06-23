@@ -429,19 +429,46 @@ function renderSection(containerId, fields){
 }
 
 if(data){
-
-    const symbol =
+const symbol =
 document.getElementById(
 "religiousSymbol"
 );
 
-if(
-    symbol &&
-    data.religiousSymbol
-){
-    symbol.src =
-    data.religiousSymbol;
-}
+(async()=>{
+
+    if(
+        !symbol ||
+        !data.religiousSymbol
+    ) return;
+
+    if(
+        data.religiousSymbol.startsWith(
+            "symbol_"
+        )
+    ){
+
+        const file =
+        await getPhoto(
+            data.religiousSymbol
+        );
+
+        if(file){
+
+            symbol.src =
+            URL.createObjectURL(
+                file
+            );
+
+        }
+
+    }else{
+
+        symbol.src =
+        data.religiousSymbol;
+
+    }
+
+})();
     const fullName = document.getElementById("fullName");
     if(fullName) fullName.textContent = data.fullName || "";
 
