@@ -446,27 +446,31 @@ cursor:pointer;
 
     <div class="selected-symbol" id="selectedSymbolBox">
         <img id="selectedSymbolPreview"
-             src="https://breathetogetheryoga.com/wp-content/uploads/om-by-martialred.jpg"
+             src="/svg/Om-Symbol-Silhouette.svg"
              alt="Selected Symbol">
 
+
+             
         <span>Click to Change Symbol</span>
     </div>
 
     <input
-        type="hidden"
-        id="selectedSymbol"
-        value="https://breathetogetheryoga.com/wp-content/uploads/om-by-martialred.jpg">
+type="hidden"
+id="selectedSymbol"
+value="/svg/Om-Symbol-Silhouette.svg">
 
     <div
         class="symbol-picker"
         id="symbolPicker"
         style="display:none;">
+<div class="symbol-item"
+data-symbol="/svg/Om-Symbol-Silhouette.svg">
 
-        <div class="symbol-item"
-             data-symbol="https://breathetogetheryoga.com/wp-content/uploads/om-by-martialred.jpg">
-            <img src="https://breathetogetheryoga.com/wp-content/uploads/om-by-martialred.jpg">
-            <span>ॐ</span>
-        </div>
+    <img src="/svg/Om-Symbol-Silhouette.svg">
+
+    <span>ॐ</span>
+
+</div>
 
         <div class="symbol-item"
              data-symbol="https://upload.wikimedia.org/wikipedia/commons/f/fa/Allah3.svg">
@@ -988,26 +992,33 @@ document
 .getElementById("photo")
 .addEventListener(
 "change",
-function(){
+async function(){
 
-    const file =
-    this.files[0];
+    const file = this.files[0];
 
     if(!file) return;
 
     uploadedPhoto = file;
 
-    const url =
-    URL.createObjectURL(file);
+    const photoId = "draft_photo";
+
+    await savePhoto(
+        photoId,
+        file
+    );
+
+    localStorage.setItem(
+        "draftPhotoId",
+        photoId
+    );
 
     document
     .getElementById("preview")
-    .style.display =
-    "block";
+    .style.display = "block";
 
     document
     .getElementById("previewImg")
-    .src = url;
+    .src = URL.createObjectURL(file);
 
 });
 
@@ -1020,6 +1031,7 @@ function addField(containerId){
     const row = document.createElement("div");
 
     row.className = "dynamic-field";
+
 
     row.innerHTML = `
         <input
@@ -1244,6 +1256,35 @@ async function savePhoto(photoId,file){
     });
 
 }
+async function getPhoto(photoId){
+
+    const db = await openDB();
+
+    return new Promise((resolve,reject)=>{
+
+        const tx =
+        db.transaction(
+            "photos",
+            "readonly"
+        );
+
+        const request =
+        tx.objectStore("photos")
+        .get(photoId);
+
+        request.onsuccess =
+        ()=>resolve(
+            request.result?.file
+        );
+
+        request.onerror =
+        ()=>reject(
+            request.error
+        );
+
+    });
+
+}
 // ===========================
 // FORM SUBMIT
 // ===========================
@@ -1425,54 +1466,121 @@ document.addEventListener(
     saveDraft
 );
 window.addEventListener(
-    "DOMContentLoaded",
-    ()=>{
+"DOMContentLoaded",
+async ()=>{
 
-        const saved =
-        localStorage.getItem(
-            AUTOSAVE_KEY
-        );
+   
+ const symbol =
+    document.getElementById(
+        "selectedSymbol"
+    ).value;
 
-        if(!saved) return;
+    document.getElementById(
+        "selectedSymbolPreview"
+    ).src = symbol;
 
-        const data =
-        JSON.parse(saved);
 
-        document
-        .querySelectorAll(
-            "input, textarea, select"
-        )
-        .forEach(el=>{
+    // Photo Restore
+    const draftPhotoId =
+    localStorage.getItem(
+        "draftPhotoId"
+    );
 
-            if(el.type==="file") return;
+    if(draftPhotoId){
 
-            const key =
-            el.id || el.name;
+        try{
 
-            if(data[key]!==undefined){
+            const file =
+            await getPhoto(
+                draftPhotoId
+            );
 
-                el.value =
-                data[key];
+            if(file){
+
+                document
+                .getElementById("preview")
+                .style.display =
+                "block";
+
+                document
+                .getElementById("previewImg")
+                .src =
+                URL.createObjectURL(file);
+
+                uploadedPhoto = file;
 
             }
 
-        });
+        }catch(err){
+
+            console.error(err);
+
+        }
 
     }
-);
+
+    // Form Data Restore
+    const saved =
+    localStorage.getItem(
+        AUTOSAVE_KEY
+    );
+
+    if(!saved) return;
+
+    const data =
+    JSON.parse(saved);
+
+    document
+    .querySelectorAll(
+        "input, textarea, select"
+    )
+    .forEach(el=>{
+
+        if(el.type==="file") return;
+
+        const key =
+        el.id || el.name;
+
+        if(data[key]!==undefined){
+
+            el.value =
+            data[key];
+
+        }
+
+    });
+
+});
+
+function selectSymbol(symbol){
+
+    document
+    .getElementById(
+        "selectedSymbol"
+    ).value = symbol;
+
+    document
+    .getElementById(
+        "selectedSymbolPreview"
+    ).src = symbol;
+
+}
 function clearFormData(){
 
-    if(
-        !confirm(
-            "Are you sure you want to clear all saved data?"
-        )
-    ) return;
+    if(!confirm(
+        "Are you sure you want to clear all saved data?"
+    )) return;
 
     localStorage.removeItem(
-    AUTOSAVE_KEY
-);
- location.reload();
-} 
+        AUTOSAVE_KEY
+    );
+
+    localStorage.removeItem(
+        "draftPhotoId"
+    );
+
+    location.reload();
+}
 </script>
 <script>
     function toggleAboutCustom(){

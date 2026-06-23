@@ -434,7 +434,7 @@ cursor:pointer;
 
     <div class="selected-symbol" id="selectedSymbolBox">
         <img id="selectedSymbolPreview"
-             src="https://breathetogetheryoga.com/wp-content/uploads/om-by-martialred.jpg"
+             src="\svg\Om-Symbol-Silhouette.svg"
              alt="Selected Symbol">
 
         <span>Click to Change Symbol</span>
@@ -976,26 +976,33 @@ document
 .getElementById("photo")
 .addEventListener(
 "change",
-function(){
+async function(){
 
-    const file =
-    this.files[0];
+    const file = this.files[0];
 
     if(!file) return;
 
     uploadedPhoto = file;
 
-    const url =
-    URL.createObjectURL(file);
+    const photoId = "draft_photo";
+
+    await savePhoto(
+        photoId,
+        file
+    );
+
+    localStorage.setItem(
+        "draftPhotoId",
+        photoId
+    );
 
     document
     .getElementById("preview")
-    .style.display =
-    "block";
+    .style.display = "block";
 
     document
     .getElementById("previewImg")
-    .src = url;
+    .src = URL.createObjectURL(file);
 
 });
 
@@ -1008,6 +1015,7 @@ function addField(containerId){
     const row = document.createElement("div");
 
     row.className = "dynamic-field";
+
 
     row.innerHTML = `
         <input
@@ -1232,6 +1240,35 @@ async function savePhoto(photoId,file){
     });
 
 }
+async function getPhoto(photoId){
+
+    const db = await openDB();
+
+    return new Promise((resolve,reject)=>{
+
+        const tx =
+        db.transaction(
+            "photos",
+            "readonly"
+        );
+
+        const request =
+        tx.objectStore("photos")
+        .get(photoId);
+
+        request.onsuccess =
+        ()=>resolve(
+            request.result?.file
+        );
+
+        request.onerror =
+        ()=>reject(
+            request.error
+        );
+
+    });
+
+}
 // ===========================
 // FORM SUBMIT
 // ===========================
@@ -1413,54 +1450,96 @@ document.addEventListener(
     saveDraft
 );
 window.addEventListener(
-    "DOMContentLoaded",
-    ()=>{
+"DOMContentLoaded",
+async ()=>{
 
-        const saved =
-        localStorage.getItem(
-            AUTOSAVE_KEY
-        );
+    // Photo Restore
+    const draftPhotoId =
+    localStorage.getItem(
+        "draftPhotoId"
+    );
 
-        if(!saved) return;
+    if(draftPhotoId){
 
-        const data =
-        JSON.parse(saved);
+        try{
 
-        document
-        .querySelectorAll(
-            "input, textarea, select"
-        )
-        .forEach(el=>{
+            const file =
+            await getPhoto(
+                draftPhotoId
+            );
 
-            if(el.type==="file") return;
+            if(file){
 
-            const key =
-            el.id || el.name;
+                document
+                .getElementById("preview")
+                .style.display =
+                "block";
 
-            if(data[key]!==undefined){
+                document
+                .getElementById("previewImg")
+                .src =
+                URL.createObjectURL(file);
 
-                el.value =
-                data[key];
+                uploadedPhoto = file;
 
             }
 
-        });
+        }catch(err){
+
+            console.error(err);
+
+        }
 
     }
-);
+
+    // Form Data Restore
+    const saved =
+    localStorage.getItem(
+        AUTOSAVE_KEY
+    );
+
+    if(!saved) return;
+
+    const data =
+    JSON.parse(saved);
+
+    document
+    .querySelectorAll(
+        "input, textarea, select"
+    )
+    .forEach(el=>{
+
+        if(el.type==="file") return;
+
+        const key =
+        el.id || el.name;
+
+        if(data[key]!==undefined){
+
+            el.value =
+            data[key];
+
+        }
+
+    });
+
+});
 function clearFormData(){
 
-    if(
-        !confirm(
-            "Are you sure you want to clear all saved data?"
-        )
-    ) return;
+    if(!confirm(
+        "Are you sure you want to clear all saved data?"
+    )) return;
 
     localStorage.removeItem(
-    AUTOSAVE_KEY
-);
- location.reload();
-} 
+        AUTOSAVE_KEY
+    );
+
+    localStorage.removeItem(
+        "draftPhotoId"
+    );
+
+    location.reload();
+}
 </script>
 <script>
     function toggleAboutCustom(){
