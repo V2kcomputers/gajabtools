@@ -310,11 +310,15 @@
        <div class="profile-photo" id="selectPhoto">
 
     <img id="photo" src="" alt="Photo">
-<input type="hidden" id="libraryPhoto">
+<input type="hidden" id="photo">
 </div>
 
         <div class="hero-info">
- <img  id="religiousSymbol"  class="religious-symbol" src="">
+ <img
+ id="religiousSymbol"
+ class="religious-symbol"
+ crossorigin="anonymous"
+ src="">
  <div class="top-header">
  <div> <div id="fullName"></div> <div class="about" id="about">Simple and Family Oriented Person </div></div> </div>
 
@@ -591,37 +595,62 @@ window.addEventListener("message",(e)=>{
     }
 
 }
-  /*================================================Save PDF================================================== */
-async function savePDF(){
+/*================================================wait For Image================================================== */
+async function waitForImages() {
+    const images = document.querySelectorAll("img");
 
+    await Promise.all(
+        [...images].map(img => {
+            if (img.complete) return Promise.resolve();
+
+            return new Promise(resolve => {
+                img.onload = resolve;
+                img.onerror = resolve;
+            });
+        })
+    );
+}
+  /*================================================Save PDF================================================== */
+
+
+
+
+async function savePDF(){
+    await waitForImages();
     const element =
     document.querySelector(".biodata");
 
+    await waitForImages(); // <-- यह जोड़ें
+
+    const biodata = document.querySelector(".biodata");
+
+    const canvas = await html2canvas(biodata,{
+        scale:2,
+        useCORS:true,
+        allowTaint:true
+    });
+
     const opt = {
+    margin:10,
+    filename:(data.fullName || "biodata") + ".pdf",
 
-        margin:10,
+    image:{
+        type:"jpeg",
+        quality:1
+    },
 
-        filename:
-        (data.fullName || "biodata")
-        .replace(/\s+/g,"-")
-        + "-biodata.pdf",
+    html2canvas:{
+        scale:2,
+        useCORS:true,
+        allowTaint:true
+    },
 
-        image:{
-            type:"jpeg",
-            quality:1
-        },
-
-        html2canvas:{
-            scale:2
-        },
-
-        jsPDF:{
-            unit:"mm",
-            format:"a4",
-            orientation:"portrait"
-        }
-
-    };
+    jsPDF:{
+        unit:"mm",
+        format:"a4",
+        orientation:"portrait"
+    }
+};
 
     const worker =
     html2pdf()
@@ -647,6 +676,7 @@ async function savePDF(){
 }
 /*================================================Download PDF================================================== */
 async function downloadPDF(){
+    await waitForImages();
 
     const btn =
     document.getElementById("pdfBtn");
@@ -802,7 +832,7 @@ function printBiodata(){
 </script>
 <script>
 async function sharePDF(){
-
+   await waitForImages();
     try{
 
         const element =
@@ -824,9 +854,11 @@ async function sharePDF(){
                 quality:1
             },
 
-            html2canvas:{
-                scale:2
-            },
+           html2canvas:{
+    scale:2,
+    useCORS:true,
+    allowTaint:true
+},
 
             jsPDF:{
                 unit:"mm",
@@ -872,7 +904,10 @@ async function sharePDF(){
             const url =
             URL.createObjectURL(blob);
 
-            window.open(url,"_blank");
+            const link = document.createElement("a");
+link.href = url;
+link.target = "_blank";
+link.click();
 
         }
 
