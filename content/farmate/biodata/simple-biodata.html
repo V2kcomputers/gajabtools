@@ -1,949 +1,1859 @@
- +++
-date = 2026-06-08T18:58:18+05:30
++++
+date = 2026-06-02T15:52:59+05:30
 links = [
 "Visit Tools = https://gajabtools.com"
 ]
-url = "/matrimonial-biodata/"
+url = "/create-biodata/"
 imageBanner = "  "
-cssStyles = ["css/tools/resume/classic-resume.css"]
+cssStyles = []
+jsFiles = []
 
-jsFile = [
-"https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js",
-"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js",
-"https://unpkg.com/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"
-]
 title = 'Matrimonial Biodata - Gajab Tools'
 description = "  "
 type= "tools"
-pageWidth = "870"
-robots = "nofollow"
-[sitemap]
-  disable = true
+layout = ""
+pageWidth = "600"
+allowSite= "no" 
 +++
 
 
 <style>
-    .biodata { padding: 20px;
-    max-width: 900px;
-    margin: auto;
-    }
-.hero-section{
-    display:flex;
-    gap:35px;
-    align-items:center;
-    margin-bottom:35px;
-    padding:25px;
-    background:linear-gradient(
-        135deg,
-        #fffef9,
-        #f5ead0
-    );
-    border:2px solid #d8bc73;
-    border-radius:20px;
+:root{
+    --primary:#b38a24;
+    --primary-dark:#8d6b15;
+    --bg:#f4f6fb;
+    --white:#ffffff;
+    --border:#e5e7eb;
+    --text:#222;  
 }
 
-.profile-photo{
-    width:130px;
-    height:160px;
-    flex-shrink:0;
-    overflow:hidden;
+body{
+
+    background:var(--bg);
+    font-family:'Segoe UI',sans-serif;
+}
+
+.biodata-container{
+    max-width:950px;
+    margin:auto;
+}
+
+.biodata-container h1{
+    text-align:center;
+    color:var(--primary);
+    margin-bottom:30px;
+    font-size:32px;
+}
+
+.biodata-section{
+    background:#fff;
     border-radius:16px;
-    border:4px solid #b8943d;
-    box-shadow:0 10px 25px rgba(0,0,0,.15);
+    padding:25px;
+    margin-bottom:25px;
+    box-shadow:0 4px 20px rgba(0,0,0,.06);
+    border:1px solid #eee;
 }
 
-.profile-photo img{
+.biodata-section h2{
+    margin:0 0 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:#333;
+    font-size:22px;
+    padding-bottom:12px;
+    border-bottom:2px solid #f0f0f0;
+}
+
+.form-group{
+    position:relative;
+    background:#fafafa;
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:15px;
+    transition:.3s;
+}
+
+.form-group:hover{
+    border-color:var(--primary);
+    box-shadow:0 4px 12px rgba(179,138,36,.12);
+}
+
+.form-group label{
+    display:block;
+    font-weight:600;
+    margin-bottom:8px;
+    color:#444;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    font-size:15px;
+    outline:none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{
+    border-color:var(--primary);
+}
+
+.drag-handle{
+    position:absolute;
+    left:12px;
+    top:12px;
+    font-size:22px;
+    color:#888;
+    cursor:grab;
+}
+
+.form-group label,
+.form-group input,
+.form-group textarea,
+.form-group select{
+    margin-left:28px;
+    width:calc(100% - 28px);
+}
+
+.form-group button{
+    position:absolute;
+    right:12px;
+    top:12px;
+    width:34px;
+    height:34px;
+    border:none;
+    border-radius:50%;
+    background:#ef4444;
+    color:#fff;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.form-group button:hover{
+    background:#dc2626;
+}
+
+.preview{
+    margin-top:15px;
+    width:180px;
+    height:220px;
+    border-radius:12px;
+    overflow:hidden;
+    border:3px solid #eee;
+}
+
+.preview img{
     width:100%;
     height:100%;
     object-fit:cover;
 }
 
-.hero-info{
+.dynamic-field{
+    position:relative;
+    display:flex;
+    gap:10px;
+    align-items:center;
+    padding:15px 55px 15px 40px;
+    margin-bottom:12px;
+    background:#fafafa;
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+    transition:.3s;
+}
+
+.dynamic-field:hover{
+    border-color:#b38a24;
+    box-shadow:0 4px 12px rgba(179,138,36,.12);
+}
+
+.dynamic-field .drag-handle{
+    position:absolute;
+    left:12px;
+    top:50%;
+    transform:translateY(-50%);
+    cursor:grab;
+    font-size:20px;
+    color:#777;
+    user-select:none;
+}
+
+.dynamic-field input{
     flex:1;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    font-size:15px;
 }
 
-.hero-info #fullName{
-    font-size:48px;
-    color:#7a5b15;
-    margin-bottom:0px;
-    font-weight: 900;
+.dynamic-field input:focus{
+    outline:none;
+    border-color:#b38a24;
 }
 
-.hero-grid{
-    display:grid;
-    grid-template-columns:220px 1fr;
-    gap:12px 25px;
+.dynamic-field button{
+    position:absolute;
+    right:12px;
+    top:50%;
+    transform:translateY(-50%);
+    width:34px;
+    height:34px;
+    border:none;
+    border-radius:50%;
+    background:#ef4444;
+    color:#fff;
+    cursor:pointer;
+    font-size:16px;
 }
 
-.biodata-section{
-    margin-top:2px;
-    padding:5px;
-    background:#fff;
-    border-radius:18px;
- 
-    box-shadow:0 4px 15px rgba(0,0,0,.05);
+.dynamic-field button:hover{
+    background:#dc2626;
 }
-
-.section-title{
-    color:#b38a24;
-    font-size:28px;
-    font-weight:700;
-    margin-bottom:18px;
-    border-bottom:2px solid #ead9aa;
-    padding-bottom:10px;
-}
-
-.info-grid{
-    display:grid;
-    grid-template-columns:240px 1fr;
-    gap:12px 25px;
-}
-
-.label{
-    font-weight:700;
-    color:#7a5b15;
-}
-
-.value{
-    color:#333;
-}
-
-.about{
-    line-height:1.9;
-    font-size:18px;
-}
-
-.biodata-footer{
-    margin-top:35px;
-    text-align:center;
-    color:#888;
+h2 button{
+    width:auto !important;
+    height:auto !important;
+    position:static !important;
+    padding:10px 16px;
+    border-radius:8px !important;
+    background:var(--primary) !important;
+    color:#fff;
     font-size:14px;
 }
 
+h2 button:hover{
+    background:var(--primary-dark) !important;
+}
 
+button[type="submit"]{
+    width:100%;
+    padding:18px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(
+        135deg,
+        #c9a227,
+        #9d7918
+    );
+    color:#fff;
+    font-size:20px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+button[type="submit"]:hover{
+    transform:translateY(-2px);
+}
+
+.dragging{
+    opacity:.4;
+    background:#fff8e1;
+    border:2px dashed var(--primary);
+}
+.template-switcher{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+.template-card{
+display:block;
+cursor:pointer;
+border:3px solid #e5e7eb;
+border-radius:14px;
+overflow:hidden;
+background:#fff;
+transition:.3s;
+}
+
+.template-card img{
+width:100%;
+height:280px;
+object-fit:cover;
+display:block;
+}
+
+.template-card span{
+display:block;
+padding:12px;
+font-weight:600;
+text-align:center;
+}
+
+.template-card input{
+display:none;
+}
+
+.template-card:has(input:checked){
+border-color:#b38a24;
+box-shadow:0 0 0 4px rgba(179,138,36,.2);
+transform:translateY(-3px);
+}
+
+.selected-symbol{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:15px;
+    border:2px dashed #ccc;
+    border-radius:12px;
+    cursor:pointer;
+}
+
+.selected-symbol img{
+    width:60px;
+    height:60px;
+    object-fit:contain;
+}
+
+.symbol-picker{
+    margin-top:15px;
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fill,minmax(100px,1fr));
+    gap:15px;
+}
+
+.symbol-item{
+    text-align:center;
+    padding:10px;
+    border:2px solid #eee;
+    border-radius:12px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.symbol-item:hover{
+    border-color:#b38a24;
+}
+
+.symbol-item img{
+    width:50px;
+    height:50px;
+    object-fit:contain;
+}
+.symbol-popup{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.5);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+
+.popup-box{
+background:#fff;
+padding:25px;
+border-radius:12px;
+width:320px;
+text-align:center;
+}
+
+.popup-box button{
+display:block;
+width:100%;
+margin:10px 0;
+padding:12px;
+cursor:pointer;
+}
+
+
+.symbol-library-modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.6);
+    z-index:99999;
+}
+
+.symbol-library-box{
+    position:absolute;
+    inset:20px;
+    background:#fff;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+.symbol-library-box iframe{
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+#closeLibraryModal{
+    position:absolute;
+    top:10px;
+    right:10px;
+    z-index:10;
+    width:40px;
+    height:40px;
+    border:none;
+    border-radius:50%;
+    cursor:pointer;
+}
 .action-buttons{
     display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    justify-content:center;
-    margin:20px 0;
+    gap:12px;
+    margin-bottom:20px;
 }
 
 .action-buttons button{
-    padding:12px 18px;
+    flex:1;
+    padding:14px;
     border:none;
-    border-radius:10px;
-    cursor:pointer;
-    background:#b38a24;
-    color:#fff;
+    border-radius:12px;
+    font-size:16px;
     font-weight:600;
-}
-
-.download-menu{
-    position:relative;
-}
-
-.download-options{
-    display:none;
-    position:absolute;
-    top:100%;
-    left:0;
-    background:#fff;
-    border-radius:10px;
-    box-shadow:0 5px 20px rgba(0,0,0,.15);
-    min-width:180px;
-    z-index:999;
-}
-
-.download-options button{
-    width:100%;
-    border-radius:0;
-    background:#fff;
-    color:#333;
-    text-align:left;
-}
-
-.download-options.show{
-    display:block;
-}
-.top-header{
-    display:block;
-    align-items:center;
-    gap:15px;
-    margin-bottom:15px;
-}
-
-.religious-symbol{
-    width:60px;
-    height:60px;
-    left: 30%;
-    top: 0px;
-    position:relative;
-    object-fit:contain;
-    flex-shrink:0;
-}
-.image-library-popup{
-    position:fixed;
-    inset:0;
-    width:100%;
-    height:100%;
-    background:#fff;
-    z-index:999999;
-    display:none;
-    flex-direction:column;
-}
-
-.image-library-popup.show{
-    display:flex;
-}
-
-.popup-header{
-    height:60px;
-    display:flex;
-    justify-content:flex-end;
-    align-items:center;
-    padding:10px;
-    border-bottom:1px solid #ddd;
-    background:#fff;
-}
-
-.popup-header button{
-    padding:10px 20px;
-    border:none;
-    border-radius:8px;
     cursor:pointer;
 }
 
-#imageLibraryFrame{
-    width:100%;
-    height:calc(100vh - 60px);
-    border:none;
+.action-buttons button:first-child{
+    background:#10b981;
+    color:#fff;
 }
-</style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
+.action-buttons button:last-child{
+    background:#ef4444;
+    color:#fff;
+}
+
+.action-buttons button:hover{
+    opacity:.9;
+}
+
+
+@media (max-width: 600px) { 
+.dynamic-field {display: block}
+ }
+
+</style>
 </head>
 <body>
+
+<div class="biodata-container">
+
+<h1>Create Matrimonial Biodata</h1>
+
+<form id="biodataForm">
+
+<div class="biodata-section">
+    <h2>Religious Symbol</h2>
+
+    <div class="selected-symbol" id="selectedSymbolBox">
+        <img id="selectedSymbolPreview"
+             src="https://breathetogetheryoga.com/wp-content/uploads/om-by-martialred.jpg"
+             alt="Selected Symbol">
+
+        <span>Click to Change Symbol</span>
+    </div>
+
+    <input
+        type="hidden"
+        id="selectedSymbol"
+        value="https://breathetogetheryoga.com/wp-content/uploads/om-by-martialred.jpg">
+
+    <div
+        class="symbol-picker"
+        id="symbolPicker"
+        style="display:none;">
+
+        <div class="symbol-item"
+             data-symbol="https://breathetogetheryoga.com/wp-content/uploads/om-by-martialred.jpg">
+            <img src="https://breathetogetheryoga.com/wp-content/uploads/om-by-martialred.jpg">
+            <span>ॐ</span>
+        </div>
+
+        <div class="symbol-item"
+             data-symbol="https://upload.wikimedia.org/wikipedia/commons/f/fa/Allah3.svg">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Allah3.svg">
+            <span>Allah</span>
+        </div>
+
+        <div class="symbol-item"
+             data-symbol="https://static.vecteezy.com/system/resources/thumbnails/005/199/735/small/khanda-symbol-sikhi-sign-icon-black-color-illustration-flat-style-simple-image-vector.jpg">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/005/199/735/small/khanda-symbol-sikhi-sign-icon-black-color-illustration-flat-style-simple-image-vector.jpg">
+            <span>Khanda</span>
+        </div>
+
+        <div class="symbol-item"
+             data-symbol="https://media.istockphoto.com/id/1425978448/vector/black-and-gray-christian-cross-icon-in-flat-design-vector-illustration-abstract-linear.jpg?s=612x612&w=0&k=20&c=C8WaaJvhZo1mrrrYRlPVfImErMWJ6FSOKpHZUIY8x7Y=">
+            <img src="https://media.istockphoto.com/id/1425978448/vector/black-and-gray-christian-cross-icon-in-flat-design-vector-illustration-abstract-linear.jpg?s=612x612&w=0&k=20&c=C8WaaJvhZo1mrrrYRlPVfImErMWJ6FSOKpHZUIY8x7Y=">
+            <span>Cross</span>
+        </div>
+
+        <div class="symbol-item custom-upload"
+     id="openCustomPopup">
+
+    <img
+        id="customSymbolThumb"
+        src=""
+        style="
+        width:50px;
+        height:50px;
+        object-fit:contain;
+        display:none;">
+
+    <span id="customSymbolText">
+        + Custom
+    </span>
+</div>
+
+    </div>
+    <div
+id="customSymbolPopup"
+style="display:none;"
+class="symbol-popup">
+
+    <div class="popup-box">
+
+        <h3>Select Symbol</h3>
+
+        <button
+        type="button"
+        id="uploadDirectBtn">
+            Upload From Device
+        </button>
+
+        <button
+        type="button"
+        id="uploadLibraryBtn">
+            Choose From Library
+        </button>
+
+        <button
+        type="button"
+        id="closePopupBtn">
+            Close
+        </button>
+
+    </div>
+
+</div>
+
+<input
+type="file"
+id="customSymbolInput"
+accept=".png,.svg,image/*"
+style="display:none;">
+</div>
+
+
+
+<div class="biodata-section">
+<h2>Basic Information</h2>
+
+
+    <!-- Full Name -->
+    <div class="form-group">
+        <span class="drag-handle">☰</span>
+        <label>Full Name</label>
+        <input type="text" id="fullName" required placeholder="Full Name">
+    </div>
+<div id="basicInfoContainer">
+    <div class="form-group">
+        <span class="drag-handle">☰</span>
+        <label>Date of Birth</label>
+        <input type="text" id="dob">
+        <button type="button" onclick="removeField(this)">✖</button>
+    </div>
+
+    <!-- Time of Birth -->
+    <div class="form-group">
+        <span class="drag-handle">☰</span>
+        <label>Time of Birth</label>
+        <input type="text" id="timeBirth">
+        <button type="button" onclick="removeField(this)">✖</button>
+    </div>
+
+    <!-- Place of Birth -->
+    <div class="form-group">
+        <span class="drag-handle">☰</span>
+        <label>Place of Birth</label>
+        <input type="text" id="placeBirth">
+        <button type="button" onclick="removeField(this)">✖</button>
+    </div>
+
+</div>
+<div class="form-group">
+<label>Photo</label>
+<input type="file" id="photo" accept="image/*">
+<div class="preview" id="preview">
+<img id="previewImg">
+</div>
+</div>
+
+</div>
+
+<div class="biodata-section" >
+<h2>About Me</h2>
+<div class="form-group">
+<label>About Me</label>
+
+<select id="aboutSelect" onchange="toggleAboutCustom()">
+    <option value="">Select About</option>
+
+    <option value="Simple and Family Oriented Person">
+        Simple and Family Oriented Person
+    </option>
+
+    <option value="Well Educated and Career Focused">
+        Well Educated and Career Focused
+    </option>
+
+    <option value="Traditional with Modern Values">
+        Traditional with Modern Values
+    </option>
+
+    <option value="custom">
+        Write Custom
+    </option>
+</select>
+
+<textarea
+    id="aboutCustom"
+    placeholder="Write About Yourself"
+    style="display:none;margin-top:10px;">
+</textarea>
+</div>
+
+</div>
+
+
+<div class="biodata-section"  >
+<h2>Personal Details</h2>
+<div id="personalInfoContainer">
+<div class="form-group">
+     <span class="drag-handle">☰</span>
+<label>Height</label>
+<input type="text" id="height" >
+  <button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+<div class="form-group">
+     <span class="drag-handle">☰</span>
+<label>Weight</label>
+<input type="text" id="weight">
+  <button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+<div class="form-group">
+
+      <span class="drag-handle">☰</span>
+<label>Complexion</label>
+
+<select id="complexion" onchange="toggleComplexionCustom()">
+
+    <option value="">Select Complexion</option>
+
+    <option value="Fair">Fair</option>
+    <option value="Wheatish">Wheatish</option>
+    <option value="Medium">Medium</option>
+    <option value="Dark">Dark</option>
+
+    <option value="custom">
+        Other (Write Custom)
+    </option>
+
+</select>
+
+<input
+    type="text"
+    id="complexionCustom"
+    placeholder="Enter Complexion"
+    style="display:none;margin-top:10px;">
+  <button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+<div class="form-group">
+     <span class="drag-handle">☰</span>
+<label>Religion</label>
+
+<select id="religion" onchange="toggleReligionCustom()">
+    <option value="">Select Religion</option>
+
+    <option value="Hindu">Hindu</option>
+    <option value="Muslim">Muslim</option>
+    <option value="Sikh">Sikh</option>
+    <option value="Christian">Christian</option>
+    <option value="Jain">Jain</option>
+    <option value="Buddhist">Buddhist</option>
+
+    <option value="custom">
+        Other (Write Custom)
+    </option>
+</select>
+
+<input
+    type="text"
+    id="religionCustom"
+    placeholder="Enter Religion"
+    style="display:none;margin-top:10px;">
+
+  <button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+<div class="form-group">
+     <span class="drag-handle">☰</span>
+<label>Caste</label>
+<input type="text" id="caste">
+ <button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+<div class="form-group">
+     <span class="drag-handle">☰</span>
+<label>Gotra</label>
+<input type="text" id="gotra">
+ <button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+<div class="form-group">
+    <span class="drag-handle">☰</span>
+<label>Rashi</label>
+
+<select id="rashi" onchange="toggleRashiCustom()">
+
+    <option value="">Select Rashi</option>
+
+    <option value="Mesh (Aries)">Mesh (Aries)</option>
+    <option value="Vrishabh (Taurus)">Vrishabh (Taurus)</option>
+    <option value="Mithun (Gemini)">Mithun (Gemini)</option>
+    <option value="Kark (Cancer)">Kark (Cancer)</option>
+    <option value="Singh (Leo)">Singh (Leo)</option>
+    <option value="Kanya (Virgo)">Kanya (Virgo)</option>
+    <option value="Tula (Libra)">Tula (Libra)</option>
+    <option value="Vrishchik (Scorpio)">Vrishchik (Scorpio)</option>
+    <option value="Dhanu (Sagittarius)">Dhanu (Sagittarius)</option>
+    <option value="Makar (Capricorn)">Makar (Capricorn)</option>
+    <option value="Kumbh (Aquarius)">Kumbh (Aquarius)</option>
+    <option value="Meen (Pisces)">Meen (Pisces)</option>
+
+    <option value="custom">
+        Other (Write Custom)
+    </option>
+
+</select>
+
+<input
+    type="text"
+    id="rashiCustom"
+    placeholder="Enter Rashi"
+    style="display:none;margin-top:10px;">
+    <button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+<div class="form-group">
+     <span class="drag-handle">☰</span>
+<label>Nakshatra</label>
+<input type="text" id="nakshatra">
+ <button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+<div class="form-group">
+     <span class="drag-handle">☰</span>
+<label>Manglik</label>
+<select id="manglik">
+<option>No</option>
+<option>Yes</option>
+</select>
+ <button type="button" onclick="removeField(this)">✖</button>
+</div>
+<div id="personalContainer"> </div>
+    <h2> <button type="button" onclick="addField('personalContainer')">
+            + Add More Personal Details Field
+        </button> </h2>
+
+    
+  </div>
+<div class="biodata-section" >
+<h2>Education & Career</h2>
+<div id="educationContainer">
+<div class="form-group">
+    <span class="drag-handle">☰</span>
+<label>Education</label>
+<input type="text" id="education">
+<button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+<div class="form-group">
+    <span class="drag-handle">☰</span>
+<label>Occupation</label>
+<input type="text" id="occupation">
+<button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+</div> </div>
+
+<div class="biodata-section">
+<h2>Family Details</h2>
+<div id="familyInfoContainer">
+<div class="form-group">
+      <span class="drag-handle">☰</span>
+<label>Father Name</label>
+<input type="text" id="fatherName">
+<button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+<div class="form-group">
+      <span class="drag-handle">☰</span>
+<label>Father Occupation</label>
+<input type="text" id="fatherOccupation">
+<button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+<div class="form-group">
+      <span class="drag-handle">☰</span>
+<label>Mother Name</label>
+<input type="text" id="motherName">
+<button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+<div class="form-group">
+      <span class="drag-handle">☰</span>
+<label>Mother Occupation</label>
+<input type="text" id="motherOccupation">
+<button type="button" onclick="removeField(this)">✖</button>
+</div>
+<div class="form-group">
+    <span class="drag-handle">☰</span>
+    <label>Siblings</label>
+    <input type="text" id="siblings">
+    <button type="button" onclick="removeField(this)">✖</button>
+</div> </div>
+<div id="familyContainer"> </div> 
+<h2> <button type="button" onclick="addField('familyContainer')"> + Add More Family Details Field</button></h2>
+
+    </div>
+
+
+<div class="biodata-section">
+<h2>Contact Details</h2>
+<div id="contactInfoContainer">
+<div class="form-group">
+    <span class="drag-handle">☰</span>
+<label>Mobile Number</label>
+<input type="text" id="mobile">
+ <button type="button" onclick="removeField(this)">✖</button>
+</div>
+
+<div class="form-group">
+    <span class="drag-handle">☰</span>
+<label>Address</label>
+<textarea id="address"></textarea>
+ <button type="button" onclick="removeField(this)">✖</button>
+</div> </div>
+ 
+    <div id="contactContainer"> </div>
+ <h2> <button type="button" onclick="addField('contactContainer')">
+            + Add More Contact Details Field
+        </button>
+    </h2>
+
+</div>
+<div class="biodata-section">
+<button type="submit">
+✨ Generate Biodata
+</button> <hr>
+
 <div class="action-buttons">
-
-<button onclick="history.length > 1 ? history.back() : location.href='/create-biodata/'">
-    ✏️ Edit Biodata
-</button>
-
-<button onclick="printBiodata()">
-    🖨️ Print
-</button>
-
-<div class="download-menu">
-
-    <button onclick="toggleDownloadMenu()">
-        ⬇️ Download Biodata
+    <button type="button" onclick="fillExampleBiodata()">
+        🪄 Example Biodata
     </button>
 
-    <div id="downloadOptions" class="download-options">
+    <button type="button" onclick="clearFormData()">
+       🧼 Clear form
+    </button>
+</div> </div>
 
-        <button id="pdfBtn" onclick="downloadPDF()">
-            📄 PDF Biodata
-        </button>
+</form>
+<div class="biodata-section">
 
-        <button id="imgBtn" onclick="saveImage()">
-            🖼️ JPG Biodata
-        </button>
+<h2>Select Template</h2>
 
-    </div>
+<div class="template-switcher">
+
+<label class="template-card">
+<input
+type="radio"
+name="template"
+value="/matrimonial-biodata/"
+data-slug="classic"
+checked>
+
+<img
+src="https://resumekraft.com/wp-content/uploads/2023/07/Job-Biodata-template-2-724x1024.jpg"
+alt="Classic Template">
+
+<span>Classic Template</span>
+</label>
+
+<label class="template-card">
+<input
+type="radio"
+name="template"
+value="/matrimonial-biodata-modern/"
+data-slug="modern">
+
+<img
+src="https://freebiodatamaker.com/images/templates/preview/abstract-yellow-en-template.webp"
+alt="Modern Template">
+
+<span>Modern Template</span>
+</label>
+
+<label class="template-card">
+<input
+type="radio"
+name="template"
+value="/matrimonial-biodata-premium/"
+data-slug="premium">
+
+<img
+src="https://resumesector.com/wp-content/uploads/2025/04/Bio-Data-Format.jpg"
+alt="Premium Template">
+
+<span>Premium Template</span>
+</label>
 
 </div>
-
-<button onclick="savePDF()">
-    👁️‍🗨️ View Biodata PDF
-</button>
-<button onclick="sharePDF()">
-    📤 Share Biodata
-</button>
+</div>
 </div>
 
-<div id="imageLibraryPopup" class="image-library-popup">
 
-    <div class="popup-header">
-        <button onclick="closeImageLibrary()">
-            ✖ Close
+<div id="symbolLibraryModal" class="symbol-library-modal">
+
+    <div class="symbol-library-box">
+
+        <button
+        type="button"
+        id="closeLibraryModal">
+            ✕
         </button>
-    </div>
 
-    <iframe
-        id="imageLibraryFrame"
+        <iframe
+        id="symbolLibraryFrame"
         src=""
         loading="lazy">
-    </iframe>
-
-</div>
-
-<div class="biodata">
-
-    <!-- Header -->
-
-    <div class="hero-section">
-
-       <div class="profile-photo" id="selectPhoto">
-
-    <img id="photo" src="" alt="Photo">
-<input type="hidden" id="libraryPhoto">
-</div>
-
-        <div class="hero-info">
- <img
- id="religiousSymbol"
- class="religious-symbol"
- crossorigin="anonymous"
- src="">
- <div class="top-header">
- <div> <div id="fullName"></div> <div class="about" id="about">Simple and Family Oriented Person </div></div> </div>
-
-        </div>  </div>
-
-
-    <!-- Personal -->
-
-    <div class="biodata-section">
-      
-        <div class="section-title">
-            Personal Details
-        </div>
-             <div
-                id="basicInfo"
-                class="info-grid">
-            </div> <br>
-        <div
-            id="personalInfo"
-            class="info-grid">
-        </div>
- 
-    </div>
-
-    <!-- Family -->
-
-    <div class="biodata-section">
-
-        <div class="section-title">
-            Family Details
-        </div>
-
-        <div
-            id="familyInfo"
-            class="info-grid">
-        </div>
+        </iframe>
 
     </div>
 
-    <!-- Contact -->
-
-    <div class="biodata-section">
-
-        <div class="section-title">
-            Contact Details
-        </div>
-
-        <div
-            id="contactInfo"
-            class="info-grid">
-        </div>
-
-    </div>
-
-
 </div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 
 <script>
-// Complete Biodata JavaScript
-
-async function openDB(){
-    return new Promise((resolve,reject)=>{
-
-        const request =
-        indexedDB.open("BiodataDB", 2);
-
-        request.onupgradeneeded = (e)=>{
-
-            const db = e.target.result;
-
-            if(
-                !db.objectStoreNames.contains("photos")
-            ){
-                db.createObjectStore(
-                    "photos",
-                    { keyPath:"id" }
-                );
-            }
-        };
-
-        request.onsuccess =
-        ()=>resolve(request.result);
-
-        request.onerror =
-        ()=>reject(request.error);
-
-    });
+function removeField(btn){
+    btn.closest(".form-group").remove();
 }
 
-async function getPhoto(photoId){
-    const db = await openDB();
+[
+"basicInfoContainer",
+"personalInfoContainer",
+"educationContainer",
+"familyInfoContainer",
+"contactInfoContainer"
+].forEach(id=>{
 
-    return new Promise((resolve,reject)=>{
-        const tx = db.transaction("photos","readonly");
-        const request = tx.objectStore("photos").get(photoId);
-
-        request.onsuccess = ()=>resolve(request.result?.file);
-        request.onerror = ()=>reject(request.error);
-    });
-}
-
-let data;
-
-try{
-
-    const token =
-    new URLSearchParams(
-        location.search
-    ).get("biodata_id");
-
-    if(!token)
-        throw new Error();
-
-    const rawData =
-    localStorage.getItem(
-        token
-    );
-
-    if(!rawData)
-        throw new Error();
-
-    data =
-    JSON.parse(rawData);
-
-}catch{
-
-    location.replace(
-        "/create-biodata/"
-    );
-
-}
-
-function renderSection(containerId, fields){
-    const container = document.getElementById(containerId);
-    if(!container || !fields) return;
-
-    container.innerHTML = "";
-
-    fields.forEach(field=>{
-        const label = document.createElement("div");
-        label.className = "label";
-        label.textContent = field.label;
-
-        const value = document.createElement("div");
-        value.className = "value";
-        value.textContent = field.value;
-
-        container.append(label,value);
-    });
-}
-
-if(data){
-const symbol =
-document.getElementById(
-"religiousSymbol"
-);
-
-(async()=>{
-
-    if(
-        !symbol ||
-        !data.religiousSymbol
-    ) return;
-
-    if(
-        data.religiousSymbol.startsWith(
-            "symbol_"
-        )
-    ){
-
-        const file =
-        await getPhoto(
-            data.religiousSymbol
-        );
-
-        if(file){
-
-            symbol.src =
-            URL.createObjectURL(
-                file
-            );
-
+    new Sortable(
+        document.getElementById(id),
+        {
+            animation:150,
+            handle:".drag-handle"
         }
-
-    }else{
-
-        symbol.src =
-        data.religiousSymbol;
-
-    }
-
-})();
-    const fullName = document.getElementById("fullName");
-    if(fullName) fullName.textContent = data.fullName || "";
-
-    const about = document.getElementById("about");
-    if(about) about.textContent = data.about || "";
-
-    renderSection("basicInfo", data.sections?.basicInfo);
-    renderSection("personalInfo", data.sections?.personalInfo);
-    renderSection("familyInfo", data.sections?.familyInfo);
-    renderSection("contactInfo", data.sections?.contactInfo);
-    renderSection("educationInfo", data.sections?.educationInfo);
-
-    (async()=>{
-        if(data.photoId){
-            try{
-                const file = await getPhoto(data.photoId);
-                if(file){
-                    document.getElementById("photo").src =
-                        URL.createObjectURL(file);
-                }
-            }catch(err){
-                console.error(err);
-            }
-        }
-    })();
-}
-
-</script>
-<script>
-document
-.getElementById("selectPhoto")
-.onclick = ()=>{
-
-    document
-    .getElementById("imageLibraryPopup")
-    .classList
-    .add("show");
-
-    document
-    .getElementById("imageLibraryFrame")
-    .src = "/upload";
-
-};
-
-function closeImageLibrary(){
-
-    document
-    .getElementById("imageLibraryPopup")
-    .classList
-    .remove("show");
-
-}
-
-window.addEventListener("message",(e)=>{
-
-    if(
-        e.data.type !==
-        "selected-image"
-    ) return;
-
-    document
-    .getElementById("photo")
-    .src = e.data.image;
-
-    document
-    .getElementById("libraryPhoto")
-    .value = e.data.image;
-
-    closeImageLibrary();
+    );
 
 });
 </script>
 <script>
-    /*================================================Download Toogle================================================== */
-    function toggleDownloadMenu(){
 
-    document
-    .getElementById("downloadOptions")
-    .classList
-    .toggle("show");
+// ===========================
+// PHOTO PREVIEW
+// ===========================
 
-}
-    /*================================================Same Image================================================== */
-    async function saveImage(){
+// ===========================
+// PHOTO PREVIEW + COMPRESS
+// ===========================
 
-    const btn =
-    document.getElementById("imgBtn");
+let uploadedPhoto = null;
 
-    const oldText =
-    btn.innerHTML;
+document
+.getElementById("photo")
+.addEventListener(
+"change",
+function(){
 
-    btn.innerHTML =
-    "Downloading JPG...";
+    const file =
+    this.files[0];
 
-    try{
+    if(!file) return;
 
-        const biodata =
-        document.querySelector(".biodata");
-
-        const canvas =
-        await html2canvas(biodata,{
-            scale:2,
-            useCORS:true
-        });
-
-        const link =
-        document.createElement("a");
-
-        const fileName =
-        (data.fullName || "biodata")
-        .replace(/\s+/g,"-")
-        + "-biodata.jpg";
-
-        link.download =
-        fileName;
-
-        link.href =
-        canvas.toDataURL(
-            "image/jpeg",
-            1
-        );
-
-        link.click();
-
-    }finally{
-
-        btn.innerHTML =
-        oldText;
-
-    }
-
-}
-/*================================================wait For Image================================================== */
-async function waitForImages() {
-    const images = document.querySelectorAll("img");
-
-    await Promise.all(
-        [...images].map(img => {
-            if (img.complete) return Promise.resolve();
-
-            return new Promise(resolve => {
-                img.onload = resolve;
-                img.onerror = resolve;
-            });
-        })
-    );
-}
-  /*================================================Save PDF================================================== */
-
-
-
-
-async function savePDF(){
-    await waitForImages();
-    const element =
-    document.querySelector(".biodata");
-
-    await waitForImages(); // <-- यह जोड़ें
-
-    const biodata = document.querySelector(".biodata");
-
-    const canvas = await html2canvas(biodata,{
-        scale:2,
-        useCORS:true,
-        allowTaint:true
-    });
-
-    const opt = {
-    margin:10,
-    filename:(data.fullName || "biodata") + ".pdf",
-
-    image:{
-        type:"jpeg",
-        quality:1
-    },
-
-    html2canvas:{
-        scale:2,
-        useCORS:true,
-        allowTaint:true
-    },
-
-    jsPDF:{
-        unit:"mm",
-        format:"a4",
-        orientation:"portrait"
-    }
-};
-
-    const worker =
-    html2pdf()
-    .set(opt)
-    .from(element);
-
-    const pdf =
-    await worker
-    .toPdf()
-    .get("pdf");
-
-    const blob =
-    pdf.output("blob");
+    uploadedPhoto = file;
 
     const url =
-    URL.createObjectURL(blob);
+    URL.createObjectURL(file);
 
-    window.open(
-        url,
-        "_blank"
-    );
+    document
+    .getElementById("preview")
+    .style.display =
+    "block";
 
-}
-/*================================================Download PDF================================================== */
-async function downloadPDF(){
-    await waitForImages();
+    document
+    .getElementById("previewImg")
+    .src = url;
 
-    const btn =
-    document.getElementById("pdfBtn");
+});
 
-    const oldText =
-    btn.innerHTML;
+// ===========================
+// ADD / REMOVE FIELD
+// ===========================
 
-    btn.innerHTML =
-    "Downloading PDF...";
+function addField(containerId){
 
-    try{
+    const row = document.createElement("div");
 
-        await html2pdf()
-        .set({
+    row.className = "dynamic-field";
 
-            filename:
-            (data.fullName || "biodata")
-            .replace(/\s+/g,"-")
-            + "-biodata.pdf",
+    row.innerHTML = `
+        <input
+            type="text"
+            class="field-label"
+            placeholder="Field Name">
 
-            margin:[10,10,10,10],
+        <input
+            type="text"
+            class="field-value"
+            placeholder="Field Value">
 
-            image:{
-                type:"jpeg",
-                quality:1
-            },
-
-            html2canvas:{
-                scale:2,
-                useCORS:true
-            },
-
-            jsPDF:{
-                unit:"mm",
-                format:"a4",
-                orientation:"portrait"
-            }
-
-        })
-        .from(
-            document.querySelector(".biodata")
-        )
-        .save();
-
-    }finally{
-
-        btn.innerHTML =
-        oldText;
-
-    }
-
-}
-/*================================================Print Biodata================================================== */
-function printBiodata(){
-
-    const html =
-    document.querySelector(".biodata")
-    .outerHTML;
-
-    const styles =
-    [...document.querySelectorAll("style")]
-    .map(s=>s.outerHTML)
-    .join("");
-
-    const printCSS = `
-
-    /* Hide Buttons */
-
-    .action-buttons,
-    .download-menu{
-        display:none !important;
-    }
-
-    /* Remove Background */
-
-    body{
-        background:#fff !important;
-        padding:0 !important;
-        margin:0 !important;
-    }
-
-    /* Full Width */
-
-    .biodata{
-        max-width:100% !important;
-        margin:0 auto !important;
-    }
-
-    /* Remove Shadows */
-
-    .hero-section,
-    .biodata-section,
-    .profile-photo{
-        box-shadow:none !important;
-    }
-
-    /* Clean Border */
-
-    .hero-section{
-        border:1px solid #ccc !important;
-    }
-
-    @page{
-        size:A4;
-        margin:2mm;
-    }
-
+        <button
+            type="button"
+            onclick="removeDynamicField(this)">
+            ✖
+        </button>
     `;
 
-    const win =
-    window.open("", "_blank");
+    document
+    .getElementById(containerId)
+    .appendChild(row);
 
-    win.document.write(`
-    <!DOCTYPE html>
-    <html>
+}
 
-    <head>
+function removeDynamicField(btn){
 
-        <title>
-            Biodata Print
-        </title>
+    btn.closest(".dynamic-field").remove();
 
-        ${styles}
+}
 
-        <style>
-            ${printCSS}
-        </style>
 
-    </head>
+// ===========================
+// COLLECT DYNAMIC FIELDS
+// ===========================
 
-    <body>
+function collectFields(containerId){
 
-        ${html}
+    const fields = [];
 
-        <script>
-        window.onload=function(){
+    document
+    .querySelectorAll(
+        `#${containerId} .dynamic-field`
+    )
+    .forEach(row=>{
 
-            window.print();
+        const label =
+        row.querySelector(".field-label")
+        .value
+        .trim();
 
-            window.close();
+        const value =
+        row.querySelector(".field-value")
+        .value
+        .trim();
+
+        if(label || value){
+
+            fields.push({
+                label,
+                value
+            });
 
         }
-        <\/script>
 
-    </body>
+    });
 
-    </html>
-    `);
+    return fields;
 
-    win.document.close();
+}
+
+
+// ===========================
+// FORM SUBMIT
+// ===========================
+
+// ===========================
+// GET SECTION DATA WITH ORDER
+// ===========================
+function getSectionData(containerId){
+
+    const fields = [];
+
+    document
+    .querySelectorAll(
+        `#${containerId} .form-group`
+    )
+    .forEach(item=>{
+
+        const label =
+        item.querySelector("label")
+        ?.innerText
+        ?.trim();
+
+        const input =
+        item.querySelector(
+            "input:not([type='file']), textarea, select"
+        );
+
+        if(!label || !input){
+            return;
+        }
+
+        fields.push({
+            label: label,
+            value: input.value
+        });
+
+    });
+
+    return fields;
+}
+
+function collectFields(containerId){
+
+    const fields = [];
+
+    document
+    .querySelectorAll(
+        `#${containerId} .dynamic-field`
+    )
+    .forEach(row=>{
+
+        const label =
+        row.querySelector(".field-label")
+        .value
+        .trim();
+
+        const value =
+        row.querySelector(".field-value")
+        .value
+        .trim();
+
+        if(label || value){
+
+            fields.push({
+                label,
+                value
+            });
+
+        }
+
+    });
+
+    return fields;
+}
+
+async function openDB(){
+
+    return new Promise((resolve,reject)=>{
+
+        const request = indexedDB.open("BiodataDB", 2);
+
+        request.onupgradeneeded = function(e){
+
+            console.log("UPGRADE RUNNING");
+
+            const db = e.target.result;
+
+            console.log(
+                "Stores:",
+                db.objectStoreNames
+            );
+
+            if(!db.objectStoreNames.contains("photos")){
+
+                console.log(
+                    "CREATING PHOTOS STORE"
+                );
+
+                db.createObjectStore(
+                    "photos",
+                    {
+                        keyPath:"id"
+                    }
+                );
+            }
+        };
+
+        request.onsuccess = function(){
+
+            console.log(
+                "DB OPENED"
+            );
+
+            resolve(request.result);
+        };
+
+        request.onerror = function(){
+
+            console.log(
+                "DB ERROR",
+                request.error
+            );
+
+            reject(request.error);
+        };
+
+    });
+}
+
+async function savePhoto(photoId,file){
+
+    const db = await openDB();
+
+    return new Promise((resolve,reject)=>{
+
+        const tx = db.transaction(
+            "photos",
+            "readwrite"
+        );
+
+        tx.objectStore("photos").put({
+            id: photoId,
+            file: file
+        });
+
+        tx.oncomplete = () => resolve();
+
+        tx.onerror = () => reject(tx.error);
+
+    });
+
+}
+// ===========================
+// FORM SUBMIT
+// ===========================
+
+document
+.getElementById("biodataForm")
+.addEventListener(
+"submit",
+async function(e){
+
+    e.preventDefault();
+
+    const biodata_id =
+    "bio_" +
+    Date.now();
+
+    const personalInfo =
+    getSectionData(
+        "personalInfoContainer"
+    );
+
+    personalInfo.push(
+        ...collectFields(
+            "personalContainer"
+        )
+    );
+
+    const familyInfo =
+    getSectionData(
+        "familyInfoContainer"
+    );
+
+    familyInfo.push(
+        ...collectFields(
+            "familyContainer"
+        )
+    );
+
+    const contactInfo =
+    getSectionData(
+        "contactInfoContainer"
+    );
+
+    contactInfo.push(
+        ...collectFields(
+            "contactContainer"
+        )
+    );
+
+const about =
+document.getElementById("aboutSelect").value === "custom"
+? document.getElementById("aboutCustom").value
+: document.getElementById("aboutSelect").value;
+
+const religion =
+document.getElementById("religion").value === "custom"
+? document.getElementById("religionCustom").value
+: document.getElementById("religion").value;
+
+const complexion =
+document.getElementById("complexion").value === "custom"
+? document.getElementById("complexionCustom").value
+: document.getElementById("complexion").value;
+
+const rashi =
+document.getElementById("rashi").value === "custom"
+? document.getElementById("rashiCustom").value
+: document.getElementById("rashi").value;
+const photoId =
+"photo_" +
+Date.now();
+
+try{
+
+    if(uploadedPhoto){
+
+        await savePhoto(
+            photoId,
+            uploadedPhoto
+        );
+
+    }
+
+}catch(err){
+
+    console.error(err);
+
+}
+const biodata = {
+
+    biodata_id,
+
+    photoId,
+
+     religiousSymbol:
+document.getElementById(
+"selectedSymbol"
+).value,
+
+    fullName:
+    document
+    .getElementById(
+        "fullName"
+    ).value,
+
+    about,
+    religion,
+    complexion,
+    rashi,
+
+    sections:{
+        basicInfo:
+        getSectionData(
+            "basicInfoContainer"
+        ),
+
+        personalInfo,
+
+        familyInfo,
+
+        contactInfo,
+
+        educationInfo:
+        getSectionData(
+            "educationContainer"
+        )
+    }
+
+};
+
+    localStorage.setItem(
+        biodata_id,
+        JSON.stringify(
+            biodata
+        )
+    );
+const selectedTemplateUrl =
+document.querySelector(
+'input[name="template"]:checked'
+).value;
+
+location.href =
+selectedTemplateUrl +
+"?biodata_id=" +
+encodeURIComponent(biodata_id);
+});
+
+</script>
+
+<script>
+    
+   const AUTOSAVE_KEY = "biodataDraft";
+
+function saveDraft(){
+
+    const data = {};
+
+    document
+    .querySelectorAll("input, textarea, select")
+    .forEach(el=>{
+
+        if(
+            el.type === "file" ||
+            el.type === "radio"
+        ) return;
+
+        data[el.id || el.name] =
+        el.value;
+
+    });
+
+    localStorage.setItem(
+        AUTOSAVE_KEY,
+        JSON.stringify(data)
+    );
+}
+document.addEventListener(
+    "input",
+    saveDraft
+);
+window.addEventListener(
+    "DOMContentLoaded",
+    ()=>{
+
+        const saved =
+        localStorage.getItem(
+            AUTOSAVE_KEY
+        );
+
+        if(!saved) return;
+
+        const data =
+        JSON.parse(saved);
+
+        document
+        .querySelectorAll(
+            "input, textarea, select"
+        )
+        .forEach(el=>{
+
+            if(el.type==="file") return;
+
+            const key =
+            el.id || el.name;
+
+            if(data[key]!==undefined){
+
+                el.value =
+                data[key];
+
+            }
+
+        });
+
+    }
+);
+function clearFormData(){
+
+    if(
+        !confirm(
+            "Are you sure you want to clear all saved data?"
+        )
+    ) return;
+
+    localStorage.removeItem(
+    AUTOSAVE_KEY
+);
+ location.reload();
+} 
+</script>
+<script>
+    function toggleAboutCustom(){
+
+    const select =
+    document.getElementById("aboutSelect");
+
+    const custom =
+    document.getElementById("aboutCustom");
+
+    custom.style.display =
+    select.value === "custom"
+    ? "block"
+    : "none";
+}
+
+function toggleReligionCustom(){
+
+    const select =
+    document.getElementById("religion");
+
+    const custom =
+    document.getElementById("religionCustom");
+
+    custom.style.display =
+    select.value === "custom"
+    ? "block"
+    : "none";
+}
+function toggleComplexionCustom(){
+
+    const select =
+    document.getElementById("complexion");
+
+    const custom =
+    document.getElementById("complexionCustom");
+
+    custom.style.display =
+    select.value === "custom"
+    ? "block"
+    : "none";
+}
+function toggleRashiCustom(){
+
+    const select =
+    document.getElementById("rashi");
+
+    const custom =
+    document.getElementById("rashiCustom");
+
+    custom.style.display =
+    select.value === "custom"
+    ? "block"
+    : "none";
+}
+</script>
+<script>
+document
+.querySelectorAll('input[name="template"]')
+.forEach(radio=>{
+
+radio.addEventListener("change",function(){
+
+const url = new URL(location.href);
+
+url.searchParams.set(
+"template",
+this.dataset.slug
+);
+
+history.replaceState(
+{},
+"",
+url
+);
+
+});
+
+});
+const currentTemplate =
+new URLSearchParams(location.search)
+.get("template");
+
+if(currentTemplate){
+
+const radio =
+document.querySelector(
+`input[data-slug="${currentTemplate}"]`
+);
+
+if(radio){
+radio.checked = true;
+}
 
 }
 </script>
 <script>
-async function sharePDF(){
-   await waitForImages();
-    try{
+    const selectedBox =
+document.getElementById(
+"selectedSymbolBox"
+);
 
-        const element =
-        document.querySelector(".biodata");
+const picker =
+document.getElementById(
+"symbolPicker"
+);
 
-        const worker =
-        html2pdf()
-        .set({
+selectedBox.onclick=()=>{
 
-            margin:10,
+    picker.style.display =
+    picker.style.display==="none"
+    ? "grid"
+    : "none";
 
-            filename:
-            (data.fullName || "biodata")
-            .replace(/\s+/g,"-")
-            + "-biodata.pdf",
+};
 
-            image:{
-                type:"jpeg",
-                quality:1
-            },
+document
+.querySelectorAll(".symbol-item")
+.forEach(item=>{
 
-           html2canvas:{
-    scale:2,
-    useCORS:true,
-    allowTaint:true
-},
+    item.addEventListener(
+    "click",
+    function(){
 
-            jsPDF:{
-                unit:"mm",
-                format:"a4",
-                orientation:"portrait"
-            }
+        const symbol =
+        this.dataset.symbol;
 
-        })
-        .from(element);
+        if(!symbol) return;
 
-        const pdf =
-        await worker
-        .toPdf()
-        .get("pdf");
+        document
+        .getElementById(
+        "selectedSymbol"
+        )
+        .value = symbol;
 
-        const blob =
-        pdf.output("blob");
+        document
+        .getElementById(
+        "selectedSymbolPreview"
+        )
+        .src = symbol;
 
-        const file =
-        new File(
-            [blob],
-            (data.fullName || "biodata") + ".pdf",
-            {
-                type:"application/pdf"
-            }
-        );
+        picker.style.display =
+        "none";
 
-        if(
-            navigator.canShare &&
-            navigator.canShare({
-                files:[file]
-            })
-        ){
+    });
+    
+});
 
-            await navigator.share({
-                title:"Biodata",
-                text:"My Biodata",
-                files:[file]
-            });
+document
+.getElementById(
+"customSymbolInput"
+)
+.addEventListener(
+"change",
+function(){
 
-        }else{
+    const file =
+    this.files[0];
 
-            const url =
-            URL.createObjectURL(blob);
+    if(!file) return;
 
-            const link = document.createElement("a");
-link.href = url;
-link.target = "_blank";
-link.click();
+    const url =
+    URL.createObjectURL(file);
 
-        }
+    document
+    .getElementById(
+    "selectedSymbol"
+    )
+    .value = url;
 
-    }catch(err){
+    document
+    .getElementById(
+    "selectedSymbolPreview"
+    )
+    .src = url;
+    document
+.getElementById(
+"customSymbolThumb"
+)
+.src = url;
 
-        console.log(err);
+document
+.getElementById(
+"customSymbolThumb"
+)
+.style.display =
+"block";
 
+document
+.getElementById(
+"customSymbolText"
+)
+.textContent =
+"Change ✏️";
+
+});
+</script>
+<script>
+    const popup =
+document.getElementById(
+"customSymbolPopup"
+);
+
+document
+.getElementById(
+"openCustomPopup"
+)
+.onclick=()=>{
+
+popup.style.display="flex";
+
+};
+
+document
+.getElementById(
+"closePopupBtn"
+)
+.onclick=()=>{
+
+popup.style.display="none";
+
+};
+
+// Direct Upload
+
+document
+.getElementById(
+"uploadDirectBtn"
+)
+.onclick=()=>{
+
+popup.style.display="none";
+
+document
+.getElementById(
+"customSymbolInput"
+)
+.click();
+
+};
+
+// Library Upload
+
+document
+.getElementById(
+"uploadLibraryBtn"
+)
+.onclick=()=>{
+
+popup.style.display="none";
+
+document
+.getElementById(
+"symbolLibraryModal"
+)
+.style.display =
+"block";
+
+document
+.getElementById(
+"symbolLibraryFrame"
+)
+.src =
+"/symbol-library/";
+
+};
+document
+.getElementById(
+"closeLibraryModal"
+)
+.onclick=()=>{
+
+document
+.getElementById(
+"symbolLibraryModal"
+)
+.style.display =
+"none";
+
+};
+</script>
+<script>
+window.addEventListener("message", function(e){
+
+    if(
+        !e.data ||
+        e.data.type !== "selected-symbol"
+    ){
+        return;
     }
 
+    document.getElementById(
+        "selectedSymbol"
+    ).value = e.data.url;
+
+    document.getElementById(
+        "selectedSymbolPreview"
+    ).src = e.data.url;
+
+    document.getElementById(
+        "customSymbolThumb"
+    ).src = e.data.url;
+
+    document.getElementById(
+        "customSymbolThumb"
+    ).style.display = "block";
+
+    document.getElementById(
+        "customSymbolText"
+    ).textContent = "Change ✏️";
+
+    document.getElementById(
+        "symbolLibraryModal"
+    ).style.display = "none";
+
+});
+</script>
+<script>
+function fillExampleBiodata(){
+
+    document.getElementById("fullName").value = "Rahul Sharma";
+
+    document.getElementById("dob").value = "15-05-1998";
+    document.getElementById("timeBirth").value = "08:30 PM";
+    document.getElementById("placeBirth").value = "Bhopal, Madhya Pradesh";
+
+    document.getElementById("aboutSelect").value =
+    "Traditional with Modern Values";
+
+    document.getElementById("height").value = "5 Feet 8 Inch";
+    document.getElementById("weight").value = "70 Kg";
+
+    document.getElementById("complexion").value = "Fair";
+    document.getElementById("religion").value = "Hindu";
+
+    document.getElementById("caste").value = "Brahmin";
+    document.getElementById("gotra").value = "Bharadwaj";
+
+    document.getElementById("rashi").value =
+    "Mesh (Aries)";
+
+    document.getElementById("nakshatra").value =
+    "Ashwini";
+
+    document.getElementById("manglik").value =
+    "No";
+
+    document.getElementById("education").value =
+    "B.Tech Computer Science";
+
+    document.getElementById("occupation").value =
+    "Software Engineer";
+
+    document.getElementById("fatherName").value =
+    "Mahesh Sharma";
+
+    document.getElementById("fatherOccupation").value =
+    "Businessman";
+
+    document.getElementById("motherName").value =
+    "Sunita Sharma";
+
+    document.getElementById("motherOccupation").value =
+    "Homemaker";
+
+    document.getElementById("siblings").value =
+    "1 Brother";
+
+    document.getElementById("mobile").value =
+    "9876543210";
+
+    document.getElementById("address").value =
+    "Bhopal, Madhya Pradesh";
+
+    saveDraft();
+
+    alert("Example Biodata Filled Successfully!");
 }
 </script>
 </body>
 </html>
+
+
+

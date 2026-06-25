@@ -994,7 +994,13 @@ async function(){
         photoId,
         file
     );
+ const checkFile =
+await getPhoto(symbolId);
 
+console.log(
+    "CHECK:",
+    checkFile
+);
     localStorage.setItem(
         "draftPhotoId",
         photoId
@@ -1356,6 +1362,7 @@ try{
 
     }
 
+
 }catch(err){
 
     console.error(err);
@@ -1364,9 +1371,9 @@ try{
 // Restore Symbol
 
 const selectedSymbol =
-localStorage.getItem(
-    "selectedSymbol"
-);
+document.getElementById(
+    "selectedSymbolPreview"
+).src;
 
 if(selectedSymbol){
 
@@ -1413,6 +1420,8 @@ if(selectedSymbol){
         selectedSymbol;
 
     }
+
+    
 
 }
 
@@ -1507,6 +1516,8 @@ document.addEventListener(
 window.addEventListener(
 "DOMContentLoaded",
 async ()=>{
+
+
 
     const savedSymbol =
 localStorage.getItem(
@@ -1866,17 +1877,30 @@ async function(){
     const symbolId =
     "symbol_" + Date.now();
 
-    await savePhoto(
-        symbolId,
-        file
-    );
-
-    // Save custom symbol
     localStorage.setItem(
         "customSymbolId",
         symbolId
     );
 
+    localStorage.setItem(
+        "selectedSymbol",
+        symbolId
+    );
+
+    console.log(
+        "NEW SYMBOL:",
+        symbolId
+    );
+
+    await savePhoto(
+        symbolId,
+        file
+    );
+
+    console.log(
+        "Symbol Saved:",
+        symbolId
+    );
 
     const url =
     URL.createObjectURL(file);
@@ -1912,14 +1936,12 @@ async function(){
     .textContent =
     "Change ✏️";
 
-    picker.style.display = "none";
+    picker.style.display =
+    "none";
 
 });
-localStorage.setItem(
-    "selectedSymbol",
-    symbolId
-);
 </script>
+
 <script>
     const popup =
 document.getElementById(
@@ -2003,10 +2025,8 @@ document
 "none";
 
 };
-localStorage.setItem(
-    "selectedSymbol",
-    symbolId
-);
+
+
 </script>
 <script>
 window.addEventListener("message", function(e){
@@ -2018,11 +2038,11 @@ window.addEventListener("message", function(e){
         return;
     }
 
-    // Save selected library symbol
     localStorage.setItem(
         "selectedSymbol",
         e.data.url
     );
+
 
     // Remove custom symbol selection
     localStorage.removeItem(
@@ -2054,10 +2074,7 @@ window.addEventListener("message", function(e){
     ).style.display = "none";
 
 });
-localStorage.setItem(
-    "selectedSymbol",
-    e.data.url
-);
+
 </script>
 <script>
 function fillExampleBiodata(){

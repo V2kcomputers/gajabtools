@@ -1034,24 +1034,30 @@ function renameImg(id) {
 
 function selectImage(id) {
 
-    const tx = db.transaction(
-        "images",
-        "readonly"
-    );
+    const tx = db.transaction("images", "readonly");
 
-    const req = tx
-        .objectStore("images")
-        .get(id);
+    const req = tx.objectStore("images").get(id);
 
     req.onsuccess = () => {
 
         const image = req.result;
 
-        
+        const mode = new URLSearchParams(location.search).get("select");
+
+        let messageType = "selected-image";
+
+        if (mode === "photo") {
+            messageType = "selected-photo";
+        }
+
+        if (mode === "symbol") {
+            messageType = "selected-symbol";
+        }
+
         if (isIframe) {
 
             window.parent.postMessage({
-                type: "selected-image",
+                type: messageType,
                 image: image.data,
                 name: image.name
             }, "*");
@@ -1059,11 +1065,10 @@ function selectImage(id) {
             return;
         }
 
-        
         if (window.opener) {
 
             window.opener.postMessage({
-                type: "selected-image",
+                type: messageType,
                 image: image.data,
                 name: image.name
             }, "*");
@@ -1072,11 +1077,7 @@ function selectImage(id) {
             return;
         }
 
-        
-        localStorage.setItem(
-            "selectedImage",
-            image.data
-        );
+        localStorage.setItem("selectedImage", image.data);
 
         alert("Image Selected");
     };
