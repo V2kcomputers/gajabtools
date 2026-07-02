@@ -1,0 +1,2470 @@
+
++++
+date = 2026-06-02T15:52:59+05:30
+url ="/school-id-generated-02/"
+title = 'Student ID Card- Gajab Tools'
+description = "Hidden content section for tools, formats, updates, landing pages and special resources. Pages in this section are intended to be accessed directly via URL and are excluded from public listings."
+type= "tools"
+[sitemap]
+  disable = true
++++
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generated Multi-ID Cards Batch View</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+  /* ==========================================================================
+     STEP 1: CSS VARIABLES ENGINE FOR THEME COMPATIBILITY
+     ========================================================================== */
+  :root {
+    --theme-primary: #007acc;
+    --theme-secondary: #005580;
+    --header-bg: linear-gradient(to right, #005580, #007acc);
+    --header-text: #ffffff;
+    --footer-bg: #eee;
+    --footer-text: #333333;
+    --body-bg: #ffffff;
+    --body-text: #2d3748;
+    --border-color: #cccccc;
+    --back-header-bg: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
+    --back-header-text: #005580;
+    --back-footer-bg: #005580;
+    --back-footer-text: #ffffff;
+    --back-body-bg: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
+    --back-body-text: #2d3748;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .action-bar {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 25px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .action-bar button {
+    padding: 12px 20px;
+    font-size: 15px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .btn-print { background-color: #007acc; }
+  .btn-png { background-color: #28a745; }
+  .btn-pdf { background-color: #ff9800; }
+  .btn-back { background-color: #6c757d; }
+  .btn-action { background-color: #4a5568; }
+  .btn-action:hover { opacity: 0.9; }
+  .action-bar button:hover { opacity: 0.9; }
+
+  /* Layout Dropdown Custom Controls */
+  .layout-selector-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .layout-select {
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+    outline: none;
+  }
+
+  /* Filename Input UI Elements */
+  .filename-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .filename-input-field {
+    padding: 10px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    outline: none;
+    width: 200px;
+  }
+
+  .filename-input-field:focus {
+    border-color: #4a5568;
+  }
+
+  .selection-counter {
+    font-size: 14px;
+    font-weight: bold;
+    color: #4a5568;
+    background: #edf2f7;
+    padding: 10px 15px;
+    border-radius: 4px;
+    border: 1px solid #e2e8f0;
+  }
+
+  /* Back Side Toggle UI Switch Styles */
+  .back-switch-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    color: #333;
+    background: #f7fafc;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #e2e8f0;
+  }
+
+  .switch-toggle-label {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+  }
+
+  .switch-toggle-label input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .switch-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #cbd5e0;
+    transition: .3s;
+    border-radius: 24px;
+  }
+
+  .switch-slider:before {
+    position: absolute;
+    content: "";
+    height: 16px; width: 16px;
+    left: 4px; bottom: 4px;
+    background-color: white;
+    transition: .3s;
+    border-radius: 50%;
+  }
+
+  input:checked + .switch-slider {
+    background-color: #28a745;
+  }
+
+  input:checked + .switch-slider:before {
+    transform: translateX(20px);
+  }
+
+  .btn-edit-back {
+    background-color: #2b6cb0;
+  }
+
+  .btn-theme-editor {
+    background-color: #6b46c1;
+  }
+
+  /* Core Card View Containers */
+  .cards-container {
+    display: grid;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    margin-top: 0px;
+    justify-content: center;
+    background-color: transparent;
+  }
+
+  /* Universal Page Class Base Styles */
+  [class$="-page"] {
+    background: white;
+    box-sizing: border-box;
+    display: grid;
+    justify-content: center;
+    align-content: start;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    position: relative;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Individual Layout Page Specifiers */
+  .layout-single-page {
+    width: 86mm;
+    height: 54mm;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .layout-4x6-page {
+    width: 4in;
+    height: 6in;
+    padding: 0.3in 0;
+    grid-template-columns: repeat(1, 86mm);
+    grid-template-rows: repeat(2, 54mm);
+    row-gap: 0.2in;
+    justify-items: center;
+  }
+
+  .layout-a4-page {
+    width: 210mm;
+    height: 297mm;
+    padding: 5mm 15mm;
+    grid-template-columns: repeat(2, 86mm);
+    grid-template-rows: repeat(5, 54mm);
+    column-gap: 8mm;
+    row-gap: 2mm;
+  }
+
+  .layout-letter-page {
+    width: 216mm;
+    height: 279mm;
+    padding: 15mm 15mm;
+    grid-template-columns: repeat(2, 86mm);
+    grid-template-rows: repeat(4, 54mm);
+    column-gap: 8mm;
+    row-gap: 2mm;
+  }
+
+  .layout-legal-page {
+    width: 216mm;
+    height: 356mm;
+    padding: 15mm 15mm;
+    grid-template-columns: repeat(2, 86mm);
+    grid-template-rows: repeat(6, 54mm);
+    column-gap: 8mm;
+    row-gap: 2mm;
+  }
+
+  .layout-a5-page {
+    width: 148mm;
+    height: 210mm;
+    padding: 10mm 10mm;
+    grid-template-columns: repeat(1, 86mm);
+    grid-template-rows: repeat(3, 54mm);
+    row-gap: 4mm;
+  }
+
+  /* Card Design Core Structures Integration with CSS Variables */
+  .id-card, .id-card-back {
+    width: 86mm;
+    height: 54mm;
+    border: 1px solid var(--border-color);
+    border-radius: 0px;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    position: relative;
+    background: var(--body-bg);
+    color: var(--body-text);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    cursor: pointer;
+    user-select: none;
+    transition: border 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .id-card:hover, .id-card-back:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Interactive States */
+  .id-card.selected, .id-card-back.selected {
+    border: 2px solid #0078ff !important;
+    box-shadow: 0 0 10px rgba(0, 120, 255, 0.3);
+    opacity: 1;
+  }
+
+  .id-card.deselected, .id-card-back.deselected {
+    opacity: 0.4;
+    border: 1px solid #cbd5e0;
+    box-shadow: none;
+  }
+
+  /* SVG Background Vector Placement Engine */
+  .card-bg-decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .id-card-header {
+    position: relative;
+    z-index: 2;
+    padding: 2px 8px;
+    display: flex;
+    align-items: center;
+    height: 18mm;
+    box-sizing: border-box;
+  }
+
+  .id-card-header img {
+    width: 11mm;
+    height: 11mm;
+    border-radius: 50%;
+    margin-right: 8px;
+    object-fit: cover;
+    background: #fff;
+    flex-shrink: 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    border: 1px solid rgba(255,255,255,0.8);
+  }
+
+  .id-card-header-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    text-align: center;
+    margin-right: 12px;
+  }
+
+  .id-card-content {
+    position: relative;
+    z-index: 2;
+    padding: 6px 10px;
+    font-size: 8.5px;
+    line-height: 1.3;
+    display: grid;
+    grid-template-columns: 20mm 1fr;
+    gap: 10px;
+    align-items: center;
+    height: 26mm;
+    box-sizing: border-box;
+    background: transparent;
+    color: var(--body-text);
+  }
+
+  .id-card-student-photo-wrapper {
+    width: 20mm;
+    height: 24mm;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .id-card-student-photo-wrapper img {
+    width: 18mm;
+    height: 22mm;
+    border-radius: 5px;
+    object-fit: cover;
+    display: block;
+    background: #f0f0f0;
+    border: 2px solid #ffffff;
+    box-sizing: border-box;
+    box-shadow: 0 2.5px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  .id-card-content-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .id-card-content p {
+    margin: 2px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #2d3748;
+    font-size: 8px;
+  }
+
+  .id-card-content p strong {
+    color: #718096;
+    font-weight: 600;
+    font-size: 7.5px;
+    display: inline-block;
+    width: 21mm;
+  }
+
+  .id-card-content p.student-name-highlight {
+    font-size: 11px;
+    font-weight: bold;
+    color: #005580;
+    margin-bottom: 3px;
+  }
+
+  .id-card-content p.student-name-highlight strong {
+    color: #718096;
+    font-size: 8.5px;
+    font-weight: 600;
+  }
+
+  .id-card-footer {
+    position: relative;
+    z-index: 2;
+    padding: 0 8px;
+    color: var(--footer-text);
+    font-size: 7.5px;
+    height: 10mm;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+  }
+
+  .id-card-footer p {
+    margin: 0;
+  }
+
+  .export-select-checkbox {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 999;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+  }
+
+  .error-box {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 20px;
+    border-radius: 6px;
+    border: 1px solid #f5c6cb;
+    text-align: center;
+    font-size: 18px;
+    margin-top: 40px;
+    font-weight: bold;
+  }
+
+  /* Dropdown Menu UI Enhancement styles */
+  .download-dropdown-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+  .download-menu {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    background-color: white;
+    min-width: 220px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1000;
+    border-radius: 4px;
+    margin-top: 5px;
+    overflow: hidden;
+  }
+  .download-menu button {
+    color: #333 !important;
+    padding: 12px 16px !important;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: transparent !important;
+    border: none;
+    border-radius: 0 !important;
+    font-size: 14px !important;
+    font-weight: normal !important;
+    cursor: pointer;
+  }
+  .download-menu button:hover {
+    background-color: #f1f1f1 !important;
+    opacity: 1 !important;
+  }
+  .download-menu button:disabled {
+    color: #999 !important;
+    background-color: #f9f9f9 !important;
+    cursor: not-allowed;
+  }
+
+  /* Dedicated Separate CSS Classes for Back Side Design Structure via Theme System */
+  .id-card-back {
+    background: var(--back-body-bg);
+    color: var(--back-body-text);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0px;
+  }
+
+  .back-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    padding: 2px 8px;
+    height: 12mm;
+    box-sizing: border-box;
+  }
+
+  .back-logo {
+    width: 8mm;
+    height: 8mm;
+    object-fit: cover;
+    margin-right: 6px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  }
+
+  .back-title-group {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 10mm);
+  }
+
+  .back-school-name {
+    margin: 0;
+    font-size: 9.5px;
+    font-weight: bold;
+    color: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .back-school-address {
+    margin: 0;
+    font-size: 6.5px;
+    color: inherit;
+    opacity: 0.85;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .back-body {
+    position: relative;
+    z-index: 2;
+    height: 32mm;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: transparent;
+    color: var(--back-body-text);
+    padding: 4px 10px;
+  }
+
+  .back-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px 6px;
+    margin-bottom: 2px;
+    font-size: 7.5px;
+  }
+
+  .back-info-item {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .back-instructions {
+    font-size: 6.5px;
+    color: inherit;
+    opacity: 0.9;
+    background: rgba(255, 255, 255, 0.75);
+    padding: 3px 5px;
+    border-radius: 4px;
+    margin: 2px 0;
+    max-height: 11mm;
+    overflow: hidden;
+    border: 1px dashed rgba(0,0,0,0.08);
+    line-height: 1.2;
+  }
+
+  .back-return-msg {
+    font-size: 6.5px;
+    font-style: italic;
+    color: #e53e3e;
+    text-align: center;
+    margin: 1px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .back-interactive-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    height: 11mm;
+  }
+
+  .back-qr-zone {
+    width: 10mm;
+    height: 10mm;
+    background: #fff;
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  .back-qr-zone img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .back-custom-text-block {
+    font-size: 7px;
+    color: inherit;
+    max-width: 45mm;
+    line-height: 1.3;
+  }
+
+  .back-sign-zone {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .back-signature {
+    width: 14mm;
+    height: 5mm;
+    object-fit: contain;
+  }
+
+  .back-sign-title {
+    font-size: 6px;
+    font-weight: bold;
+    border-top: 0.5px solid var(--border-color);
+    padding-top: 1px;
+    margin-top: 1px;
+    width: 16mm;
+  }
+
+  .back-footer {
+    position: relative;
+    z-index: 2;
+    height: 10mm;
+    box-sizing: border-box;
+    background: transparent;
+    color: var(--back-footer-text);
+    font-size: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Responsive Popups Base Styling (Back Card & Theme Editor) */
+  .modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(4px);
+    z-index: 5000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .modal-wrapper {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 100%;
+    max-width: 950px;
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: modalFadeIn 0.3s ease;
+  }
+
+  @keyframes modalFadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .modal-header {
+    background: #2b6cb0;
+    color: white;
+    padding: 15px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .modal-header.theme-header-style {
+    background: #6b46c1;
+  }
+
+  .modal-close-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+  }
+
+  .modal-body-scroll {
+    padding: 20px;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 20px;
+  }
+
+  @media (max-width: 850px) {
+    .modal-body-scroll {
+      grid-template-columns: 1fr;
+    }
+    .modal-preview-sticky {
+      position: static !important;
+    }
+  }
+
+  .modal-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  @media (max-width: 550px) {
+    .modal-form-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .form-group-full {
+    grid-column: span 2;
+  }
+
+  @media (max-width: 550px) {
+    .form-group-full {
+      grid-column: span 1;
+    }
+  }
+
+  .modal-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 13px;
+    color: #4a5568;
+  }
+
+  .modal-input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #cbd5e0;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 13px;
+  }
+
+  .modal-input:focus {
+    border-color: #2b6cb0;
+    outline: none;
+  }
+
+  .switches-panel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+    background: #f7fafc;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    margin-top: 10px;
+  }
+
+  .inline-switch-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #4a5568;
+  }
+
+  .modal-preview-sticky {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    background: #f7fafc;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    height: fit-content;
+  }
+
+  .modal-footer-actions {
+    background: #edf2f7;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .modal-footer-actions button {
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .btn-modal-save { background-color: #28a745; color: white; }
+  .btn-modal-cancel { background-color: #718096; color: white; }
+  .btn-modal-reset { background-color: #e53e3e; color: white; }
+
+  /* ==========================================================================
+     ADVANCED THEME EDITOR COMPONENT STYLING (GLASSMORPHISM / PALETTE DESIGN)
+     ========================================================================== */
+  .theme-editor-section {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  .theme-section-title {
+    font-size: 13px;
+    font-weight: bold;
+    color: #4a5568;
+    margin: 0 0 8px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .palette-flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .palette-color-circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.15);
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .palette-color-circle:hover {
+    transform: scale(1.15);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+
+  .palette-color-circle.is-selected {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #6b46c1;
+    transform: scale(1.1);
+  }
+
+  .palette-custom-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px dashed #4a5568;
+    background: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    color: #4a5568;
+    transition: all 0.2s ease;
+  }
+
+  .palette-custom-btn:hover {
+    background: #edf2f7;
+    transform: scale(1.1);
+  }
+
+  .manual-text-override-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px dashed #edf2f7;
+    font-size: 11px;
+  }
+
+  .manual-text-radio-label {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-weight: normal;
+    cursor: pointer;
+  }
+
+  .theme-modal-split-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .preview-toggle-tabs {
+    display: flex;
+    gap: 5px;
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  .preview-tab-btn {
+    flex: 1;
+    padding: 6px;
+    font-size: 11px;
+    font-weight: bold;
+    border: 1px solid #cbd5e0;
+    background: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    text-align: center;
+  }
+
+  .preview-tab-btn.tab-active {
+    background: #6b46c1;
+    color: white;
+    border-color: #6b46c1;
+  }
+
+  /* COMPREHENSIVE PRINT STYLE ENGINE */
+  @media print {
+    body {
+      background: white !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    .action-bar, .modal-overlay {
+      display: none !important;
+    }
+    .container {
+      max-width: 100% !important;
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    .cards-container {
+      display: block !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      gap: 0 !important;
+    }
+    [class$="-page"] {
+      box-shadow: none !important;
+      margin: 0 !important;
+      padding: 15mm 15mm !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .layout-single-page {
+      padding: 0 !important;
+    }
+    .layout-4x6-page {
+      padding: 0.3in 0 !important;
+    }
+    .id-card, .id-card-back {
+      box-shadow: none !important;
+      border: 1px solid var(--border-color) !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+    .export-select-checkbox {
+      display: none !important;
+    }
+    header , footer {display:none;}
+  }
+
+  @media (max-width: 900px) {
+    .cards-container {
+      overflow-x: auto;
+      justify-content: flex-start;
+      padding-bottom: 0px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="action-bar" id="actionBar">
+
+    <button class="btn-back" onclick="goBackToCreate()">Edit/Update</button>
+    <div class="download-dropdown-wrapper">
+      <button class="btn-png" onclick="toggleDownloadMenu()" id="downloadMenuBtn">📥 Download / Export ▾</button>
+      <div class="download-menu" id="downloadMenu">
+         <button onclick="openPDF()">👁 Open PDF </button>
+        <button onclick="downloadPNG()">🖼 Download PNG</button>
+        <button onclick="downloadJPG()">🖼 Download JPG</button>
+        <button onclick="downloadPDF()">📄 Download PDF</button>
+        <button onclick="sharePDF()">📤 Share PDF</button>
+        <button onclick="printCards()">🖨 Print</button>
+      </div>
+    </div>
+
+    <button class="btn-action" onclick="selectAllCards()">☑ Select All</button>
+    <button class="btn-action" onclick="deselectAllCards()">☐ Deselect All</button>
+    
+    <div id="selectionCounter" class="selection-counter">Selected: 0 / 0</div>
+
+    <div class="back-switch-container">
+      <span>Back Side Card</span>
+      <label class="switch-toggle-label">
+        <input type="checkbox" id="backSideSystemToggle" onchange="toggleBackSideSystem(this.checked)">
+        <span class="switch-slider"></span>
+      </label>
+      <button class="btn-edit-back" onclick="openBackCardEditorModal()">⚙ Edit Back Card</button>
+      
+      <button class="btn-theme-editor" onclick="openThemeEditorModal()">🎨 Theme</button>
+    </div>
+
+    <div class="filename-input-wrapper">
+      <label for="exportFilenameInput">File Name:</label>
+      <input type="text" id="exportFilenameInput" class="filename-input-field" placeholder="Automatic (School Name)">
+    </div>
+
+    <div class="layout-selector-wrapper">
+        <label for="focusModeSelect">Show Mode:</label>
+        <select id="focusModeSelect" class="layout-select" onchange="handleFocusModeChange(this.value)">
+            <option value="focus" selected>🎯Selected Only</option>
+            <option value="show">📦 All Cards</option>
+        </select>
+    </div>
+   
+     <div class="layout-selector-wrapper">
+      <label for="layoutSelect">Layout:</label>
+      <select id="layoutSelect" class="layout-select" onchange="renderCurrentLayout()">
+        <option value="single" data-wrapper-class="layout-single-page" data-width="86mm" data-height="54mm" data-cards="1" data-columns="1" data-rows="1">🪪 Single Card (86 × 54 mm)</option>
+        <option value="4x6" data-wrapper-class="layout-4x6-page" data-width="4in" data-height="6in" data-cards="2" data-columns="1" data-rows="2">🖼️ 4×6 Photo (2 Cards)</option>
+        <option value="a4" data-wrapper-class="layout-a4-page" data-width="210mm" data-height="297mm" data-cards="10" data-columns="2" data-rows="5">📄 A4 Sheet (10 Cards)</option>
+        <option value="letter" data-wrapper-class="layout-letter-page" data-width="216mm" data-height="279mm" data-cards="8" data-columns="2" data-rows="4">📄 Letter Sheet (8 Cards)</option>
+        <option value="legal" data-wrapper-class="layout-legal-page" data-width="216mm" data-height="356mm" data-cards="12" data-columns="2" data-rows="6">📄 Legal Sheet (12 Cards)</option>
+        <option value="a5" data-wrapper-class="layout-a5-page" data-width="148mm" data-height="210mm" data-cards="3" data-columns="1" data-rows="3">📄 A5 Sheet (3 Cards)</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="errorDisplayContainer"></div>
+  <div id="cardsContainer" class="cards-container"></div>
+</div>
+
+<div class="modal-overlay" id="backEditorModal">
+  <div class="modal-wrapper">
+    <div class="modal-header">
+      <span>Configure Back Side Identity Profile</span>
+      <button class="modal-close-btn" onclick="closeBackCardEditorModal()">&times;</button>
+    </div>
+    <div class="modal-body-scroll">
+      <div>
+        <div class="modal-form-grid">
+          <div>
+            <label class="modal-label">School Logo</label>
+            <input type="file" id="modalBackLogoFile" class="modal-input" accept="image/*" onchange="processModalBackFile(this, 'schoolLogo')">
+          </div>
+          <div>
+            <label class="modal-label">Principal Signature</label>
+            <input type="file" id="modalBackSignFile" class="modal-input" accept="image/*" onchange="processModalBackFile(this, 'signature')">
+          </div>
+          <div>
+            <label class="modal-label">School Name</label>
+            <input type="text" id="modalBackSchoolName" class="modal-input" oninput="liveUpdateBackPreview()">
+          </div>
+          <div>
+            <label class="modal-label">School Address</label>
+            <input type="text" id="modalBackSchoolAddress" class="modal-input" oninput="liveUpdateBackPreview()">
+          </div>
+          <div>
+            <label class="modal-label">Principal Name</label>
+            <input type="text" id="modalBackPrincipalName" class="modal-input" oninput="liveUpdateBackPreview()">
+          </div>
+          <div>
+            <label class="modal-label">Principal Mobile</label>
+            <input type="text" id="modalBackPrincipalMobile" class="modal-input" oninput="liveUpdateBackPreview()">
+          </div>
+          <div>
+            <label class="modal-label">Emergency Contact</label>
+            <input type="text" id="modalBackEmergency" class="modal-input" oninput="liveUpdateBackPreview()">
+          </div>
+          <div>
+            <label class="modal-label">Email Address</label>
+            <input type="text" id="modalBackEmail" class="modal-input" oninput="liveUpdateBackPreview()">
+          </div>
+          <div>
+            <label class="modal-label">Website URL</label>
+            <input type="text" id="modalBackWebsite" class="modal-input" oninput="liveUpdateBackPreview()">
+          </div>
+          <div>
+            <label class="modal-label">Custom Text 1</label>
+            <input type="text" id="modalBackCustom1" class="modal-input" oninput="liveUpdateBackPreview()">
+          </div>
+          <div>
+            <label class="modal-label">Custom Text 2</label>
+            <input type="text" id="modalBackCustom2" class="modal-input" oninput="liveUpdateBackPreview()">
+          </div>
+          <div>
+            <label class="modal-label">Footer Text</label>
+            <input type="text" id="modalBackFooter" class="modal-input" oninput="liveUpdateBackPreview()">
+          </div>
+          <div class="form-group-full">
+            <label class="modal-label">Instructions</label>
+            <textarea id="modalBackInstructions" class="modal-input" rows="2" style="resize:vertical;" oninput="liveUpdateBackPreview()"></textarea>
+          </div>
+          <div class="form-group-full">
+            <label class="modal-label">If Found Return Message</label>
+            <input type="text" id="modalBackReturnMessage" class="modal-input" oninput="liveUpdateBackPreview()">
+          </div>
+        </div>
+
+        <div class="switches-panel-grid">
+          <label class="inline-switch-item"><input type="checkbox" id="modalSwitchLogo" onchange="liveUpdateBackPreview()"> Show Logo</label>
+          <label class="inline-switch-item"><input type="checkbox" id="modalSwitchSignature" onchange="liveUpdateBackPreview()"> Show Signature</label>
+          <label class="inline-switch-item"><input type="checkbox" id="modalSwitchFooter" onchange="liveUpdateBackPreview()"> Show Footer</label>
+          <label class="inline-switch-item"><input type="checkbox" id="modalSwitchQR" onchange="liveUpdateBackPreview()"> Show QR Code</label>
+          <label class="inline-switch-item"><input type="checkbox" id="modalSwitchEmergency" onchange="liveUpdateBackPreview()"> Show Emergency</label>
+          <label class="inline-switch-item"><input type="checkbox" id="modalSwitchWebsite" onchange="liveUpdateBackPreview()"> Show Website</label>
+          <label class="inline-switch-item"><input type="checkbox" id="modalSwitchEmail" onchange="liveUpdateBackPreview()"> Show Email</label>
+        </div>
+      </div>
+
+      <div class="modal-preview-sticky">
+        <span style="font-weight:bold; color:#2b6cb0;">Live Back Side Preview</span>
+        <div id="modalBackCardLivePreviewContainer"></div>
+      </div>
+    </div>
+    <div class="modal-footer-actions">
+      <button class="btn-modal-reset" onclick="resetBackCardModalSettings()">Reset Default</button>
+      <button class="btn-modal-cancel" onclick="closeBackCardEditorModal()">Cancel</button>
+      <button class="btn-modal-save" onclick="saveBackCardModalSettings()">Save Settings</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="themeEditorModal">
+  <div class="modal-wrapper">
+    <div class="modal-header theme-header-style">
+      <span>🎨 Complete Identity Card Theme Editor</span>
+      <button class="modal-close-btn" onclick="closeThemeEditorModal()">&times;</button>
+    </div>
+    <div class="modal-body-scroll">
+      <div class="theme-modal-split-body" id="themeControlsContainer">
+        </div>
+
+      <div class="modal-preview-sticky">
+        <div class="preview-toggle-tabs">
+          <button id="tabFront" class="preview-tab-btn tab-active" onclick="switchThemeEditorPreviewTab('front')">Front View</button>
+          <button id="tabBack" class="preview-tab-btn" onclick="switchThemeEditorPreviewTab('back')">Back View</button>
+        </div>
+        <div id="modalThemeLivePreviewContainer"></div>
+      </div>
+    </div>
+    <div class="modal-footer-actions">
+      <button class="btn-modal-reset" onclick="resetThemeToDefaultConfig()">Reset Default</button>
+      <button class="btn-modal-cancel" onclick="closeThemeEditorModal()">Cancel</button>
+      <button class="btn-modal-save" onclick="saveThemeConfigurationData()">Save Theme</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const activeObjectURLs = new Set();
+const defaultSchoolLogo = "/images/default-school-logo.png";
+const defaultSignature = "/images/default-signature.png";
+const defaultStudentPhoto = "/images/default-student.png";
+
+let currentCardsData = [];
+let masterCardsDOM = []; 
+const selectedCards = {}; 
+let currentViewMode = 'focus'; 
+let loadedSchoolProfile = null; 
+let activeParamToken = "";
+let activeThemePreviewTab = "front";
+
+// ==========================================================================
+// STEP 5: COMPREHENSIVE MATERIAL DESIGN PALETTE PRESETS (EXACTLY 25 COLORS)
+// ==========================================================================
+const MATERIAL_THEME_PALETTE = [
+  "#007acc", "#005580", "#2b6cb0", "#1a365d", "#3182ce",
+  "#28a745", "#2f855a", "#319795", "#008080", "#4fd1c5",
+  "#ff9800", "#dd6b20", "#e53e3e", "#9b2c2c", "#d53f8c",
+  "#6b46c1", "#44337a", "#b7791f", "#744210", "#4a5568",
+  "#2d3748", "#1a202c", "#718096", "#ffffff", "#000000"
+];
+
+// ==========================================================================
+// STEP 11: INITIALIZE STABLE DESIGN PARAMETERS ON THE PROFILE OBJECT
+// ==========================================================================
+function initializeCardThemeObjectStructure(profile) {
+  if (!profile.cardTheme) {
+    profile.cardTheme = {
+      headerBg: "#005580",
+      headerTextAuto: true,
+      headerTextManual: "#ffffff",
+      
+      footerBg: "#eeeeee",
+      footerTextAuto: true,
+      footerTextManual: "#333333",
+      
+      bodyBg: "#ffffff",
+      bodyTextAuto: true,
+      bodyTextManual: "#2d3748",
+      
+      borderColor: "#cccccc",
+      
+      backHeaderBg: "#ffffff",
+      backHeaderTextAuto: true,
+      backHeaderTextManual: "#005580",
+      
+      backFooterBg: "#005580",
+      backFooterTextAuto: true,
+      backFooterTextManual: "#ffffff",
+      
+      backBodyBg: "#ffffff",
+      backBodyTextAuto: true,
+      backBodyTextManual: "#2d3748"
+    };
+  }
+}
+
+// ==========================================================================
+// STEP 7: RESILIENT LUMINANCE INTENSITY AUTO-CONTRAST ENGINE
+// ==========================================================================
+function getContrastColor(hexColor) {
+  if (!hexColor) return "#000000";
+  let cleanHex = hexColor.replace('#', '');
+  if (cleanHex.length === 3) {
+    cleanHex = cleanHex.split('').map(char => char + char).join('');
+  }
+  if (cleanHex.length !== 6) return "#000000";
+  const r = parseInt(cleanHex.substring(0, 2), 16);
+  const g = parseInt(cleanHex.substring(2, 4), 16);
+  const b = parseInt(cleanHex.substring(4, 6), 16);
+  const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+  return (yiq >= 128) ? "#000000" : "#ffffff";
+}
+
+// ==========================================================================
+// STEP 15 & 16: SHARED REALTIME CSS VARIABLES INJECTION RULES ENGINE
+// ==========================================================================
+function applyThemeSettingsToDOM(themeObj) {
+  const root = document.documentElement;
+  
+  // Calculate computed typography color spaces mapping configuration states
+  const txtHeader = themeObj.headerTextAuto ? getContrastColor(themeObj.headerBg) : themeObj.headerTextManual;
+  const txtFooter = themeObj.footerTextAuto ? getContrastColor(themeObj.footerBg) : themeObj.footerTextManual;
+  const txtBody = themeObj.bodyTextAuto ? getContrastColor(themeObj.bodyBg) : themeObj.bodyTextManual;
+  const txtBackHeader = themeObj.backHeaderTextAuto ? getContrastColor(themeObj.backHeaderBg) : themeObj.backHeaderTextManual;
+  const txtBackFooter = themeObj.backFooterTextAuto ? getContrastColor(themeObj.backFooterBg) : themeObj.backFooterTextManual;
+  const txtBackBody = themeObj.backBodyTextAuto ? getContrastColor(themeObj.backBodyBg) : themeObj.backBodyTextManual;
+
+  root.style.setProperty('--header-bg', themeObj.headerBg);
+  root.style.setProperty('--header-text', txtHeader);
+  root.style.setProperty('--footer-bg', themeObj.footerBg);
+  root.style.setProperty('--footer-text', txtFooter);
+  root.style.setProperty('--body-bg', themeObj.bodyBg);
+  root.style.setProperty('--body-text', txtBody);
+  root.style.setProperty('--border-color', themeObj.borderColor);
+  
+  root.style.setProperty('--back-header-bg', themeObj.backHeaderBg);
+  root.style.setProperty('--back-header-text', txtBackHeader);
+  root.style.setProperty('--back-footer-bg', themeObj.backFooterBg);
+  root.style.setProperty('--back-footer-text', txtBackFooter);
+  root.style.setProperty('--back-body-bg', themeObj.backBodyBg);
+  root.style.setProperty('--back-body-text', txtBackBody);
+}
+
+// ==========================================================================
+// STEP 4, 5, 6 & 8: DYNAMIC INTERFACE COMPILER FOR THEME EDITOR DIALOG
+// ==========================================================================
+function buildThemeEditorInterfaceEngine() {
+  const container = document.getElementById("themeControlsContainer");
+  container.innerHTML = "";
+
+  const sectionsConfig = [
+    { key: "headerBg", label: "Header Color", autoKey: "headerTextAuto", manualKey: "headerTextManual" },
+    { key: "footerBg", label: "Footer Color", autoKey: "footerTextAuto", manualKey: "footerTextManual" },
+    { key: "bodyBg", label: "Body Color", autoKey: "bodyTextAuto", manualKey: "bodyTextManual" },
+    { key: "borderColor", label: "Border Color", autoKey: null, manualKey: null },
+    { key: "backHeaderBg", label: "Back Header Color", autoKey: "backHeaderTextAuto", manualKey: "backHeaderTextManual" },
+    { key: "backFooterBg", label: "Back Footer Color", autoKey: "backFooterTextAuto", manualKey: "backFooterTextManual" },
+    { key: "backBodyBg", label: "Back Body Color", autoKey: "backBodyTextAuto", manualKey: "backBodyTextManual" }
+  ];
+
+  sectionsConfig.forEach(sec => {
+    const sectionWrap = document.createElement("div");
+    sectionWrap.className = "theme-editor-section";
+
+    const titleDiv = document.createElement("div");
+    titleDiv.className = "theme-section-title";
+    titleDiv.innerHTML = `<span>${sec.label}</span>`;
+    sectionWrap.appendChild(titleDiv);
+
+    const paletteContainer = document.createElement("div");
+    paletteContainer.className = "palette-flex-container";
+
+    const currentThemeState = loadedSchoolProfile.cardTheme;
+    const activeColor = currentThemeState[sec.key].toLowerCase();
+
+    // Render 25 Circular Material Buttons
+    MATERIAL_THEME_PALETTE.forEach(color => {
+      const circle = document.createElement("div");
+      circle.className = "palette-color-circle";
+      circle.style.backgroundColor = color;
+      if (activeColor === color.toLowerCase()) {
+        circle.classList.add("is-selected");
+      }
+      circle.onclick = () => {
+        currentThemeState[sec.key] = color;
+        buildThemeEditorInterfaceEngine();
+        liveThemePreviewUpdatePipeline();
+      };
+      paletteContainer.appendChild(circle);
+    });
+
+    // STEP 6: Custom Color Input Button Implementation (+)
+    const customBtn = document.createElement("div");
+    customBtn.className = "palette-custom-btn";
+    customBtn.innerHTML = "+";
+    
+    const colorPickerInput = document.createElement("input");
+    colorPickerInput.type = "color";
+    colorPickerInput.value = activeColor.startsWith("#") ? activeColor : "#ffffff";
+    colorPickerInput.style.display = "none";
+    
+    colorPickerInput.onchange = (e) => {
+      currentThemeState[sec.key] = e.target.value;
+      buildThemeEditorInterfaceEngine();
+      liveThemePreviewUpdatePipeline();
+    };
+    
+    customBtn.onclick = () => colorPickerInput.click();
+    customBtn.appendChild(colorPickerInput);
+    paletteContainer.appendChild(customBtn);
+    sectionWrap.appendChild(paletteContainer);
+
+    // STEP 8: Manual Text Override UI System Configuration
+    if (sec.autoKey) {
+      const overrideWrap = document.createElement("div");
+      overrideWrap.className = "manual-text-override-wrap";
+
+      const autoChecked = currentThemeState[sec.autoKey] ? "checked" : "";
+      overrideWrap.innerHTML = `
+        <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-weight:bold;">
+          <input type="checkbox" ${autoChecked} id="chk_auto_${sec.key}"> Auto Text Color
+        </label>
+      `;
+      
+      const radioBoxGroup = document.createElement("div");
+      radioBoxGroup.style.display = currentThemeState[sec.autoKey] ? "none" : "flex";
+      radioBoxGroup.style.gap = "8px";
+      radioBoxGroup.style.alignItems = "center";
+
+      const manualVal = currentThemeState[sec.manualKey];
+      radioBoxGroup.innerHTML = `
+        <label class="manual-text-radio-label">
+          <input type="radio" name="rad_${sec.key}" value="#ffffff" ${manualVal === "#ffffff" ? "checked" : ""}> White
+        </label>
+        <label class="manual-text-radio-label">
+          <input type="radio" name="rad_${sec.key}" value="#000000" ${manualVal === "#000000" ? "checked" : ""}> Black
+        </label>
+        <label class="manual-text-radio-label">
+          <input type="radio" name="rad_${sec.key}" id="rad_custom_trigger_${sec.key}" value="custom" ${manualVal !== "#ffffff" && manualVal !== "#000000" ? "checked" : ""}> Custom
+        </label>
+        <input type="color" id="picker_manual_${sec.key}" value="${manualVal.startsWith("#") ? manualVal : "#000000"}" style="width:20px;height:20px;padding:0;border:none;cursor:pointer;display:${manualVal !== "#ffffff" && manualVal !== "#000000" ? "block" : "none"};">
+      `;
+
+      overrideWrap.appendChild(radioBoxGroup);
+      sectionWrap.appendChild(overrideWrap);
+
+      // DOM event bindings for dynamic override interactions
+      setTimeout(() => {
+        const checkboxEl = document.getElementById(`chk_auto_${sec.key}`);
+        if (checkboxEl) {
+          checkboxEl.onchange = (e) => {
+            currentThemeState[sec.autoKey] = e.target.checked;
+            radioBoxGroup.style.display = e.target.checked ? "none" : "flex";
+            liveThemePreviewUpdatePipeline();
+          };
+        }
+
+        const radios = sectionWrap.querySelectorAll(`input[name="rad_${sec.key}"]`);
+        const manualPicker = document.getElementById(`picker_manual_${sec.key}`);
+        
+        radios.forEach(rad => {
+          rad.onchange = (e) => {
+            if (e.target.value === "custom") {
+              manualPicker.style.display = "block";
+              currentThemeState[sec.manualKey] = manualPicker.value;
+            } else {
+              manualPicker.style.display = "none";
+              currentThemeState[sec.manualKey] = e.target.value;
+            }
+            liveThemePreviewUpdatePipeline();
+          };
+        });
+
+        if (manualPicker) {
+          manualPicker.onchange = (e) => {
+            document.getElementById(`rad_custom_trigger_${sec.key}`).checked = true;
+            currentThemeState[sec.manualKey] = e.target.value;
+            liveThemePreviewUpdatePipeline();
+          };
+        }
+      }, 0);
+    }
+
+    container.appendChild(sectionWrap);
+  });
+}
+
+// ==========================================================================
+// STEP 3 & 9: INSTANT THEME POPUP MANAGEMENT & PREVIEW TABS ENGINE
+// ==========================================================================
+function openThemeEditorModal() {
+  buildThemeEditorInterfaceEngine();
+  document.getElementById("themeEditorModal").style.display = "flex";
+  liveThemePreviewUpdatePipeline();
+}
+
+function closeThemeEditorModal() {
+  document.getElementById("themeEditorModal").style.display = "none";
+  // Restore current saved state on cancellation
+  const storedData = localStorage.getItem("school-id-" + activeParamToken);
+  if (storedData) {
+    const parsed = JSON.parse(storedData);
+    loadedSchoolProfile.cardTheme = parsed.schoolProfile.cardTheme;
+    applyThemeSettingsToDOM(loadedSchoolProfile.cardTheme);
+  }
+}
+
+function switchThemeEditorPreviewTab(tabStr) {
+  activeThemePreviewTab = tabStr;
+  document.getElementById("tabFront").classList.toggle("tab-active", tabStr === "front");
+  document.getElementById("tabBack").classList.toggle("tab-active", tabStr === "back");
+  liveThemePreviewUpdatePipeline();
+}
+
+async function liveThemePreviewUpdatePipeline() {
+  applyThemeSettingsToDOM(loadedSchoolProfile.cardTheme);
+  const container = document.getElementById("modalThemeLivePreviewContainer");
+  container.innerHTML = "";
+
+  const proxyStudent = currentCardsData[0] || { studentName: "John Doe", className: "X-A", mobileNumber: "9999999999", fatherName: "Father Name", dob: "01/01/2010", address: "Student Address" };
+  const baseLogo = await getObjectURL(loadedSchoolProfile.schoolLogo, defaultSchoolLogo);
+  const baseSign = await getObjectURL(loadedSchoolProfile.principalSignature, defaultSignature);
+
+  if (activeThemePreviewTab === "front") {
+    const frontDiv = document.createElement('div');
+    frontDiv.className = 'id-card';
+    
+    frontDiv.innerHTML = `
+      <input type="checkbox" class="export-select-checkbox" checked style="display:none;">
+      
+      <svg class="card-bg-decoration" viewBox="0 0 86 54" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 0 0 L 86 0 L 86 14 C 70 19, 50 12, 30 17 C 15 20, 0 15, 0 14 Z" fill="var(--header-bg)" />
+        <path d="M 0 14 C 15 15, 35 21, 55 16 C 70 12, 86 15, 86 15 L 86 16 C 70 13, 55 11, 35 17 C 15 22, 0 15, 0 15 Z" fill="var(--header-bg)" opacity="0.25" />
+        <path d="M 0 54 L 86 54 L 86 45 C 72 43, 58 48, 40 45 C 22 42, 10 46, 0 44 Z" fill="var(--footer-bg)" />
+        <path d="M 0 44 C 12 42, 24 47, 44 44 C 64 41, 76 44, 86 45 L 86 45.6 C 76 44.6, 64 41.6, 44 44.6 C 24 47.6, 12 42.6, 0 44.6 Z" fill="var(--footer-bg)" opacity="0.3" />
+        <circle cx="76" cy="30" r="12" fill="var(--header-bg)" opacity="0.04" />
+        <circle cx="15" cy="40" r="8" fill="var(--header-bg)" opacity="0.03" />
+        <path d="M-5 25 L15 15 L5 40 Z" fill="var(--header-bg)" opacity="0.03" />
+        <line x1="0" y1="22" x2="86" y2="26" stroke="var(--header-bg)" stroke-width="0.1" opacity="0.06" />
+        <line x1="0" y1="25" x2="86" y2="23" stroke="var(--header-bg)" stroke-width="0.15" opacity="0.04" />
+      </svg>
+
+      <div class="id-card-header">
+        <img src="${baseLogo}" alt="Logo">
+        <div class="id-card-header-text-container">
+          <h3 style="margin:0; font-size:10px; font-weight: bold; line-height:1.1; max-height:2.2em; overflow:hidden; color: var(--header-text); text-transform: uppercase; letter-spacing: 0.3px;">${loadedSchoolProfile.schoolName || "---"}</h3>
+          <p style="margin:1px 0 0 0; font-size:7px; font-weight: 600; opacity:0.95; color: var(--header-text);">${loadedSchoolProfile.schoolType || "---"}</p>
+          <p style="margin:1px 0 0 0; font-size:6.2px; opacity:0.85; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:56mm; color: var(--header-text);">${loadedSchoolProfile.schoolAddress || "---"}</p>
+        </div>
+      </div>
+
+      <div class="id-card-content">
+        <div class="id-card-student-photo-wrapper">
+          <img src="${defaultStudentPhoto}" alt="Student">
+        </div>
+        <div class="id-card-content-text">
+          <p class="student-name-highlight"><strong>STUDENT:</strong> ${proxyStudent.studentName}</p>
+          <p><strong>Father's Name:</strong> ${proxyStudent.fatherName || "---"}</p>
+          <p><strong>DOB:</strong> ${proxyStudent.dob || "---"}</p>
+          <p><strong>Class:</strong> ${proxyStudent.className}</p>
+          <p><strong>Mobile:</strong> ${proxyStudent.mobileNumber}</p>
+          <p><strong>Address:</strong> ${proxyStudent.address || "---"}</p>
+        </div>
+      </div>
+
+      <div class="id-card-footer">
+        <p style="font-weight: bold; line-height: 1.15; color: var(--footer-text);">
+          <span style="font-size: 7.5px; text-transform: uppercase; letter-spacing:0.2px;">${loadedSchoolProfile.principalName || "---"}</span><br>
+          <span style="font-size: 6.5px; font-weight: normal; opacity: 0.85;">Principal (Mo. ${loadedSchoolProfile.principalMobile || "---"})</span>
+        </p>
+        <p style="display:flex; flex-direction: column; align-items:center; justify-content: center; margin-top: -2px;">
+          <img src="${baseSign}" alt="Principal Signature" style="width: 14mm; height: 5mm; vertical-align: middle; object-fit:contain;">
+          <span style="font-size: 5.5px; font-weight: bold; text-transform: uppercase; opacity: 0.7; letter-spacing: 0.3px; margin-top: 0.5px; color: var(--footer-text);">Signature</span>
+        </p>
+      </div>
+    `;
+    frontDiv.classList.remove("selected", "deselected");
+    container.appendChild(frontDiv);
+  } else {
+    const backLogoUrl = await getObjectURL(loadedSchoolProfile.backCard.schoolLogo, baseLogo);
+    const backSignUrl = await getObjectURL(loadedSchoolProfile.backCard.signature, baseSign);
+    const backDiv = renderBackCard(proxyStudent, loadedSchoolProfile, backLogoUrl, backSignUrl);
+    backDiv.classList.remove("selected", "deselected");
+    backDiv.querySelector(".export-select-checkbox").style.display = "none";
+    container.appendChild(backDiv);
+  }
+}
+
+// ==========================================================================
+// STEP 10: IMMEDIATE THEME SAVING ROUTINE ENGINE
+// ==========================================================================
+function saveThemeConfigurationData() {
+  const payload = { schoolProfile: loadedSchoolProfile, students: currentCardsData };
+  localStorage.setItem("school-id-" + activeParamToken, JSON.stringify(payload));
+  applyThemeSettingsToDOM(loadedSchoolProfile.cardTheme);
+  document.getElementById("themeEditorModal").style.display = "none";
+}
+
+// ==========================================================================
+// STEP 13: THEME FACTORY DEFAULTS RESTORATION ENGINE
+// ==========================================================================
+function resetThemeToDefaultConfig() {
+  if (confirm("Reset current display theme configurations to factory defaults?")) {
+    delete loadedSchoolProfile.cardTheme;
+    initializeCardThemeObjectStructure(loadedSchoolProfile);
+    buildThemeEditorInterfaceEngine();
+    liveThemePreviewUpdatePipeline();
+  }
+}
+
+// ==========================================================================
+// CENTRALIZED EXPORT FILE NAMING ENGINE (UPDATED TO SCHOOL NAME)
+// ==========================================================================
+function getExportFileName(extension, indexSuffix = '') {
+    const inputVal = document.getElementById("exportFilenameInput") ? document.getElementById("exportFilenameInput").value.trim() : "";
+    let baseName = "";
+
+    if (inputVal !== "") {
+        baseName = inputVal;
+    } else if (loadedSchoolProfile && loadedSchoolProfile.schoolName) {
+        baseName = loadedSchoolProfile.schoolName;
+    } else {
+        const firstSchoolHeadingNode = document.querySelector(".id-card .id-card-header h3");
+        if (firstSchoolHeadingNode) {
+            baseName = firstSchoolHeadingNode.textContent.trim();
+        } else {
+            baseName = "SchoolName";
+        }
+    }
+
+    let sanitized = baseName.replace(/[\\\/:\*\?"<>\|]/g, '');
+    sanitized = sanitized.replace(/\s+/g, '_');
+
+    const select = document.getElementById("layoutSelect");
+    const currentLayoutTag = select ? select.value.toUpperCase() : "A4";
+
+    let suffixStr = `_${currentLayoutTag}`;
+    let sequenceStr = "";
+
+    if (indexSuffix !== '') {
+        sequenceStr = `_${indexSuffix}`;
+    }
+
+    return `${sanitized}${suffixStr}${sequenceStr}.${extension}`;
+}
+
+function openImageDB() {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open("ImageLibrary", 2);
+        request.onsuccess = (e) => resolve(e.target.result);
+        request.onerror = (e) => reject(e.target.error);
+        request.onupgradeneeded = (e) => {
+            const database = e.target.result;
+            if (!database.objectStoreNames.contains("images")) {
+                const store = database.createObjectStore("images", { keyPath: "id", autoIncrement: true });
+                store.createIndex("token", "token", { unique: true });
+            }
+        };
+    });
+}
+
+async function getImageByToken(token) {
+    if (!token) return null;
+    try {
+        const db = await openImageDB();
+        const tx = db.transaction("images", "readonly");
+        const index = tx.objectStore("images").index("token");
+        return new Promise(resolve => {
+            index.get(token).onsuccess = (e) => resolve(e.target.result || null);
+        });
+    } catch (err) {
+        console.error("IndexedDB Error:", err);
+        return null;
+    }
+}
+
+async function getObjectURL(token, fallbackPath) {
+    if (!token) return fallbackPath;
+    if (token.startsWith("data:") || token.startsWith("blob:")) return token;
+    const imageRecord = await getImageByToken(token);
+    if (imageRecord && imageRecord.blob) {
+        const url = URL.createObjectURL(imageRecord.blob);
+        activeObjectURLs.add(url);
+        return url;
+    }
+    return fallbackPath;
+}
+
+function showErrorMessage(message) {
+    document.getElementById("actionBar").style.display = "none";
+    document.getElementById("errorDisplayContainer").innerHTML = `<div class="error-box">${message}</div>`;
+}
+
+function goBackToCreate() {
+    window.location.href = "/school-id-create/";
+}
+
+/* ==========================================================================
+    UNIFIED SELECTION ARCHITECTURE ENGINE
+   ========================================================================== */
+function initializeSelection() {
+    masterCardsDOM.forEach(cardPair => {
+        const cardId = cardPair.studentId;
+        selectedCards[cardId] = true; 
+    });
+    updateSelectionCounter();
+}
+
+function toggleCardSelection(cardId) {
+    selectedCards[cardId] = !selectedCards[cardId];
+    updateSelectionCounter();
+    
+    if (currentViewMode === 'focus') {
+        renderCurrentLayout();
+    } else {
+        const container = document.getElementById("cardsContainer");
+        const instances = container.querySelectorAll(`[data-card-id="${cardId}"]`);
+        instances.forEach(card => updateCardUI(card));
+    }
+}
+
+function selectAllCards() {
+    for (const cardId in selectedCards) {
+        selectedCards[cardId] = true;
+    }
+    updateSelectionCounter();
+    renderCurrentLayout();
+}
+
+function deselectAllCards() {
+    for (const cardId in selectedCards) {
+        selectedCards[cardId] = false;
+    }
+    updateSelectionCounter();
+    renderCurrentLayout();
+}
+
+function updateCardUI(card) {
+    const cardId = card.dataset.cardId;
+    const isSelected = selectedCards[cardId];
+    const checkbox = card.querySelector('.export-select-checkbox');
+    
+    if (isSelected) {
+        card.classList.remove('deselected');
+        card.classList.add('selected');
+        if (checkbox) checkbox.checked = true;
+    } else {
+        card.classList.remove('selected');
+        card.classList.add('deselected');
+        if (checkbox) checkbox.checked = false;
+    }
+}
+
+function updateSelectionCounter() {
+    const total = Object.keys(selectedCards).length;
+    const selectedCount = Object.values(selectedCards).filter(Boolean).length;
+    document.getElementById("selectionCounter").textContent = `Selected: ${selectedCount} / ${total}`;
+}
+
+function getSelectedCards() {
+    return masterCardsDOM.filter(cardPair => selectedCards[cardPair.studentId]);
+}
+
+function handleFocusModeChange(mode) {
+    currentViewMode = mode;
+    renderCurrentLayout();
+}
+
+function renderCurrentLayout() {
+    const container = document.getElementById("cardsContainer");
+    const select = document.getElementById("layoutSelect");
+    const option = select.querySelector(`option[value="${select.value}"]`);
+    if (!option) return;
+
+    const wrapperClass = option.dataset.wrapperClass;
+    const totalSlotsPerPage = parseInt(option.dataset.cards) || 1;
+    const columns      = parseInt(option.dataset.columns) || 1;
+    const rows         = parseInt(option.dataset.rows) || 1;
+    const pageWidth    = option.dataset.width;
+    const pageHeight   = option.dataset.height;
+
+    document.body.className = "print-" + select.value;
+    container.innerHTML = "";
+
+    const activePairs = (currentViewMode === 'focus') ? getSelectedCards() : masterCardsDOM;
+    const backOn = loadedSchoolProfile && loadedSchoolProfile.backCard && loadedSchoolProfile.backCard.enabled;
+
+    let integratedElementsPool = [];
+    activePairs.forEach(pair => {
+        if (backOn) {
+            integratedElementsPool.push({ id: pair.studentId, type: 'front', dom: pair.frontCard });
+            integratedElementsPool.push({ id: pair.studentId, type: 'back', dom: pair.backCard });
+        } else {
+            integratedElementsPool.push({ id: pair.studentId, type: 'front', dom: pair.frontCard });
+        }
+    });
+
+    for (let i = 0; i < integratedElementsPool.length; i += totalSlotsPerPage) {
+        const pageWrapper = document.createElement("div");
+        pageWrapper.className = wrapperClass;
+        pageWrapper.style.width = pageWidth;
+        pageWrapper.style.height = pageHeight;
+        pageWrapper.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+        pageWrapper.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+
+        for (let j = 0; j < totalSlotsPerPage; j++) {
+            const item = integratedElementsPool[i + j];
+            if (item) {
+                const elementClone = item.dom.cloneNode(true);
+                updateCardUI(elementClone);
+                
+                elementClone.addEventListener('click', (e) => {
+                    toggleCardSelection(item.id);
+                });
+
+                const checkbox = elementClone.querySelector('.export-select-checkbox');
+                if (checkbox) {
+                    checkbox.addEventListener('click', (e) => { e.stopPropagation(); });
+                    checkbox.addEventListener('change', (e) => {
+                        toggleCardSelection(item.id);
+                    });
+                }
+                pageWrapper.appendChild(elementClone);
+            }
+        }
+        container.appendChild(pageWrapper);
+    }
+}
+
+function validateExportContext() {
+    if (currentViewMode === 'focus') {
+        const selectedCount = Object.values(selectedCards).filter(Boolean).length;
+        if (selectedCount === 0) {
+            alert("No card selected.\nPlease select at least one card.");
+            return false;
+        }
+    }
+    return true;
+}
+
+function initializeBackCardObjectStructure(profile) {
+    if (!profile.backCard) {
+        profile.backCard = {
+            enabled: false,
+            schoolLogo: profile.schoolLogo || "",
+            schoolName: profile.schoolName || "",
+            schoolAddress: profile.schoolAddress || "",
+            principalName: profile.principalName || "",
+            principalMobile: profile.principalMobile || "",
+            website: "",
+            email: "",
+            emergency: profile.principalMobile || "",
+            instructions: "1. This card is valid for the current academic session only.\n2. Cardholders must carry this identity setup always inside premises.\n3. Misuse of identity tokens triggers strict disciplinary routines.",
+            returnMessage: "If found, please return this card to the school administration office immediately.",
+            footer: "Powered by Gajab Tools",
+            customText1: "DISE CODE:",
+            customText2: "Medium:",
+            signature: profile.principalSignature || "",
+            showLogo: true,
+            showSignature: true,
+            showFooter: true,
+            showQRCode: true,
+            showEmergency: true,
+            showWebsite: true,
+            showEmail: true
+        };
+    }
+}
+
+function generateQRCodeURL(student, profile) {
+    const dataString = `Name:${student.studentName},Class:${student.className},Mob:${student.mobileNumber || "N/A"},School:${profile.schoolName || "N/A"}`;
+    return `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(dataString)}`;
+}
+
+function renderBackCard(student, profile, logoUrl, signUrl) {
+    const config = profile.backCard;
+    const cardDiv = document.createElement('div');
+    cardDiv.className = 'id-card-back';
+    cardDiv.dataset.cardId = ""; 
+
+    const qrUrl = generateQRCodeURL(student, profile);
+
+    cardDiv.innerHTML = `
+      <input type="checkbox" class="export-select-checkbox" checked>
+      
+      <svg class="card-bg-decoration" viewBox="0 0 86 54" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 0 0 L 86 0 L 86 10 C 65 7, 45 13, 25 9 C 12 6, 0 10, 0 10 Z" fill="var(--back-header-bg)" />
+        <path d="M 0 10 C 12 10, 25 14, 45 10 C 65 6, 86 11, 86 11 L 86 11.5 C 86 11.5, 65 6.5, 45 10.5 C 25 14.5, 12 10.5, 0 10.5 Z" fill="var(--back-header-bg)" opacity="0.2" />
+        <path d="M 0 54 L 86 54 L 86 46 C 70 48, 50 43, 30 46 C 15 48, 0 44, 0 44 Z" fill="var(--back-footer-bg)" />
+        <circle cx="12" cy="24" r="14" stroke="var(--back-footer-bg)" stroke-width="0.1" fill="none" opacity="0.05" />
+        <circle cx="12" cy="24" r="10" stroke="var(--back-footer-bg)" stroke-width="0.08" fill="none" opacity="0.04" />
+        <rect x="68" y="16" width="12" height="12" fill="var(--back-footer-bg)" opacity="0.03" transform="rotate(45 74 22)" />
+      </svg>
+
+      <div class="back-header">
+        ${config.showLogo && logoUrl ? `<img src="${logoUrl}" class="back-logo" alt="Logo">` : ''}
+        <div class="back-title-group" style="color: var(--back-header-text);">
+          <h4 class="back-school-name" style="text-transform: uppercase; letter-spacing: 0.2px;">${config.schoolName || "---"}</h4>
+          <p class="back-school-address">${config.schoolAddress || "---"}</p>
+        </div>
+      </div>
+      
+      <div class="back-body">
+        <div class="back-info-grid">
+          ${config.showEmergency ? `<div class="back-info-item"><strong>Emergency Mo:</strong> ${config.emergency || "---"}</div>` : ''}
+          ${config.showEmail ? `<div class="back-info-item"><strong>Email:</strong> ${config.email || "---"}</div>` : ''}
+          ${config.showWebsite ? `<div class="back-info-item" style="grid-column: span 2;"><strong>Web:</strong> ${config.website || "---"}</div>` : ''}
+          ${config.customText1 ? `<div class="back-info-item">${config.customText1}</div>` : ''}
+          ${config.customText2 ? `<div class="back-info-item">${config.customText2}</div>` : ''}
+        </div>
+        ${config.instructions ? `<div class="back-instructions">${config.instructions.replace(/\n/g, '<br>')}</div>` : ''}
+        ${config.returnMessage ? `<p class="back-return-msg">${config.returnMessage}</p>` : ''}
+        
+        <div class="back-interactive-row">
+          ${config.showQRCode ? `<div class="back-qr-zone"><img src="${qrUrl}" alt="QR"></div>` : '<div style="width:10mm;"></div>'}
+          <div class="back-custom-text-block">
+            <strong>Principal:</strong> ${config.principalName || "---"}<br>
+            <strong>Contact:</strong> ${config.principalMobile || "---"}
+          </div>
+          ${config.showSignature && signUrl ? `
+            <div class="back-sign-zone">
+              <img src="${signUrl}" class="back-signature" alt="Signature">
+              <div class="back-sign-title">Authorized Sign</div>
+            </div>
+          ` : ''}
+        </div>
+      </div>
+      ${config.showFooter ? `<div class="back-footer" style="color: var(--back-footer-text); font-weight: bold; letter-spacing: 0.3px; text-transform: uppercase;">${config.footer || "---"}</div>` : ''}
+    `;
+    return cardDiv;
+}
+
+async function rebuildEntireMasterCardsDOMArray() {
+    masterCardsDOM = [];
+    let counterId = 0;
+
+    const profile = loadedSchoolProfile;
+    const logoUrl = await getObjectURL(profile.schoolLogo, defaultSchoolLogo);
+    const signUrl = await getObjectURL(profile.principalSignature, defaultSignature);
+
+    const backLogoUrl = await getObjectURL(profile.backCard.schoolLogo, logoUrl);
+    const backSignUrl = await getObjectURL(profile.backCard.signature, signUrl);
+
+    for (const student of currentCardsData) {
+        const photoUrl = await getObjectURL(student.studentPhotoUrl, defaultStudentPhoto);
+        const assignedId = "card_" + counterId++;
+
+        const frontDiv = document.createElement('div');
+        frontDiv.className = 'id-card';
+        frontDiv.dataset.cardId = assignedId;
+        
+        frontDiv.innerHTML = `
+          <input type="checkbox" class="export-select-checkbox" checked>
+          
+          <svg class="card-bg-decoration" viewBox="0 0 86 54" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 0 0 L 86 0 L 86 14 C 70 19, 50 12, 30 17 C 15 20, 0 15, 0 14 Z" fill="var(--header-bg)" />
+            <path d="M 0 14 C 15 15, 35 21, 55 16 C 70 12, 86 15, 86 15 L 86 16 C 70 13, 55 11, 35 17 C 15 22, 0 15, 0 15 Z" fill="var(--header-bg)" opacity="0.25" />
+            <path d="M 0 54 L 86 54 L 86 45 C 72 43, 58 48, 40 45 C 22 42, 10 46, 0 44 Z" fill="var(--footer-bg)" />
+            <path d="M 0 44 C 12 42, 24 47, 44 44 C 64 41, 76 44, 86 45 L 86 45.6 C 76 44.6, 64 41.6, 44 44.6 C 24 47.6, 12 42.6, 0 44.6 Z" fill="var(--footer-bg)" opacity="0.3" />
+            <circle cx="76" cy="30" r="12" fill="var(--header-bg)" opacity="0.04" />
+            <circle cx="15" cy="40" r="8" fill="var(--header-bg)" opacity="0.03" />
+            <path d="M-5 25 L15 15 L5 40 Z" fill="var(--header-bg)" opacity="0.03" />
+            <line x1="0" y1="22" x2="86" y2="26" stroke="var(--header-bg)" stroke-width="0.1" opacity="0.06" />
+            <line x1="0" y1="25" x2="86" y2="23" stroke="var(--header-bg)" stroke-width="0.15" opacity="0.04" />
+          </svg>
+
+          <div class="id-card-header">
+            <img src="${logoUrl}" alt="School Logo">
+            <div class="id-card-header-text-container">
+              <h3 style="margin:0; font-size:10px; font-weight: bold; line-height:1.1; max-height:2.2em; overflow:hidden; color: var(--header-text); text-transform: uppercase; letter-spacing: 0.3px;">${profile.schoolName || "---"}</h3>
+              <p style="margin:1px 0 0 0; font-size:7px; font-weight: 600; opacity:0.95; color: var(--header-text);">${profile.schoolType || "---"}</p>
+              <p style="margin:1px 0 0 0; font-size:6.2px; opacity:0.85; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:56mm; color: var(--header-text);">${profile.schoolAddress || "---"}</p>
+            </div>
+          </div>
+          
+          <div class="id-card-content">
+            <div class="id-card-student-photo-wrapper">
+              <img src="${photoUrl}" alt="Student Photo">
+            </div>
+            <div class="id-card-content-text">
+              <p class="student-name-highlight"><strong>STUDENT:</strong> ${student.studentName}</p>
+              <p><strong>Father's Name:</strong> ${student.fatherName}</p>
+              <p><strong>DOB:</strong> ${student.dob}</p>
+              <p><strong>Class:</strong> ${student.className}</p>
+              <p><strong>Mobile:</strong> ${student.mobileNumber}</p>
+              <p><strong>Address:</strong> ${student.address}</p>
+            </div>
+          </div>
+          
+          <div class="id-card-footer">
+            <p style="font-weight: bold; line-height: 1.15; color: var(--footer-text);">
+              <span style="font-size: 7.5px; text-transform: uppercase; letter-spacing:0.2px;">${profile.principalName || "---"}</span><br>
+              <span style="font-size: 6.5px; font-weight: normal; opacity: 0.85;">Principal (Mo. ${profile.principalMobile || "---"})</span>
+            </p>
+            <p style="display:flex; flex-direction: column; align-items:center; justify-content: center; margin-top: -2px;">
+              <img src="${signUrl}" alt="Principal Signature" style="width: 14mm; height: 5mm; vertical-align: middle; object-fit:contain;">
+              <span style="font-size: 5.5px; font-weight: bold; text-transform: uppercase; opacity: 0.7; letter-spacing: 0.3px; margin-top: 0.5px; color: var(--footer-text);">Signature</span>
+            </p>
+          </div>
+        `;
+
+        const backDiv = renderBackCard(student, profile, backLogoUrl, backSignUrl);
+        backDiv.dataset.cardId = assignedId;
+
+        masterCardsDOM.push({
+            studentId: assignedId,
+            frontCard: frontDiv,
+            backCard: backDiv
+        });
+    }
+}
+
+function toggleBackSideSystem(isChecked) {
+    if (loadedSchoolProfile && loadedSchoolProfile.backCard) {
+        loadedSchoolProfile.backCard.enabled = isChecked;
+        const payload = { schoolProfile: loadedSchoolProfile, students: currentCardsData };
+        localStorage.setItem("school-id-" + activeParamToken, JSON.stringify(payload));
+        renderCurrentLayout();
+    }
+}
+
+function openBackCardEditorModal() {
+    const config = loadedSchoolProfile.backCard;
+    
+    document.getElementById("modalBackSchoolName").value = config.schoolName || "";
+    document.getElementById("modalBackSchoolAddress").value = config.schoolAddress || "";
+    document.getElementById("modalBackPrincipalName").value = config.principalName || "";
+    document.getElementById("modalBackPrincipalMobile").value = config.principalMobile || "";
+    document.getElementById("modalBackEmergency").value = config.emergency || "";
+    document.getElementById("modalBackEmail").value = config.email || "";
+    document.getElementById("modalBackWebsite").value = config.website || "";
+    document.getElementById("modalBackCustom1").value = config.customText1 || "";
+    document.getElementById("modalBackCustom2").value = config.customText2 || "";
+    document.getElementById("modalBackFooter").value = config.footer || "";
+    document.getElementById("modalBackInstructions").value = config.instructions || "";
+    document.getElementById("modalBackReturnMessage").value = config.returnMessage || "";
+
+    document.getElementById("modalSwitchLogo").checked = config.showLogo;
+    document.getElementById("modalSwitchSignature").checked = config.showSignature;
+    document.getElementById("modalSwitchFooter").checked = config.showFooter;
+    document.getElementById("modalSwitchQR").checked = config.showQRCode;
+    document.getElementById("modalSwitchEmergency").checked = config.showEmergency;
+    document.getElementById("modalSwitchWebsite").checked = config.showWebsite;
+    document.getElementById("modalSwitchEmail").checked = config.showEmail;
+
+    document.getElementById("backEditorModal").style.display = "flex";
+    liveUpdateBackPreview();
+}
+
+function closeBackCardEditorModal() {
+    document.getElementById("backEditorModal").style.display = "none";
+    document.getElementById("modalBackLogoFile").value = "";
+    document.getElementById("modalBackSignFile").value = "";
+}
+
+function gatherModalFormConfigObject() {
+    return {
+        enabled: loadedSchoolProfile.backCard.enabled,
+        schoolLogo: loadedSchoolProfile.backCard.schoolLogo,
+        schoolName: document.getElementById("modalBackSchoolName").value,
+        schoolAddress: document.getElementById("modalBackSchoolAddress").value,
+        principalName: document.getElementById("modalBackPrincipalName").value,
+        principalMobile: document.getElementById("modalBackPrincipalMobile").value,
+        emergency: document.getElementById("modalBackEmergency").value,
+        email: document.getElementById("modalBackEmail").value,
+        website: document.getElementById("modalBackWebsite").value,
+        customText1: document.getElementById("modalBackCustom1").value,
+        customText2: document.getElementById("modalBackCustom2").value,
+        footer: document.getElementById("modalBackFooter").value,
+        instructions: document.getElementById("modalBackInstructions").value,
+        returnMessage: document.getElementById("modalBackReturnMessage").value,
+        signature: loadedSchoolProfile.backCard.signature,
+        showLogo: document.getElementById("modalSwitchLogo").checked,
+        showSignature: document.getElementById("modalSwitchSignature").checked,
+        showFooter: document.getElementById("modalSwitchFooter").checked,
+        showQRCode: document.getElementById("modalSwitchQR").checked,
+        showEmergency: document.getElementById("modalSwitchEmergency").checked,
+        showWebsite: document.getElementById("modalSwitchWebsite").checked,
+        showEmail: document.getElementById("modalSwitchEmail").checked
+    };
+}
+
+async function liveUpdateBackPreview() {
+    const container = document.getElementById("modalBackCardLivePreviewContainer");
+    container.innerHTML = "";
+    
+    const proxyConfigProfile = { backCard: gatherModalFormConfigObject() };
+    const proxyStudent = currentCardsData[0] || { studentName: "John Doe", className: "X-A", mobileNumber: "9999999999", fatherName: "Father Name", dob: "01/01/2010", address: "Student Address" };
+    
+    const baseLogo = await getObjectURL(loadedSchoolProfile.schoolLogo, defaultSchoolLogo);
+    const baseSign = await getObjectURL(loadedSchoolProfile.principalSignature, defaultSignature);
+    
+    const logoUrl = await getObjectURL(proxyConfigProfile.backCard.schoolLogo, baseLogo);
+    const signUrl = await getObjectURL(proxyConfigProfile.backCard.signature, baseSign);
+
+    const backPreviewDOM = renderBackCard(proxyStudent, proxyConfigProfile, logoUrl, signUrl);
+    backPreviewDOM.classList.remove("selected", "deselected");
+    backPreviewDOM.querySelector(".export-select-checkbox").style.display = "none";
+    
+    container.appendChild(backPreviewDOM);
+}
+
+function processModalBackFile(inputElement, fieldKey) {
+    const file = inputElement.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        loadedSchoolProfile.backCard[fieldKey] = e.target.result; 
+        liveUpdateBackPreview();
+    };
+    reader.readAsDataURL(file);
+}
+
+async function saveBackCardModalSettings() {
+    loadedSchoolProfile.backCard = gatherModalFormConfigObject();
+    const payload = { schoolProfile: loadedSchoolProfile, students: currentCardsData };
+    localStorage.setItem("school-id-" + activeParamToken, JSON.stringify(payload));
+    
+    await rebuildEntireMasterCardsDOMArray();
+    renderCurrentLayout();
+    closeBackCardEditorModal();
+}
+
+async function resetBackCardModalSettings() {
+    if (confirm("Reset back card configuration to factory defaults?")) {
+        delete loadedSchoolProfile.backCard;
+        initializeBackCardObjectStructure(loadedSchoolProfile);
+        openBackCardEditorModal();
+    }
+}
+
+/* ==========================================================================
+    DOM APPLICATION INITIALIZATION BOOTSTRAP HOOKS
+   ========================================================================== */
+window.addEventListener("DOMContentLoaded", async () => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+    activeParamToken = token;
+
+    if (!token) {
+        showErrorMessage("Invalid token");
+        return;
+    }
+
+    const rawData = localStorage.getItem("school-id-" + token);
+    if (!rawData) {
+        showErrorMessage("Record Not Found");
+        return;
+    }
+
+    let payload = null;
+    try {
+        payload = JSON.parse(rawData);
+    } catch(e) {
+        showErrorMessage("Record Parsing Error");
+        return;
+    }
+
+    const profile = payload ? payload.schoolProfile : null;
+    const studentsList = payload ? payload.students : null;
+
+    if (!profile || !Array.isArray(studentsList)) {
+        showErrorMessage("Invalid Data Structure Scheme Loaded");
+        return;
+    }
+
+    if (studentsList.length === 0) {
+        showErrorMessage("No Student Cards Available");
+        return;
+    }
+
+    currentCardsData = studentsList;
+    loadedSchoolProfile = profile;
+
+    initializeBackCardObjectStructure(loadedSchoolProfile);
+    
+    // STEP 12: AUTOMATICALLY INITIALIZE AND LOAD SAVED CUSTOM DISPLAY THEMES
+    initializeCardThemeObjectStructure(loadedSchoolProfile);
+    applyThemeSettingsToDOM(loadedSchoolProfile.cardTheme);
+    
+    document.getElementById("backSideSystemToggle").checked = loadedSchoolProfile.backCard.enabled;
+
+    await rebuildEntireMasterCardsDOMArray();
+    initializeSelection();
+    renderCurrentLayout();
+});
+
+window.addEventListener('click', function(e) {
+  const menu = document.getElementById('downloadMenu');
+  const btn = document.getElementById('downloadMenuBtn');
+  if (menu && btn && !btn.contains(e.target) && !menu.contains(e.target)) {
+    menu.style.display = 'none';
+  }
+});
+</script>
+
+<script>
+/* ==========================================================================
+    Universal Shared Export System Module Architectures
+   ========================================================================== */
+let dependenciesPromise = null;
+
+function verifyAndInjectLibraries() {
+    if (dependenciesPromise) return dependenciesPromise;
+
+    dependenciesPromise = new Promise((resolve, reject) => {
+        const targetScripts = [];
+        if (typeof html2canvas === 'undefined') {
+            targetScripts.push('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
+        }
+        if (typeof jspdf === 'undefined') {
+            targetScripts.push('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+        }
+        if (typeof JSZip === 'undefined') {
+            targetScripts.push('https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js');
+        }
+
+        if (targetScripts.length === 0) return resolve();
+
+        let loaded = 0;
+        targetScripts.forEach(src => {
+            const tag = document.createElement('script');
+            tag.type = 'text/javascript';
+            tag.src = src;
+            tag.async = true;
+            tag.onload = () => {
+                loaded++;
+                if (loaded === targetScripts.length) resolve();
+            };
+            tag.onerror = () => reject(new Error(`Failed resource deployment: ${src}`));
+            document.head.appendChild(tag);
+        });
+    });
+
+    return dependenciesPromise;
+}
+
+function waitForImages() {
+    const root = getExportElement();
+    const imgs = Array.from(root.getElementsByTagName('img'));
+    
+    return Promise.all(imgs.map(img => {
+        if (img.complete) return Promise.resolve();
+        return new Promise(resolve => {
+            img.onload = resolve;
+            img.onerror = resolve; 
+        });
+    }));
+}
+
+function getExportElement() {
+    const element = document.getElementById("cardsContainer");
+    if (!element) throw new Error("Container target '#cardsContainer' missing.");
+    return element;
+}
+
+function getLayoutPages() {
+    const container = getExportElement();
+    return Array.from(container.querySelectorAll("[class$='-page']"));
+}
+
+function toggleDownloadMenu() {
+    const targetMenu = document.getElementById('downloadMenu');
+    if (targetMenu) {
+        targetMenu.style.display = (targetMenu.style.display === 'block') ? 'none' : 'block';
+    }
+}
+
+async function runExporterWrapper(triggeringButtonText, processingTask) {
+    if (!validateExportContext()) return;
+    
+    let actionableButton = null;
+    let fallbackText = "";
+    
+    try {
+        const collection = document.getElementById('downloadMenu');
+        if (collection) {
+            const instances = Array.from(collection.getElementsByTagName('button'));
+            actionableButton = instances.find(node => node.getAttribute('onclick')?.includes(triggeringButtonText));
+        }
+
+        if (actionableButton) {
+            fallbackText = actionableButton.innerHTML;
+            actionableButton.disabled = true;
+            actionableButton.innerHTML = "Generating...";
+        }
+
+        await verifyAndInjectLibraries();
+        await waitForImages();
+        await processingTask();
+
+    } catch (fault) {
+        console.error("Layout Engine Processing Interruption intercepted:", fault);
+        alert(`Export processing execution aborted: ${fault.message || fault}`);
+    } finally {
+        if (actionableButton) {
+            actionableButton.disabled = false;
+            actionableButton.innerHTML = fallbackText;
+        }
+        const dropdownMenuNode = document.getElementById('downloadMenu');
+        if (dropdownMenuNode) dropdownMenuNode.style.display = 'none';
+    }
+}
+
+async function capturePage(pageElement, formatType, encodingQuality = 1.0) {
+    const checkedCheckboxes = Array.from(pageElement.querySelectorAll('.export-select-checkbox'));
+    checkedCheckboxes.forEach(chk => chk.style.display = 'none');
+
+    try {
+        const canvas = await html2canvas(pageElement, {
+            scale: 3,
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: "#ffffff",
+            width: pageElement.scrollWidth,
+            height: pageElement.scrollHeight
+        });
+        return new Promise((resolve) => {
+            canvas.toBlob((blob) => resolve(blob), formatType, encodingQuality);
+        });
+    } finally {
+        checkedCheckboxes.forEach(chk => chk.style.display = '');
+    }
+}
+
+function downloadBlob(blob, filename) {
+    const transferAnchor = document.createElement("a");
+    transferAnchor.download = filename;
+    transferAnchor.href = URL.createObjectURL(blob);
+    transferAnchor.click();
+}
+
+async function exportZip(pages, extension, mimeType) {
+    const archive = new JSZip();
+    for (let index = 0; index < pages.length; index++) {
+        const imgBlob = await capturePage(pages[index], mimeType, 1.0);
+        const paddedIndex = String(index + 1).padStart(2, '0');
+        
+        const innerFileName = getExportFileName(extension, paddedIndex);
+        archive.file(innerFileName, imgBlob);
+    }
+    const compiledContent = await archive.generateAsync({ type: "blob" });
+    const computedZipName = getExportFileName('zip');
+    downloadBlob(compiledContent, computedZipName);
+}
+
+async function handleRasterExport(extension, mimeType) {
+    const pages = getLayoutPages();
+    if (pages.length === 0) {
+        alert("Operation aborted: No elements match active layout configuration.");
+        return;
+    }
+
+    if (pages.length === 1) {
+        const singleBlob = await capturePage(pages[0], mimeType, 1.0);
+        const computedImgName = getExportFileName(extension);
+        downloadBlob(singleBlob, computedImgName);
+    } else {
+        await exportZip(pages, extension, mimeType);
+    }
+}
+
+async function buildUnifiedPDFBlob() {
+    const wrappers = getLayoutPages();
+    if (wrappers.length === 0) {
+        throw new Error("No active page wrapper components present to output.");
+    }
+
+    const checkboxes = Array.from(getExportElement().querySelectorAll('.export-select-checkbox'));
+    checkboxes.forEach(chk => chk.style.display = 'none');
+
+    try {
+        const { jsPDF } = window.jspdf;
+        let pdfInstance = null;
+
+        for (let i = 0; i < wrappers.length; i++) {
+            const currentWrapper = wrappers[i];
+
+            const ptWidth = currentWrapper.offsetWidth;
+            const ptHeight = currentWrapper.scrollHeight || currentWrapper.offsetHeight;
+
+            const pageCanvas = await html2canvas(currentWrapper, {
+                scale: 3,
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: "#ffffff",
+                width: ptWidth,
+                height: ptHeight
+            });
+
+            const dataUrl = pageCanvas.toDataURL("image/jpeg", 0.95);
+            const pageOrientation = ptWidth >= ptHeight ? "landscape" : "portrait";
+
+            if (i === 0) {
+                pdfInstance = new jsPDF({
+                    orientation: pageOrientation,
+                    unit: "pt",
+                    format: [ptWidth, ptHeight]
+                });
+            } else {
+                pdfInstance.addPage([ptWidth, ptHeight], pageOrientation);
+            }
+
+            pdfInstance.addImage(dataUrl, "JPEG", 0, 0, ptWidth, ptHeight, null, "FAST");
+            pageCanvas.width = 0;
+            pageCanvas.height = 0;
+        }
+
+        return pdfInstance.output("blob");
+    } finally {
+        checkboxes.forEach(chk => chk.style.display = '');
+    }
+}
+
+async function downloadPNG() {
+    await runExporterWrapper('downloadPNG', async () => {
+        await handleRasterExport('png', 'image/png');
+    });
+}
+
+async function downloadJPG() {
+    await runExporterWrapper('downloadJPG', async () => {
+        await handleRasterExport('jpg', 'image/jpeg');
+    });
+}
+
+async function downloadPDF() {
+    await runExporterWrapper('downloadPDF', async () => {
+        const pdfBlob = await buildUnifiedPDFBlob();
+        const computedPdfName = getExportFileName('pdf');
+        downloadBlob(pdfBlob, computedPdfName);
+    });
+}
+
+async function openPDF() {
+    await runExporterWrapper('openPDF', async () => {
+        const pdfBlob = await buildUnifiedPDFBlob();
+        window.open(URL.createObjectURL(pdfBlob), "_blank");
+    });
+}
+
+async function sharePDF() {
+    await runExporterWrapper('sharePDF', async () => {
+        const pdfBlob = await buildUnifiedPDFBlob();
+        const computedPdfName = getExportFileName('pdf');
+        const sharedFile = new File([pdfBlob], computedPdfName, { type: "application/pdf" });
+
+        if (navigator.canShare && navigator.canShare({ files: [sharedFile] })) {
+            await navigator.share({
+                files: [sharedFile],
+                title: "ID Documents Batch Export Pipeline Payload Document",
+                text: "Unified System Document Transmit"
+            });
+        } else {
+            window.open(URL.createObjectURL(pdfBlob), "_blank");
+        }
+    });
+}
+
+function printCards() {
+    if (!validateExportContext()) return;
+    window.print();
+}
+</script>
+<script>
+function toggleDownloadMenu() {
+    const modeSelect = document.getElementById("focusModeSelect");
+    if (modeSelect.value === "show") {
+        modeSelect.value = "focus";
+        handleFocusModeChange("focus");
+    }
+    const menu = document.getElementById("downloadMenu");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+}
+</script>
+</body>
+</html>

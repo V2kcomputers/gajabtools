@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ID Card Generator - Create</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .form-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+
+  .table-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    overflow-x: auto;
+  }
+
+  .student-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+
+  .student-table th,
+  .student-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+  }
+
+  .student-table th {
+    background-color: #007acc;
+    color: white;
+  }
+
+  .student-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  .student-table tr:hover {
+    background-color: #f5f5f5;
+  }
+
+  .action-buttons-wrapper {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  button {
+    padding: 10px;
+    background-color: #007acc;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    flex: 1;
+    min-width: 120px;
+  }
+
+  button.delete-btn {
+    background-color: #dc3545;
+  }
+
+  button.preview-btn {
+    background-color: #17a2b8;
+  }
+
+  button.profile-save-btn {
+    background-color: #4b5320;
+    margin-top: 15px;
+  }
+
+  button:hover {
+    opacity: 0.9;
+  }
+
+   
+  .id-card {
+    width: 450px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    position: relative;
+    background: #fff;
+    text-align: left;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+
+  .id-card-header {
+    background: linear-gradient(to right, #005580, #007acc);
+    color: white;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .id-card-header img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+    background: #fff;
+  }
+
+  .id-card-content {
+    padding: 20px;
+    font-size: 14px;
+  }
+
+  .id-card-content p {
+    margin: 5px 0;
+  }
+
+  .id-card-footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #eee;
+    font-size: 12px;
+  }
+
+  .school-info {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .upload-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+  }
+
+  .upload-box {
+    width: 900px;
+    height: 650px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .upload-box iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .close-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 10;
+    background: red;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+
+  .preview-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 100000;
+  }
+
+  .preview-box {
+    background: transparent;
+    position: relative;
+    padding: 20px;
+  }
+
+  .preview-close-btn {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+  }
+   
+
+.template-switcher{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+    gap:20px;
+    margin:25px 0;
+}
+
+.template-card{
+    display:block;
+    cursor:pointer;
+    border:2px solid #ddd;
+    border-radius:12px;
+    overflow:hidden;
+    background:#fff;
+    transition:.25s;
+    position:relative;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.template-card:hover{
+    transform:translateY(-5px);
+    border-color:#007bff;
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+}
+
+.template-card input{
+    display:none;
+}
+
+.template-card img{
+    width:100%;
+    height:230px;
+    object-fit:cover;
+    display:block;
+    background:#f5f5f5;
+}
+
+.template-card span{
+    display:block;
+    text-align:center;
+    padding:12px;
+    font-weight:600;
+    font-size:15px;
+    color:#333;
+}
+
+ 
+
+.template-card input:checked + img{
+    border-bottom:4px solid #0d6efd;
+}
+
+.template-card:has(input:checked){
+    border:3px solid #0d6efd;
+    box-shadow:0 0 0 4px rgba(13,110,253,.15);
+}
+
+.template-card:has(input:checked)::after{
+
+    content:"✓ Selected";
+
+    position:absolute;
+
+    top:10px;
+    right:10px;
+
+    background:#198754;
+
+    color:#fff;
+
+    padding:5px 10px;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+    border-radius:20px;
+
+}
+
+ 
+
+@media(max-width:768px){
+
+.template-switcher{
+
+grid-template-columns:repeat(2,1fr);
+
+gap:15px;
+
+}
+
+.template-card img{
+
+height:180px;
+
+}
+
+}
+
+@media(max-width:480px){
+
+.template-switcher{
+
+grid-template-columns:1fr;
+
+}
+
+.template-card img{
+
+height:220px;
+
+}
+
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="form-container">
+    <h2>Student ID Card Generator</h2>
+    
+    <div class="school-info" id="schoolProfileFormBlock">
+      <h3>School Information</h3>
+      <div class="form-group">
+        <label for="schoolName">School Name</label>
+        <input type="text" id="schoolName" value="NEW IDEAL CONVENT SCHOOL" required>
+      </div>
+      <div class="form-group">
+        <label for="schoolType">School Type</label>
+        <input type="text" id="schoolType" value="English Medium School" required>
+      </div>
+      <div class="form-group">
+        <label for="schoolAddress">Address</label>
+        <input type="text" id="schoolAddress" value="KUDAI, PATERA" required>
+      </div>
+      <div class="form-group">
+        <label for="principalName">Principal Name</label>
+        <input type="text" id="principalName" value="Mr. Umesh Upadhyay" required>
+      </div>
+      <div class="form-group">
+        <label for="principalMobile">Principal Mobile</label>
+        <input type="text" id="principalMobile" value="9617563579" required>
+      </div>
+      <div class="form-group">
+        <input type="hidden" id="schoolLogo">
+        <button type="button" onclick="openUploader('schoolLogo')">Upload School Logo</button>
+        <div id="schoolLogoPreview"></div>
+      </div>
+      <div class="form-group">
+        <input type="hidden" id="principalSignature">
+        <button type="button" onclick="openUploader('principalSignature')">Upload Signature</button>
+        <div id="principalSignaturePreview"></div>
+      </div>
+      <button type="button" class="profile-save-btn" onclick="saveSchoolProfile()">💾 Save School Profile</button>
+    </div>
+
+    <form id="idCardForm">
+      <div class="form-group">
+        <label for="studentName">Student's Name</label>
+        <input type="text" id="studentName" required>
+      </div>
+      <div class="form-group">
+        <label for="fatherName">Father's Name</label>
+        <input type="text" id="fatherName" required>
+      </div>
+      <div class="form-group">
+        <label for="dob">Date of Birth</label>
+        <input type="text" id="dob" required>
+      </div>
+      <div class="form-group">
+        <label for="className">Class</label>
+        <input type="text" id="className" required>
+      </div>
+      <div class="form-group">
+        <label for="mobileNumber">Mobile Number</label>
+        <input type="text" id="mobileNumber" required>
+      </div>
+      <div class="form-group">
+        <label for="address">Address</label>
+        <input type="text" id="address" required>
+      </div>
+      <div class="form-group">
+        <label>Student Photo</label>
+        <input type="hidden" id="studentPhoto">
+        <button type="button" onclick="openUploader('studentPhoto')">Upload Student Photo</button>
+        <div id="studentPhotoPreview"></div>
+      </div>
+
+      <div class="button-group">
+        <button type="button" onclick="generateCard()">+ Add Card</button>
+        <button type="button" onclick="clearForm()" style="background-color: #6c757d;">Clear Form</button>
+        <button type="button" onclick="addNewCard()" style="background-color: #28a745;">Reset/New Card</button>
+        <button type="button" onclick="generateAllCardsPage()" style="background-color:  #ff9800; font-weight: bold; flex: 2; max-width: 250px;">Generate All ID Cards ➔</button>
+      </div>
+    </form>
+  </div>
+
+<h2>Select ID Card Template</h2>
+
+<div class="template-switcher">
+
+<label class="template-card">
+<input
+type="radio"
+name="template"
+value="/school-id-generated/"
+data-format="format01"
+checked>
+
+<img src="/images/id-template-01.jpg">
+
+<span>Format 01</span>
+</label>
+
+
+<label class="template-card">
+<input
+type="radio"
+name="template"
+value="/school-id-generated-02/"
+data-format="format02">
+
+<img src="/images/id-template-02.jpg">
+
+<span>Format 02</span>
+</label>
+
+
+<label class="template-card">
+<input
+type="radio"
+name="template"
+value="/school-id-generated-03/"
+data-format="format03">
+
+<img src="/images/id-template-03.jpg">
+
+<span>Format 03</span>
+</label>
+
+
+<label class="template-card">
+<input
+type="radio"
+name="template"
+value="/school-id-generated-04/"
+data-format="format04">
+
+<img src="/images/id-template-04.jpg">
+
+<span>Format 04</span>
+</label>
+
+</div>
+ 
+
+  <div id="tableContainer" class="table-container">
+     <div class="action-buttons-wrapper">
+    <button type="button" onclick="clearAllLocalStorage()" style="background:#dc3545; max-width: 250px; margin-left: auto;">🗑 Clear All</button>
+      <button type="button" onclick="generateAllCardsPage()" style="background-color:  #ff9800; font-weight: bold; flex: 2; max-width: 250px;">Generate All ID Cards ➔</button>
+  </div>
+    <table class="student-table">
+      <thead>
+        <tr>
+          <th>Student Name</th>
+          <th>Father's Name</th>
+          <th>Date of Birth</th>
+          <th>Class</th>
+          <th>Mobile Number</th>
+          <th>Address</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="studentTableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+
+
+
+
+<div id="uploadModal" class="upload-modal">
+    <div class="upload-box">
+        <button class="close-btn" onclick="closeUploader()">✖</button>
+        <iframe id="uploadFrame" src="" frameborder="0"></iframe>
+    </div>
+</div>
+
+<div id="previewCardModal" class="preview-modal">
+    <div class="preview-box">
+        <button class="preview-close-btn" onclick="closePreviewModal()">✖</button>
+        <div id="popupCardInjectTarget"></div>
+    </div>
+</div>
+
+<script>
+let cardCounter = 0;
+let studentsData = [];
+let editingStudentId = null;
+let currentUploadField = "";
+
+const activeObjectURLs = new Set();
+
+
+const defaultSchoolLogo = "/svg/school.svg";
+const defaultSignature = "/svg/signature.svg";
+const defaultStudentPhoto = "/svg/student-person-3.svg";
+
+function openImageDB() {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open("ImageLibrary", 2);
+        request.onsuccess = (e) => resolve(e.target.result);
+        request.onerror = (e) => reject(e.target.error);
+        request.onupgradeneeded = (e) => {
+            const database = e.target.result;
+            if (!database.objectStoreNames.contains("images")) {
+                const store = database.createObjectStore("images", { keyPath: "id", autoIncrement: true });
+                store.createIndex("token", "token", { unique: true });
+            }
+        };
+    });
+}
+
+async function getImageByToken(token) {
+    if (!token) return null;
+    try {
+        const db = await openImageDB();
+        const tx = db.transaction("images", "readonly");
+        const index = tx.objectStore("images").index("token");
+        return new Promise(resolve => {
+            index.get(token).onsuccess = (e) => resolve(e.target.result || null);
+        });
+    } catch (err) {
+        console.error("IndexedDB Error:", err);
+        return null;
+    }
+}
+
+
+async function getObjectURL(token, fallbackPath) {
+    if (!token) return fallbackPath;
+    const imageRecord = await getImageByToken(token);
+    if (imageRecord && imageRecord.blob) {
+        const url = URL.createObjectURL(imageRecord.blob);
+        activeObjectURLs.add(url);
+        return url;
+    }
+    return fallbackPath;
+}
+
+function revokeUnusedURLs() {
+    activeObjectURLs.forEach(url => URL.revokeObjectURL(url));
+    activeObjectURLs.clear();
+}
+
+async function setPreview(field, token) {
+    const hiddenInput = document.getElementById(field);
+    const previewContainer = document.getElementById(field + "Preview");
+    if (!hiddenInput || !previewContainer) return;
+    
+    hiddenInput.value = token || "";
+    
+    
+    let fallback = defaultStudentPhoto;
+    if (field === "schoolLogo") fallback = defaultSchoolLogo;
+    if (field === "principalSignature") fallback = defaultSignature;
+
+    const url = await getObjectURL(token, fallback);
+    previewContainer.innerHTML = `<img src="${url}" width="120" style="margin-top:10px; border-radius:4px; max-height:100px; object-fit:contain;">`;
+    
+    
+    if (field === "schoolLogo" || field === "principalSignature") {
+        autoSaveSchoolProfileSilent();
+    }
+}
+
+function openUploader(field) {
+    currentUploadField = field;
+    document.getElementById("uploadFrame").src = "/upload/";
+    document.getElementById("uploadModal").style.display = "flex";
+}
+
+function closeUploader() {
+    document.getElementById("uploadModal").style.display = "none";
+    document.getElementById("uploadFrame").src = "";
+}
+
+window.addEventListener("message", async function(e) {
+    if (!e.data || !e.data.token) return;
+    if (currentUploadField) {
+        await setPreview(currentUploadField, e.data.token);
+    }
+    closeUploader();
+});
+
+
+window.addEventListener("DOMContentLoaded", async () => {
+  window.addEventListener("DOMContentLoaded",()=>{
+
+const params=new URLSearchParams(location.search);
+
+const format=params.get("format");
+
+if(!format) return;
+
+const radio=document.querySelector(
+`input[data-format="${format}"]`
+);
+
+if(radio){
+
+radio.checked=true;
+
+selectedTemplate=radio.value;
+
+}
+
+});
+    
+    const storedProfile = localStorage.getItem("school-profile");
+    if (storedProfile) {
+        try {
+            const profile = JSON.parse(storedProfile);
+            document.getElementById("schoolName").value = profile.schoolName || "";
+            document.getElementById("schoolType").value = profile.schoolType || "";
+            document.getElementById("schoolAddress").value = profile.schoolAddress || "";
+            document.getElementById("principalName").value = profile.principalName || "";
+            document.getElementById("principalMobile").value = profile.principalMobile || "";
+            
+            if (profile.schoolLogo) {
+                await setPreview("schoolLogo", profile.schoolLogo);
+            }
+            if (profile.principalSignature) {
+                await setPreview("principalSignature", profile.principalSignature);
+            }
+        } catch(e) {
+            console.error("School profile load error:", e);
+        }
+    }
+
+    
+   const saved =
+JSON.parse(localStorage.getItem("school-id-list"));
+
+if(saved){
+
+    const hours =
+        (Date.now()-saved.savedAt)/(1000*60*60);
+
+    if(hours<24){
+
+        studentsData=saved.students || [];
+
+    }else{
+
+        localStorage.removeItem("school-id-list");
+
+        studentsData=[];
+
+    }
+
+}else{
+
+    studentsData=[];
+
+}
+    if (studentsData.length > 0) {
+        let maxIdNum = 0;
+        studentsData.forEach(s => {
+            const num = parseInt(s.id.replace("card-", ""), 10);
+            if (!isNaN(num) && num > maxIdNum) maxIdNum = num;
+        });
+        cardCounter = maxIdNum + 1;
+    }
+    updateTable();
+});
+
+function getSchoolProfileObject() {
+    return {
+        schoolName: document.getElementById("schoolName").value,
+        schoolType: document.getElementById("schoolType").value,
+        schoolAddress: document.getElementById("schoolAddress").value,
+        principalName: document.getElementById("principalName").value,
+        principalMobile: document.getElementById("principalMobile").value,
+        schoolLogo: document.getElementById("schoolLogo").value,
+        principalSignature: document.getElementById("principalSignature").value
+    };
+}
+
+function saveSchoolProfile() {
+    const profile = getSchoolProfileObject();
+    localStorage.setItem("school-profile", JSON.stringify(profile));
+    alert("💾 School Profile saved successfully!");
+}
+
+function autoSaveSchoolProfileSilent() {
+    const profile = getSchoolProfileObject();
+    localStorage.setItem("school-profile", JSON.stringify(profile));
+}
+
+function syncStudentsToLocalStorage() {
+    localStorage.setItem("school-id-list", JSON.stringify(studentsData));
+}
+
+async function generateCard() {
+  if (studentsData.length >= 100 && !editingStudentId) {
+      alert("Maximum 100 Student ID Cards Allowed.");
+      return;
+  }
+
+  const form = document.getElementById('idCardForm');
+  if (!form.checkValidity()) {
+    alert('Please fill in all required fields');
+    return;
+  }
+
+  const studentPhotoUrl = document.getElementById("studentPhoto").value;
+
+  if (editingStudentId) {
+      const index = studentsData.findIndex(s => s.id === editingStudentId);
+      if (index !== -1) {
+          studentsData[index] = {
+              id: editingStudentId,
+              studentName: document.getElementById('studentName').value,
+              fatherName: document.getElementById('fatherName').value,
+              dob: document.getElementById('dob').value,
+              className: document.getElementById('className').value,
+              mobileNumber: document.getElementById('mobileNumber').value,
+              address: document.getElementById('address').value,
+              studentPhotoUrl: studentPhotoUrl
+          };
+      }
+      editingStudentId = null;
+  } else {
+      const studentData = {
+        id: `card-${cardCounter++}`,
+        studentName: document.getElementById('studentName').value,
+        fatherName: document.getElementById('fatherName').value,
+        dob: document.getElementById('dob').value,
+        className: document.getElementById('className').value,
+        mobileNumber: document.getElementById('mobileNumber').value,
+        address: document.getElementById('address').value,
+        studentPhotoUrl: studentPhotoUrl
+      };
+      studentsData.push(studentData);
+  }
+
+  syncStudentsToLocalStorage();
+  updateTable();
+  clearForm();
+}
+
+function updateTable() {
+  const tableBody = document.getElementById('studentTableBody');
+  tableBody.innerHTML = '';
+
+  studentsData.forEach(student => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${student.studentName}</td>
+      <td>${student.fatherName}</td>
+      <td>${student.dob}</td>
+      <td>${student.className}</td>
+      <td>${student.mobileNumber}</td>
+      <td>${student.address}</td>
+      <td>
+        <button class="preview-btn" onclick="previewSingleCard('${student.id}')" style="padding: 5px 10px; color: white; border: none; border-radius: 4px; margin-right:2px;">👁 Preview</button>
+        <button onclick="editCard('${student.id}')" style="padding: 5px 10px; background-color: #28a745; color: white; border: none; border-radius: 4px; margin-right:2px;">Edit</button>
+        <button class="delete-btn" onclick="deleteCard('${student.id}')" style="padding: 5px 10px;">Delete</button>
+      </td>
+    `;
+    tableBody.appendChild(row);
+  });
+}
+
+
+async function previewSingleCard(cardId) {
+    const student = studentsData.find(s => s.id === cardId);
+    if (!student) return;
+
+    
+    const profile = getSchoolProfileObject();
+
+    revokeUnusedURLs();
+    const targetNode = document.getElementById("popupCardInjectTarget");
+    targetNode.innerHTML = "<p style='color:white;text-align:center;'>Loading ID Card Assets...</p>";
+    document.getElementById("previewCardModal").style.display = "flex";
+
+    const logoUrl = await getObjectURL(profile.schoolLogo, defaultSchoolLogo);
+    const signUrl = await getObjectURL(profile.principalSignature, defaultSignature);
+    const photoUrl = await getObjectURL(student.studentPhotoUrl, defaultStudentPhoto);
+
+    targetNode.innerHTML = `
+      <div class="id-card">
+        <div class="id-card-header">
+          <img src="${logoUrl}" alt="School Logo">
+          <div>
+            <h3 style="margin:0; font-size:16px;">${profile.schoolName || "---"}</h3>
+            <p style="margin:2px 0 0 0; font-size:12px;">(${profile.schoolType || "---"})</p>
+            <p style="margin:2px 0 0 0; font-size:11px;">${profile.schoolAddress || "---"}</p>
+          </div>
+        </div>
+        <div class="id-card-content">
+          <img src="${photoUrl}" alt="Student Photo" style="width:100px; height:100px; border-radius: 8px; margin-bottom: 10px; object-fit:cover; display:block; background:#f0f0f0;">
+          <p><strong>Student's Name:</strong> ${student.studentName}</p>
+          <p><strong>Father's Name:</strong> ${student.fatherName}</p>
+          <p><strong>Date of Birth:</strong> ${student.dob}</p>
+          <p><strong>Class:</strong> ${student.className}</p>
+          <p><strong>Mobile Number:</strong> ${student.mobileNumber}</p>
+          <p><strong>Address:</strong> ${student.address}</p>
+        </div>
+        <div class="id-card-footer">
+          <p><img src="${signUrl}" alt="Principal Signature" style="width: 70px; height: 25px; vertical-align: middle; object-fit:contain; margin-right:5px;"> ${profile.principalName || "---"}</p>
+          <p style="margin:4px 0 0 0;">Mo. ${profile.principalMobile || "---"}</p>
+        </div>
+      </div>
+    `;
+}
+
+function closePreviewModal() {
+    document.getElementById("previewCardModal").style.display = "none";
+    document.getElementById("popupCardInjectTarget").innerHTML = "";
+    revokeUnusedURLs();
+}
+
+function clearForm() {
+  
+  document.getElementById('idCardForm').reset();
+  editingStudentId = null;
+  clearPreview("studentPhoto");
+}
+
+function deleteCard(cardId) {
+  if (confirm('Are you sure you want to delete this student record?')) {
+    studentsData = studentsData.filter(student => student.id !== cardId);
+    syncStudentsToLocalStorage();
+    updateTable();
+  }
+}
+
+async function editCard(cardId) {
+  const student = studentsData.find(student => student.id === cardId);
+  if (student) {
+    editingStudentId = cardId;
+    
+    document.getElementById('studentName').value = student.studentName;
+    document.getElementById('fatherName').value = student.fatherName;
+    document.getElementById('dob').value = student.dob;
+    document.getElementById('className').value = student.className;
+    document.getElementById('mobileNumber').value = student.mobileNumber;
+    document.getElementById('address').value = student.address;
+
+    await setPreview("studentPhoto", student.studentPhotoUrl);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function addNewCard() {
+  clearForm();
+  document.getElementById('studentName').focus();
+}
+
+function generateAllCardsPage() {
+
+    if (studentsData.length === 0) {
+        alert("Please add at least one student before exporting.");
+        return;
+    }
+
+    if (studentsData.length > 100) {
+        alert("Maximum 100 Student ID Cards Allowed.");
+        return;
+    }
+
+    autoSaveSchoolProfileSilent();
+
+    
+    syncStudentsToLocalStorage();
+
+    const batchPayload = {
+        schoolProfile: getSchoolProfileObject(),
+        students: studentsData
+    };
+
+    try {
+
+        const token = crypto.randomUUID();
+
+        localStorage.setItem(
+            "school-id-" + token,
+            JSON.stringify(batchPayload)
+        );
+
+        
+        
+
+        window.location.href=
+selectedTemplate+"?token="+token;
+
+    } catch (err) {
+
+        alert(err.message);
+
+    }
+
+}
+function syncStudentsToLocalStorage(){
+
+    const data = {
+        savedAt: Date.now(),
+        students: studentsData
+    };
+
+    localStorage.setItem(  
+        "school-id-list",
+        JSON.stringify(data)
+    );
+
+}
+function clearAllLocalStorage() {
+    if (!confirm("⚠️ This will delete ALL LocalStorage data for this website context.\n\nDo you wish to continue?")) {
+        return;
+    }
+    localStorage.clear();
+    alert("✅ Storage structures cleared successfully.");
+    location.reload();
+} 
+</script>
+<script>
+  let selectedTemplate="/school-id-generated/";
+
+document
+.querySelectorAll('input[name="template"]')
+.forEach(radio=>{
+
+radio.addEventListener("change",function(){
+
+selectedTemplate=this.value;
+
+const format=this.dataset.format;
+
+const url=new URL(window.location);
+
+url.searchParams.set("format",format);
+
+history.replaceState({},'',url);
+
+});
+
+});
+</script>
+</body>
+</html>
