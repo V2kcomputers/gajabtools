@@ -3,131 +3,618 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ID Card Generator - Create</title>
+<title>ID Card Generator - Professional Dashboard</title>
 <style>
+  /* ====================================================
+     MODERN VARIABLE DECLARATIONS & SYSTEM PRESETS
+     ==================================================== */
+  :root {
+    --primary: #4f46e5;
+    --primary-dark: #4338ca;
+    --primary-light: rgba(79, 70, 229, 0.1);
+    --secondary: #0ea5e9;
+    --success: #10b981;
+    --success-dark: #059669;
+    --danger: #ef4444;
+    --danger-dark: #dc2626;
+    --warning: #f59e0b;
+    --bg-main: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --radius-lg: 16px;
+    --radius-md: 12px;
+    --radius-sm: 8px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.02);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+    --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.05), 0 10px 10px -5px rgba(0,0,0,0.03);
+    --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
   body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     margin: 0;
-    background-color: #f2f2f2;
-    padding: 20px;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    padding: 0 0 40px 0;
+    line-height: 1.5;
+  }
+
+  /* ====================================================
+     PREMIUM GLASSMORPHISM STYLED MAIN HEADER
+     ==================================================== */
+  .dashboard-header {
+    position: sticky;
+    top: 0;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+    z-index: 100;
+    padding: 16px 24px;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .header-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
+    box-sizing: border-box;
+    padding: 0 24px;
   }
 
-  .form-container {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  /* ====================================================
+     LAYOUT GRID SPECIFICATIONS (TWO COLUMN STYLING)
+     ==================================================== */
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+    margin-bottom: 32px;
+  }
+
+  /* PREMIUM CARD BASE HOUSING ARTIFACT SECTIONS */
+  .section-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    padding: 24px;
+    transition: var(--transition);
+    box-sizing: border-box;
+  }
+
+  .section-card:hover {
+    box-shadow: var(--shadow-xl);
+    border-color: rgba(79, 70, 229, 0.2);
+  }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 0;
     margin-bottom: 20px;
+    color: var(--text-main);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
   }
 
+  .section-title span.icon {
+    font-size: 20px;
+  }
+
+  /* ====================================================
+     MODERN FORM INPUT CONTROL ARCHITECTURE
+     ==================================================== */
+  .form-group {
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: var(--transition);
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 15px;
+    color: var(--text-main);
+    background-color: #f8fafc;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    box-sizing: border-box;
+    transition: var(--transition);
+  }
+
+  input[type="text"]:focus {
+    outline: none;
+    background-color: #fff;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px var(--primary-light);
+  }
+
+  /* VALIDATION GRAPHICS */
+  input[type="text"]:focus:valid {
+    border-color: var(--success);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
+  }
+
+  input[type="text"].touched:invalid {
+    border-color: var(--danger);
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
+  }
+
+  .validation-message {
+    font-size: 12px;
+    margin-top: 4px;
+    font-weight: 500;
+    display: none;
+  }
+
+  input[type="text"].touched:invalid ~ .validation-message {
+    color: var(--danger);
+    display: block;
+  }
+
+  /* ====================================================
+     MODERN UPLOAD CARDS DESIGN SYSTEM
+     ==================================================== */
+  .upload-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
+    margin-top: 10px;
+  }
+
+  .upload-card {
+    border: 2px dashed var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    background: #f8fafc;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 140px;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  .upload-card:hover {
+    border-color: var(--primary);
+    background: rgba(79, 70, 229, 0.02);
+    transform: translateY(-2px);
+  }
+
+  .upload-card .icon-graphic {
+    font-size: 24px;
+    margin-bottom: 8px;
+    color: var(--text-muted);
+  }
+
+  .upload-card .label-text {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 8px;
+  }
+
+  .upload-preview-frame {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid var(--border-color);
+  }
+
+  .upload-preview-frame img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  .upload-preview-frame svg {
+    width: 36px;
+    height: 36px;
+    color: var(--text-muted);
+  }
+
+  /* ====================================================
+     STICKY ACTION SYSTEM CONFIGURATION
+     ==================================================== */
+  .sticky-action-bar {
+    position: sticky;
+    bottom: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 14px 24px;
+    border-radius: var(--radius-md);
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.05);
+    border: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    z-index: 90;
+    margin-top: 24px;
+  }
+
+  /* ====================================================
+     PREMIUM COMPONENT SPECIFIC INTERACTIVE BUTTONS
+     ==================================================== */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn:active {
+    transform: scale(0.98);
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    box-shadow: 0 2px 4px rgba(79, 70, 229, 0.2);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    opacity: 0.95;
+  }
+
+  .btn-success {
+    background: linear-gradient(135deg, var(--success), var(--success-dark));
+    color: white;
+    box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+  }
+
+  .btn-success:hover {
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    opacity: 0.95;
+  }
+
+  .btn-danger {
+    background: linear-gradient(135deg, var(--danger), var(--danger-dark));
+    color: white;
+    box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2);
+  }
+
+  .btn-danger:hover {
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    opacity: 0.95;
+  }
+
+  .btn-secondary {
+    background: #e2e8f0;
+    color: #334155;
+  }
+
+  .btn-secondary:hover {
+    background: #cbd5e1;
+  }
+
+  /* LOADING ANIMATIONS STRUCTURES */
+  .btn-loading-text {
+    display: none;
+  }
+  
+  .btn.is-loading .btn-icon-label,
+  .btn.is-loading .btn-text-content {
+    display: none;
+  }
+  
+  .btn.is-loading .btn-loading-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* ====================================================
+     TEMPLATE SWITCHER ENHANCED SCHEME
+     ==================================================== */
+  .template-switcher {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+  }
+
+  .template-card {
+    display: block;
+    cursor: pointer;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: #fff;
+    transition: var(--transition);
+    position: relative;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .template-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .template-card input {
+    display: none;
+  }
+
+  .template-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    background: #f1f5f9;
+    transition: var(--transition);
+  }
+
+  .template-card span {
+    display: block;
+    text-align: center;
+    padding: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-main);
+    background: #fff;
+    border-top: 1px solid var(--border-color);
+  }
+
+  /* COMPLEX KEY-INTERACTION COMBINATIONS TRIGGER CHANNELS */
+  .template-card input:checked ~ img {
+    filter: brightness(0.95);
+  }
+
+  .template-card:has(input:checked) {
+    border-color: var(--success);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
+    animation: cardGlow 2s infinite alternate;
+  }
+
+  @keyframes cardGlow {
+    0% { box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.1); }
+    100% { box-shadow: 0 0 16px 4px rgba(16, 185, 129, 0.25); }
+  }
+
+  .template-card:has(input:checked)::after {
+    content: "✓ Selected";
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--success);
+    color: #fff;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: bold;
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  /* ====================================================
+     MODERN DASHBOARD RE-ENGINEERED TABLE SYSTEM
+     ==================================================== */
   .table-container {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    margin-top: 32px;
+    overflow: hidden;
+  }
+
+  .table-header-bar {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8fafc;
+  }
+
+  .table-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .table-responsive-wrapper {
     overflow-x: auto;
+    max-height: 450px;
+    position: relative;
   }
 
   .student-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
-  }
-
-  .student-table th,
-  .student-table td {
-    border: 1px solid #ddd;
-    padding: 12px;
     text-align: left;
+    font-size: 14px;
   }
 
   .student-table th {
-    background-color: #007acc;
-    color: white;
+    background-color: #f1f5f9;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    padding: 14px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 1px solid var(--border-color);
   }
 
-  .student-table tr:nth-child(even) {
-    background-color: #f9f9f9;
+  .student-table td {
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-main);
+    vertical-align: middle;
+  }
+
+  .student-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .student-table tr {
+    transition: var(--transition);
   }
 
   .student-table tr:hover {
-    background-color: #f5f5f5;
+    background-color: rgba(241, 245, 249, 0.5);
   }
 
-  .action-buttons-wrapper {
+  /* AVATAR PICTURE LABELS FOR DATATABLE LAYOUT */
+  .table-avatar-cell {
     display: flex;
-    gap: 10px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    align-items: center;
+    gap: 12px;
+    font-weight: 500;
   }
 
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
+  .table-thumbnail {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #f1f5f9;
+    border: 1px solid var(--border-color);
   }
 
-  .form-group {
-    margin-bottom: 15px;
-  }
-
-  label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-
-  input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-
-  .button-group {
+  .table-actions {
     display: flex;
-    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .btn-icon-only {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+  }
+
+  /* ====================================================
+     SUCCESS TOAST SYSTEM SPECIFICATIONS
+     ==================================================== */
+  #toastContainer {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 200000;
+    display: flex;
+    flex-direction: column;
     gap: 10px;
-    margin-top: 20px;
   }
 
-  button {
-    padding: 10px;
-    background-color: #007acc;
-    border: none;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 4px;
-    flex: 1;
-    min-width: 120px;
+  .toast-card {
+    background: #0f172a;
+    color: #fff;
+    padding: 14px 20px;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-xl);
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 240px;
+    transform: translateY(20px);
+    opacity: 0;
+    animation: toastIn 0.3s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-left: 4px solid var(--success);
   }
 
-  button.delete-btn {
-    background-color: #dc3545;
+  @keyframes toastIn {
+    to { transform: translateY(0); opacity: 1; }
   }
 
-  button.preview-btn {
-    background-color: #17a2b8;
+  .toast-card.toast-danger {
+    border-left-color: var(--danger);
   }
 
-  button.profile-save-btn {
-    background-color: #4b5320;
-    margin-top: 15px;
-  }
-
-  button:hover {
-    opacity: 0.9;
-  }
-
-  /* Original ID Card design architecture styles */
+  /* ====================================================
+     ORIGINAL ARTIFACT DESIGN AND MODAL SYSTEMS SPEC
+     ==================================================== */
   .id-card {
     width: 450px;
     border: 1px solid #ccc;
@@ -173,17 +660,11 @@
     font-size: 12px;
   }
 
-  .school-info {
-    background: #f8f9fa;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-  }
-  
   .upload-modal {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,.6);
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
     display: none;
     justify-content: center;
     align-items: center;
@@ -194,9 +675,10 @@
     width: 900px;
     height: 650px;
     background: #fff;
-    border-radius: 10px;
+    border-radius: var(--radius-lg);
     overflow: hidden;
     position: relative;
+    box-shadow: var(--shadow-xl);
   }
 
   .upload-box iframe {
@@ -207,20 +689,28 @@
 
   .close-btn {
     position: absolute;
-    right: 10px;
-    top: 10px;
+    right: 16px;
+    top: 16px;
     z-index: 10;
-    background: red;
+    background: var(--danger);
     color: #fff;
     border: none;
-    padding: 8px 12px;
+    padding: 8px 14px;
     cursor: pointer;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    transition: var(--transition);
+  }
+
+  .close-btn:hover {
+    background: var(--danger-dark);
   }
 
   .preview-modal {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,.7);
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(8px);
     display: none;
     justify-content: center;
     align-items: center;
@@ -237,307 +727,283 @@
     position: absolute;
     top: -20px;
     right: -20px;
-    background: #dc3545;
+    background: var(--danger);
     color: white;
     border: none;
     border-radius: 50%;
-    width: 35px;
-    height: 35px;
+    width: 36px;
+    height: 36px;
     cursor: pointer;
     font-weight: bold;
     font-size: 16px;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
   }
-  /* ===========================
-   Template Switcher
-=========================== */
 
-.template-switcher{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
-    gap:20px;
-    margin:25px 0;
-}
+  .preview-close-btn:hover {
+    background: var(--danger-dark);
+    transform: scale(1.05);
+  }
 
-.template-card{
-    display:block;
-    cursor:pointer;
-    border:2px solid #ddd;
-    border-radius:12px;
-    overflow:hidden;
-    background:#fff;
-    transition:.25s;
-    position:relative;
-    box-shadow:0 2px 10px rgba(0,0,0,.08);
-}
+  /* ====================================================
+     RESPONSIVE MEDIA QUERIES DESIGN GRID INTERACTIVE
+     ==================================================== */
+  @media(max-width: 1024px) {
+    .dashboard-grid {
+      grid-template-columns: 1fr;
+    }
+  }
 
-.template-card:hover{
-    transform:translateY(-5px);
-    border-color:#007bff;
-    box-shadow:0 8px 20px rgba(0,0,0,.15);
-}
+  @media(max-width: 768px) {
+    body { padding: 0 0 100px 0; }
+    .container { padding: 0 16px; }
+    .dashboard-header { padding: 12px 16px; margin-bottom: 20px; }
+    .header-title { font-size: 18px; }
+    .form-row { grid-template-columns: 1fr; gap: 0; }
+    .sticky-action-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border-radius: 0;
+      border-width: 1px 0 0 0;
+      padding: 12px;
+      margin-top: 0;
+      box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
+      background: #fff;
+    }
+    .template-switcher { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .template-card img { height: 150px; }
+    .upload-box { width: 95%; height: 85%; }
+  }
 
-.template-card input{
-    display:none;
-}
-
-.template-card img{
-    width:100%;
-    height:230px;
-    object-fit:cover;
-    display:block;
-    background:#f5f5f5;
-}
-
-.template-card span{
-    display:block;
-    text-align:center;
-    padding:12px;
-    font-weight:600;
-    font-size:15px;
-    color:#333;
-}
-
-/* Selected */
-
-.template-card input:checked + img{
-    border-bottom:4px solid #0d6efd;
-}
-
-.template-card:has(input:checked){
-    border:3px solid #0d6efd;
-    box-shadow:0 0 0 4px rgba(13,110,253,.15);
-}
-
-.template-card:has(input:checked)::after{
-
-    content:"✓ Selected";
-
-    position:absolute;
-
-    top:10px;
-    right:10px;
-
-    background:#198754;
-
-    color:#fff;
-
-    padding:5px 10px;
-
-    font-size:12px;
-
-    font-weight:bold;
-
-    border-radius:20px;
-
-}
-
-/* Mobile */
-
-@media(max-width:768px){
-
-.template-switcher{
-
-grid-template-columns:repeat(2,1fr);
-
-gap:15px;
-
-}
-
-.template-card img{
-
-height:180px;
-
-}
-
-}
-
-@media(max-width:480px){
-
-.template-switcher{
-
-grid-template-columns:1fr;
-
-}
-
-.template-card img{
-
-height:220px;
-
-}
-
-}
+  @media(max-width: 480px) {
+    .template-switcher { grid-template-columns: 1fr; }
+    .sticky-action-bar { flex-direction: column; gap: 8px; }
+    .sticky-action-bar button { width: 100%; }
+  }
 </style>
 </head>
 <body>
 
+<header class="dashboard-header">
+  <div class="header-content">
+    <h1 class="header-title">
+      <span class="icon">🪪</span> Professional ID Card Workspace
+    </h1>
+    <div id="workspaceStatus" style="font-size: 12px; font-weight: 600; color: var(--text-muted); background: #f1f5f9; padding: 6px 12px; border-radius: 20px;">
+      🟢 System Live
+    </div>
+  </div>
+</header>
+
 <div class="container">
-  <div class="form-container">
-    <h2>Student ID Card Generator</h2>
+  <div class="dashboard-grid">
     
-    <div class="school-info" id="schoolProfileFormBlock">
-      <h3>School Information</h3>
+    <div class="section-card" id="schoolProfileFormBlock">
+      <h3 class="section-title"><span class="icon">🏫</span> School Information</h3>
+      
       <div class="form-group">
         <label for="schoolName">School Name</label>
         <input type="text" id="schoolName" value="NEW IDEAL CONVENT SCHOOL" required>
+        <div class="validation-message">School Name is a required field.</div>
       </div>
+      
       <div class="form-group">
         <label for="schoolType">School Type</label>
         <input type="text" id="schoolType" value="English Medium School" required>
+        <div class="validation-message">School Type description is required.</div>
       </div>
+      
       <div class="form-group">
         <label for="schoolAddress">Address</label>
         <input type="text" id="schoolAddress" value="KUDAI, PATERA" required>
+        <div class="validation-message">Physical address location mapping is required.</div>
       </div>
-      <div class="form-group">
-        <label for="principalName">Principal Name</label>
-        <input type="text" id="principalName" value="Mr. Umesh Upadhyay" required>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="principalName">Principal Name</label>
+          <input type="text" id="principalName" value="Mr. Umesh Upadhyay" required>
+          <div class="validation-message">Authority signature name is required.</div>
+        </div>
+        <div class="form-group">
+          <label for="principalMobile">Principal Mobile</label>
+          <input type="text" id="principalMobile" value="9617563579" required>
+          <div class="validation-message">Valid contact number is required.</div>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="principalMobile">Principal Mobile</label>
-        <input type="text" id="principalMobile" value="9617563579" required>
+
+      <div class="form-group" style="margin-bottom: 0;">
+        <label style="margin-bottom: 10px;">Media Upload Assets</label>
+        <div class="upload-grid">
+          
+          <div class="upload-card" onclick="openUploader('schoolLogo')">
+            <span class="icon-graphic">📷</span>
+            <span class="label-text">School Logo</span>
+            <input type="hidden" id="schoolLogo">
+            <div class="upload-preview-frame" id="schoolLogoPreview"></div>
+          </div>
+
+          <div class="upload-card" onclick="openUploader('principalSignature')">
+            <span class="icon-graphic">✍️</span>
+            <span class="label-text">Signature</span>
+            <input type="hidden" id="principalSignature">
+            <div class="upload-preview-frame" id="principalSignaturePreview"></div>
+          </div>
+
+        </div>
+        <button type="button" class="btn btn-primary" style="margin-top: 20px; width: 100%;" onclick="saveSchoolProfile()">
+          <span class="btn-icon-label">💾</span><span class="btn-text-content">Save School Profile</span>
+        </button>
       </div>
-      <div class="form-group">
-        <input type="hidden" id="schoolLogo">
-        <button type="button" onclick="openUploader('schoolLogo')">Upload School Logo</button>
-        <div id="schoolLogoPreview"></div>
-      </div>
-      <div class="form-group">
-        <input type="hidden" id="principalSignature">
-        <button type="button" onclick="openUploader('principalSignature')">Upload Signature</button>
-        <div id="principalSignaturePreview"></div>
-      </div>
-      <button type="button" class="profile-save-btn" onclick="saveSchoolProfile()">💾 Save School Profile</button>
     </div>
 
-    <form id="idCardForm">
-      <div class="form-group">
-        <label for="studentName">Student's Name</label>
-        <input type="text" id="studentName" required>
-      </div>
-      <div class="form-group">
-        <label for="fatherName">Father's Name</label>
-        <input type="text" id="fatherName" required>
-      </div>
-      <div class="form-group">
-        <label for="dob">Date of Birth</label>
-        <input type="text" id="dob" required>
-      </div>
-      <div class="form-group">
-        <label for="className">Class</label>
-        <input type="text" id="className" required>
-      </div>
-      <div class="form-group">
-        <label for="mobileNumber">Mobile Number</label>
-        <input type="text" id="mobileNumber" required>
-      </div>
-      <div class="form-group">
-        <label for="address">Address</label>
-        <input type="text" id="address" required>
-      </div>
-      <div class="form-group">
-        <label>Student Photo</label>
-        <input type="hidden" id="studentPhoto">
-        <button type="button" onclick="openUploader('studentPhoto')">Upload Student Photo</button>
-        <div id="studentPhotoPreview"></div>
-      </div>
+    <div class="section-card">
+      <h3 class="section-title"><span class="icon">👨‍🎓</span> Student Information</h3>
+      <form id="idCardForm" novalidate>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="studentName">Student's Name</label>
+            <input type="text" id="studentName" required>
+            <div class="validation-message">Full name parameter string is required.</div>
+          </div>
+          <div class="form-group">
+            <label for="fatherName">Father's Name</label>
+            <input type="text" id="fatherName" required>
+            <div class="validation-message">Father legal tracking name parameter required.</div>
+          </div>
+        </div>
 
-      <div class="button-group">
-        <button type="button" onclick="generateCard()">+ Add Card</button>
-        <button type="button" onclick="clearForm()" style="background-color: #6c757d;">Clear Form</button>
-        <button type="button" onclick="addNewCard()" style="background-color: #28a745;">Reset/New Card</button>
-        <button type="button" onclick="generateAllCardsPage()" style="background-color:  #ff9800; font-weight: bold; flex: 2; max-width: 250px;">Generate All ID Cards ➔</button>
-      </div>
-    </form>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="dob">Date of Birth</label>
+            <input type="text" id="dob" placeholder="DD/MM/YYYY" required>
+            <div class="validation-message">Valid record metric is required.</div>
+          </div>
+          <div class="form-group">
+            <label for="className">Class</label>
+            <input type="text" id="className" required>
+            <div class="validation-message">Enrolled class identification descriptor is required.</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="mobileNumber">Mobile Number</label>
+          <input type="text" id="mobileNumber" required>
+          <div class="validation-message">Primary relative contact integer sequence is required.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input type="text" id="address" required>
+          <div class="validation-message">Residential tracking context structural string is required.</div>
+        </div>
+
+        <div class="form-row" style="align-items: flex-end;">
+          <div class="form-group" style="margin-bottom: 0; width: 100%;">
+            <label>Identification Image</label>
+            <div class="upload-card" onclick="openUploader('studentPhoto')" style="min-height: 110px;">
+              <span class="icon-graphic">👤</span>
+              <span class="label-text">Upload Student Photo</span>
+              <input type="hidden" id="studentPhoto">
+              <div class="upload-preview-frame" id="studentPhotoPreview" style="height: 55px;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="button-group" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px;">
+          <button type="button" class="btn btn-success" onclick="generateCard()">
+            <span class="btn-icon-label">➕</span><span class="btn-text-content">Add Card</span>
+          </button>
+          <button type="button" class="btn btn-secondary" onclick="clearForm()">
+            <span class="btn-text-content">Clear Form</span>
+          </button>
+          <button type="button" class="btn btn-secondary" onclick="addNewCard()" style="background: #f1f5f9; color: var(--primary);">
+            <span class="btn-text-content">Reset New</span>
+          </button>
+        </div>
+      </form>
+    </div>
+
   </div>
 
-<h2>Select ID Card Template</h2>
+  <div class="section-card" style="margin-bottom: 32px;">
+    <h3 class="section-title"><span class="icon">🎨</span> Template Selection</h3>
+    <div class="template-switcher">
+      
+      <label class="template-card">
+        <input type="radio" name="template" value="/school-id-generated/" data-format="format01">
+        <img src="/images/id-template-01.jpg" alt="Template 01 Layout View">
+        <span>Format 01 Corporate</span>
+      </label>
 
-<div class="template-switcher">
+      <label class="template-card">
+        <input type="radio" name="template" value="/school-id-generated-02/" data-format="format02">
+        <img src="/images/id-template-02.jpg" alt="Template 02 Layout View">
+        <span>Format 02 Modern Minimalist</span>
+      </label>
 
-<label class="template-card">
-<input
-type="radio"
-name="template"
-value="/school-id-generated/"
-data-format="format01"
-checked>
+      <label class="template-card">
+        <input type="radio" name="template" value="/school-id-generated-03/" data-format="format03">
+        <img src="/images/id-template-03.jpg" alt="Template 03 Layout View">
+        <span>Format 03 Classic Academic</span>
+      </label>
 
-<img src="/images/id-template-01.jpg">
-
-<span>Format 01</span>
-</label>
-
-
-<label class="template-card">
-<input
-type="radio"
-name="template"
-value="/school-id-generated-02/"
-data-format="format02">
-
-<img src="/images/id-template-02.jpg">
-
-<span>Format 02</span>
-</label>
-
-
-<label class="template-card">
-<input
-type="radio"
-name="template"
-value="/school-id-generated-03/"
-data-format="format03">
-
-<img src="/images/id-template-03.jpg">
-
-<span>Format 03</span>
-</label>
-
-
-<label class="template-card">
-<input
-type="radio"
-name="template"
-value="/school-id-generated-04/"
-data-format="format04">
-
-<img src="/images/id-template-04.jpg">
-
-<span>Format 04</span>
-</label>
-
-</div>
- 
-
+      <label class="template-card">
+        <input type="radio" name="template" value="/school-id-generated-04/" data-format="format04">
+        <img src="/images/id-template-04.jpg" alt="Template 04 Layout View">
+        <span>Format 04 Tech Academy</span>
+      </label>
+      
+    </div>
+  </div>
+   
   <div id="tableContainer" class="table-container">
-     <div class="action-buttons-wrapper">
-    <button type="button" onclick="clearAllLocalStorage()" style="background:#dc3545; max-width: 250px; margin-left: auto;">🗑 Clear All</button>
-      <button type="button" onclick="generateAllCardsPage()" style="background-color:  #ff9800; font-weight: bold; flex: 2; max-width: 250px;">Generate All ID Cards ➔</button>
+    <div class="table-header-bar">
+      <h3 class="table-title"><span class="icon">📋</span> Generated Registry Profiles</h3>
+      <button type="button" class="btn btn-danger btn-icon-only" title="Wipe Local Context Engine" onclick="clearAllLocalStorage()">
+        <span>🗑</span>
+      </button>
+    </div>
+    <div class="table-responsive-wrapper">
+      <table class="student-table">
+        <thead>
+          <tr>
+            <th>Student Details</th>
+            <th>Father's Name</th>
+            <th>Date of Birth</th>
+            <th>Class</th>
+            <th>Mobile Number</th>
+            <th>Address</th>
+            <th style="text-align: center;">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="studentTableBody"></tbody>
+      </table>
+    </div>
   </div>
-    <table class="student-table">
-      <thead>
-        <tr>
-          <th>Student Name</th>
-          <th>Father's Name</th>
-          <th>Date of Birth</th>
-          <th>Class</th>
-          <th>Mobile Number</th>
-          <th>Address</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody id="studentTableBody"></tbody>
-    </table>
+
+  <div class="sticky-action-bar">
+    <div style="display: flex; flex-direction: column;">
+      <span style="font-size: 13px; font-weight: 700; color: var(--text-main);" id="stickyCounterDisplay">Cards Registered: 0 / 100</span>
+      <span style="font-size: 11px; color: var(--text-muted);">Changes automatically back up to Local Storage context</span>
+    </div>
+    <div>
+      <button type="button" id="btnBulkExportTrigger" class="btn btn-success" style="padding-left: 32px; padding-right: 32px;" onclick="generateAllCardsPage()">
+        <span class="btn-icon-label">🖨</span>
+        <span class="btn-text-content">Generate All Professional Cards ➔</span>
+        <div class="btn-loading-text"><div class="spinner"></div> Packaging Artifact Tokens...</div>
+      </button>
+    </div>
   </div>
+
 </div>
-
-
-
-
 
 <div id="uploadModal" class="upload-modal">
     <div class="upload-box">
-        <button class="close-btn" onclick="closeUploader()">✖</button>
+        <button class="close-btn" onclick="closeUploader()">✖ Close</button>
         <iframe id="uploadFrame" src="" frameborder="0"></iframe>
     </div>
 </div>
@@ -549,18 +1015,67 @@ data-format="format04">
     </div>
 </div>
 
+<div id="toastContainer"></div>
+
 <script>
 let cardCounter = 0;
 let studentsData = [];
 let editingStudentId = null;
 let currentUploadField = "";
+let selectedTemplate = "/school-id-generated/";
 
 const activeObjectURLs = new Set();
 
-// Default hardcoded image paths configuration
+// Default hardcoded token fallback system assets path configuration
 const defaultSchoolLogo = "/svg/school.svg";
 const defaultSignature = "/svg/signature.svg";
 const defaultStudentPhoto = "/svg/student-person-3.svg";
+
+// High-fidelity scalable default vector fallback structure mapping components
+const defaultSvgMarkups = {
+  schoolLogo: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z"/></svg>`,
+  principalSignature: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"/></svg>`,
+  studentPhoto: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`
+};
+
+/* DOM ELEMENT CACHE OBJECT INDEX FOR PERFORMANCE OPTIMIZATION */
+const DOM = {
+  schoolName: document.getElementById("schoolName"),
+  schoolType: document.getElementById("schoolType"),
+  schoolAddress: document.getElementById("schoolAddress"),
+  principalName: document.getElementById("principalName"),
+  principalMobile: document.getElementById("principalMobile"),
+  schoolLogo: document.getElementById("schoolLogo"),
+  principalSignature: document.getElementById("principalSignature"),
+  studentName: document.getElementById("studentName"),
+  fatherName: document.getElementById("fatherName"),
+  dob: document.getElementById("dob"),
+  className: document.getElementById("className"),
+  mobileNumber: document.getElementById("mobileNumber"),
+  address: document.getElementById("address"),
+  studentPhoto: document.getElementById("studentPhoto"),
+  studentTableBody: document.getElementById("studentTableBody"),
+  stickyCounter: document.getElementById("stickyCounterDisplay"),
+  idCardForm: document.getElementById("idCardForm"),
+  uploadModal: document.getElementById("uploadModal"),
+  uploadFrame: document.getElementById("uploadFrame"),
+  previewModal: document.getElementById("previewCardModal"),
+  previewInjectTarget: document.getElementById("popupCardInjectTarget"),
+  toastContainer: document.getElementById("toastContainer"),
+  btnBulkExportTrigger: document.getElementById("btnBulkExportTrigger")
+};
+
+function showToast(message, type = "success") {
+  const toast = document.createElement("div");
+  toast.className = `toast-card ${type === "danger" ? "toast-danger" : ""}`;
+  toast.innerHTML = `<span>${type === "danger" ? "⚠️" : "✔"}</span> <span>${message}</span>`;
+  DOM.toastContainer.appendChild(toast);
+  setTimeout(() => {
+    toast.style.opacity = "0";
+    toast.style.transform = "translateY(-10px)";
+    setTimeout(() => toast.remove(), 300);
+  }, 3500);
+}
 
 function openImageDB() {
     return new Promise((resolve, reject) => {
@@ -577,22 +1092,29 @@ function openImageDB() {
     });
 }
 
+// Global cached image repository mapping object layer
+const imageCacheMap = new Map();
+
 async function getImageByToken(token) {
     if (!token) return null;
+    if (imageCacheMap.has(token)) return imageCacheMap.get(token);
     try {
         const db = await openImageDB();
         const tx = db.transaction("images", "readonly");
         const index = tx.objectStore("images").index("token");
         return new Promise(resolve => {
-            index.get(token).onsuccess = (e) => resolve(e.target.result || null);
+            index.get(token).onsuccess = (e) => {
+                const res = e.target.result || null;
+                if(res) imageCacheMap.set(token, res);
+                resolve(res);
+            };
         });
     } catch (err) {
-        console.error("IndexedDB Error:", err);
+        console.error("IndexedDB Cache Lookup Failure Error:", err);
         return null;
     }
 }
 
-// Fixed asset lookup wrapping target paths dynamically upon token evaluation missing
 async function getObjectURL(token, fallbackPath) {
     if (!token) return fallbackPath;
     const imageRecord = await getImageByToken(token);
@@ -610,21 +1132,23 @@ function revokeUnusedURLs() {
 }
 
 async function setPreview(field, token) {
-    const hiddenInput = document.getElementById(field);
+    const hiddenInput = DOM[field] || document.getElementById(field);
     const previewContainer = document.getElementById(field + "Preview");
     if (!hiddenInput || !previewContainer) return;
     
     hiddenInput.value = token || "";
     
-    // Choose appropriate fallback rendering type visually inside dashboard UI pane
-    let fallback = defaultStudentPhoto;
-    if (field === "schoolLogo") fallback = defaultSchoolLogo;
-    if (field === "principalSignature") fallback = defaultSignature;
+    if (token) {
+        let fallback = defaultStudentPhoto;
+        if (field === "schoolLogo") fallback = defaultSchoolLogo;
+        if (field === "principalSignature") fallback = defaultSignature;
 
-    const url = await getObjectURL(token, fallback);
-    previewContainer.innerHTML = `<img src="${url}" width="120" style="margin-top:10px; border-radius:4px; max-height:100px; object-fit:contain;">`;
+        const url = await getObjectURL(token, fallback);
+        previewContainer.innerHTML = `<img src="${url}" alt="Realtime Engine Preview Content Frame">`;
+    } else {
+        previewContainer.innerHTML = defaultSvgMarkups[field] || defaultSvgMarkups['studentPhoto'];
+    }
     
-    // If user changes school assets inside open fields, cascade update directly to profile storage layer
     if (field === "schoolLogo" || field === "principalSignature") {
         autoSaveSchoolProfileSilent();
     }
@@ -632,94 +1156,95 @@ async function setPreview(field, token) {
 
 function openUploader(field) {
     currentUploadField = field;
-    document.getElementById("uploadFrame").src = "/upload/";
-    document.getElementById("uploadModal").style.display = "flex";
+    DOM.uploadFrame.src = "/upload/";
+    DOM.uploadModal.style.display = "flex";
 }
 
 function closeUploader() {
-    document.getElementById("uploadModal").style.display = "none";
-    document.getElementById("uploadFrame").src = "";
+    DOM.uploadModal.style.display = "none";
+    DOM.uploadFrame.src = "";
 }
 
 window.addEventListener("message", async function(e) {
     if (!e.data || !e.data.token) return;
     if (currentUploadField) {
         await setPreview(currentUploadField, e.data.token);
+        showToast("Asset uploaded and linked successfully");
     }
     closeUploader();
 });
 
-// Automated instantiation sequences mapping
-window.addEventListener("DOMContentLoaded", async () => {
-  window.addEventListener("DOMContentLoaded",()=>{
-
-const params=new URLSearchParams(location.search);
-
-const format=params.get("format");
-
-if(!format) return;
-
-const radio=document.querySelector(
-`input[data-format="${format}"]`
-);
-
-if(radio){
-
-radio.checked=true;
-
-selectedTemplate=radio.value;
-
+function updateTemplateState(formatCode, fallbackValue) {
+    localStorage.setItem("selected-template", formatCode);
+    const radio = document.querySelector(`input[data-format="${formatCode}"]`);
+    if (radio) {
+        radio.checked = true;
+        selectedTemplate = radio.value;
+    } else if (fallbackValue) {
+        selectedTemplate = fallbackValue;
+    }
+    const url = new URL(window.location.href);
+    url.searchParams.set("format", formatCode);
+    history.replaceState({}, '', url.toString());
 }
 
-});
-    // Restore School Profile configuration block layout parameters
+// UNIFIED SYSTEM INITIALIZATION CONTEXT ENGINE
+window.addEventListener("DOMContentLoaded", async () => {
+    // Input interaction validation initialization tracking listeners
+    const inputsToTrack = ['schoolName', 'schoolType', 'schoolAddress', 'principalName', 'principalMobile', 'studentName', 'fatherName', 'dob', 'className', 'mobileNumber', 'address'];
+    inputsToTrack.forEach(id => {
+      const el = DOM[id] || document.getElementById(id);
+      if(el) {
+        el.addEventListener('blur', () => el.classList.add('touched'));
+        el.addEventListener('input', () => { if(el.checkValidity()) el.classList.remove('touched'); });
+      }
+    });
+
     const storedProfile = localStorage.getItem("school-profile");
     if (storedProfile) {
         try {
             const profile = JSON.parse(storedProfile);
-            document.getElementById("schoolName").value = profile.schoolName || "";
-            document.getElementById("schoolType").value = profile.schoolType || "";
-            document.getElementById("schoolAddress").value = profile.schoolAddress || "";
-            document.getElementById("principalName").value = profile.principalName || "";
-            document.getElementById("principalMobile").value = profile.principalMobile || "";
-            
-            if (profile.schoolLogo) {
-                await setPreview("schoolLogo", profile.schoolLogo);
-            }
-            if (profile.principalSignature) {
-                await setPreview("principalSignature", profile.principalSignature);
-            }
+            DOM.schoolName.value = profile.schoolName || "";
+            DOM.schoolType.value = profile.schoolType || "";
+            DOM.schoolAddress.value = profile.schoolAddress || "";
+            DOM.principalName.value = profile.principalName || "";
+            DOM.principalMobile.value = profile.principalMobile || "";
+            DOM.schoolLogo.value = profile.schoolLogo || "";
+            DOM.principalSignature.value = profile.principalSignature || "";
         } catch(e) {
-            console.error("School profile load error:", e);
+            console.error("School configuration restore load error log:", e);
         }
     }
 
-    // Restore Student dataset table array variables
-   const saved =
-JSON.parse(localStorage.getItem("school-id-list"));
+    const params = new URLSearchParams(window.location.search);
+    const urlFormat = params.get("format");
+    const localFormat = localStorage.getItem("selected-template");
 
-if(saved){
-
-    const hours =
-        (Date.now()-saved.savedAt)/(1000*60*60);
-
-    if(hours<24){
-
-        studentsData=saved.students || [];
-
-    }else{
-
-        localStorage.removeItem("school-id-list");
-
-        studentsData=[];
-
+    if (urlFormat && ["format01", "format02", "format03", "format04"].includes(urlFormat)) {
+        updateTemplateState(urlFormat);
+    } else if (localFormat && ["format01", "format02", "format03", "format04"].includes(localFormat)) {
+        updateTemplateState(localFormat);
+    } else {
+        updateTemplateState("format01", "/school-id-generated/");
     }
 
-}else{
+    const saved = JSON.parse(localStorage.getItem("school-id-list"));
+    if (saved) {
+        const hours = (Date.now() - saved.savedAt) / (1000 * 60 * 60);
+        if (hours < 24) {
+            studentsData = saved.students || [];
+        } else {
+            localStorage.removeItem("school-id-list");
+            studentsData = [];
+        }
+    } else {
+        studentsData = [];
+    }
 
-    studentsData=[];
+    await setPreview("schoolLogo", DOM.schoolLogo.value);
+    await setPreview("principalSignature", DOM.principalSignature.value);
+    await setPreview("studentPhoto", DOM.studentPhoto.value);
 
-}
     if (studentsData.length > 0) {
         let maxIdNum = 0;
         studentsData.forEach(s => {
@@ -728,25 +1253,35 @@ if(saved){
         });
         cardCounter = maxIdNum + 1;
     }
+
     updateTable();
+
+    document.querySelectorAll('input[name="template"]').forEach(radio => {
+        radio.addEventListener("change", function() {
+            if (this.checked) {
+                updateTemplateState(this.dataset.format);
+                showToast("Template updated successfully");
+            }
+        });
+    });
 });
 
 function getSchoolProfileObject() {
     return {
-        schoolName: document.getElementById("schoolName").value,
-        schoolType: document.getElementById("schoolType").value,
-        schoolAddress: document.getElementById("schoolAddress").value,
-        principalName: document.getElementById("principalName").value,
-        principalMobile: document.getElementById("principalMobile").value,
-        schoolLogo: document.getElementById("schoolLogo").value,
-        principalSignature: document.getElementById("principalSignature").value
+        schoolName: DOM.schoolName.value,
+        schoolType: DOM.schoolType.value,
+        schoolAddress: DOM.schoolAddress.value,
+        principalName: DOM.principalName.value,
+        principalMobile: DOM.principalMobile.value,
+        schoolLogo: DOM.schoolLogo.value,
+        principalSignature: DOM.principalSignature.value
     };
 }
 
 function saveSchoolProfile() {
     const profile = getSchoolProfileObject();
     localStorage.setItem("school-profile", JSON.stringify(profile));
-    alert("💾 School Profile saved successfully!");
+    showToast("School Profile saved successfully");
 }
 
 function autoSaveSchoolProfileSilent() {
@@ -755,50 +1290,76 @@ function autoSaveSchoolProfileSilent() {
 }
 
 function syncStudentsToLocalStorage() {
-    localStorage.setItem("school-id-list", JSON.stringify(studentsData));
+    const data = {
+        savedAt: Date.now(),
+        students: studentsData
+    };
+    localStorage.setItem("school-id-list", JSON.stringify(data));
+    DOM.stickyCounter.textContent = `Cards Registered: ${studentsData.length} / 100`;
+}
+
+// UNIFIED HIGH INTEGRITY STRUCTURAL ASSETS MAPPING TO PREVENT CORRUPTION OR BROKEN LAYOUTS
+async function getThumbnailSrcByToken(token, fallback) {
+  if(!token) return fallback;
+  const item = await getImageByToken(token);
+  if(item && item.blob) {
+    return URL.createObjectURL(item.blob);
+  }
+  return fallback;
 }
 
 async function generateCard() {
   if (studentsData.length >= 100 && !editingStudentId) {
-      alert("Maximum 100 Student ID Cards Allowed.");
+      showToast("Maximum registration payload limit reached (100 Allowed)", "danger");
       return;
   }
 
-  const form = document.getElementById('idCardForm');
-  if (!form.checkValidity()) {
-    alert('Please fill in all required fields');
+  // Visual validation engine verification system alert handling
+  const fieldsToValidate = [DOM.studentName, DOM.fatherName, DOM.dob, DOM.className, DOM.mobileNumber, DOM.address];
+  let isFormValid = true;
+  fieldsToValidate.forEach(el => {
+    if(!el.checkValidity()) {
+      el.classList.add('touched');
+      isFormValid = false;
+    }
+  });
+
+  if (!isFormValid) {
+    showToast("Please fix the validation parameters highlighted in red.", "danger");
     return;
   }
 
-  const studentPhotoUrl = document.getElementById("studentPhoto").value;
+  const studentPhotoUrl = DOM.studentPhoto.value;
 
   if (editingStudentId) {
       const index = studentsData.findIndex(s => s.id === editingStudentId);
       if (index !== -1) {
           studentsData[index] = {
               id: editingStudentId,
-              studentName: document.getElementById('studentName').value,
-              fatherName: document.getElementById('fatherName').value,
-              dob: document.getElementById('dob').value,
-              className: document.getElementById('className').value,
-              mobileNumber: document.getElementById('mobileNumber').value,
-              address: document.getElementById('address').value,
+              studentName: DOM.studentName.value,
+              fatherName: DOM.fatherName.value,
+              dob: DOM.dob.value,
+              className: DOM.className.value,
+              mobileNumber: DOM.mobileNumber.value,
+              address: DOM.address.value,
               studentPhotoUrl: studentPhotoUrl
           };
       }
       editingStudentId = null;
+      showToast("Card data update synchronization complete.");
   } else {
       const studentData = {
         id: `card-${cardCounter++}`,
-        studentName: document.getElementById('studentName').value,
-        fatherName: document.getElementById('fatherName').value,
-        dob: document.getElementById('dob').value,
-        className: document.getElementById('className').value,
-        mobileNumber: document.getElementById('mobileNumber').value,
-        address: document.getElementById('address').value,
+        studentName: DOM.studentName.value,
+        fatherName: DOM.fatherName.value,
+        dob: DOM.dob.value,
+        className: DOM.className.value,
+        mobileNumber: DOM.mobileNumber.value,
+        address: DOM.address.value,
         studentPhotoUrl: studentPhotoUrl
       };
       studentsData.push(studentData);
+      showToast("New card record injected into local registry session context.");
   }
 
   syncStudentsToLocalStorage();
@@ -806,50 +1367,58 @@ async function generateCard() {
   clearForm();
 }
 
-function updateTable() {
-  const tableBody = document.getElementById('studentTableBody');
-  tableBody.innerHTML = '';
+async function updateTable() {
+  DOM.studentTableBody.innerHTML = '';
+  DOM.stickyCounter.textContent = `Cards Registered: ${studentsData.length} / 100`;
 
-  studentsData.forEach(student => {
+  for (const student of studentsData) {
     const row = document.createElement('tr');
+    
+    // Resolve clean asynchronous thumbnail URLs cleanly without UI layout flickering
+    const photoThumb = await getThumbnailSrcByToken(student.studentPhotoUrl, defaultStudentPhoto);
+    
     row.innerHTML = `
-      <td>${student.studentName}</td>
+      <td>
+        <div class="table-avatar-cell">
+          <img src="${photoThumb}" class="table-thumbnail" alt="Identity Preview">
+          <span>${student.studentName}</span>
+        </div>
+      </td>
       <td>${student.fatherName}</td>
       <td>${student.dob}</td>
-      <td>${student.className}</td>
+      <td><span style="background: #e0f2fe; color: #0369a1; padding: 2px 8px; font-weight:600; border-radius:12px; font-size:12px;">${student.className}</span></td>
       <td>${student.mobileNumber}</td>
-      <td>${student.address}</td>
+      <td><span style="color: var(--text-muted); font-size:13px;">${student.address}</span></td>
       <td>
-        <button class="preview-btn" onclick="previewSingleCard('${student.id}')" style="padding: 5px 10px; color: white; border: none; border-radius: 4px; margin-right:2px;">👁 Preview</button>
-        <button onclick="editCard('${student.id}')" style="padding: 5px 10px; background-color: #28a745; color: white; border: none; border-radius: 4px; margin-right:2px;">Edit</button>
-        <button class="delete-btn" onclick="deleteCard('${student.id}')" style="padding: 5px 10px;">Delete</button>
+        <div class="table-actions">
+          <button class="btn btn-secondary btn-icon-only" title="Preview Artifact Layout" onclick="previewSingleCard('${student.id}')">👁</button>
+          <button class="btn btn-primary btn-icon-only" style="background:#28a745;" title="Edit Context Registry Entry" onclick="editCard('${student.id}')">✏️</button>
+          <button class="btn btn-danger btn-icon-only" title="Delete Data Record Map" onclick="deleteCard('${student.id}')">🗑</button>
+        </div>
       </td>
     `;
-    tableBody.appendChild(row);
-  });
+    DOM.studentTableBody.appendChild(row);
+  }
 }
 
-// Runtime dynamic structural payload compilation engine merging student parameters with school configuration
 async function previewSingleCard(cardId) {
     const student = studentsData.find(s => s.id === cardId);
     if (!student) return;
 
-    // Direct active load snapshot derivation parsing runtime rules explicitly
     const profile = getSchoolProfileObject();
 
     revokeUnusedURLs();
-    const targetNode = document.getElementById("popupCardInjectTarget");
-    targetNode.innerHTML = "<p style='color:white;text-align:center;'>Loading ID Card Assets...</p>";
-    document.getElementById("previewCardModal").style.display = "flex";
+    DOM.previewInjectTarget.innerHTML = "<p style='color:white;text-align:center;'>Loading Embedded Structural Identification Assets...</p>";
+    DOM.previewModal.style.display = "flex";
 
     const logoUrl = await getObjectURL(profile.schoolLogo, defaultSchoolLogo);
     const signUrl = await getObjectURL(profile.principalSignature, defaultSignature);
     const photoUrl = await getObjectURL(student.studentPhotoUrl, defaultStudentPhoto);
 
-    targetNode.innerHTML = `
+    DOM.previewInjectTarget.innerHTML = `
       <div class="id-card">
         <div class="id-card-header">
-          <img src="${logoUrl}" alt="School Logo">
+          <img src="${logoUrl}" alt="School System Official Logo Identification Graph">
           <div>
             <h3 style="margin:0; font-size:16px;">${profile.schoolName || "---"}</h3>
             <p style="margin:2px 0 0 0; font-size:12px;">(${profile.schoolType || "---"})</p>
@@ -857,7 +1426,7 @@ async function previewSingleCard(cardId) {
           </div>
         </div>
         <div class="id-card-content">
-          <img src="${photoUrl}" alt="Student Photo" style="width:100px; height:100px; border-radius: 8px; margin-bottom: 10px; object-fit:cover; display:block; background:#f0f0f0;">
+          <img src="${photoUrl}" alt="Student Realtime Verification Snapshot View" style="width:100px; height:100px; border-radius: 8px; margin-bottom: 10px; object-fit:cover; display:block; background:#f0f0f0;">
           <p><strong>Student's Name:</strong> ${student.studentName}</p>
           <p><strong>Father's Name:</strong> ${student.fatherName}</p>
           <p><strong>Date of Birth:</strong> ${student.dob}</p>
@@ -866,7 +1435,7 @@ async function previewSingleCard(cardId) {
           <p><strong>Address:</strong> ${student.address}</p>
         </div>
         <div class="id-card-footer">
-          <p><img src="${signUrl}" alt="Principal Signature" style="width: 70px; height: 25px; vertical-align: middle; object-fit:contain; margin-right:5px;"> ${profile.principalName || "---"}</p>
+          <p><img src="${signUrl}" alt="Verified System Signature Instance" style="width: 70px; height: 25px; vertical-align: middle; object-fit:contain; margin-right:5px;"> ${profile.principalName || "---"}</p>
           <p style="margin:4px 0 0 0;">Mo. ${profile.principalMobile || "---"}</p>
         </div>
       </div>
@@ -874,16 +1443,17 @@ async function previewSingleCard(cardId) {
 }
 
 function closePreviewModal() {
-    document.getElementById("previewCardModal").style.display = "none";
-    document.getElementById("popupCardInjectTarget").innerHTML = "";
+    DOM.previewModal.style.display = "none";
+    DOM.previewInjectTarget.innerHTML = "";
     revokeUnusedURLs();
 }
 
 function clearForm() {
-  // Clear student form parameters explicitly while preserving school parameters untouchable
-  document.getElementById('idCardForm').reset();
+  DOM.idCardForm.reset();
   editingStudentId = null;
-  clearPreview("studentPhoto");
+  const fields = ['studentName', 'fatherName', 'dob', 'className', 'mobileNumber', 'address'];
+  fields.forEach(id => { if(DOM[id]) DOM[id].classList.remove('touched'); });
+  setPreview("studentPhoto", "");
 }
 
 function deleteCard(cardId) {
@@ -891,6 +1461,7 @@ function deleteCard(cardId) {
     studentsData = studentsData.filter(student => student.id !== cardId);
     syncStudentsToLocalStorage();
     updateTable();
+    showToast("Record removed from local database segment mapping", "danger");
   }
 }
 
@@ -899,111 +1470,98 @@ async function editCard(cardId) {
   if (student) {
     editingStudentId = cardId;
     
-    document.getElementById('studentName').value = student.studentName;
-    document.getElementById('fatherName').value = student.fatherName;
-    document.getElementById('dob').value = student.dob;
-    document.getElementById('className').value = student.className;
-    document.getElementById('mobileNumber').value = student.mobileNumber;
-    document.getElementById('address').value = student.address;
+    DOM.studentName.value = student.studentName;
+    DOM.fatherName.value = student.fatherName;
+    DOM.dob.value = student.dob;
+    DOM.className.value = student.className;
+    DOM.mobileNumber.value = student.mobileNumber;
+    DOM.address.value = student.address;
 
-    await setPreview("studentPhoto", student.studentPhotoUrl);
+    await setPreview("studentPhoto", student.studentPhotoUrl || "");
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    showToast("Loaded entry state data back into editing channels.");
   }
 }
 
 function addNewCard() {
   clearForm();
-  document.getElementById('studentName').focus();
+  DOM.studentName.focus();
 }
 
 function generateAllCardsPage() {
-
+    // PRE-EXPORT CRITICAL CONTEXT COMPREHENSIVE AUTOMATIC VALIDATION PLATFORM
+    if (!DOM.schoolName.value.trim()) {
+        showToast("Export Denied: School Name definition missing.", "danger");
+        DOM.schoolName.focus();
+        DOM.schoolName.classList.add('touched');
+        return;
+    }
     if (studentsData.length === 0) {
-        alert("Please add at least one student before exporting.");
+        showToast("Please inject or record at least one student identity before generating.", "danger");
+        return;
+    }
+    if (studentsData.length > 100) {
+        showToast("Maximum data limits violated (100 Student identity limits maximum block)", "danger");
         return;
     }
 
-    if (studentsData.length > 100) {
-        alert("Maximum 100 Student ID Cards Allowed.");
-        return;
-    }
+    // Set UI export system state elements toggles smoothly
+    DOM.btnBulkExportTrigger.classList.add('is-loading');
 
     autoSaveSchoolProfileSilent();
-
-    // Current list ko bhi latest state me save kar do
     syncStudentsToLocalStorage();
 
-    const batchPayload = {
-        schoolProfile: getSchoolProfileObject(),
-        students: studentsData
+    // STRUCTURAL ENHANCED EXPORT PAYLOAD COMPLIANT WITH SPECIFICATION VERSION 2 STRUCTURE ENGINE
+    const finalExportPayload = {
+        version: 2,
+        createdAt: new Date().toISOString(),
+        template: selectedTemplate,
+        defaults: {
+            logo: defaultSchoolLogo,
+            signature: defaultSignature,
+            student: defaultStudentPhoto
+        },
+        schoolProfile: {
+            schoolName: DOM.schoolName.value,
+            schoolType: DOM.schoolType.value,
+            schoolAddress: DOM.schoolAddress.value,
+            principalName: DOM.principalName.value,
+            principalMobile: DOM.principalMobile.value,
+            logoToken: DOM.schoolLogo.value || null,
+            logoDefault: defaultSchoolLogo,
+            signatureToken: DOM.principalSignature.value || null,
+            signatureDefault: defaultSignature
+        },
+        students: studentsData.map(s => ({
+            ...s,
+            photoToken: s.studentPhotoUrl || null,
+            photoDefault: defaultStudentPhoto
+        }))
     };
 
     try {
-
         const token = crypto.randomUUID();
-
-        localStorage.setItem(
-            "school-id-" + token,
-            JSON.stringify(batchPayload)
-        );
-
-        // ❌ Is line ko bilkul mat likhiye
-        // localStorage.removeItem("school-id-list");
-
-        window.location.href=
-selectedTemplate+"?token="+token;
-
+        localStorage.setItem("school-id-" + token, JSON.stringify(finalExportPayload));
+        showToast("Export Ready! Dispatching processing payload token...");
+        
+        setTimeout(() => {
+          DOM.btnBulkExportTrigger.classList.remove('is-loading');
+          window.location.href = selectedTemplate + "?token=" + token;
+        }, 800);
     } catch (err) {
-
+        DOM.btnBulkExportTrigger.classList.remove('is-loading');
         alert(err.message);
-
     }
-
 }
-function syncStudentsToLocalStorage(){
 
-    const data = {
-        savedAt: Date.now(),
-        students: studentsData
-    };
-
-    localStorage.setItem(  
-        "school-id-list",
-        JSON.stringify(data)
-    );
-
-}
 function clearAllLocalStorage() {
-    if (!confirm("⚠️ This will delete ALL LocalStorage data for this website context.\n\nDo you wish to continue?")) {
+    if (!confirm("⚠️ This will permanently delete ALL local records for this app session.\n\nDo you wish to continue?")) {
         return;
     }
     localStorage.clear();
-    alert("✅ Storage structures cleared successfully.");
-    location.reload();
+    showToast("Storage cleared out completely.", "danger");
+    setTimeout(() => location.reload(), 500);
 } 
-</script>
-<script>
-  let selectedTemplate="/school-id-generated/";
-
-document
-.querySelectorAll('input[name="template"]')
-.forEach(radio=>{
-
-radio.addEventListener("change",function(){
-
-selectedTemplate=this.value;
-
-const format=this.dataset.format;
-
-const url=new URL(window.location);
-
-url.searchParams.set("format",format);
-
-history.replaceState({},'',url);
-
-});
-
-});
 </script>
 </body>
 </html>

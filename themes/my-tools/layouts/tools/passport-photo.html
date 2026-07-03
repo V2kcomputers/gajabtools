@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passport Photo Creator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --primary-gradient: linear-gradient(135deg, #2563eb, #1d4ed8);
+            --bg-gradient: linear-gradient(135deg, #f0f4f8, #e2e8f0);
+            --glass: rgba(255, 255, 255, 0.7);
+            --card-border: rgba(255, 255, 255, 0.4);
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.06);
+        }
+        body { background: var(--bg-gradient); font-family: 'Inter', sans-serif; color: #1e293b; min-height: 100vh; }
+        .bg-glass { background: var(--glass); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .text-primary-gradient { background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .card-glass { background: var(--glass); backdrop-filter: blur(8px); border: 1px solid var(--card-border); border-radius: 16px; box-shadow: var(--shadow); }
+        .bg-light-glass { background: rgba(255, 255, 255, 0.4); backdrop-filter: inset blur(4px); min-height: 200px; }
+        .sticky-panel { position: sticky; top: 96px; max-height: calc(100vh - 130px); }
+        .preview-scroll-area { overflow-y: auto; }
+        .photo-block-item { border-radius: 12px; border: 1px solid rgba(0,0,0,0.05); background: rgba(255, 255, 255, 0.6); transition: all 0.2s; }
+        .preview-thumbnail { width: 100px; height: 130px; object-fit: cover; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); background-color: #f1f5f9; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .preview-thumbnail:hover { transform: scale(1.02); box-shadow: 0 6px 15px rgba(0,0,0,0.15); }
+        .btn-edit-custom { transition: all 0.2s; }
+        .btn-edit-custom:hover { box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4); transform: scale(1.05); }
+        .mini-preview-card { width: 60px; height: 80px; object-fit: cover; border: 1px solid #cbd5e1; border-radius: 3px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
+        .min-h-600 { min-height: 600px; }
+    </style>
+</head>
+<body>
+    <nav class="navbar sticky-top bg-glass py-3 border-bottom border-white border-opacity-10 shadow-sm">
+        <div class="container-fluid px-4 d-flex justify-content-between align-items-center">
+            <h1 class="navbar-brand m-0 fs-3 fw-bold text-primary-gradient d-flex align-items-center gap-2">
+                <span class="material-icons text-primary">photo_camera</span> Passport Photo Creator
+            </h1>
+            <button class="btn btn-primary d-flex align-items-center gap-2 px-4 py-2 shadow-sm rounded-pill" id="addPhotoBtn">
+                <span class="material-icons">add_a_photo</span> Add Photo
+            </button>
+        </div>
+    </nav>
+
+    <div class="container-fluid p-4">
+        <div class="row g-4">
+            <div class="col-lg-7 col-xl-8">
+                <div class="card card-glass h-100 min-h-600">
+                    <div class="card-body p-4">
+                        <h2 class="fs-4 fw-bold mb-4">Photo Management</h2>
+                        <div id="photoBlocksContainer" class="d-flex flex-column gap-3">
+                            <div id="emptyState" class="text-center py-5">
+                                <span class="material-icons text-muted fs-1 mb-3">broken_image</span>
+                                <p class="text-muted fs-5">No photos added yet. Click "+ Add Photo" to choose from your gallery.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-xl-4">
+                <div class="sticky-panel card card-glass shadow-lg">
+                    <div class="card-body p-4 d-flex flex-column h-100">
+                        <h2 class="fs-4 fw-bold mb-3 d-flex align-items-center gap-2"><span class="material-icons text-info">visibility</span> Live Preview</h2>
+                        <div class="preview-scroll-area flex-grow-1 border border-white border-opacity-20 rounded p-3 mb-4 bg-light-glass">
+                            <div id="liveGridPreview" class="d-flex flex-wrap justify-content-center gap-2"></div>
+                        </div>
+                        <button class="btn btn-success w-100 py-3 rounded-3 shadow d-flex align-items-center justify-content-center gap-2 fw-bold text-uppercase" id="generateLayoutBtn">
+                            <span class="material-icons">auto_awesome_motion</span> Generate Layout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="uploadModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content border-0 card-glass shadow-2xl">
+                <div class="modal-header border-bottom border-white border-opacity-10 p-3 bg-glass">
+                    <h5 class="modal-title fw-bold d-flex align-items-center gap-2"><span class="material-icons text-primary">folder_open</span> Choose Image Database</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <iframe src="/upload/" id="uploadIframe" class="w-100 h-100" style="min-height: 70vh; border:none;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let db;
+        let uploadModal;
+        let activeReplacementBlockId = null; 
+        let configItems = []; 
+
+        const req = indexedDB.open("ImageLibrary", 2);
+        req.onupgradeneeded = (e) => {
+            let database = e.target.result;
+            if(!database.objectStoreNames.contains("images")) {
+                let store = database.createObjectStore("images", { keyPath: "id", autoIncrement: true });
+                store.createIndex("token", "token", { unique: true });
+            }
+        };
+        req.onsuccess = (e) => {
+            db = e.target.result;
+            init();
+        };
+
+        function init() {
+            uploadModal = new bootstrap.Modal(document.getElementById('uploadModal'));
+            document.getElementById('addPhotoBtn').addEventListener('click', () => { activeReplacementBlockId = null; uploadModal.show(); });
+            document.getElementById('generateLayoutBtn').addEventListener('click', generateLayout);
+
+            window.addEventListener('message', (e) => { if (e.data && e.data.token) handleSelectedToken(e.data.token); });
+            window.addEventListener('pageshow', (e) => { loadFromStorageAndDB(); }); // Auto Refresh बिना पेज रीलोड के
+            loadFromStorageAndDB();
+        }
+
+        function loadFromStorageAndDB() {
+            const stored = sessionStorage.getItem('passport_config_items');
+            if (stored) {
+                configItems = JSON.parse(stored);
+                // IndexedDB से लेटेस्ट Blob यूआरएल सिंक करें (यदि एडिटर से लौटे हैं)
+                const tx = db.transaction("images", "readonly");
+                const store = tx.objectStore("images");
+                let loadedCount = 0;
+                if(configItems.length === 0) { renderBlocks(); return; }
+                
+                configItems.forEach((item, index) => {
+                    const idx = store.index("token");
+                    const query = idx.get(item.token);
+                    query.onsuccess = () => {
+                        const res = query.result;
+                        if(res) {
+                            const activeBlob = res.editedBlob ? res.editedBlob : res.blob;
+                            if(activeBlob) {
+                                item.blobUrl = URL.createObjectURL(activeBlob);
+                            }
+                        }
+                        loadedCount++;
+                        if(loadedCount === configItems.length) { renderBlocks(); }
+                    };
+                });
+            } else {
+                renderBlocks();
+            }
+        }
+
+        function saveConfigState() {
+            sessionStorage.setItem('passport_config_items', JSON.stringify(configItems));
+        }
+
+        function handleSelectedToken(token) {
+            const tx = db.transaction("images", "readwrite");
+            const store = tx.objectStore("images");
+            const idx = store.index("token");
+            const query = idx.get(token);
+
+            query.onsuccess = () => {
+                const item = query.result;
+                if (!item) return;
+                
+                // संरचना को भविष्य के लिए तैयार (AI/Face Tools) रखने के लिए अपडेट करें
+                if(!item.originalBlob) {
+                    item.originalBlob = item.blob;
+                    store.put(item);
+                }
+
+                const displayBlob = item.editedBlob ? item.editedBlob : item.blob;
+                const blobUrl = URL.createObjectURL(displayBlob);
+
+                if (activeReplacementBlockId !== null) {
+                    const target = configItems.find(x => x.id === activeReplacementBlockId);
+                    if (target) { target.blobUrl = blobUrl; target.token = token; }
+                    activeReplacementBlockId = null;
+                } else {
+                    configItems.push({
+                        id: Date.now() + Math.floor(Math.random() * 1000),
+                        token: token,
+                        blobUrl: blobUrl,
+                        name: item.name.split('.')[0] || "Passport Photo",
+                        date: new Date().toISOString().split('T')[0],
+                        copies: 6
+                    });
+                }
+                uploadModal.hide();
+                saveConfigState();
+                renderBlocks();
+            };
+        }
+
+        function renderBlocks() {
+            const container = document.getElementById('photoBlocksContainer');
+            const emptyState = document.getElementById('emptyState');
+            container.querySelectorAll('.photo-block-item').forEach(el => el.remove());
+
+            if (configItems.length === 0) emptyState.classList.remove('d-none');
+            else emptyState.classList.add('d-none');
+
+            configItems.forEach(item => {
+                const block = document.createElement('div');
+                block.className = 'photo-block-item p-3 mb-3 border bg-white';
+                block.innerHTML = `
+                    <div class="row align-items-center g-3">
+                        <div class="col-md-auto text-center">
+                            <img src="${item.blobUrl}" class="preview-thumbnail mb-2" title="Click to Edit Image" onclick="navigateToEditor(${item.id}, '${item.token}')">
+                            <div class="d-flex gap-1 justify-content-center">
+                                <button class="btn btn-sm btn-outline-secondary py-1 px-2" onclick="replacePhoto(${item.id})"><span class="material-icons align-middle fs-6">sync</span> Replace</button>
+                                <button class="btn btn-sm btn-outline-warning text-dark btn-edit-custom py-1 px-2" title="Click to Edit Image" onclick="navigateToEditor(${item.id}, '${item.token}')"><span class="material-icons align-middle fs-6">edit</span> Edit</button>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="row g-2">
+                                <div class="col-sm-6">
+                                    <label class="form-label small fw-bold text-muted text-uppercase">Full Name</label>
+                                    <input type="text" class="form-control" value="${item.name}" oninput="updateItemData(${item.id}, 'name', this.value)">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label small fw-bold text-muted text-uppercase">Date</label>
+                                    <input type="text" class="form-control" value="${item.date}" oninput="updateItemData(${item.id}, 'date', this.value)">
+                                </div>
+                                <div class="col-12 mt-3">
+                                    <label class="form-label small fw-bold text-muted text-uppercase me-3">Number of Copies</label>
+                                    <div class="d-flex flex-wrap gap-1 align-items-center">
+                                        ${[1, 2, 3, 4, 6, 8, 12, 16, 20].map(c => `<button class="btn btn-sm ${item.copies == c ? 'btn-primary' : 'btn-outline-primary'} preset-btn px-2 py-1" onclick="setCopies(${item.id}, ${c})">${c}</button>`).join('')}
+                                        <input type="number" class="form-control form-control-sm ms-2" style="width: 70px;" min="1" value="${item.copies}" oninput="setCopiesCustom(${item.id}, this.value)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-auto text-end d-flex flex-md-column gap-2 justify-content-center">
+                            <button class="btn btn-outline-info d-flex align-items-center gap-1 justify-content-center py-2 px-3" onclick="duplicateBlock(${item.id})"><span class="material-icons fs-5">content_copy</span> Duplicate</button>
+                            <button class="btn btn-outline-danger d-flex align-items-center gap-1 justify-content-center py-2 px-3" onclick="deleteBlock(${item.id})"><span class="material-icons fs-5">delete</span> Delete</button>
+                        </div>
+                    </div>`;
+                container.appendChild(block);
+            });
+            renderLivePreview();
+        }
+
+        window.navigateToEditor = (id, token) => {
+            window.location.href = `/passport-photo-editor/?id=${id}&token=${token}`;
+        };
+        window.replacePhoto = (id) => { activeReplacementBlockId = id; uploadModal.show(); };
+        window.updateItemData = (id, field, value) => { const item = configItems.find(x => x.id === id); if (item) { item[field] = value; saveConfigState(); renderLivePreview(); } };
+        window.setCopies = (id, count) => { const item = configItems.find(x => x.id === id); if (item) { item.copies = parseInt(count) || 1; saveConfigState(); renderBlocks(); } };
+        window.setCopiesCustom = (id, count) => { const item = configItems.find(x => x.id === id); if (item) { item.copies = parseInt(count) || 1; saveConfigState(); renderLivePreview(); } };
+        window.duplicateBlock = (id) => { const match = configItems.find(x => x.id === id); if (match) { configItems.push({ ...match, id: Date.now() + Math.floor(Math.random() * 1000), name: match.name + " (Copy)" }); saveConfigState(); renderBlocks(); } };
+        window.deleteBlock = (id) => { configItems = configItems.filter(x => x.id !== id); saveConfigState(); renderBlocks(); };
+
+        function renderLivePreview() {
+            const grid = document.getElementById('liveGridPreview');
+            grid.innerHTML = '';
+            configItems.forEach(item => {
+                const total = parseInt(item.copies) || 0;
+                for (let i = 0; i < total; i++) {
+                    const card = document.createElement('div');
+                    card.innerHTML = `<img src="${item.blobUrl}" class="mini-preview-card" title="${item.name}">`;
+                    grid.appendChild(card);
+                }
+            });
+        }
+
+        function generateLayout() {
+            if (configItems.length === 0) { alert("Please add at least one photo configuration block."); return; }
+            const serializedData = configItems.map(item => ({ token: item.token, name: item.name, date: item.date, copies: item.copies }));
+            sessionStorage.setItem('passport_print_payload', JSON.stringify(serializedData));
+            window.location.href = '/passport-photo-generated/';
+        }
+    </script>
+</body>
+</html>

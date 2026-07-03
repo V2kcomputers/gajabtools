@@ -1,0 +1,484 @@
++++
+date = 2026-06-02T15:52:59+05:30
+url ="/passport-photo-generated/"
+title = 'Student ID Card- Gajab Tools'
+description = "Hidden content section for tools, formats, updates, landing pages and special resources. Pages in this section are intended to be accessed directly via URL and are excluded from public listings."
+type= "tools"
+[sitemap]
+  disable = true
++++
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Printable Sheet Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="generated.css">
+    <style>
+        body {
+    background: #0f172a;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.workspace-viewport {
+    width: 100%;
+    min-height: calc(100vh - 80px);
+    overflow: auto;
+}
+
+/* Base sheet mapping standard print measurements precisely */
+.printable-sheet {
+    background-color: #ffffff;
+    box-sizing: border-box;
+    transform-origin: top center;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    overflow: hidden;
+}
+
+/* Individual cell wrap container wrapper logic */
+.photo-cell-wrapper {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+}
+
+.photo-cell-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    box-sizing: border-box;
+}
+
+.photo-cell-meta {
+    width: 100%;
+    text-align: center;
+    font-size: 9px;
+    line-height: 1.2;
+    color: #000;
+    margin-top: 2px;
+    font-weight: 500;
+    word-break: break-all;
+}
+
+/* Crop marks lines mapping */
+.cut-line-x, .cut-line-y {
+    position: absolute;
+    border: 0.5px dashed rgba(0, 0, 0, 0.35);
+    pointer-events: none;
+}
+
+/* Standard print override rules targeting layout frames cleanly */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    body, .workspace-viewport {
+        background: #ffffff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow: visible !important;
+    }
+    .printable-sheet {
+        box-shadow: none !important;
+        transform: none !important;
+        margin: 0 !important;
+        page-break-inside: avoid;
+        page-break-after: always;
+    }
+}
+        </style>
+</head>
+<body>
+
+    <div class="no-print sticky-top bg-dark text-white p-3 shadow-lg">
+        <div class="container-fluid">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+                
+                <div class="d-flex flex-wrap align-items-center gap-2">
+                    <div class="control-group">
+                        <label class="small text-muted d-block">Paper Sheet Canvas Layout</label>
+                        <select id="sheetLayoutSelect" class="form-select form-select-sm bg-secondary text-white border-0">
+                            <option value="a4-portrait">A4 Portrait</option>
+                            <option value="a4-landscape">A4 Landscape</option>
+                            <option value="4x6">4" x 6" Photo Paper</option>
+                            <option value="5x7">5" x 7" Photo Paper</option>
+                            <option value="custom">Custom Size</option>
+                        </select>
+                    </div>
+                    
+                    <div id="customSheetDim" class="d-none flex-wrap gap-1">
+                        <div>
+                            <label class="small text-muted d-block">Width (mm)</label>
+                            <input type="number" id="sheetCustomW" class="form-control form-control-sm bg-secondary text-white border-0" value="210" style="width:70px;">
+                        </div>
+                        <div>
+                            <label class="small text-muted d-block">Height (mm)</label>
+                            <input type="number" id="sheetCustomH" class="form-control form-control-sm bg-secondary text-white border-0" value="297" style="width:70px;">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="small text-muted d-block">Photo Size Specification</label>
+                        <select id="photoSizeSelect" class="form-select form-select-sm bg-secondary text-white border-0">
+                            <option value="25x35">25 x 35 mm</option>
+                            <option value="30x40">30 x 40 mm</option>
+                            <option value="35x45" selected>35 x 45 mm (Standard Passport)</option>
+                            <option value="51x51">2" x 2" Inch (US / India Visa)</option>
+                            <option value="custom">Custom Size</option>
+                        </select>
+                    </div>
+
+                    <div id="customPhotoDim" class="d-none flex-wrap gap-1">
+                        <div>
+                            <label class="small text-muted d-block">W (mm)</label>
+                            <input type="number" id="photoCustomW" class="form-control form-control-sm bg-secondary text-white border-0" value="35" style="width:60px;">
+                        </div>
+                        <div>
+                            <label class="small text-muted d-block">H (mm)</label>
+                            <input type="number" id="photoCustomH" class="form-control form-control-sm bg-secondary text-white border-0" value="45" style="width:60px;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-wrap align-items-center gap-2">
+                    <div>
+                        <label class="small text-muted d-block">Spacing</label>
+                        <input type="number" id="gridSpacing" class="form-control form-control-sm bg-secondary text-white border-0" style="width:60px;" value="3" min="0">
+                    </div>
+                    <div>
+                        <label class="small text-muted d-block">Margin</label>
+                        <input type="number" id="gridMargin" class="form-control form-control-sm bg-secondary text-white border-0" style="width:60px;" value="8" min="0">
+                    </div>
+                    <div>
+                        <label class="small text-muted d-block">Border Style</label>
+                        <select id="borderSelect" class="form-select form-select-sm bg-secondary text-white border-0">
+                            <option value="none">None</option>
+                            <option value="thin" selected>Thin Black</option>
+                            <option value="medium">Medium</option>
+                            <option value="thick">Thick</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="small text-muted d-block">Background Color</label>
+                        <select id="bgSelect" class="form-select form-select-sm bg-secondary text-white border-0">
+                            <option value="#ffffff" selected>White</option>
+                            <option value="#f1f5f9">Light Gray</option>
+                            <option value="transparent">Transparent</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-wrap align-items-center gap-3">
+                    <div class="form-check form-switch m-0 pt-3">
+                        <input class="form-check-input" type="checkbox" id="toggleName" checked>
+                        <label class="form-check-label small text-white" for="toggleName">Show Name</label>
+                    </div>
+                    <div class="form-check form-switch m-0 pt-3">
+                        <input class="form-check-input" type="checkbox" id="toggleDate" checked>
+                        <label class="form-check-label small text-white" for="toggleDate">Show Date</label>
+                    </div>
+                    <div class="form-check form-switch m-0 pt-3">
+                        <input class="form-check-input" type="checkbox" id="toggleCutLines" checked>
+                        <label class="form-check-label small text-white" for="toggleCutLines">Cut Lines</label>
+                    </div>
+                    
+                    <div class="d-flex align-items-center gap-1">
+                        <label class="small text-muted me-1">Zoom</label>
+                        <select id="zoomSelect" class="form-select form-select-sm bg-secondary text-white border-0" style="width:75px;">
+                            <option value="0.5">50%</option>
+                            <option value="0.75">75%</option>
+                            <option value="1" selected>100%</option>
+                            <option value="1.25">125%</option>
+                            <option value="1.5">150%</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button class="btn btn-sm btn-outline-info d-flex align-items-center gap-1" id="exportPngBtn">
+                        <span class="material-icons fs-5">image</span> PNG
+                    </button>
+                    <button class="btn btn-sm btn-outline-info d-flex align-items-center gap-1" id="exportJpgBtn">
+                        <span class="material-icons fs-5">insert_photo</span> JPG
+                    </button>
+                    <button class="btn btn-sm btn-danger d-flex align-items-center gap-1" id="exportPdfBtn">
+                        <span class="material-icons fs-5">picture_as_pdf</span> PDF
+                    </button>
+                    <button class="btn btn-sm btn-success d-flex align-items-center gap-1" id="printBtn">
+                        <span class="material-icons fs-5">print</span> Print
+                    </button>
+                    <a class="btn btn-sm btn-outline-light d-flex align-items-center gap-1" href="/passport-photo/">
+                        <span class="material-icons fs-5">arrow_back</span> Back
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="workspace-viewport p-4 d-flex justify-content-center align-items-start">
+        <div id="printableSheet" class="printable-sheet shadow-2xl bg-white position-relative">
+            </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="generated.js"></script>
+    <script>
+        let db;
+let sessionPayload = [];
+const objectUrls = [];
+
+const req = indexedDB.open("ImageLibrary", 2);
+req.onsuccess = (e) => {
+    db = e.target.result;
+    loadPayload();
+};
+
+function loadPayload() {
+    const raw = sessionStorage.getItem('passport_print_payload');
+    if (!raw) {
+        alert("No configuration data discovered. Returning to dashboard configuration interface.");
+        window.location.href = '/passport-photo/';
+        return;
+    }
+    sessionPayload = JSON.parse(raw);
+    
+    // De-serialize raw context asset blobs maps resolving structural pointers
+    hydrateBlobsAndRender();
+}
+
+async function hydrateBlobsAndRender() {
+    const tx = db.transaction("images", "readonly");
+    const store = tx.objectStore("images");
+    const idx = store.index("token");
+
+    for (let item of sessionPayload) {
+        await new Promise((resolve) => {
+            const getReq = idx.get(item.token);
+            getReq.onsuccess = () => {
+                if (getReq.result) {
+                    const url = URL.createObjectURL(getReq.result.blob);
+                    objectUrls.push(url);
+                    item.blobUrl = url;
+                }
+                resolve();
+            };
+        });
+    }
+
+    setupEventListeners();
+    renderGridEngine();
+}
+
+function setupEventListeners() {
+    const controls = [
+        'sheetLayoutSelect', 'sheetCustomW', 'sheetCustomH',
+        'photoSizeSelect', 'photoCustomW', 'photoCustomH',
+        'gridSpacing', 'gridMargin', 'borderSelect', 'bgSelect',
+        'toggleName', 'toggleDate', 'toggleCutLines', 'zoomSelect'
+    ];
+
+    controls.forEach(id => {
+        document.getElementById(id).addEventListener('input', () => {
+            if (id === 'sheetLayoutSelect') toggleCustomVisibility('sheetLayoutSelect', 'customSheetDim');
+            if (id === 'photoSizeSelect') toggleCustomVisibility('photoSizeSelect', 'customPhotoDim');
+            renderGridEngine();
+        });
+    });
+
+    document.getElementById('exportPngBtn').addEventListener('click', () => exportImage('png'));
+    document.getElementById('exportJpgBtn').addEventListener('click', () => exportImage('jpeg'));
+    document.getElementById('exportPdfBtn').addEventListener('click', exportPdfDocument);
+    document.getElementById('printBtn').addEventListener('click', () => window.print());
+}
+
+function toggleCustomVisibility(selectId, customDivId) {
+    const val = document.getElementById(selectId).value;
+    const div = document.getElementById(customDivId);
+    if (val === 'custom') {
+        div.classList.remove('d-none');
+        div.classList.add('d-flex');
+    } else {
+        div.classList.remove('d-flex');
+        div.classList.add('d-none');
+    }
+}
+
+function getDimensions() {
+    // Standard paper sizes in mm
+    let sheetW = 210, sheetH = 297; // A4 Default
+    const layout = document.getElementById('sheetLayoutSelect').value;
+    
+    if (layout === 'a4-landscape') { sheetW = 297; sheetH = 210; }
+    else if (layout === '4x6') { sheetW = 101.6; sheetH = 152.4; }
+    else if (layout === '5x7') { sheetW = 127; sheetH = 177.8; }
+    else if (layout === 'custom') {
+        sheetW = parseFloat(document.getElementById('sheetCustomW').value) || 210;
+        sheetH = parseFloat(document.getElementById('sheetCustomH').value) || 297;
+    }
+
+    let photoW = 35, photoH = 45; // 35x45 default
+    const pSize = document.getElementById('photoSizeSelect').value;
+    if (pSize === '25x35') { photoW = 25; photoH = 35; }
+    else if (pSize === '30x40') { photoW = 30; photoH = 40; }
+    else if (pSize === '51x51') { photoW = 50.8; photoH = 50.8; }
+    else if (pSize === 'custom') {
+        photoW = parseFloat(document.getElementById('photoCustomW').value) || 35;
+        photoH = parseFloat(document.getElementById('photoCustomH').value) || 45;
+    }
+
+    return { sheetW, sheetH, photoW, photoH };
+}
+
+function renderGridEngine() {
+    const dims = getDimensions();
+    const spacing = parseFloat(document.getElementById('gridSpacing').value) || 0;
+    const margin = parseFloat(document.getElementById('gridMargin').value) || 0;
+    const borderStyle = document.getElementById('borderSelect').value;
+    const bgColor = document.getElementById('bgSelect').value;
+    
+    const showName = document.getElementById('toggleName').checked;
+    const showDate = document.getElementById('toggleDate').checked;
+    const showCutLines = document.getElementById('toggleCutLines').checked;
+    const zoom = parseFloat(document.getElementById('zoomSelect').value) || 1;
+
+    const sheetEl = document.getElementById('printableSheet');
+    
+    // Enforce real world structural sizing context parameters
+    sheetEl.style.width = `${dims.sheetW}mm`;
+    sheetEl.style.height = `${dims.sheetH}mm`;
+    sheetEl.style.padding = `${margin}mm`;
+    sheetEl.style.backgroundColor = bgColor === 'transparent' ? 'transparent' : bgColor;
+    sheetEl.style.transform = `scale(${zoom})`;
+
+    sheetEl.innerHTML = '';
+
+    // Flat aggregate builder iterations parsing dynamic matrix counts
+    sessionPayload.forEach(item => {
+        if (!item.blobUrl) return;
+        const totalCopies = parseInt(item.copies) || 0;
+        
+        for (let c = 0; c < totalCopies; c++) {
+            const cellWrapper = document.createElement('div');
+            cellWrapper.className = 'photo-cell-wrapper';
+            cellWrapper.style.width = `${dims.photoW}mm`;
+            cellWrapper.style.margin = `${spacing / 2}mm`;
+
+            // Calculate exact inner dimensions to prevent layout overflow
+            let borderCss = 'none';
+            if (borderStyle === 'thin') borderCss = '1px solid #000000';
+            else if (borderStyle === 'medium') borderCss = '2px solid #000000';
+            else if (borderStyle === 'thick') borderCss = '3px solid #000000';
+
+            const imgEl = document.createElement('img');
+            imgEl.src = item.blobUrl;
+            imgEl.className = 'photo-cell-image';
+            imgEl.style.width = `${dims.photoW}mm`;
+            imgEl.style.height = `${dims.photoH}mm`;
+            imgEl.style.border = borderCss;
+
+            cellWrapper.appendChild(imgEl);
+
+            // Conditional context tags configuration options
+            if (showName || showDate) {
+                const metaBlock = document.createElement('div');
+                metaBlock.className = 'photo-cell-meta';
+                let metaHtml = '';
+                if (showName) metaHtml += `<div class="fw-bold text-truncate">${item.name}</div>`;
+                if (showDate) metaHtml += `<div class="text-muted" style="font-size:8px;">${item.date}</div>`;
+                metaBlock.innerHTML = metaHtml;
+                cellWrapper.appendChild(metaBlock);
+            }
+
+            if (showCutLines) {
+                // Append minimal structural horizontal/vertical guides overlays elements
+                const lineX = document.createElement('div');
+                lineX.className = 'cut-line-x';
+                lineX.style.width = '100%';
+                lineX.style.top = '0';
+                lineX.style.left = '0';
+                
+                const lineY = document.createElement('div');
+                lineY.className = 'cut-line-y';
+                lineY.style.height = '100%';
+                lineY.style.top = '0';
+                lineY.style.left = '0';
+                
+                cellWrapper.appendChild(lineX);
+                cellWrapper.appendChild(lineY);
+            }
+
+            sheetEl.appendChild(cellWrapper);
+        }
+    });
+}
+
+function exportImage(format) {
+    const sheetEl = document.getElementById('printableSheet');
+    
+    // Save current styling variables to restore later
+    const prevTransform = sheetEl.style.transform;
+    sheetEl.style.transform = 'none'; 
+
+    // Render configuration mapping 300 DPI calculations precisely
+    html2canvas(sheetEl, {
+        scale: 3.125, // Maps closely to standard target processing density
+        useCORS: true,
+        logging: false,
+        backgroundColor: document.getElementById('bgSelect').value === 'transparent' ? null : '#ffffff'
+    }).then(canvas => {
+        sheetEl.style.transform = prevTransform; // Restore zoom layout UI view state
+        
+        const mimeType = format === 'jpeg' ? 'image/jpeg' : 'image/png';
+        const quality = format === 'jpeg' ? 0.95 : undefined;
+        const dataUrl = canvas.toDataURL(mimeType, quality);
+        
+        const downloadLink = document.createElement('a');
+        downloadLink.download = `passport_layout_${Date.now()}.${format}`;
+        downloadLink.href = dataUrl;
+        downloadLink.click();
+    });
+}
+
+function exportPdfDocument() {
+    const { jsPDF } = window.jspdf;
+    const dims = getDimensions();
+    const sheetEl = document.getElementById('printableSheet');
+    
+    const prevTransform = sheetEl.style.transform;
+    sheetEl.style.transform = 'none';
+
+    html2canvas(sheetEl, {
+        scale: 3.125,
+        useCORS: true,
+        logging: false
+    }).then(canvas => {
+        sheetEl.style.transform = prevTransform;
+        
+        const imgData = canvas.toDataURL('image/jpeg', 1.0);
+        const orientation = dims.sheetW > dims.sheetH ? 'l' : 'p';
+        
+        const pdf = new jsPDF({
+            orientation: orientation,
+            unit: 'mm',
+            format: [dims.sheetW, dims.sheetH]
+        });
+
+        pdf.addImage(imgData, 'JPEG', 0, 0, dims.sheetW, dims.sheetH);
+        pdf.save(`passport_sheet_${Date.now()}.pdf`);
+    });
+}
+        </script>
+</body>
+</html>
