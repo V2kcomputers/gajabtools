@@ -473,8 +473,7 @@
         <div style="display:flex; gap:10px; margin-top:15px; justify-content:center; flex-wrap:wrap;"></div>
     </div>
     <div class="crop-toolbar">
-        <div class="rotation-box">
-            <button id="cropApplySelect" class="primary-btn">✓ Apply</button>
+        <div class="rotation-box"> 
             <button id="zoomReset" class="icon-btn">⛶</button>
             <button id="zoomOut" class="icon-btn">−</button>
             <button id="zoomIn" class="icon-btn"> +</button>
@@ -890,7 +889,7 @@ function selectImage(id) {
         }
 
         localStorage.setItem("selectedImageToken", image.token);
-        alert("Image Selected! Token: " + image.token);
+        alert("Image Selected! "  + image.token);
     };
 }
 

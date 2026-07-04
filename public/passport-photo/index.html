@@ -31,6 +31,48 @@
         .mini-preview-card { width: 60px; height: 80px; object-fit: cover; border: 1px solid #cbd5e1; border-radius: 3px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
         .min-h-600 { min-height: 600px; }
         .photo-block-item.highlight-selected-block { border: 2px solid var(--primary) !important; background: rgba(37, 99, 235, 0.03) !important; }
+
+         
+        .passport-preview-card {
+            width: 110px;
+            background: #ffffff;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            padding: 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .passport-preview-img {
+            width: 100%;
+            aspect-ratio: 3.5 / 4.5;
+            object-fit: cover;
+            background-color: #f8fafc;
+            border-radius: 2px;
+        }
+        .passport-preview-info {
+            width: 100%;
+            margin-top: 4px;
+            font-size: 10px;
+            line-height: 1.2;
+            font-weight: 600;
+            color: #0f172a;
+            word-break: break-word;
+        }
+        .passport-preview-name {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .passport-preview-date {
+            color: #475569;
+            font-size: 9px;
+            margin-top: 1px;
+        }
     </style>
 </head>
 <body>
@@ -65,7 +107,7 @@
                     <div class="card-body p-4 d-flex flex-column h-100">
                         <h2 class="fs-4 fw-bold mb-3 d-flex align-items-center gap-2"><span class="material-icons text-info">visibility</span> Live Preview</h2>
                         <div class="preview-scroll-area flex-grow-1 border border-white border-opacity-20 rounded p-3 mb-4 bg-light-glass">
-                            <div id="liveGridPreview" class="d-flex flex-wrap justify-content-center gap-2"></div>
+                            <div id="liveGridPreview" class="d-flex flex-wrap justify-content-center gap-3"></div>
                         </div>
                         <button class="btn btn-success w-100 py-3 rounded-3 shadow d-flex align-items-center justify-content-center gap-2 fw-bold text-uppercase" id="generateLayoutBtn">
                             <span class="material-icons">auto_awesome_motion</span> Generate Layout
@@ -120,6 +162,17 @@
             loadFromStorageAndDB();
         }
 
+        
+        function formatDisplayDate(dateString) {
+            if (!dateString) return '';
+            const cleanStr = dateString.trim();
+            if (/^\d{4}-\d{2}-\d{2}$/.test(cleanStr)) {
+                const parts = cleanStr.split('-');
+                return `${parts[2]}-${parts[1]}-${parts[0]}`;
+            }
+            return cleanStr;
+        }
+
         function loadFromStorageAndDB() {
             const stored = sessionStorage.getItem('passport_config_items');
             if (stored) {
@@ -135,12 +188,13 @@
                     query.onsuccess = () => {
                         const res = query.result;
                         if(res) {
-                            
                             const activeBlob = res.editedBlob ? res.editedBlob : res.blob;
                             if(activeBlob) {
                                 item.blobUrl = URL.createObjectURL(activeBlob);
                             }
                         }
+                        
+                        item.date = formatDisplayDate(item.date);
                         loadedCount++;
                         if(loadedCount === configItems.length) { 
                             renderBlocks(); 
@@ -185,7 +239,7 @@
                         token: token,
                         blobUrl: blobUrl,
                         name: item.name.split('.')[0] || "Passport Photo",
-                        date: new Date().toISOString().split('T')[0],
+                        date: formatDisplayDate(new Date().toISOString().split('T')[0]),
                         copies: 6
                     });
                 }
@@ -225,7 +279,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <label class="form-label small fw-bold text-muted text-uppercase">Date</label>
-                                    <input type="text" class="form-control" value="${item.date}" oninput="updateItemData(${item.id}, 'date', this.value)">
+                                    <input type="text" class="form-control" id="date-input-${item.id}" value="${item.date}" oninput="handleDateInput(${item.id}, this)">
                                 </div>
                                 <div class="col-12 mt-3">
                                     <label class="form-label small fw-bold text-muted text-uppercase me-3">Number of Copies</label>
@@ -246,13 +300,19 @@
             renderLivePreview();
         }
 
-        window.navigateToEditor = (blockId, token, action) => {
+        window.handleDateInput = (id, element) => {
             
+            const formatted = formatDisplayDate(element.value);
+            if (formatted !== element.value) {
+                element.value = formatted; 
+            }
+            updateItemData(id, 'date', formatted);
+        };
+
+        window.navigateToEditor = (blockId, token, action) => {
             sessionStorage.setItem('passport_return_page', window.location.href);
             sessionStorage.setItem('passport_return_block', blockId.toString());
             sessionStorage.setItem('passport_scroll_position', window.scrollY.toString());
-            
-            
             window.location.href = `/upload/?action=${action}&token=${encodeURIComponent(token)}`;
         };
 
@@ -283,11 +343,28 @@
         function renderLivePreview() {
             const grid = document.getElementById('liveGridPreview');
             grid.innerHTML = '';
+            
             configItems.forEach(item => {
                 const total = parseInt(item.copies) || 0;
+                const displayName = (item.name || '').trim();
+                const displayDate = formatDisplayDate(item.date);
+
                 for (let i = 0; i < total; i++) {
                     const card = document.createElement('div');
-                    card.innerHTML = `<img src="${item.blobUrl}" class="mini-preview-card" title="${item.name}">`;
+                    card.className = 'passport-preview-card';
+                    
+                    let infoHtml = '';
+                    if (displayName || displayDate) {
+                        infoHtml = `<div class="passport-preview-info">
+                            ${displayName ? `<div class="passport-preview-name">${displayName}</div>` : ''}
+                            ${displayDate ? `<div class="passport-preview-date">${displayDate}</div>` : ''}
+                        </div>`;
+                    }
+
+                    card.innerHTML = `
+                        <img src="${item.blobUrl}" class="passport-preview-img" alt="Passport View">
+                        ${infoHtml}
+                    `;
                     grid.appendChild(card);
                 }
             });
