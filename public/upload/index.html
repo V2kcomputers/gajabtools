@@ -4,6 +4,7 @@
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width,initial-scale=1'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
     <title>Image Library</title>
     <style>
@@ -159,16 +160,25 @@
 
         .actions{
           display:flex;
-          gap:10px;
+          gap:6px;
           margin-top:10px;
+          flex-wrap:wrap;
         }
 
         .actions button{
           flex:1;
+          min-width: 68px;
           border:none;
-          padding:10px;
+          padding:10px 4px;
           border-radius:10px;
           cursor:pointer;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          gap:2px;
+          font-size:12px;
+          font-weight:600;
+          height: 38px;
         }
         
         .crop-toolbar{
@@ -196,31 +206,28 @@
         }
 
         .primary-btn{
-            padding:12px 18px;
-            border-radius:12px;
             color:#fff;
             background:linear-gradient(135deg, #2563eb, #3b82f6);
         }
 
         .success-btn{
-            padding:12px 18px;
-            border-radius:12px;
             color:#fff;
             background:linear-gradient(135deg, #16a34a, #22c55e);
         }
 
         .warning-btn{
-            padding:12px 18px;
-            border-radius:12px;
             color:#fff;
             background:linear-gradient(135deg, #f59e0b, #fbbf24);
         }
 
         .danger-btn{
-            padding:12px 18px;
-            border-radius:12px;
             color:#fff;
             background:linear-gradient(135deg, #dc2626, #ef4444);
+        }
+
+        .blue-gradient-btn {
+            color:#fff;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
         }
 
         .icon-btn{
@@ -271,7 +278,7 @@
             color:#111827;
         }
 
-        .crop-close{
+         .apply-btn{
             width:52px;
             height:52px;
             border:none;
@@ -283,6 +290,25 @@
             z-index: 999;
             color:#fff;
             right: 40px;
+            top: 40px;
+            background: linear-gradient(135deg, #44ef4d, #00530b);
+            transition:.25s;
+        }
+        .apply-btn:hover{
+            transform:scale(1.08);
+        }
+        .crop-close{
+            width:52px;
+            height:52px;
+            border:none;
+            border-radius:50%;
+            cursor:pointer;
+            position: absolute;
+            font-size:20px;
+            font-weight:bold;
+            z-index: 999;
+            color:#fff;
+            left: 40px;
             top: 40px;
             background: linear-gradient(135deg, #ef4444, #dc2626);
             transition:.25s;
@@ -441,6 +467,7 @@
     
 <div id="cropModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.8); z-index:9999; padding:20px;">
     <div style="background:#fff; margin:auto; padding:20px; border-radius:20px;">
+         <button id="cropApplySelect" class="apply-btn">✓</button>
         <button id="cropCancel" class="crop-close">✕</button>
         <img id="cropImage" style="display:block; margin:auto;">
         <div style="display:flex; gap:10px; margin-top:15px; justify-content:center; flex-wrap:wrap;"></div>
@@ -464,6 +491,16 @@
         <div class="rotation-box">
             <button id="cropSave" class="icon-btn">💾</button>
         </div>
+    </div>
+</div>
+
+<div id="editModal" style="display:none; position:fixed; inset:0; background:rgba(15,23,42,0.85); z-index:99999; padding:15px; align-items:center; justify-content:center;">
+    <div style="background:#1e293b; width:100%; max-width:1450px; height:92vh; border-radius:20px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 25px 50px -12px rgba(0,0,0,0.5); border:1px solid #334155;">
+        <div style="padding:15px 24px; display:flex; justify-content:space-between; align-items:center; background:#111827; border-bottom:1px solid #334155;">
+            <h3 style="margin:0; color:#fff; font-size:18px; font-weight:600;">Advanced Image Workspace</h3>
+            <button onclick="closeEditModal()" style="background:none; border:none; color:#94a3b8; font-size:24px; cursor:pointer; transition:0.2s; line-height:1;">✕</button>
+        </div>
+        <iframe id="editIframe" style="width:100%; flex:1; border:none; background:#0f172a;"></iframe>
     </div>
 </div>
 
@@ -494,7 +531,41 @@ req.onupgradeneeded = (e) => {
 req.onsuccess = (e) => {
     db = e.target.result;
     load();
+    checkUrlParameters(); 
 };
+
+function checkUrlParameters() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const action = urlParams.get('action');
+    const token = urlParams.get('token');
+
+    if (action && token) {
+        const tx = db.transaction("images", "readonly");
+        const idx = tx.objectStore("images").index("token");
+        const query = idx.get(token);
+
+        query.onsuccess = () => {
+            const record = query.result;
+            if (record) {
+                if (action === 'edit') {
+                    openImageEditor(record.id, record.token);
+                } else if (action === 'crop') {
+                    cropExisting(record.id);
+                }
+            } else {
+                console.error("Deep link execution failed: asset signature target missing.");
+            }
+        };
+    }
+}
+
+function handleEditorReturn() {
+    const returnUrl = sessionStorage.getItem('passport_return_page');
+    if (returnUrl) {
+        sessionStorage.removeItem('passport_return_page');
+        window.location.replace(returnUrl);
+    }
+}
 
 function generateUniqueToken() {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -670,7 +741,45 @@ function closeCropper() {
     currentCropFile = null;
     currentCropId = null;
     currentCropToken = null;
+    
+    
+    if(sessionStorage.getItem('passport_return_page')) {
+         handleEditorReturn();
+    }
 }
+
+function openImageEditor(id, token) {
+    const url = `/edit/?id=${id}&token=${encodeURIComponent(token)}`;
+    const modal = document.getElementById("editModal");
+    const iframe = document.getElementById("editIframe");
+    
+    iframe.src = url;
+    modal.style.display = "flex";
+}
+
+function closeEditModal() {
+    const modal = document.getElementById("editModal");
+    const iframe = document.getElementById("editIframe");
+    
+    iframe.src = "";
+    modal.style.display = "none";
+    load();
+    
+    if(sessionStorage.getItem('passport_return_page')) {
+         handleEditorReturn();
+    }
+}
+
+window.addEventListener("message", (event) => {
+    if (event.data && event.data.type === "edit_complete") {
+        closeEditModal();
+        if (event.data.id) {
+            selectImage(event.data.id);
+        }
+    } else if (event.data === "edit_cancel") {
+        closeEditModal();
+    }
+});
 
 function load() {
     const gallery = document.getElementById("gallery");
@@ -690,7 +799,8 @@ function load() {
             const card = document.createElement("div");
             card.className = "card";
 
-            const blobUrl = URL.createObjectURL(image.blob);
+            const activeBlob = image.editedBlob ? image.editedBlob : image.blob;
+            const blobUrl = URL.createObjectURL(activeBlob);
             objectUrlsMap.set(image.id, blobUrl);
 
             card.innerHTML = `
@@ -699,23 +809,27 @@ function load() {
                     <p style="word-break: break-all; margin: 0 0 5px 0;"><strong>${image.token}</strong></p>
                     <p style="margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${image.name}</p>
                     <div class="actions">
-                        <button class="primary-btn" style="padding:6px;" id="btn-sel-${image.id}">Select</button>
-                        <button class="warning-btn" style="padding:6px;" id="btn-crp-${image.id}">Crop</button>
-                        <button class="success-btn" style="padding:6px;" id="btn-ren-${image.id}">Rename</button>
-                        <button class="danger-btn" style="padding:6px;" id="btn-del-${image.id}">Delete</button>
+                        <button class="primary-btn" id="btn-sel-${image.id}">Select</button>
+                        <button class="warning-btn" id="btn-crp-${image.id}">Crop</button>
+                        <button class="blue-gradient-btn" id="btn-edt-${image.id}"><span class="material-icons" style="font-size:14px;">edit</span>Edit</button>
+                        <button class="success-btn" id="btn-ren-${image.id}">Rename</button>
+                        <button class="danger-btn" id="btn-del-${image.id}">Delete</button>
                     </div>
                 </div>
             `;
 
             gallery.appendChild(card);
 
-            document.getElementById(`img-item-${image.id}`).onclick = () => selectImage(image.id);
+            const imgEl = document.getElementById(`img-item-${image.id}`);
+            imgEl.onclick = () => selectImage(image.id);
+            imgEl.ondblclick = () => openImageEditor(image.id, image.token);
+
             document.getElementById(`btn-sel-${image.id}`).onclick = () => selectImage(image.id);
             document.getElementById(`btn-crp-${image.id}`).onclick = () => cropExisting(image.id);
+            document.getElementById(`btn-edt-${image.id}`).onclick = () => openImageEditor(image.id, image.token);
             document.getElementById(`btn-ren-${image.id}`).onclick = () => renameImg(image.id);
             document.getElementById(`btn-del-${image.id}`).onclick = () => deleteImg(image.id);
             
-            const imgEl = document.getElementById(`img-item-${image.id}`);
             imgEl.addEventListener("dragstart", (ev) => {
                 ev.dataTransfer.setData("text/plain", JSON.stringify({ token: image.token }));
             });
@@ -820,7 +934,8 @@ function cropExisting(id) {
     reqGet.onsuccess = () => {
         const image = reqGet.result;
         if (image) {
-            const blobUrl = URL.createObjectURL(image.blob);
+            const activeBlob = image.editedBlob ? image.editedBlob : image.blob;
+            const blobUrl = URL.createObjectURL(activeBlob);
             openCropper(blobUrl, image.name, id, image.token);
         }
     };
@@ -834,7 +949,8 @@ function updateCroppedImage(id, token, newBlob, meta) {
     reqGet.onsuccess = () => {
         const image = reqGet.result;
         if (image) {
-            image.blob = newBlob;
+            
+            image.editedBlob = newBlob; 
             image.mime = newBlob.type;
             image.size = newBlob.size;
             image.width = meta.width;
@@ -846,6 +962,7 @@ function updateCroppedImage(id, token, newBlob, meta) {
     tx.oncomplete = () => {
         closeCropper();
         load();
+        handleEditorReturn();
     };
 }
 
@@ -857,7 +974,7 @@ function updateCroppedAndSelect(id, token, newBlob, meta) {
     reqGet.onsuccess = () => {
         const image = reqGet.result;
         if (image) {
-            image.blob = newBlob;
+            image.editedBlob = newBlob;
             image.mime = newBlob.type;
             image.size = newBlob.size;
             image.width = meta.width;
@@ -869,7 +986,11 @@ function updateCroppedAndSelect(id, token, newBlob, meta) {
     tx.oncomplete = () => {
         closeCropper();
         load();
-        selectImage(id);
+        if(sessionStorage.getItem('passport_return_page')) {
+            handleEditorReturn();
+        } else {
+            selectImage(id);
+        }
     };
 }
 
@@ -923,6 +1044,8 @@ window.cropExisting = cropExisting;
 window.renameImg = renameImg;
 window.deleteImg = deleteImg;
 window.selectImage = selectImage;
+window.openImageEditor = openImageEditor;
+window.closeEditModal = closeEditModal;
 </script>
 </body>
 </html>

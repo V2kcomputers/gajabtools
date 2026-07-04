@@ -192,15 +192,20 @@
         let originalImgObject = null;
         let currentRotation = 0, flipH = 1, flipV = 1;
 
-        
         let imageStateBeforeAI = null; 
         let segmentAlphaMaskCanvas = null; 
         let currentExtractedBlobPNG = null;
         let activeBgColorFill = 'transparent';
+        let originalImageDimensions = { width: 0, height: 0 };
 
         const urlParams = new URLSearchParams(window.location.search);
         imgId = parseInt(urlParams.get('id'));
         imgToken = urlParams.get('token');
+
+        if (!imgToken) {
+            alert("Image not found.");
+            window.location.href = "/upload/";
+        }
 
         const req = indexedDB.open("ImageLibrary", 2);
         req.onsuccess = (e) => {
@@ -208,22 +213,32 @@
             initEditorEngine();
         };
 
+        req.onerror = () => {
+            window.location.href = "/upload/";
+        };
+
         function initEditorEngine() {
-            fabricCanvas = new fabric.Canvas('mainCanvas', { backgroundColor: '#ffffff' });
+            fabricCanvas = new fabric.Canvas('mainCanvas', { backgroundColor: 'transparent' });
             
             const tx = db.transaction("images", "readonly");
             const store = tx.objectStore("images");
-            const query = store.index("token").get(imgToken);
+            const query = store.get(imgId);
 
             query.onsuccess = () => {
                 const item = query.result;
-                if (!item) return;
+                if (!item || item.token !== imgToken) {
+                    window.location.href = "/upload/";
+                    return;
+                }
 
-                const blobToLoad = item.originalBlob ? item.originalBlob : item.blob;
+                document.getElementById('filenameBadge').innerText = item.name;
+
                 const reader = new FileReader();
                 reader.onload = function(event) {
                     fabric.Image.fromURL(event.target.result, function(img) {
                         originalImgObject = img;
+                        originalImageDimensions.width = img.width;
+                        originalImageDimensions.height = img.height;
                         
                         const maxW = window.innerWidth * 0.55;
                         const maxH = window.innerHeight * 0.70;
@@ -244,7 +259,7 @@
                         fabricCanvas.renderAll();
                     });
                 };
-                reader.readAsDataURL(blobToLoad);
+                reader.readAsDataURL(item.blob);
             };
 
             setupShortcuts();
@@ -335,9 +350,26 @@
                 document.getElementById('mainCanvas').style.display = 'block';
                 if(canvasEl) canvasEl.style.display = 'block';
 
+                originalImageDimensions.width = croppedCanvas.width;
+                originalImageDimensions.height = croppedCanvas.height;
+
                 fabric.Image.fromURL(croppedCanvas.toDataURL(), function(img) {
                     fabricCanvas.clear();
-                    img.set({ left: fabricCanvas.width/2, top: fabricCanvas.height/2, originX:'center', originY:'center' });
+                    const maxW = window.innerWidth * 0.55;
+                    const maxH = window.innerHeight * 0.70;
+                    const scale = Math.min(maxW / img.width, maxH / img.height);
+                    
+                    fabricCanvas.setWidth(img.width * scale);
+                    fabricCanvas.setHeight(img.height * scale);
+
+                    img.set({ 
+                        scaleX: scale, 
+                        scaleY: scale, 
+                        left: fabricCanvas.width/2, 
+                        top: fabricCanvas.height/2, 
+                        originX:'center', 
+                        originY:'center' 
+                    });
                     fabricCanvas.add(img);
                     fabricCanvas.setActiveObject(img);
                     fabricCanvas.renderAll();
@@ -379,11 +411,8 @@
         }
 
         function handleCancel() {
-            window.history.back();
+            window.location.href = "/upload/";
         }
-
-        
-
 
         function setAIElementsRunning(isRunning, message = "", percent = 0) {
             const triggers = document.querySelectorAll('.remove-bg-trigger');
@@ -426,26 +455,18 @@
             }
 
             setAIElementsRunning(true, "Extracting asset data...", 15);
-
-            
             imageStateBeforeAI = activeObject.toDataURL({ format: 'png', quality: 1.0 });
 
-            
             const rawImgNode = new Image();
             rawImgNode.crossOrigin = "anonymous";
-            
-            
             rawImgNode.src = activeObject.toObject().src || activeObject.toDataURL({ format: 'png', quality: 1.0 });
 
             rawImgNode.onload = async () => {
                 try {
                     setAIElementsRunning(true, "Executing AI Segmentation Model...", 40);
-                    
-                    
                     if (window.SelfieSegmentation) {
                         await runMediaPipeSegmentation(rawImgNode);
                     } else {
-                        
                         setAIElementsRunning(true, "MediaPipe offline. Trying BodyPix Fallback...", 55);
                         await runBodyPixFallback(rawImgNode);
                     }
@@ -472,14 +493,12 @@
                         instanceCompleted = true;
                         setAIElementsRunning(true, "Refining transparency map...", 85);
                         
-                        
                         segmentAlphaMaskCanvas = document.createElement('canvas');
                         segmentAlphaMaskCanvas.width = imageElement.width;
                         segmentAlphaMaskCanvas.height = imageElement.height;
                         const ctx = segmentAlphaMaskCanvas.getContext('2d');
                         ctx.drawImage(results.segmentationMask, 0, 0, imageElement.width, imageElement.height);
 
-                        
                         if (isMaskEmpty(segmentAlphaMaskCanvas)) {
                             setAIElementsRunning(false, "No human detected.");
                             alert("No human detected in this image.");
@@ -574,20 +593,16 @@
             const edgeBlur = parseInt(document.getElementById('slide_edgeBlur').value);
             const hairDetail = parseInt(document.getElementById('slide_hair').value);
 
-            
             const pipelineCanvas = document.createElement('canvas');
             pipelineCanvas.width = w;
             pipelineCanvas.height = h;
             const pCtx = pipelineCanvas.getContext('2d');
 
-            
             pCtx.filter = `blur(${edgeBlur}px)`;
             pCtx.drawImage(segmentAlphaMaskCanvas, 0, 0, w, h);
             pCtx.filter = 'none';
 
-            
             const maskData = pCtx.getImageData(0, 0, w, h);
-            
             
             const compositingCanvas = document.createElement('canvas');
             compositingCanvas.width = w;
@@ -596,26 +611,21 @@
             cCtx.drawImage(nativeImageNode, 0, 0, w, h);
             const srcData = cCtx.getImageData(0, 0, w, h);
 
-            
             for (let i = 0; i < srcData.data.length; i += 4) {
                 let alpha = maskData.data[i + 3];
 
-                
                 if(feather > 0) {
                     alpha = alpha - feather;
                     if(alpha < 0) alpha = 0;
                 }
 
                 if (smooth > 1) {
-                    
                     let normalized = alpha / 255;
                     normalized = 1 / (1 + Math.exp(-smooth * (normalized - 0.5)));
                     alpha = normalized * 255;
                 }
 
-                
                 if (alpha < 240 && alpha > 15 && hairDetail > 0) {
-                    
                     srcData.data[i] = Math.max(0, srcData.data[i] - hairDetail * 4);
                     srcData.data[i+1] = Math.max(0, srcData.data[i+1] - hairDetail * 4);
                     srcData.data[i+2] = Math.max(0, srcData.data[i+2] - hairDetail * 4);
@@ -626,19 +636,16 @@
 
             cCtx.putImageData(srcData, 0, 0);
 
-            
             const activeObject = fabricCanvas.getActiveObject();
             const currentScaleX = activeObject.scaleX;
             const currentScaleY = activeObject.scaleY;
             const currentLeft = activeObject.left;
             const currentTop = activeObject.top;
 
-            
             pipelineCanvas.width = w;
             pipelineCanvas.height = h;
             const finalCtx = pipelineCanvas.getContext('2d');
 
-            
             if(activeBgColorFill !== 'transparent') {
                 finalCtx.fillStyle = activeBgColorFill;
                 finalCtx.fillRect(0, 0, w, h);
@@ -657,7 +664,6 @@
                     selectable: true, hasControls: true
                 });
 
-                
                 fabricCanvas.remove(activeObject);
                 fabricCanvas.add(newFabricImg);
                 fabricCanvas.setActiveObject(newFabricImg);
@@ -669,8 +675,6 @@
             activeBgColorFill = colorStyle;
             if(originalImgObject) {
                 renderRefinedMatte(originalImgObject._element);
-                
-                
                 if(colorStyle !== 'transparent') {
                     changeCanvasBackground(colorStyle);
                 } else {
@@ -720,37 +724,61 @@
             }
         }
 
-        
+        function checkHasTransparency(ctx, w, h) {
+            const buffer = ctx.getImageData(0, 0, w, h).data;
+            for (let i = 3; i < buffer.length; i += 4) {
+                if (buffer[i] < 255) return true;
+            }
+            return false;
+        }
+
         function handleApply() {
             if(cropperInstance) { toggleCropMode(); } 
 
-            
-            const exportFormat = (activeBgColorFill === 'transparent') ? 'png' : 'jpeg';
-            const exportQuality = 1.0;
-            
-            const dataUrl = fabricCanvas.toDataURL({ format: exportFormat, quality: exportQuality });
-            
-            fetch(dataUrl)
-                .then(res => res.blob())
-                .then(editedBlob => {
+            const w = originalImageDimensions.width;
+            const h = originalImageDimensions.height;
+
+            const nativeBakingCanvas = document.createElement('canvas');
+            nativeBakingCanvas.width = w;
+            nativeBakingCanvas.height = h;
+            const nCtx = nativeBakingCanvas.getContext('2d');
+
+            const currentFabricStateURL = fabricCanvas.toDataURL({ format: 'png', quality: 1.0 });
+            const temporaryImageNode = new Image();
+            temporaryImageNode.src = currentFabricStateURL;
+
+            temporaryImageNode.onload = () => {
+                nCtx.drawImage(temporaryImageNode, 0, 0, w, h);
+                
+                const hasTransparency = (activeBgColorFill === 'transparent') && checkHasTransparency(nCtx, w, h);
+                const exportMime = hasTransparency ? 'image/png' : 'image/jpeg';
+                
+                nativeBakingCanvas.toBlob((editedBlob) => {
                     const tx = db.transaction("images", "readwrite");
                     const store = tx.objectStore("images");
-                    const query = store.index("token").get(imgToken);
+                    const query = store.get(imgId);
 
                     query.onsuccess = () => {
                         const item = query.result;
-                        if(item) {
-                            item.editedBlob = editedBlob;
+                        if(item && item.token === imgToken) {
+                            item.blob = editedBlob;
+                            item.mime = exportMime;
+                            item.size = editedBlob.size;
+                            item.width = w;
+                            item.height = h;
                             item.edited = true;
                             item.editedDate = new Date().toISOString();
                             
                             store.put(item);
                             tx.oncomplete = () => {
-                                window.location.href = "/passport-photo/";
+                                window.location.href = "/upload/";
                             };
+                        } else {
+                            window.location.href = "/upload/";
                         }
                     };
-                });
+                }, exportMime, 1.0);
+            };
         }
     </script>
 </body>

@@ -30,6 +30,7 @@
         .btn-edit-custom:hover { box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4); transform: scale(1.05); }
         .mini-preview-card { width: 60px; height: 80px; object-fit: cover; border: 1px solid #cbd5e1; border-radius: 3px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
         .min-h-600 { min-height: 600px; }
+        .photo-block-item.highlight-selected-block { border: 2px solid var(--primary) !important; background: rgba(37, 99, 235, 0.03) !important; }
     </style>
 </head>
 <body>
@@ -115,7 +116,7 @@
             document.getElementById('generateLayoutBtn').addEventListener('click', generateLayout);
 
             window.addEventListener('message', (e) => { if (e.data && e.data.token) handleSelectedToken(e.data.token); });
-            window.addEventListener('pageshow', (e) => { loadFromStorageAndDB(); }); // Auto Refresh बिना पेज रीलोड के
+            window.addEventListener('pageshow', (e) => { loadFromStorageAndDB(); }); 
             loadFromStorageAndDB();
         }
 
@@ -123,7 +124,6 @@
             const stored = sessionStorage.getItem('passport_config_items');
             if (stored) {
                 configItems = JSON.parse(stored);
-                // IndexedDB से लेटेस्ट Blob यूआरएल सिंक करें (यदि एडिटर से लौटे हैं)
                 const tx = db.transaction("images", "readonly");
                 const store = tx.objectStore("images");
                 let loadedCount = 0;
@@ -135,13 +135,17 @@
                     query.onsuccess = () => {
                         const res = query.result;
                         if(res) {
+                            // If modified asset exists, use it; fallback to core blob record safely
                             const activeBlob = res.editedBlob ? res.editedBlob : res.blob;
                             if(activeBlob) {
                                 item.blobUrl = URL.createObjectURL(activeBlob);
                             }
                         }
                         loadedCount++;
-                        if(loadedCount === configItems.length) { renderBlocks(); }
+                        if(loadedCount === configItems.length) { 
+                            renderBlocks(); 
+                            restoreInterfaceContext();
+                        }
                     };
                 });
             } else {
@@ -163,7 +167,6 @@
                 const item = query.result;
                 if (!item) return;
                 
-                // संरचना को भविष्य के लिए तैयार (AI/Face Tools) रखने के लिए अपडेट करें
                 if(!item.originalBlob) {
                     item.originalBlob = item.blob;
                     store.put(item);
@@ -203,13 +206,15 @@
             configItems.forEach(item => {
                 const block = document.createElement('div');
                 block.className = 'photo-block-item p-3 mb-3 border bg-white';
+                block.id = `photo-block-${item.id}`;
                 block.innerHTML = `
                     <div class="row align-items-center g-3">
                         <div class="col-md-auto text-center">
-                            <img src="${item.blobUrl}" class="preview-thumbnail mb-2" title="Click to Edit Image" onclick="navigateToEditor(${item.id}, '${item.token}')">
+                            <img src="${item.blobUrl}" class="preview-thumbnail mb-2" title="Click to Edit Image" onclick="navigateToEditor(${item.id}, '${item.token}', 'edit')">
                             <div class="d-flex gap-1 justify-content-center">
                                 <button class="btn btn-sm btn-outline-secondary py-1 px-2" onclick="replacePhoto(${item.id})"><span class="material-icons align-middle fs-6">sync</span> Replace</button>
-                                <button class="btn btn-sm btn-outline-warning text-dark btn-edit-custom py-1 px-2" title="Click to Edit Image" onclick="navigateToEditor(${item.id}, '${item.token}')"><span class="material-icons align-middle fs-6">edit</span> Edit</button>
+                                <button class="btn btn-sm btn-outline-success py-1 px-2" onclick="navigateToEditor(${item.id}, '${item.token}', 'crop')"><span class="material-icons align-middle fs-6">crop</span> Crop</button>
+                                <button class="btn btn-sm btn-outline-warning text-dark btn-edit-custom py-1 px-2" title="Click to Edit Image" onclick="navigateToEditor(${item.id}, '${item.token}', 'edit')"><span class="material-icons align-middle fs-6">edit</span> Edit</button>
                             </div>
                         </div>
                         <div class="col-md">
@@ -241,9 +246,33 @@
             renderLivePreview();
         }
 
-        window.navigateToEditor = (id, token) => {
-            window.location.href = `/passport-photo-editor/?id=${id}&token=${token}`;
+        window.navigateToEditor = (blockId, token, action) => {
+            // Persist workflow tracking attributes into session store prior to redirection
+            sessionStorage.setItem('passport_return_page', window.location.href);
+            sessionStorage.setItem('passport_return_block', blockId.toString());
+            sessionStorage.setItem('passport_scroll_position', window.scrollY.toString());
+            
+            // Perform explicit routing redirect using target token details
+            window.location.href = `/upload/?action=${action}&token=${encodeURIComponent(token)}`;
         };
+
+        function restoreInterfaceContext() {
+            const targetBlockId = sessionStorage.getItem('passport_return_block');
+            const scrollPos = sessionStorage.getItem('passport_scroll_position');
+            
+            if (targetBlockId) {
+                const blockEl = document.getElementById(`photo-block-${targetBlockId}`);
+                if (blockEl) {
+                    blockEl.classList.add('highlight-selected-block');
+                }
+                sessionStorage.removeItem('passport_return_block');
+            }
+            if (scrollPos) {
+                window.scrollTo(0, parseInt(scrollPos));
+                sessionStorage.removeItem('passport_scroll_position');
+            }
+        }
+
         window.replacePhoto = (id) => { activeReplacementBlockId = id; uploadModal.show(); };
         window.updateItemData = (id, field, value) => { const item = configItems.find(x => x.id === id); if (item) { item[field] = value; saveConfigState(); renderLivePreview(); } };
         window.setCopies = (id, count) => { const item = configItems.find(x => x.id === id); if (item) { item.copies = parseInt(count) || 1; saveConfigState(); renderBlocks(); } };
