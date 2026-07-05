@@ -413,7 +413,7 @@
                         <label class="form-check-label small text-white" for="toggleDate">Show Date</label>
                     </div>
                     <div class="form-check form-switch m-0 pt-3">
-                        <input class="form-check-input" type="checkbox" id="toggleCutLines" checked>
+                        <input class="form-check-input" type="checkbox" id="toggleCutLines">
                         <label class="form-check-label small text-white" for="toggleCutLines">Cut Lines</label>
                     </div>
                     
@@ -721,6 +721,13 @@
             isProgrammaticChange = true;
 
             switch (presetName) {
+                  case 'passport-standard':
+                    sheetLayout.value = 'a4-portrait';
+                    photoSize.value = '30x40';
+                    spacing.value = 2;
+                    margin.value = 5;
+                    border.value = 'thin';
+                    break;
                 case 'passport-standard':
                     sheetLayout.value = 'a4-portrait';
                     photoSize.value = '35x45';

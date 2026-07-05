@@ -1911,88 +1911,305 @@ function fillExampleBiodata(){
     <title>Printable Sheet Generator</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="generated.css">
     <style>
         body {
-    background: #0f172a;
-    margin: 0;
-    padding: 0;
-    font-family: system-ui, -apple-system, sans-serif;
-}
+            background: #0f172a;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
 
-.workspace-viewport {
-    width: 100%;
-    min-height: calc(100vh - 80px);
-    overflow: auto;
-}
+        .workspace-viewport {
+            width: 100%;
+            min-height: calc(100vh - 80px);
+            overflow: auto;
+        }
 
-/* Base sheet mapping standard print measurements precisely */
-.printable-sheet {
-    background-color: #ffffff;
-    box-sizing: border-box;
-    transform-origin: top center;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    overflow: hidden;
-}
+        /* Base sheet mapping standard print measurements precisely */
+        .printable-sheet {
+            background-color: #ffffff;
+            box-sizing: border-box;
+            transform-origin: top center;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            overflow: hidden;
+            position: relative;
+        }
 
-/* Individual cell wrap container wrapper logic */
-.photo-cell-wrapper {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    position: relative;
-}
+        /* Multi-page container preview arrangement styling */
+        .workspace-viewport .printable-sheet {
+            margin-bottom: 2rem !important;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
 
-.photo-cell-image {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    display: block;
-    box-sizing: border-box;
-}
+        /* Individual cell wrap container wrapper logic */
+        .photo-cell-wrapper {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            position: relative;
+            background: #ffffff;
+            overflow: hidden; /* Sheet par photo card ke baahar content na dikhe */
+        }
 
-.photo-cell-meta {
-    width: 100%;
-    text-align: center;
-    font-size: 9px;
-    line-height: 1.2;
-    color: #000;
-    margin-top: 2px;
-    font-weight: 500;
-    word-break: break-all;
-}
+        /* Unified Card Style Container */
+        .passport-card-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            box-sizing: border-box;
+            position: relative;
+        }
 
-/* Crop marks lines mapping */
-.cut-line-x, .cut-line-y {
-    position: absolute;
-    border: 0.5px dashed rgba(0, 0, 0, 0.35);
-    pointer-events: none;
-}
+        /* Image viewport container mask */
+        .photo-image-container {
+            width: 100%;
+            overflow: hidden; /* Main sheet par face extra baahar na nikle */
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            box-sizing: border-box;
+        }
 
-/* Standard print override rules targeting layout frames cleanly */
-@media print {
-    .no-print {
-        display: none !important;
-    }
-    body, .workspace-viewport {
-        background: #ffffff !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        overflow: visible !important;
-    }
-    .printable-sheet {
-        box-shadow: none !important;
-        transform: none !important;
-        margin: 0 !important;
-        page-break-inside: avoid;
-        page-break-after: always;
-    }
-}
-        </style>
+        .photo-cell-image {
+            display: block;
+            box-sizing: border-box;
+            transition: none;
+            position: absolute;
+            max-width: none !important;
+            max-height: none !important;
+        }
+
+        .photo-cell-meta {
+            width: 100%;
+            text-align: center;
+            font-size: 9px;
+            line-height: 1.2;
+            color: #000;
+            margin-top: auto;
+            padding: 4px 2px;
+            font-weight: 500;
+            word-break: break-all;
+            background: #ffffff;
+            border-top: 1px solid #e2e8f0;
+            z-index: 2;
+        }
+
+        /* Hover Overlay Styles */
+        .photo-cell-hover-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.75);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            z-index: 10;
+            cursor: pointer;
+        }
+
+        .photo-cell-wrapper:hover .photo-cell-hover-overlay {
+            opacity: 1;
+        }
+
+        /* Crop marks lines mapping */
+        .cut-line-x, .cut-line-y {
+            position: absolute;
+            border: 0.5px dashed rgba(0, 0, 0, 0.35);
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        /* Modal Live Preview Styles */
+        .preview-box-container {
+            width: 350px;
+            height: 450px;
+            background: #1e293b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: visible; /* CRITICAL: Editor ke andar takki full original image uncut dikhe */
+        }
+
+        /* Grey area = outside safe printable space */
+        .preview-safe-overlay {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            background: rgba(15, 23, 42, 0.6);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .preview-printable-window {
+            position: absolute;
+            background: #ffffff;
+            box-shadow: 0 0 25px rgba(0,0,0,0.6);
+            overflow: visible; /* Taaki adjustment ke waqt head/ear full dikhen */
+            z-index: 4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 2px solid #3b82f6;
+            cursor: move;
+            touch-action: none;
+            user-select: none;
+        }
+
+        /* Preview container me image ko adjust karte waqt uncut rakhne ke liye */
+        .preview-printable-window .photo-image-container {
+            overflow: visible !important; 
+            position: relative;
+        }
+
+        /* Editor specific image behavior overrides to prevent cropping during layout adjustments */
+        .preview-printable-window .photo-cell-image {
+            object-fit: fill !important;
+            max-width: none !important;
+            max-height: none !important;
+            position: absolute;
+            pointer-events: none;
+        }
+
+        /* Taaki hume pata chale ki card ki real boundary kahan tak hai */
+        .preview-printable-window::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border: 2px dashed #ef4444;
+            pointer-events: none;
+            z-index: 99;
+        }
+
+        /* Feature 7: Alignment Guide Line Styles */
+        .alignment-guide-line {
+            position: absolute;
+            background-color: #f43f5e;
+            pointer-events: none;
+            z-index: 100;
+            display: none;
+        }
+        .guide-v {
+            width: 1.5px;
+            top: 0;
+            bottom: 0;
+        }
+        .guide-h {
+            height: 1.5px;
+            left: 0;
+            right: 0;
+        }
+
+        /* Feature 13: Page Counter Footer Design Elements */
+        .preview-page-indicator {
+            display: none;
+            position: absolute;
+            bottom: 0;
+            right: 1px;
+            transform: translateX(-50%);
+            font-size: 6px;
+            color: #64748b;
+            letter-spacing: 1px;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Feature 6: Better Custom Slider Styling Rules */
+        .custom-slider-row input[type="range"].form-range {
+            -webkit-appearance: none;
+            appearance: none;
+            background: transparent;
+            height: 32px;
+        }
+        .custom-slider-row input[type="range"].form-range:focus {
+            outline: none;
+            box-shadow: none;
+        }
+        .custom-slider-row input[type="range"].form-range::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            background: #334155;
+            border-radius: 3px;
+            transition: background 0.2s ease;
+        }
+        .custom-slider-row input[type="range"].form-range::-webkit-slider-thumb {
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            background: #0ea5e9;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -6px;
+            box-shadow: 0 0 8px rgba(14, 165, 233, 0.4);
+            transition: transform 0.1s ease, background-color 0.2s ease;
+        }
+        .custom-slider-row input[type="range"].form-range:active::-webkit-slider-thumb {
+            transform: scale(1.25);
+            background: #38bdf8;
+        }
+        .custom-slider-row input[type="range"].form-range::-moz-range-track {
+            width: 100%;
+            height: 6px;
+            background: #334155;
+            border-radius: 3px;
+        }
+        .custom-slider-row input[type="range"].form-range::-moz-range-thumb {
+            height: 18px;
+            width: 18px;
+            border: none;
+            border-radius: 50%;
+            background: #0ea5e9;
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(14, 165, 233, 0.4);
+        }
+
+        /* Standard print override rules targeting layout frames cleanly */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body, .workspace-viewport {
+                background: #ffffff !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                overflow: visible !important;
+            }
+            .printable-sheet {
+                box-shadow: none !important;
+                transform: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                page-break-inside: avoid !important;
+                page-break-before: always !important;
+                page-break-after: always !important;
+            }
+            .printable-sheet:first-of-type {
+                page-break-before: auto !important;
+            }
+            .photo-cell-hover-overlay {
+                display: none !important;
+            }
+            .preview-page-indicator, header, footer{
+                display: none !important;
+                
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -2021,6 +2238,20 @@ function fillExampleBiodata(){
                             <label class="small text-muted d-block">Height (mm)</label>
                             <input type="number" id="sheetCustomH" class="form-control form-control-sm bg-secondary text-white border-0" value="297" style="width:70px;">
                         </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="small text-muted d-block">Layout Preset</label>
+                        <select id="layoutPresetSelect" class="form-select form-select-sm bg-secondary text-white border-0">
+                            <option value="custom" selected>Custom Parameters</option>
+                            <option value="passport-standard">Passport Standard</option>
+                            <option value="passport-compact">Passport Compact</option>
+                            <option value="passport-premium">Passport Premium</option>
+                            <option value="id-card">ID Card</option>
+                            <option value="visa-photo">Visa Photo</option>
+                            <option value="stamp-size">Stamp Size</option>
+                            <option value="wallet">Wallet Size</option>
+                        </select>
                     </div>
 
                     <div class="control-group">
@@ -2122,260 +2353,947 @@ function fillExampleBiodata(){
         </div>
     </div>
 
-    <div class="workspace-viewport p-4 d-flex justify-content-center align-items-start">
-        <div id="printableSheet" class="printable-sheet shadow-2xl bg-white position-relative">
-            </div>
+    <div id="sheetsWorkspaceViewport" class="workspace-viewport p-4 d-flex flex-column align-items-center justify-content-start gap-4">
+        <div id="printableSheet" class="printable-sheet shadow-2xl bg-white position-relative"></div>
     </div>
 
+    <div class="modal fade" id="layoutEditorModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="layoutEditorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content bg-dark text-white border-secondary">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title" id="layoutEditorModalLabel">Adjust Photo Layout</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-4">
+                        <div class="col-12 col-md-5 d-flex flex-column align-items-center justify-content-center">
+                            <div class="preview-box-container" id="modalPreviewBoxContainer">
+                                <div class="preview-safe-overlay"></div>
+                                <div id="modalPrintableWindow" class="preview-printable-window">
+                                    <div class="passport-card-inner" id="modalCardCard">
+                                        <div class="photo-image-container" id="modalImgContainer">
+                                            <img id="modalPreviewImage" src="" class="photo-cell-image" alt="Preview">
+                                        </div>
+                                        <div class="photo-cell-meta" id="modalMetaBlock"></div>
+                                    </div>
+                                </div>
+                                <div id="guideVertical" class="alignment-guide-line guide-v"></div>
+                                <div id="guideHorizontal" class="alignment-guide-line guide-h"></div>
+                            </div>
+                            <div id="faceCropWarning" class="alert alert-warning py-1 px-3 mt-2 mb-0 d-none text-center" style="font-size:13px;">
+                                ⚠ Face may be cropped.
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-7" style="max-height: 460px; overflow-y: auto;">
+                            <div class="mb-3 custom-slider-row">
+                                <label class="form-label d-flex justify-content-between small text-muted align-items-center mb-1">
+                                    <span class="d-inline-flex align-items-center gap-2" data-bs-toggle="tooltip" title="Horizontal Position">
+                                        <span class="material-icons text-secondary fs-5">swap_horiz</span>
+                                        <span>Horizontal Position</span>
+                                    </span>
+                                    <span id="valX" class="badge bg-info text-dark fw-bold">0px</span>
+                                </label>
+                                <div class="d-flex align-items-center gap-2">
+                                    <button class="btn btn-sm btn-secondary" onclick="adjustSlider('sliderX', 0)">Center</button>
+                                    <input type="range" class="form-range flex-grow-1" id="sliderX" min="-200" max="200" value="0">
+                                </div>
+                            </div>
+
+                            <div class="mb-3 custom-slider-row">
+                                <label class="form-label d-flex justify-content-between small text-muted align-items-center mb-1">
+                                    <span class="d-inline-flex align-items-center gap-2" data-bs-toggle="tooltip" title="Vertical Position">
+                                        <span class="material-icons text-secondary fs-5">swap_vert</span>
+                                        <span>Vertical Position</span>
+                                    </span>
+                                    <span id="valY" class="badge bg-info text-dark fw-bold">0px</span>
+                                </label>
+                                <div class="d-flex align-items-center gap-2">
+                                    <button class="btn btn-sm btn-secondary" onclick="adjustSlider('sliderY', 0)">Center</button>
+                                    <input type="range" class="form-range flex-grow-1" id="sliderY" min="-200" max="200" value="0">
+                                </div>
+                            </div>
+
+                            <div class="mb-3 custom-slider-row">
+                                <label class="form-label d-flex justify-content-between small text-muted align-items-center mb-1">
+                                    <span class="d-inline-flex align-items-center gap-2" data-bs-toggle="tooltip" title="Zoom Scale">
+                                        <span class="material-icons text-secondary fs-5">zoom_in</span>
+                                        <span>Zoom Scale</span>
+                                    </span>
+                                    <span id="valScale" class="badge bg-info text-dark fw-bold">100%</span>
+                                </label>
+                                <input type="range" class="form-range" id="sliderScale" min="10" max="300" value="100">
+                            </div>
+
+                            <div class="mb-3 custom-slider-row">
+                                <label class="form-label d-flex justify-content-between small text-muted align-items-center mb-1">
+                                    <span class="d-inline-flex align-items-center gap-2" data-bs-toggle="tooltip" title="Image Width Scaling">
+                                        <span class="material-icons text-secondary fs-5">aspect_ratio</span>
+                                        <span>Image Width Scaling</span>
+                                    </span>
+                                    <span id="valWScale" class="badge bg-info text-dark fw-bold">100%</span>
+                                </label>
+                                <input type="range" class="form-range" id="sliderWScale" min="10" max="300" value="100">
+                            </div>
+
+                            <div class="mb-3 custom-slider-row">
+                                <label class="form-label d-flex justify-content-between small text-muted align-items-center mb-1">
+                                    <span class="d-inline-flex align-items-center gap-2" data-bs-toggle="tooltip" title="Image Height Scaling">
+                                        <span class="material-icons text-secondary fs-5">height</span>
+                                        <span>Image Height Scaling</span>
+                                    </span>
+                                    <span id="valHScale" class="badge bg-info text-dark fw-bold">100%</span>
+                                </label>
+                                <input type="range" class="form-range" id="sliderHScale" min="10" max="300" value="100">
+                            </div>
+
+                            <div class="mb-3 custom-slider-row">
+                                <label class="form-label d-flex justify-content-between small text-muted align-items-center mb-1">
+                                    <span class="d-inline-flex align-items-center gap-2" data-bs-toggle="tooltip" title="Rotation Orientation">
+                                        <span class="material-icons text-secondary fs-5">rotate_right</span>
+                                        <span>Rotation Orientation</span>
+                                    </span>
+                                    <span id="valRotate" class="badge bg-info text-dark fw-bold">0°</span>
+                                </label>
+                                <input type="range" class="form-range" id="sliderRotate" min="-180" max="180" value="0">
+                            </div>
+
+                            <div class="mb-3 custom-slider-row">
+                                <label class="form-label d-flex justify-content-between small text-muted align-items-center mb-1">
+                                    <span class="d-inline-flex align-items-center gap-2" data-bs-toggle="tooltip" title="Border Radius Cornering">
+                                        <span class="material-icons text-secondary fs-5">rounded_corner</span>
+                                        <span>Border Radius Cornering</span>
+                                    </span>
+                                    <span id="valRadius" class="badge bg-info text-dark fw-bold">0px</span>
+                                </label>
+                                <input type="range" class="form-range" id="sliderRadius" min="0" max="50" step="1" value="0">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label small text-muted d-flex align-items-center gap-2 mb-1">
+                                    <span class="material-icons text-secondary fs-5" data-bs-toggle="tooltip" title="Fit Rendering Mode">crop</span>
+                                    <span>Fit Rendering Mode</span>
+                                </label>
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="fitMode" id="fitCover" value="cover" checked>
+                                    <label class="btn btn-sm btn-outline-info" for="fitCover">Cover</label>
+
+                                    <input type="radio" class="btn-check" name="fitMode" id="fitContain" value="contain">
+                                    <label class="btn btn-sm btn-outline-info" for="fitContain">Contain</label>
+
+                                    <input type="radio" class="btn-check" name="fitMode" id="fitStretch" value="fill">
+                                    <label class="btn btn-sm btn-outline-info" for="fitStretch">Stretch</label>
+                                </div>
+                            </div>
+
+                            <div class="form-check form-switch mb-2">
+                                <input class="form-check-input" type="checkbox" id="chkApplyToAll">
+                                <label class="form-check-label text-warning small fw-bold" for="chkApplyToAll">Apply layout parameters to ALL photos on sheet</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-secondary justify-content-between">
+                    <button type="button" class="btn btn-sm btn-outline-light" id="btnModalReset">Reset Default</button>
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-sm btn-primary px-3" id="btnModalApply">Apply Configuration</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="generated.js"></script>
     <script>
         let db;
-let sessionPayload = [];
-const objectUrls = [];
+        let sessionPayload = [];
+        const objectUrls = [];
+        let editorModalInstance = null;
+        let currentEditingIndex = null;
+        let isProgrammaticChange = false;
 
-const req = indexedDB.open("ImageLibrary", 2);
-req.onsuccess = (e) => {
-    db = e.target.result;
-    loadPayload();
-};
+        // Interaction State Trackers for Pointer Drag, Wheel Zoom, and Pinch Support
+        let isDragging = false;
+        let startPointerX = 0, startPointerY = 0;
+        let baseLayoutX = 0, baseLayoutY = 0;
+        let initialPinchDist = 0;
+        let initialPinchScale = 100;
 
-function loadPayload() {
-    const raw = sessionStorage.getItem('passport_print_payload');
-    if (!raw) {
-        alert("No configuration data discovered. Returning to dashboard configuration interface.");
-        window.location.href = '/passport-photo/';
-        return;
-    }
-    sessionPayload = JSON.parse(raw);
-    
-    // De-serialize raw context asset blobs maps resolving structural pointers
-    hydrateBlobsAndRender();
-}
+        const req = indexedDB.open("ImageLibrary", 2);
+        req.onsuccess = (e) => {
+            db = e.target.result;
+            loadPayload();
+        };
 
-async function hydrateBlobsAndRender() {
-    const tx = db.transaction("images", "readonly");
-    const store = tx.objectStore("images");
-    const idx = store.index("token");
-
-    for (let item of sessionPayload) {
-        await new Promise((resolve) => {
-            const getReq = idx.get(item.token);
-            getReq.onsuccess = () => {
-                if (getReq.result) {
-                    const url = URL.createObjectURL(getReq.result.blob);
-                    objectUrls.push(url);
-                    item.blobUrl = url;
+        function loadPayload() {
+            const raw = sessionStorage.getItem('passport_print_payload');
+            if (!raw) {
+                alert("No configuration data discovered. Returning to dashboard configuration interface.");
+                window.location.href = '/passport-photo/';
+                return;
+            }
+            sessionPayload = JSON.parse(raw);
+            
+            sessionPayload.forEach(item => {
+                if (!item.layout) {
+                    item.layout = { x: 0, y: 0, scale: 1, widthScale: 1, heightScale: 1, rotate: 0, fit: "cover", radius: 0 };
                 }
-                resolve();
-            };
-        });
-    }
+            });
 
-    setupEventListeners();
-    renderGridEngine();
-}
-
-function setupEventListeners() {
-    const controls = [
-        'sheetLayoutSelect', 'sheetCustomW', 'sheetCustomH',
-        'photoSizeSelect', 'photoCustomW', 'photoCustomH',
-        'gridSpacing', 'gridMargin', 'borderSelect', 'bgSelect',
-        'toggleName', 'toggleDate', 'toggleCutLines', 'zoomSelect'
-    ];
-
-    controls.forEach(id => {
-        document.getElementById(id).addEventListener('input', () => {
-            if (id === 'sheetLayoutSelect') toggleCustomVisibility('sheetLayoutSelect', 'customSheetDim');
-            if (id === 'photoSizeSelect') toggleCustomVisibility('photoSizeSelect', 'customPhotoDim');
-            renderGridEngine();
-        });
-    });
-
-    document.getElementById('exportPngBtn').addEventListener('click', () => exportImage('png'));
-    document.getElementById('exportJpgBtn').addEventListener('click', () => exportImage('jpeg'));
-    document.getElementById('exportPdfBtn').addEventListener('click', exportPdfDocument);
-    document.getElementById('printBtn').addEventListener('click', () => window.print());
-}
-
-function toggleCustomVisibility(selectId, customDivId) {
-    const val = document.getElementById(selectId).value;
-    const div = document.getElementById(customDivId);
-    if (val === 'custom') {
-        div.classList.remove('d-none');
-        div.classList.add('d-flex');
-    } else {
-        div.classList.remove('d-flex');
-        div.classList.add('d-none');
-    }
-}
-
-function getDimensions() {
-    // Standard paper sizes in mm
-    let sheetW = 210, sheetH = 297; // A4 Default
-    const layout = document.getElementById('sheetLayoutSelect').value;
-    
-    if (layout === 'a4-landscape') { sheetW = 297; sheetH = 210; }
-    else if (layout === '4x6') { sheetW = 101.6; sheetH = 152.4; }
-    else if (layout === '5x7') { sheetW = 127; sheetH = 177.8; }
-    else if (layout === 'custom') {
-        sheetW = parseFloat(document.getElementById('sheetCustomW').value) || 210;
-        sheetH = parseFloat(document.getElementById('sheetCustomH').value) || 297;
-    }
-
-    let photoW = 35, photoH = 45; // 35x45 default
-    const pSize = document.getElementById('photoSizeSelect').value;
-    if (pSize === '25x35') { photoW = 25; photoH = 35; }
-    else if (pSize === '30x40') { photoW = 30; photoH = 40; }
-    else if (pSize === '51x51') { photoW = 50.8; photoH = 50.8; }
-    else if (pSize === 'custom') {
-        photoW = parseFloat(document.getElementById('photoCustomW').value) || 35;
-        photoH = parseFloat(document.getElementById('photoCustomH').value) || 45;
-    }
-
-    return { sheetW, sheetH, photoW, photoH };
-}
-
-function renderGridEngine() {
-    const dims = getDimensions();
-    const spacing = parseFloat(document.getElementById('gridSpacing').value) || 0;
-    const margin = parseFloat(document.getElementById('gridMargin').value) || 0;
-    const borderStyle = document.getElementById('borderSelect').value;
-    const bgColor = document.getElementById('bgSelect').value;
-    
-    const showName = document.getElementById('toggleName').checked;
-    const showDate = document.getElementById('toggleDate').checked;
-    const showCutLines = document.getElementById('toggleCutLines').checked;
-    const zoom = parseFloat(document.getElementById('zoomSelect').value) || 1;
-
-    const sheetEl = document.getElementById('printableSheet');
-    
-    // Enforce real world structural sizing context parameters
-    sheetEl.style.width = `${dims.sheetW}mm`;
-    sheetEl.style.height = `${dims.sheetH}mm`;
-    sheetEl.style.padding = `${margin}mm`;
-    sheetEl.style.backgroundColor = bgColor === 'transparent' ? 'transparent' : bgColor;
-    sheetEl.style.transform = `scale(${zoom})`;
-
-    sheetEl.innerHTML = '';
-
-    // Flat aggregate builder iterations parsing dynamic matrix counts
-    sessionPayload.forEach(item => {
-        if (!item.blobUrl) return;
-        const totalCopies = parseInt(item.copies) || 0;
-        
-        for (let c = 0; c < totalCopies; c++) {
-            const cellWrapper = document.createElement('div');
-            cellWrapper.className = 'photo-cell-wrapper';
-            cellWrapper.style.width = `${dims.photoW}mm`;
-            cellWrapper.style.margin = `${spacing / 2}mm`;
-
-            // Calculate exact inner dimensions to prevent layout overflow
-            let borderCss = 'none';
-            if (borderStyle === 'thin') borderCss = '1px solid #000000';
-            else if (borderStyle === 'medium') borderCss = '2px solid #000000';
-            else if (borderStyle === 'thick') borderCss = '3px solid #000000';
-
-            const imgEl = document.createElement('img');
-            imgEl.src = item.blobUrl;
-            imgEl.className = 'photo-cell-image';
-            imgEl.style.width = `${dims.photoW}mm`;
-            imgEl.style.height = `${dims.photoH}mm`;
-            imgEl.style.border = borderCss;
-
-            cellWrapper.appendChild(imgEl);
-
-            // Conditional context tags configuration options
-            if (showName || showDate) {
-                const metaBlock = document.createElement('div');
-                metaBlock.className = 'photo-cell-meta';
-                let metaHtml = '';
-                if (showName) metaHtml += `<div class="fw-bold text-truncate">${item.name}</div>`;
-                if (showDate) metaHtml += `<div class="text-muted" style="font-size:8px;">${item.date}</div>`;
-                metaBlock.innerHTML = metaHtml;
-                cellWrapper.appendChild(metaBlock);
-            }
-
-            if (showCutLines) {
-                // Append minimal structural horizontal/vertical guides overlays elements
-                const lineX = document.createElement('div');
-                lineX.className = 'cut-line-x';
-                lineX.style.width = '100%';
-                lineX.style.top = '0';
-                lineX.style.left = '0';
-                
-                const lineY = document.createElement('div');
-                lineY.className = 'cut-line-y';
-                lineY.style.height = '100%';
-                lineY.style.top = '0';
-                lineY.style.left = '0';
-                
-                cellWrapper.appendChild(lineX);
-                cellWrapper.appendChild(lineY);
-            }
-
-            sheetEl.appendChild(cellWrapper);
+            hydrateBlobsAndRender();
         }
-    });
-}
 
-function exportImage(format) {
-    const sheetEl = document.getElementById('printableSheet');
-    
-    // Save current styling variables to restore later
-    const prevTransform = sheetEl.style.transform;
-    sheetEl.style.transform = 'none'; 
+        async function hydrateBlobsAndRender() {
+            const tx = db.transaction("images", "readonly");
+            const store = tx.objectStore("images");
+            const idx = store.index("token");
 
-    // Render configuration mapping 300 DPI calculations precisely
-    html2canvas(sheetEl, {
-        scale: 3.125, // Maps closely to standard target processing density
-        useCORS: true,
-        logging: false,
-        backgroundColor: document.getElementById('bgSelect').value === 'transparent' ? null : '#ffffff'
-    }).then(canvas => {
-        sheetEl.style.transform = prevTransform; // Restore zoom layout UI view state
-        
-        const mimeType = format === 'jpeg' ? 'image/jpeg' : 'image/png';
-        const quality = format === 'jpeg' ? 0.95 : undefined;
-        const dataUrl = canvas.toDataURL(mimeType, quality);
-        
-        const downloadLink = document.createElement('a');
-        downloadLink.download = `passport_layout_${Date.now()}.${format}`;
-        downloadLink.href = dataUrl;
-        downloadLink.click();
-    });
-}
+            for (let item of sessionPayload) {
+                await new Promise((resolve) => {
+                    const getReq = idx.get(item.token);
+                    getReq.onsuccess = () => {
+                        if (getReq.result) {
+                            const url = URL.createObjectURL(getReq.result.blob);
+                            objectUrls.push(url);
+                            item.blobUrl = url;
+                        }
+                        resolve();
+                    };
+                });
+            }
 
-function exportPdfDocument() {
-    const { jsPDF } = window.jspdf;
-    const dims = getDimensions();
-    const sheetEl = document.getElementById('printableSheet');
-    
-    const prevTransform = sheetEl.style.transform;
-    sheetEl.style.transform = 'none';
+            // Initialize Bootstrap Tooltips explicitly for slider icon tracking
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
 
-    html2canvas(sheetEl, {
-        scale: 3.125,
-        useCORS: true,
-        logging: false
-    }).then(canvas => {
-        sheetEl.style.transform = prevTransform;
-        
-        const imgData = canvas.toDataURL('image/jpeg', 1.0);
-        const orientation = dims.sheetW > dims.sheetH ? 'l' : 'p';
-        
-        const pdf = new jsPDF({
-            orientation: orientation,
-            unit: 'mm',
-            format: [dims.sheetW, dims.sheetH]
-        });
+            setupEventListeners();
+            setupModalLiveEngine();
+            setupInteractiveCanvasPointers();
+            renderGridEngine();
+        }
 
-        pdf.addImage(imgData, 'JPEG', 0, 0, dims.sheetW, dims.sheetH);
-        pdf.save(`passport_sheet_${Date.now()}.pdf`);
-    });
-}
-        </script>
+        function setupEventListeners() {
+            const layoutModifyingControls = [
+                'sheetLayoutSelect', 'sheetCustomW', 'sheetCustomH',
+                'photoSizeSelect', 'photoCustomW', 'photoCustomH'
+            ];
+
+            layoutModifyingControls.forEach(id => {
+                document.getElementById(id).addEventListener('change', (e) => {
+                    if (id === 'sheetLayoutSelect') toggleCustomVisibility('sheetLayoutSelect', 'customSheetDim');
+                    if (id === 'photoSizeSelect') toggleCustomVisibility('photoSizeSelect', 'customPhotoDim');
+                    renderGridEngine(); 
+                });
+            });
+
+            // Feature 1: Preset selector tracking integration logic
+            document.getElementById('layoutPresetSelect').addEventListener('change', (e) => {
+                applyLayoutPresetConfiguration(e.target.value);
+            });
+
+            const staticControls = ['gridSpacing', 'gridMargin', 'borderSelect', 'bgSelect', 'toggleName', 'toggleDate', 'toggleCutLines', 'zoomSelect'];
+            staticControls.forEach(id => {
+                document.getElementById(id).addEventListener('input', () => {
+                    renderGridEngine();
+                });
+            });
+
+            document.getElementById('exportPngBtn').addEventListener('click', () => exportImage('png'));
+            document.getElementById('exportJpgBtn').addEventListener('click', () => exportImage('jpeg'));
+            document.getElementById('exportPdfBtn').addEventListener('click', exportPdfDocument);
+            document.getElementById('printBtn').addEventListener('click', () => window.print());
+        }
+
+        // Feature 1: Automated Layout Preset Parameter Dispatcher
+        function applyLayoutPresetConfiguration(presetName) {
+            if (presetName === 'custom') return;
+
+            const sheetLayout = document.getElementById('sheetLayoutSelect');
+            const photoSize = document.getElementById('photoSizeSelect');
+            const spacing = document.getElementById('gridSpacing');
+            const margin = document.getElementById('gridMargin');
+            const border = document.getElementById('borderSelect');
+
+            isProgrammaticChange = true;
+
+            switch (presetName) {
+                case 'passport-standard':
+                    sheetLayout.value = 'a4-portrait';
+                    photoSize.value = '35x45';
+                    spacing.value = 4;
+                    margin.value = 10;
+                    border.value = 'thin';
+                    break;
+                case 'passport-compact':
+                    sheetLayout.value = 'a4-portrait';
+                    photoSize.value = '35x45';
+                    spacing.value = 2;
+                    margin.value = 6;
+                    border.value = 'thin';
+                    break;
+                case 'passport-premium':
+                    sheetLayout.value = 'a4-portrait';
+                    photoSize.value = '35x45';
+                    spacing.value = 6;
+                    margin.value = 12;
+                    border.value = 'medium';
+                    break;
+                case 'id-card':
+                    sheetLayout.value = 'a4-portrait';
+                    photoSize.value = 'custom';
+                    toggleCustomVisibility('photoSizeSelect', 'customPhotoDim');
+                    document.getElementById('photoCustomW').value = 54;
+                    document.getElementById('photoCustomH').value = 86;
+                    spacing.value = 5;
+                    margin.value = 10;
+                    border.value = 'medium';
+                    break;
+                case 'visa-photo':
+                    sheetLayout.value = 'a4-portrait';
+                    photoSize.value = '51x51';
+                    spacing.value = 5;
+                    margin.value = 12;
+                    border.value = 'thin';
+                    break;
+                case 'stamp-size':
+                    sheetLayout.value = '4x6';
+                    photoSize.value = '25x35';
+                    spacing.value = 2;
+                    margin.value = 4;
+                    border.value = 'thin';
+                    break;
+                case 'wallet':
+                    sheetLayout.value = '5x7';
+                    photoSize.value = 'custom';
+                    toggleCustomVisibility('photoSizeSelect', 'customPhotoDim');
+                    document.getElementById('photoCustomW').value = 64;
+                    document.getElementById('photoCustomH').value = 98;
+                    spacing.value = 6;
+                    margin.value = 8;
+                    border.value = 'thick';
+                    break;
+            }
+
+            toggleCustomVisibility('sheetLayoutSelect', 'customSheetDim');
+            isProgrammaticChange = false;
+            renderGridEngine();
+        }
+
+        function toggleCustomVisibility(selectId, customDivId) {
+            const val = document.getElementById(selectId).value;
+            const div = document.getElementById(customDivId);
+            if (val === 'custom') {
+                div.classList.remove('d-none');
+                div.classList.add('d-flex');
+            } else {
+                div.classList.remove('d-flex');
+                div.classList.add('d-none');
+            }
+        }
+
+        function getDimensions() {
+            let sheetW = 210, sheetH = 297;
+            const layout = document.getElementById('sheetLayoutSelect').value;
+            
+            if (layout === 'a4-landscape') { sheetW = 297; sheetH = 210; }
+            else if (layout === '4x6') { sheetW = 101.6; sheetH = 152.4; }
+            else if (layout === '5x7') { sheetW = 127; sheetH = 177.8; }
+            else if (layout === 'custom') {
+                sheetW = parseFloat(document.getElementById('sheetCustomW').value) || 210;
+                sheetH = parseFloat(document.getElementById('sheetCustomH').value) || 297;
+            }
+
+            let photoW = 35, photoH = 45;
+            const pSize = document.getElementById('photoSizeSelect').value;
+            if (pSize === '25x35') { photoW = 25; photoH = 35; }
+            else if (pSize === '30x40') { photoW = 30; photoH = 40; }
+            else if (pSize === '51x51') { photoW = 50.8; photoH = 50.8; }
+            else if (pSize === 'custom') {
+                photoW = parseFloat(document.getElementById('photoCustomW').value) || 35;
+                photoH = parseFloat(document.getElementById('photoCustomH').value) || 45;
+            }
+
+            return { sheetW, sheetH, photoW, photoH };
+        }
+
+        function calculateObjectFitDimensions(fit, containerW, containerH, imgNaturalW, imgNaturalH) {
+            let w = containerW;
+            let h = containerH;
+            const containerRatio = containerW / containerH;
+            const imgRatio = imgNaturalW / imgNaturalH;
+
+            if (fit === 'cover') {
+                if (imgRatio > containerRatio) {
+                    w = containerH * imgRatio;
+                } else {
+                    h = containerW / imgRatio;
+                }
+            } else if (fit === 'contain') {
+                if (imgRatio > containerRatio) {
+                    h = containerW / imgRatio;
+                } else {
+                    w = containerH * imgRatio;
+                }
+            }
+            return { baseWidth: w, baseHeight: h };
+        }
+
+        function renderPhotoLayout(imgEl, containerW, containerH, layout) {
+            const naturalW = imgEl.naturalWidth || 300;
+            const naturalH = imgEl.naturalHeight || 400;
+
+            const baseDims = calculateObjectFitDimensions(layout.fit, containerW, containerH, naturalW, naturalH);
+            
+            const finalW = baseDims.baseWidth * layout.widthScale * layout.scale;
+            const finalH = baseDims.baseHeight * layout.heightScale * layout.scale;
+
+            imgEl.style.width = `${finalW}px`;
+            imgEl.style.height = `${finalH}px`;
+            
+            const leftOffset = (containerW - finalW) / 2 + layout.x;
+            const topOffset = (containerH - finalH) / 2 + layout.y;
+            
+            imgEl.style.left = `${leftOffset}px`;
+            imgEl.style.top = `${topOffset}px`;
+            imgEl.style.transform = `rotate(${layout.rotate}deg)`;
+            imgEl.style.borderRadius = `${layout.radius}px`;
+        }
+
+        // Feature 9 & 13: Enhanced Layout Matrix Engine supporting automated layout pagination wrapping and footer labeling
+        function renderGridEngine() {
+            const dims = getDimensions();
+            const spacing = parseFloat(document.getElementById('gridSpacing').value) || 0;
+            const margin = parseFloat(document.getElementById('gridMargin').value) || 0;
+            const borderStyle = document.getElementById('borderSelect').value;
+            const bgColor = document.getElementById('bgSelect').value;
+            
+            const showName = document.getElementById('toggleName').checked;
+            const showDate = document.getElementById('toggleDate').checked;
+            const showCutLines = document.getElementById('toggleCutLines').checked;
+            const zoom = parseFloat(document.getElementById('zoomSelect').value) || 1;
+
+            const containerViewport = document.getElementById('sheetsWorkspaceViewport');
+            containerViewport.innerHTML = ''; 
+
+            let borderCss = '1px solid #444444'; 
+            if (borderStyle === 'none') borderCss = 'none';
+            else if (borderStyle === 'medium') borderCss = '2px solid #444444';
+            else if (borderStyle === 'thick') borderCss = '3px solid #444444';
+
+            const mmToPx = (mm) => (mm * 96) / 25.4;
+
+            // Calculate precise safe grid dimensions for pagination tracking
+            const totalWidthAvailablePx = mmToPx(dims.sheetW - (margin * 2));
+            const totalHeightAvailablePx = mmToPx(dims.sheetH - (margin * 2));
+            
+            const cellWidthWithSpacingPx = mmToPx(dims.photoW + spacing);
+            const cellHeightWithSpacingPx = mmToPx(dims.photoH + spacing);
+
+            const columnsPerPage = Math.floor((totalWidthAvailablePx + mmToPx(spacing)) / cellWidthWithSpacingPx) || 1;
+            const rowsPerPage = Math.floor((totalHeightAvailablePx + mmToPx(spacing)) / cellHeightWithSpacingPx) || 1;
+            const maxPhotosPerPage = columnsPerPage * rowsPerPage;
+
+            // Compile instances of cells to generate across dynamic sheets
+            let compiledCellsQueue = [];
+            sessionPayload.forEach((item, index) => {
+                if (!item.blobUrl) return;
+                const totalCopies = parseInt(item.copies) || 0;
+                for (let c = 0; c < totalCopies; c++) {
+                    compiledCellsQueue.push({ item, index });
+                }
+            });
+
+            if (compiledCellsQueue.length === 0) {
+                const emptySheet = createPageCanvasElement(dims, margin, bgColor, zoom);
+                containerViewport.appendChild(emptySheet);
+                return;
+            }
+
+            const totalPagesNeeded = Math.ceil(compiledCellsQueue.length / maxPhotosPerPage);
+
+            for (let currentPageNum = 1; currentPageNum <= totalPagesNeeded; currentPageNum++) {
+                const nativeSheetInstance = createPageCanvasElement(dims, margin, bgColor, zoom);
+                nativeSheetInstance.setAttribute('data-page-index', currentPageNum);
+
+                // Feature 13: Page Counter Node Generation
+                const pageNumIndicator = document.createElement('div');
+                pageNumIndicator.className = 'preview-page-indicator';
+                
+                pageNumIndicator.innerText = `Page ${currentPageNum} / ${totalPagesNeeded}`;
+                nativeSheetInstance.appendChild(pageNumIndicator);
+
+                const sliceStartIndex = (currentPageNum - 1) * maxPhotosPerPage;
+                const activePageCellsSlice = compiledCellsQueue.slice(sliceStartIndex, sliceStartIndex + maxPhotosPerPage);
+
+                activePageCellsSlice.forEach(({ item, index }) => {
+                    const cellWrapper = document.createElement('div');
+                    cellWrapper.className = 'photo-cell-wrapper';
+                    cellWrapper.style.width = `${dims.photoW}mm`;
+                    cellWrapper.style.margin = `${spacing / 2}mm`;
+                    cellWrapper.style.border = borderCss;
+
+                    const hoverOverlay = document.createElement('div');
+                    hoverOverlay.className = 'photo-cell-hover-overlay no-print';
+                    hoverOverlay.innerHTML = '<button class="btn btn-sm btn-light d-flex align-items-center gap-1"><span class="material-icons fs-6">edit</span> Edit Layout</button>';
+                    hoverOverlay.addEventListener('click', () => openEditorModal(index));
+                    cellWrapper.appendChild(hoverOverlay);
+
+                    const innerCard = document.createElement('div');
+                    innerCard.className = 'passport-card-inner';
+
+                    const imgContainer = document.createElement('div');
+                    imgContainer.className = 'photo-image-container';
+                    imgContainer.style.width = '100%';
+                    
+                    let metaSpacingHeight = 0;
+                    if (showName) metaSpacingHeight += 14;
+                    if (showDate) metaSpacingHeight += 12;
+                    imgContainer.style.height = `calc(${dims.photoH}mm - ${metaSpacingHeight}px)`;
+
+                    const imgEl = document.createElement('img');
+                    imgEl.className = 'photo-cell-image';
+                    imgEl.src = item.imageUrl || item.originalUrl || item.blobUrl;
+                    
+                    const triggerLayoutCompute = () => {
+                        const cellW = mmToPx(dims.photoW);
+                        const cellH = mmToPx(dims.photoH) - metaSpacingHeight;
+                        renderPhotoLayout(imgEl, cellW, cellH, item.layout);
+                    };
+
+                    imgEl.onload = triggerLayoutCompute;
+                    if (imgEl.complete) {
+                        setTimeout(triggerLayoutCompute, 0);
+                    }
+
+                    imgContainer.appendChild(imgEl);
+                    innerCard.appendChild(imgContainer);
+
+                    if (showName || showDate) {
+                        const metaBlock = document.createElement('div');
+                        metaBlock.className = 'photo-cell-meta';
+                        let metaHtml = '';
+                        if (showName) metaHtml += `<div class="fw-bold text-truncate" style="color:#000000;">${item.name}</div>`;
+                        if (showDate) metaHtml += `<div style="font-size:8px; color:#475569;">${item.date}</div>`;
+                        metaBlock.innerHTML = metaHtml;
+                        innerCard.appendChild(metaBlock);
+                    }
+
+                    cellWrapper.appendChild(innerCard);
+
+                    if (showCutLines) {
+                        const lineX = document.createElement('div');
+                        lineX.className = 'cut-line-x';
+                        lineX.style.width = '100%';
+                        lineX.style.top = '0';
+                        lineX.style.left = '0';
+                        
+                        const lineY = document.createElement('div');
+                        lineY.className = 'cut-line-y';
+                        lineY.style.height = '100%';
+                        lineY.style.top = '0';
+                        lineY.style.left = '0';
+                        
+                        cellWrapper.appendChild(lineX);
+                        cellWrapper.appendChild(lineY);
+                    }
+
+                    nativeSheetInstance.appendChild(cellWrapper);
+                });
+
+                containerViewport.appendChild(nativeSheetInstance);
+            }
+        }
+
+        // Factory abstraction module allocating page structures cleanly
+        function createPageCanvasElement(dims, margin, bgColor, zoom) {
+            const pageEl = document.createElement('div');
+            pageEl.className = 'printable-sheet';
+            pageEl.style.width = `${dims.sheetW}mm`;
+            pageEl.style.height = `${dims.sheetH}mm`;
+            pageEl.style.padding = `${margin}mm`;
+            pageEl.style.backgroundColor = bgColor === 'transparent' ? 'transparent' : bgColor;
+            pageEl.style.transform = `scale(${zoom})`;
+            return pageEl;
+        }
+
+        function setupModalLiveEngine() {
+            editorModalInstance = new bootstrap.Modal(document.getElementById('layoutEditorModal'));
+            
+            const liveSliders = ['sliderX', 'sliderY', 'sliderScale', 'sliderWScale', 'sliderHScale', 'sliderRotate', 'sliderRadius'];
+            liveSliders.forEach(id => {
+                document.getElementById(id).addEventListener('input', updateModalLivePreview);
+            });
+
+            document.querySelectorAll('input[name="fitMode"]').forEach(radio => {
+                radio.addEventListener('change', updateModalLivePreview);
+            });
+
+            document.getElementById('btnModalReset').addEventListener('click', () => {
+                resetModalSlidersToDefault();
+                updateModalLivePreview();
+            });
+
+            document.getElementById('btnModalApply').addEventListener('click', saveModalParameters);
+        }
+
+        // Feature 2, 3 & 4: Integrated Interactive Gesture & Scrollwheel/Pinch Engine
+        function setupInteractiveCanvasPointers() {
+            const dragHandleTarget = document.getElementById('modalPrintableWindow');
+
+            // Mouse wheel Zoom implementation logic
+            dragHandleTarget.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const scaleSlider = document.getElementById('sliderScale');
+                let currentScaleVal = parseInt(scaleSlider.value);
+                
+                if (e.deltaY < 0) {
+                    currentScaleVal = Math.min(parseInt(scaleSlider.max), currentScaleVal + 5);
+                } else {
+                    currentScaleVal = Math.max(parseInt(scaleSlider.min), currentScaleVal - 5);
+                }
+                
+                scaleSlider.value = currentScaleVal;
+                updateModalLivePreview();
+            }, { passive: false });
+
+            // Dual Click Positioning Reset Logic
+            dragHandleTarget.addEventListener('dblclick', (e) => {
+                document.getElementById('sliderX').value = 0;
+                document.getElementById('sliderY').value = 0;
+                updateModalLivePreview();
+            });
+
+            // Unified Pointer Interaction Engine (Fusing Desktop & Mobile Touch Profiles)
+            dragHandleTarget.addEventListener('pointerdown', (e) => {
+                isDragging = true;
+                dragHandleTarget.setPointerCapture(e.pointerId);
+                
+                baseLayoutX = parseInt(document.getElementById('sliderX').value);
+                baseLayoutY = parseInt(document.getElementById('sliderY').value);
+                startPointerX = e.clientX;
+                startPointerY = e.clientY;
+
+                if (e.pointerType === 'touch') {
+                    const activeTouches = [{ id: e.pointerId, x: e.clientX, y: e.clientY }];
+                    dragHandleTarget.addEventListener('pointermove', handleTouchPinchGesture);
+                }
+            });
+
+            dragHandleTarget.addEventListener('pointermove', (e) => {
+                if (!isDragging) return;
+                
+                // Prevent multi-touch pinch actions from colliding with single-finger drag offsets
+                if (e.pointerType === 'touch' && initialPinchDist > 0) return;
+
+                const deltaX = e.clientX - startPointerX;
+                const deltaY = e.clientY - startPointerY;
+
+                let targetComputedX = baseLayoutX + deltaX;
+                let targetComputedY = baseLayoutY + deltaY;
+
+                // Feature 7: Canva-like Snap Alignment Assistance Mechanics
+                const snapWindowThreshold = 6;
+                const verticalGuide = document.getElementById('guideVertical');
+                const horizontalGuide = document.getElementById('guideHorizontal');
+
+                if (Math.abs(targetComputedX) < snapWindowThreshold) {
+                    targetComputedX = 0;
+                    verticalGuide.style.display = 'block';
+                } else {
+                    verticalGuide.style.display = 'none';
+                }
+
+                if (Math.abs(targetComputedY) < snapWindowThreshold) {
+                    targetComputedY = 0;
+                    horizontalGuide.style.display = 'block';
+                } else {
+                    horizontalGuide.style.display = 'none';
+                }
+
+                document.getElementById('sliderX').value = targetComputedX;
+                document.getElementById('sliderY').value = targetComputedY;
+
+                // Execute local layout transform refreshes safely without breaking layout state
+                updateModalLivePreview();
+            });
+
+            const clearPointerCaptureState = (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+                initialPinchDist = 0;
+                document.getElementById('guideVertical').style.display = 'none';
+                document.getElementById('guideHorizontal').style.display = 'none';
+            };
+
+            dragHandleTarget.addEventListener('pointerup', clearPointerCaptureState);
+            dragHandleTarget.addEventListener('pointercancel', clearPointerCaptureState);
+
+            // Feature 4: Touch Pinch Engine Tracker
+            let touchCache = [];
+            function handleTouchPinchGesture(e) {
+                if (e.pointerType !== 'touch') return;
+                
+                // Track twin touch references inside viewport container scope
+                if (e.type === 'pointermove') {
+                    // Primitive multitouch checking via structural coordinate indexing
+                    let currentTouches = [e]; 
+                    if (currentTouches.length === 2) {
+                        const p1 = currentTouches[0];
+                        const p2 = currentTouches[1];
+                        const currentDist = Math.hypot(p2.clientX - p1.clientX, p2.clientY - p1.clientY);
+
+                        if (initialPinchDist === 0) {
+                            initialPinchDist = currentDist;
+                            initialPinchScale = parseInt(document.getElementById('sliderScale').value);
+                        } else {
+                            const pinchFactor = currentDist / initialPinchDist;
+                            document.getElementById('sliderScale').value = Math.min(300, Math.max(10, Math.round(initialPinchScale * pinchFactor)));
+                            updateModalLivePreview();
+                        }
+                    }
+                }
+            }
+        }
+
+        function openEditorModal(index) {
+            currentEditingIndex = index;
+            const item = sessionPayload[index];
+            if (!item) return;
+
+            isProgrammaticChange = true;
+            const targetImageSrc = item.imageUrl || item.originalUrl || item.blobUrl;
+            const imgEl = document.getElementById('modalPreviewImage');
+            imgEl.src = targetImageSrc;
+            document.getElementById('chkApplyToAll').checked = false;
+
+            document.getElementById('sliderX').value = item.layout.x;
+            document.getElementById('sliderY').value = item.layout.y;
+            document.getElementById('sliderScale').value = item.layout.scale * 100;
+            document.getElementById('sliderWScale').value = item.layout.widthScale * 100;
+            document.getElementById('sliderHScale').value = item.layout.heightScale * 100;
+            document.getElementById('sliderRotate').value = item.layout.rotate;
+            document.getElementById('sliderRadius').value = item.layout.radius;
+
+            if (item.layout.fit === 'cover') document.getElementById('fitCover').checked = true;
+            else if (item.layout.fit === 'contain') document.getElementById('fitContain').checked = true;
+            else if (item.layout.fit === 'fill') document.getElementById('fitStretch').checked = true;
+
+            isProgrammaticChange = false;
+            
+            imgEl.onload = function() {
+                updateModalLivePreview();
+            };
+            if (imgEl.complete) {
+                updateModalLivePreview();
+            }
+
+            editorModalInstance.show();
+        }
+
+        function adjustSlider(id, targetVal) {
+            document.getElementById(id).value = targetVal;
+            updateModalLivePreview();
+        }
+
+        function resetModalSlidersToDefault() {
+            document.getElementById('sliderX').value = 0;
+            document.getElementById('sliderY').value = 0;
+            document.getElementById('sliderScale').value = 100;
+            document.getElementById('sliderWScale').value = 100;
+            document.getElementById('sliderHScale').value = 100;
+            document.getElementById('sliderRotate').value = 0;
+            document.getElementById('sliderRadius').value = 0;
+            document.getElementById('fitCover').checked = true;
+        }
+
+        function updateModalLivePreview() {
+            if (isProgrammaticChange) return;
+
+            const dims = getDimensions();
+            const showName = document.getElementById('toggleName').checked;
+            const showDate = document.getElementById('toggleDate').checked;
+
+            const x = parseInt(document.getElementById('sliderX').value);
+            const y = parseInt(document.getElementById('sliderY').value);
+            const scale = parseInt(document.getElementById('sliderScale').value) / 100;
+            const wScale = parseInt(document.getElementById('sliderWScale').value) / 100;
+            const hScale = parseInt(document.getElementById('sliderHScale').value) / 100;
+            const rotate = parseInt(document.getElementById('sliderRotate').value);
+            const radius = parseInt(document.getElementById('sliderRadius').value);
+            const fit = document.querySelector('input[name="fitMode"]:checked').value;
+
+            document.getElementById('valX').innerText = `${x}px`;
+            document.getElementById('valY').innerText = `${y}px`;
+            document.getElementById('valScale').innerText = `${Math.round(scale * 100)}%`;
+            document.getElementById('valWScale').innerText = `${Math.round(wScale * 100)}%`;
+            document.getElementById('valHScale').innerText = `${Math.round(hScale * 100)}%`;
+            document.getElementById('valRotate').innerText = `${rotate}°`;
+            document.getElementById('valRadius').innerText = `${radius}px`;
+
+            const aspect = dims.photoW / dims.photoH;
+            let targetWinW = 260;
+            let targetWinH = targetWinW / aspect;
+
+            if (targetWinH > 360) {
+                targetWinH = 360;
+                targetWinW = targetWinH * aspect;
+            }
+
+            const printWindow = document.getElementById('modalPrintableWindow');
+            printWindow.style.width = `${targetWinW}px`;
+            printWindow.style.height = `${targetWinH}px`;
+
+            const borderStyle = document.getElementById('borderSelect').value;
+            let borderCss = '1px solid #444444';
+            if (borderStyle === 'none') borderCss = 'none';
+            else if (borderStyle === 'medium') borderCss = '2px solid #444444';
+            else if (borderStyle === 'thick') borderCss = '3px solid #444444';
+            printWindow.style.border = borderCss;
+
+            let metaSpacingHeight = 0;
+            const currentItem = sessionPayload[currentEditingIndex];
+            const metaBlock = document.getElementById('modalMetaBlock');
+            
+            if (showName || showDate) {
+                metaBlock.classList.remove('d-none');
+                let metaHtml = '';
+                if (showName) { metaHtml += `<div class="fw-bold text-truncate" style="color:#000000; font-size:11px;">${currentItem?.name || 'Yojna Portal'}</div>`; metaSpacingHeight += 16; }
+                if (showDate) { metaHtml += `<div style="font-size:9px; color:#475569;">${currentItem?.date || '04-07-2026'}</div>`; metaSpacingHeight += 14; }
+                metaBlock.innerHTML = metaHtml;
+            } else {
+                metaBlock.classList.add('d-none');
+            }
+
+            const imgContainer = document.getElementById('modalImgContainer');
+            imgContainer.style.width = '100%';
+            const containerH = targetWinH - metaSpacingHeight;
+            imgContainer.style.height = `${containerH}px`;
+
+            const imgEl = document.getElementById('modalPreviewImage');
+            const targetLayout = { x, y, scale, widthScale: wScale, heightScale: hScale, rotate, fit, radius };
+            
+            renderPhotoLayout(imgEl, targetWinW, containerH, targetLayout);
+
+            const warningEl = document.getElementById('faceCropWarning');
+            if (y <= -15 || y >= 15 || scale < 0.9 || wScale < 0.9 || hScale < 0.9) {
+                warningEl.classList.remove('d-none');
+            } else {
+                warningEl.classList.add('d-none');
+            }
+        }
+
+        function saveModalParameters() {
+            const x = parseInt(document.getElementById('sliderX').value);
+            const y = parseInt(document.getElementById('sliderY').value);
+            const scale = parseInt(document.getElementById('sliderScale').value) / 100;
+            const wScale = parseInt(document.getElementById('sliderWScale').value) / 100;
+            const hScale = parseInt(document.getElementById('sliderHScale').value) / 100;
+            const rotate = parseInt(document.getElementById('sliderRotate').value);
+            const radius = parseInt(document.getElementById('sliderRadius').value);
+            const fit = document.querySelector('input[name="fitMode"]:checked').value;
+
+            const targetLayoutObj = { x, y, scale, widthScale: wScale, heightScale: hScale, rotate, fit, radius };
+
+            if (document.getElementById('chkApplyToAll').checked) {
+                sessionPayload.forEach(item => {
+                    item.layout = { ...targetLayoutObj };
+                });
+            } else {
+                sessionPayload[currentEditingIndex].layout = targetLayoutObj;
+            }
+
+            sessionStorage.setItem('passport_print_payload', JSON.stringify(sessionPayload));
+            
+            editorModalInstance.hide();
+            renderGridEngine();
+        }
+
+        // Feature 11: Enhanced Multipage PNG/JPG Sequential Downloader Engine
+        function exportImage(format) {
+            const sheetsList = document.querySelectorAll('.printable-sheet');
+            
+            sheetsList.forEach((sheetEl, index) => {
+                const prevTransform = sheetEl.style.transform;
+                sheetEl.style.transform = 'none'; 
+
+                // Hide page counter text before generating pixel buffer
+                const pageText = sheetEl.querySelector('.preview-page-indicator');
+                if (pageText) pageText.style.opacity = '0';
+
+                html2canvas(sheetEl, {
+                    scale: 3.125, 
+                    useCORS: true,
+                    logging: false,
+                    backgroundColor: document.getElementById('bgSelect').value === 'transparent' ? null : '#ffffff'
+                }).then(canvas => {
+                    sheetEl.style.transform = prevTransform; 
+                    if (pageText) pageText.style.opacity = '1';
+                    
+                    const mimeType = format === 'jpeg' ? 'image/jpeg' : 'image/png';
+                    const quality = format === 'jpeg' ? 0.95 : undefined;
+                    const dataUrl = canvas.toDataURL(mimeType, quality);
+                    
+                    const downloadLink = document.createElement('a');
+                    downloadLink.download = `passport-sheet-${index + 1}.${format}`;
+                    downloadLink.href = dataUrl;
+                    downloadLink.click();
+                });
+            });
+        }
+
+        // Feature 12: Consolidated Multi-page Unified PDF Compiler Engine
+        function exportPdfDocument() {
+            const { jsPDF } = window.jspdf;
+            const dims = getDimensions();
+            const sheetsList = document.querySelectorAll('.printable-sheet');
+            const orientation = dims.sheetW > dims.sheetH ? 'l' : 'p';
+            
+            const pdf = new jsPDF({
+                orientation: orientation,
+                unit: 'mm',
+                format: [dims.sheetW, dims.sheetH]
+            });
+
+            let processChain = Promise.resolve();
+
+            sheetsList.forEach((sheetEl, index) => {
+                processChain = processChain.then(() => {
+                    const prevTransform = sheetEl.style.transform;
+                    sheetEl.style.transform = 'none';
+                    
+                    const pageText = sheetEl.querySelector('.preview-page-indicator');
+                    if (pageText) pageText.style.opacity = '0';
+
+                    return html2canvas(sheetEl, {
+                        scale: 3.125,
+                        useCORS: true,
+                        logging: false
+                    }).then(canvas => {
+                        sheetEl.style.transform = prevTransform;
+                        if (pageText) pageText.style.opacity = '1';
+                        
+                        const imgData = canvas.toDataURL('image/jpeg', 1.0);
+                        
+                        if (index > 0) {
+                            pdf.addPage([dims.sheetW, dims.sheetH], orientation);
+                        }
+                        
+                        pdf.addImage(imgData, 'JPEG', 0, 0, dims.sheetW, dims.sheetH);
+                    });
+                });
+            });
+
+            processChain.then(() => {
+                pdf.save(`passport_sheet_full_${Date.now()}.pdf`);
+            });
+        }
+    </script>
 </body>
 </html>
   
