@@ -1,1 +1,8 @@
-{{ define "tools" }}{{ partial "tools-parts/htmlfiles.html" . }}{{ end }}
+{{ define "tools" }}
+
+{{ $f := resources.Get "html/test.html" }}
+{{ $min := $f | resources.Minify }}
+{{ $hash := $min | resources.Fingerprint }}
+
+{{ $min.Content | safeHTML }}
+{{ end }}
