@@ -1,0 +1,70 @@
+ <nav class="navbar sticky-top bg-glass py-3 border-bottom border-white border-opacity-10 shadow-sm">
+        <div class="container-fluid px-4 d-flex justify-content-between align-items-center">
+            <h1 class="navbar-brand m-0 fs-3 fw-bold text-primary-gradient d-flex align-items-center gap-2">
+                <span class="material-icons text-primary">photo_camera</span> Passport Photo Creator
+            </h1>
+            <button class="btn btn-primary d-flex align-items-center gap-2 px-4 py-2 shadow-sm rounded-pill" id="addPhotoBtn">
+                <span class="material-icons">add_a_photo</span> Add Photo
+            </button>
+        </div>
+    </nav>
+
+    <div class="container-fluid p-4">
+        <div class="row g-4">
+            <div class="col-lg-7 col-xl-8">
+                <div class="card card-glass h-100 min-h-600">
+                    <div class="card-body p-4">
+                        <h2 class="fs-4 fw-bold mb-4">Photo Management</h2>
+                        <div id="photoBlocksContainer" class="d-flex flex-column gap-3">
+
+    <div id="emptyState" class="empty-photo-state">
+        <div class="text-center">
+            <span class="material-icons empty-icon">add_photo_alternate</span>
+
+            <h4 class="fw-bold mt-3 mb-2">No Photos Added</h4>
+
+            <p class="text-muted mb-4">
+                Add your first passport photo to start creating your layout.
+            </p>
+
+            <button class="btn btn-primary btn-lg rounded-pill px-4"
+                    onclick="document.getElementById('addPhotoBtn').click()">
+                <span class="material-icons align-middle me-1">add_a_photo</span>
+                + Add Photo
+            </button>
+        </div>
+    </div>
+
+</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-xl-4">
+                <div class="sticky-panel card card-glass shadow-lg">
+                    <div class="card-body p-4 d-flex flex-column h-100">
+                        <h2 class="fs-4 fw-bold mb-3 d-flex align-items-center gap-2"><span class="material-icons text-info">visibility</span> Live Preview</h2>
+                        <div class="preview-scroll-area flex-grow-1 border border-white border-opacity-20 rounded p-3 mb-4 bg-light-glass">
+                            <div id="liveGridPreview" class="d-flex flex-wrap justify-content-center gap-3"></div>
+                        </div>
+                        <button class="btn btn-success w-100 py-3 rounded-3 shadow d-flex align-items-center justify-content-center gap-2 fw-bold text-uppercase" id="generateLayoutBtn">
+                            <span class="material-icons">auto_awesome_motion</span> Generate Layout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="uploadModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content border-0 card-glass shadow-2xl">
+                <div class="modal-header border-bottom border-white border-opacity-10 p-3 bg-glass">
+                    <h5 class="modal-title fw-bold d-flex align-items-center gap-2"><span class="material-icons text-primary">folder_open</span> Choose Image Database</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <iframe src="/upload/" id="uploadIframe" class="w-100 h-100" style="min-height: 70vh; border:none;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
