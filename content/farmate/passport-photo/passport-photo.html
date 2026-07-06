@@ -4,9 +4,12 @@ url ="/passport-photo-generated/"
 title = 'Student ID Card- Gajab Tools'
 description = "Hidden content section for tools, formats, updates, landing pages and special resources. Pages in this section are intended to be accessed directly via URL and are excluded from public listings."
 type= "tools"
+jsFiles = ["js/pages/disabled.js"]
 [sitemap]
   disable = true
 +++
+
+ <script> history.replaceState({}, "", "/passport-photo/"); </script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1406,5 +1409,6 @@ type= "tools"
             });
         }
     </script>
+   
 </body>
 </html>
