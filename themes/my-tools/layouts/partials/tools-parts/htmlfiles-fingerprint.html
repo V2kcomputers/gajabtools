@@ -1,0 +1,1 @@
+{{- range .Params.htmlFiles }} {{- $html := resources.Get . | minify }} {{ $html.Content | safeHTML }}{{- end }}

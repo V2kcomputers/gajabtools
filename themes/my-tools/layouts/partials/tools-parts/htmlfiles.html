@@ -1,6 +1,4 @@
 {{- range .Params.htmlFiles }}
-    {{- $html := resources.Get . | resources.Minify | resources.Fingerprint }}
-    {{- $name := path.BaseName . }}
-<script> const htmlUrl = "{{ $html.RelPermalink }}"; fetch(htmlUrl) .then(r => r.text()) .then(html => { document.getElementById("target").innerHTML = html; }); </script>
-<div id="target"></div>
-{{- end }}
+    {{- $html := resources.Get . | minify }}
+    {{ $html.Content | safeHTML }}
+{{- end }}  

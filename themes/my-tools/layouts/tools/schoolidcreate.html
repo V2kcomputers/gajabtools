@@ -1,5 +1,19 @@
 
 {{ partial "tools-parts/headless.html" . }}
 
+<div id="target"></div>
+ <script>
+// ======= HTML START =======
+const toolHTML = `
+{{ partial "tools-parts/htmlfiles.html" . }}
+`;
+// ======= HTML END =======
 
- {{ partial "tools-parts/htmlfiles.html" . }}
+// HTML Insert
+document.getElementById("target").innerHTML = toolHTML;
+
+// JS को HTML insert होने के बाद चलाएँ
+if (typeof init === "function") {
+    init();
+}
+</script>
