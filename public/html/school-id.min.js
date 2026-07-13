@@ -1,0 +1,45 @@
+const toolHTML=`
+\r
+    <header class=dashboard-header><div class=header-content><h1 class=header-title><span class=icon>🪪</span> Professional ID Card Workspace</h1><div id=workspaceStatus style="font-size:12px;font-weight:600;color:var(--text-muted);background:#f1f5f9;padding:6px 12px;border-radius:20px">🟢 System Live</div></div></header><div class=container><div class=dashboard-grid><div class=section-card id=schoolProfileFormBlock><h3 class=section-title><span class=icon>🏫</span> School Information</h3><div class=form-group><label for=schoolName>School Name</label>
+<input type=text id=schoolName value="NEW IDEAL CONVENT SCHOOL" required><div class=validation-message>School Name is a required field.</div></div><div class=form-group><label for=schoolType>School Type</label>
+<input type=text id=schoolType value="English Medium School" required><div class=validation-message>School Type description is required.</div></div><div class=form-group><label for=schoolAddress>Address</label>
+<input type=text id=schoolAddress value="KUDAI, PATERA" required><div class=validation-message>Physical address location mapping is required.</div></div><div class=form-row><div class=form-group><label for=principalName>Principal Name</label>
+<input type=text id=principalName value="Mr. Umesh Upadhyay" required><div class=validation-message>Authority signature name is required.</div></div><div class=form-group><label for=principalMobile>Principal Mobile</label>
+<input type=text id=principalMobile value=9617563579 required><div class=validation-message>Valid contact number is required.</div></div></div><div class=form-group style=margin-bottom:0><label style=margin-bottom:10px>Media Upload Assets</label><div class=upload-grid><div class=upload-card onclick='openUploader("schoolLogo")'><span class=icon-graphic>📷</span>
+<span class=label-text>School Logo</span>
+<input type=hidden id=schoolLogo><div class=upload-preview-frame id=schoolLogoPreview></div></div><div class=upload-card onclick='openUploader("principalSignature")'><span class=icon-graphic>✍️</span>
+<span class=label-text>Signature</span>
+<input type=hidden id=principalSignature><div class=upload-preview-frame id=principalSignaturePreview></div></div></div><button type=button class="btn btn-primary" style=margin-top:20px;width:100% onclick=saveSchoolProfile()>
+<span class=btn-icon-label>💾</span><span class=btn-text-content>Save School Profile</span></button></div></div><div class=section-card><h3 class=section-title><span class=icon>👨‍🎓</span> Student Information</h3><form id=idCardForm novalidate><div class=form-row><div class=form-group><label for=studentName>Student's Name</label>
+<input type=text id=studentName required><div class=validation-message>Full name parameter string is required.</div></div><div class=form-group><label for=fatherName>Father's Name</label>
+<input type=text id=fatherName required><div class=validation-message>Father legal tracking name parameter required.</div></div></div><div class=form-row><div class=form-group><label for=dob>Date of Birth</label>
+<input type=text id=dob placeholder=DD/MM/YYYY required><div class=validation-message>Valid record metric is required.</div></div><div class=form-group><label for=className>Class</label>
+<input type=text id=className required><div class=validation-message>Enrolled class identification descriptor is required.</div></div></div><div class=form-group><label for=mobileNumber>Mobile Number</label>
+<input type=text id=mobileNumber required><div class=validation-message>Primary relative contact integer sequence is required.</div></div><div class=form-group><label for=address>Address</label>
+<input type=text id=address required><div class=validation-message>Residential tracking context structural string is required.</div></div><div class=form-row style=align-items:flex-end><div class=form-group style=margin-bottom:0;width:100%><label>Identification Image</label><div class=upload-card onclick='openUploader("studentPhoto")' style=min-height:110px><span class=icon-graphic>👤</span>
+<span class=label-text>Upload Student Photo</span>
+<input type=hidden id=studentPhoto><div class=upload-preview-frame id=studentPhotoPreview style=height:55px></div></div></div></div><div class=button-group style=display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px><button type=button class="btn btn-success" onclick=generateCard()>
+<span class=btn-icon-label>➕</span><span class=btn-text-content>Add Card</span>
+</button>
+<button type=button class="btn btn-secondary" onclick=clearForm()>
+<span class=btn-text-content>Clear Form</span>
+</button>
+<button type=button class="btn btn-secondary" onclick=addNewCard() style=background:#f1f5f9;color:var(--primary)>
+<span class=btn-text-content>Reset New</span></button></div></form></div></div><div class=section-card style=margin-bottom:32px><h3 class=section-title><span class=icon>🎨</span> Template Selection</h3><div class=template-switcher><label class=template-card><input type=radio name=template value=/school-id-generated/ data-format=format01>
+<img src=/images/id-template-01.jpg alt="Template 01 Layout View">
+<span>Format 01 Corporate</span>
+</label><label class=template-card><input type=radio name=template value=/school-id-generated-02/ data-format=format02>
+<img src=/images/id-template-02.jpg alt="Template 02 Layout View">
+<span>Format 02 Modern Minimalist</span>
+</label><label class=template-card><input type=radio name=template value=/school-id-generated-03/ data-format=format03>
+<img src=/images/id-template-03.jpg alt="Template 03 Layout View">
+<span>Format 03 Classic Academic</span>
+</label><label class=template-card><input type=radio name=template value=/school-id-generated-04/ data-format=format04>
+<img src=/images/id-template-04.jpg alt="Template 04 Layout View">
+<span>Format 04 Tech Academy</span></label></div></div><div id=tableContainer class=table-container><div class=table-header-bar><h3 class=table-title><span class=icon>📋</span> Generated Registry Profiles</h3><button type=button class="btn btn-danger btn-icon-only" title="Wipe Local Context Engine" onclick=clearAllLocalStorage()>
+<span>🗑</span></button></div><div class=table-responsive-wrapper><table class=student-table><thead><tr><th>Student Details</th><th>Father's Name</th><th>Date of Birth</th><th>Class</th><th>Mobile Number</th><th>Address</th><th style=text-align:center>Actions</th></tr></thead><tbody id=studentTableBody></tbody></table></div></div><div class=sticky-action-bar><div style=display:flex;flex-direction:column><span style=font-size:13px;font-weight:700;color:var(--text-main) id=stickyCounterDisplay>Cards Registered: 0 / 100</span>
+<span style=font-size:11px;color:var(--text-muted)>Changes automatically back up to Local Storage context</span></div><div><button type=button id=btnBulkExportTrigger class="btn btn-success" style=padding-left:32px;padding-right:32px onclick=generateAllCardsPage()>
+<span class=btn-icon-label>🖨</span>
+<span class=btn-text-content>Generate All Professional Cards ➔</span><div class=btn-loading-text><div class=spinner></div>Packaging Artifact Tokens...</div></button></div></div></div><div id=uploadModal class=upload-modal><div class=upload-box><button class=close-btn onclick=closeUploader()>✖ Close</button>
+<iframe id=uploadFrame src frameborder=0></iframe></div></div><div id=previewCardModal class=preview-modal><div class=preview-box><button class=preview-close-btn onclick=closePreviewModal()>✖</button><div id=popupCardInjectTarget></div></div></div><div id=toastContainer></div>  
+`;document.getElementById("target").innerHTML=toolHTML,typeof init=="function"&&init()

@@ -63,6 +63,385 @@
     <h2><a href="/classic-resume-green/">Classic Resume Green - Gajab Tools</a></h2>
     <script> history.replaceState( {}, "", "/resume-generator/" + window.location.search + window.location.hash ); </script><div class="action-buttons"><button onclick="history.length > 1 ? history.back() : location.href='/resume-generator/'">✏️ Edit Resume</button><div class="download-menu"><button onclick="toggleDownloadMenu()"> ⬇️ Download Resume </button><div id="downloadOptions" class="download-options"><button id="pdfBtn" onclick="downloadPDF()"> 📄 PDF Resume </button><button id="imgBtn" onclick="saveImage()"> 🖼️ JPG Resume </button></div></div><button onclick="savePDF()"> 👁️‍🗨️ View Resume pdf </button><button onclick="printResume()">🖨️ Print </button></div><div class="pdf-page"><div class="resume"><div class="resume-border"><div class="title" id="resumeType"> Resume </div><div class="resume-header"><div class="info"><div class="profile-info"><span style="font-size: 32px;" id="r_name"></span><br><br><span id ="r_address"></span><br><b>Contact No.</b>: <span id="r_mobile"></span><br><b>Email ID</b>: <span id="r_email"></span></div></div><img id="r_photo" class="photo" src="" alt="Photo" ></div><hr><div class="resume-section"><h3>Career Objective</h3><p id="r_objective"></p></div><div class="resume-section"><h3>Academic Qualification</h3><table id="academicData"><thead><tr><th>Exam Name</th><th>Board / University</th><th>Passing Year</th><th>Marks %</th><th>Division</th></tr></thead><tbody></tbody></table></div><div class="resume-section"><h3>Professional Qualification</h3><table id="professionalData"><thead><tr><th>Exam Name</th><th>Board / University</th><th>Passing Year</th><th>Marks %</th><th>Division</th></tr></thead><tbody></tbody></table></div><div class="resume-section"><h3>Extra Qualification</h3><ul id="extraQualificationList"></ul></div><div class="resume-section"><h3>Work Experience</h3><p id="r_workExperience"></p></div><div class="resume-section"><h3>Personal Information</h3><table class="personal"><tr><td>Date of Birth</td><td>:</td><td id="r_dob"></td></tr><tr><td>Father's Name</td><td>:</td><td id="r_father"></td></tr><tr><td>Mother's Name</td><td>:</td><td id="r_mother"></td></tr><tr><td>Gender</td><td>:</td><td id="r_gender"></td></tr><tr><td>Nationality</td><td>:</td><td id="r_nationality"></td></tr><tr><td>Marital Status</td><td>:</td><td id="r_marital"></td></tr><tr><td>Language Known</td><td>:</td><td id="r_language"></td></tr><tr><td>Hobbies</td><td>:</td><td id="r_hobbies"></td></tr></table></div><div class="resume-section"><h3>Declaration</h3><p> I hereby declare that the information furnished above is true, complete and correct to the best of my knowledge and belief. </p>
   
+    <h2><a href="/download-image/">Download Image-  Gajab Tools</a></h2>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transformation Complete | Core Downstream Delivery Engine</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            --panel-bg: rgba(30, 41, 59, 0.7);
+            --panel-border: rgba(255, 255, 255, 0.08);
+            --accent-success: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            --accent-primary: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            --accent-secondary: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass-glow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+            --font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            opacity: 0;
+            transform: translateY(15px);
+            animation: initFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes initFadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header Engine */
+        .success-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .success-icon-shield {
+            width: 90px;
+            height: 90px;
+            background: rgba(16, 185, 129, 0.12);
+            border: 2px solid #10b981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem auto;
+            color: #10b981;
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
+            transform: scale(0.6);
+            opacity: 0;
+            animation: iconPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;
+        }
+
+        @keyframes iconPop {
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .success-icon-shield svg {
+            width: 46px;
+            height: 46px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 3;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: drawCheck 0.6s ease-out 0.5s forwards;
+        }
+
+        @keyframes drawCheck {
+            to { stroke-dashoffset: 0; }
+        }
+
+        .success-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ffffff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .success-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Primary Content Split Mapping Grid */
+        .workspace-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .workspace-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Glassmorphic Shell panels */
+        .glass-card {
+            background: var(--panel-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--panel-border);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--glass-glow);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Visual Lightbox Canvas Engine */
+        .preview-viewport {
+            position: relative;
+            background: #090d16;
+            border-radius: 12px;
+            height: 400px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255,255,255,0.05);
+            cursor: grab;
+        }
+
+        .preview-viewport:active { cursor: grabbing; }
+
+        .preview-viewport img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            user-select: none;
+            transition: transform 0.1s linear;
+            transform-origin: center center;
+            background-image: linear-gradient(45deg, #161e2e 25%, transparent 25%), linear-gradient(-45deg, #161e2e 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #161e2e 75%), linear-gradient(-45deg, transparent 75%, #161e2e 75%);
+            background-size: 16px 16px;
+            background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+        }
+
+        .zoom-overlay-controls {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(15, 23, 42, 0.8);
+            padding: 0.4rem;
+            border-radius: 8px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.1);
+            z-index: 10;
+        }
+
+        .zoom-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .zoom-btn:hover { background: rgba(255,255,255,0.1); }
+
+        /* Savings Engine Bars */
+        .delta-metrics-card {
+            margin-bottom: 1.5rem;
+        }
+
+        .delta-flow-nodes {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr auto 1fr;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .node-value { font-size: 1.25rem; font-weight: 700; margin-top: 0.25rem; }
+        .node-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;}
+        .flow-arrow { color: var(--text-muted); font-size: 1.5rem; font-weight: 300; }
+
+        .progress-track {
+            background: #090d16;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid var(--panel-border);
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--accent-success);
+            transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Operational Field Parameter Rows */
+        .data-matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .data-matrix-table tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .data-matrix-table tr:last-child { border-bottom: none; }
+
+        .data-matrix-table td {
+            padding: 0.75rem 0;
+            font-size: 0.95rem;
+        }
+
+        .data-matrix-table td:first-child {
+            color: var(--text-muted);
+        }
+
+        .data-matrix-table td:last-child {
+            text-align: right;
+            font-weight: 600;
+        }
+
+        /* Action Controls Ecosystem Layout */
+        .primary-action-zone {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1.1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .btn-premium {
+            background: var(--accent-success);
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-premium:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(16, 185, 129, 0.45);
+            filter: brightness(1.1);
+        }
+
+        .btn-secondary {
+            background: var(--accent-secondary);
+            border: 1px solid var(--panel-border);
+            font-size: 0.95rem;
+            padding: 0.8rem 1.5rem;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-1px);
+        }
+
+        .auxiliary-actions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .automation-toggle-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .automation-toggle-row input {
+            accent-color: #10b981;
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Footer Return Frame links */
+        .engine-footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--panel-border);
+        }
+
+        .return-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .return-link:hover { color: white; }
+
+        /* Custom Notification Toast Pop */
+        .toast-notification {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid #6366f1;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1000;
+            font-weight: 600;
+            pointer-events: none;
+            color: #f8fafc;
+        }
+
+        .toast-notification.visible {
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- PAGE HEADER -->
+        <header class="success-header">
+            <div class="success-icon-shield">
+                <svg viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12"/>
+                </svg>
+            </div>
+            <h1>Image Converted Successfully</h1>
+            <p>Your asset payload matrix has successfully resolved inside your browser runtime memory sandbox.</p>
+  
     <h2><a href="/create-biodata/">Matrimonial Biodata - Gajab Tools</a></h2>
     <style>
 :root{

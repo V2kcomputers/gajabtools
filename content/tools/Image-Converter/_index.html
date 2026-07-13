@@ -1,0 +1,1195 @@
++++
+date = 2026-06-02T15:52:59+05:30
+links = [
+"Visit Tools = https://gajabtools.com"
+]
+url = "/universal-image-converter/"
+imageBanner = "  "
+cssStyles = []
+jsFiles = ["js/tools/c2ltcGxlLWNsYXNzaWMtcmVzdW1l.js"]
+
+title = 'Universal Image Converterr'
+description = " Convert your images to any format instantly right in your browser. Fast, private, and secure image conversion. "
+type= "tools"
+pageWidth = "600"
+allowSite= "no" 
++++
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Image Converter</title>
+    <meta name="description" content="Convert your images to any format instantly right in your browser. Fast, private, and secure image conversion.">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            --panel-bg: rgba(30, 41, 59, 0.7);
+            --panel-border: rgba(255, 255, 255, 0.08);
+            --accent-primary: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            --accent-success: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            --accent-danger: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass-glow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Views management */
+        .view-panel {
+            display: none;
+            width: 100%;
+        }
+
+        .view-panel.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Glass Cards */
+        .glass-card {
+            background: var(--panel-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--panel-border);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--glass-glow);
+            margin-bottom: 2rem;
+        }
+
+        /* Upload Area */
+        .upload-zone {
+            border: 2px dashed rgba(99, 102, 241, 0.4);
+            background: rgba(15, 23, 42, 0.4);
+            border-radius: 12px;
+            padding: 4rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .upload-zone:hover, .upload-zone.dragover {
+            border-color: #6366f1;
+            background: rgba(99, 102, 241, 0.08);
+            transform: scale(1.005);
+        }
+
+        .upload-icon {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 1.5rem;
+            fill: none;
+            stroke: #818cf8;
+            stroke-width: 1.5;
+        }
+
+        .upload-zone h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-zone p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .upload-options {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--panel-border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-success {
+            background: var(--accent-success);
+        }
+
+        /* Configuration Grid Layout */
+        .config-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .config-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--panel-border);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .select-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: #0f172a;
+            border: 1px solid var(--panel-border);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* Sliders */
+        .range-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .range-input {
+            flex: 1;
+            accent-color: #6366f1;
+        }
+
+        .range-value {
+            font-variant-numeric: tabular-nums;
+            font-weight: 600;
+            min-width: 40px;
+        }
+
+        /* Checkbox & Switch layout */
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* Dimensions configuration elements */
+        .dimensions-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .input-number {
+            width: 100%;
+            padding: 0.75rem;
+            background: #0f172a;
+            border: 1px solid var(--panel-border);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        /* Image Previews Layout */
+        .preview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .preview-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .preview-box {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 250px;
+            border: 1px solid var(--panel-border);
+        }
+
+        .preview-box img {
+            max-width: 100%;
+            max-height: 220px;
+            object-fit: contain;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            background-image: linear-gradient(45deg, #2e2e2e 25%, transparent 25%), linear-gradient(-45deg, #2e2e2e 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #2e2e2e 75%), linear-gradient(-45deg, transparent 75%, #2e2e2e 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+
+        .info-table {
+            width: 100%;
+            margin-top: 1rem;
+            border-collapse: collapse;
+        }
+
+        .info-table td {
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .info-table td:first-child {
+            color: var(--text-muted);
+            width: 40%;
+        }
+
+        .info-table td:last-child {
+            font-weight: 600;
+            text-align: right;
+        }
+
+        /* Comparison Bar layout */
+        .comparison-metric {
+            margin-top: 1.5rem;
+        }
+
+        .bar-container {
+            background: #0f172a;
+            border-radius: 20px;
+            height: 12px;
+            width: 100%;
+            overflow: hidden;
+            margin-top: 0.5rem;
+            border: 1px solid var(--panel-border);
+        }
+
+        .bar-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--accent-success);
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .bar-fill.negative {
+            background: var(--accent-danger);
+        }
+
+        /* Large Action Wrapper */
+        .action-wrapper {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .btn-large {
+            padding: 1.25rem 3.5rem;
+            font-size: 1.3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+            letter-spacing: 0.5px;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 0.5rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Input URL Modal elements */
+        .url-input-container {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .url-field {
+            flex: 1;
+            padding: 0.75rem;
+            background: #0f172a;
+            border: 1px solid var(--panel-border);
+            border-radius: 8px;
+            color: white;
+            outline: none;
+        }
+
+        /* Success & Download UI layouts */
+        .success-hero {
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+
+        .success-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 2px solid #10b981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem auto;
+            color: #10b981;
+        }
+
+        .success-icon-wrapper svg {
+            width: 44px;
+            height: 44px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1 id="seo-title">Universal Image Converter</h1>
+            <p id="seo-desc">Convert, resize, and optimize images completely in your browser.</p>
+        </header>
+
+        <!-- VIEW 1: UPLOAD & CONFIGURATION -->
+        <main id="converter-view" class="view-panel active">
+            
+            <!-- Upload Area Section -->
+            <section class="glass-card">
+                <div class="upload-zone" id="drop-zone">
+                    <svg class="upload-icon" viewBox="0 0 24 24">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h3>Drag & Drop your image here</h3>
+                    <p>Supports PNG, JPG, WEBP, GIF, SVG, BMP, ICO, TIFF, AVIF</p>
+                    
+                    <div class="upload-options" onclick="event.stopPropagation()">
+                        <button class="btn" onclick="document.getElementById('file-input').click()">
+                            Browse Files
+                        </button>
+                        <button class="btn btn-secondary" onclick="app.toggleUrlInput()">
+                            Paste URL
+                        </button>
+                        <button class="btn btn-secondary" onclick="app.openCamera()">
+                            Use Camera
+                        </button>
+                    </div>
+
+                    <div class="url-input-container" id="url-container" style="display: none;" onclick="event.stopPropagation()">
+                        <input type="url" id="url-input" class="url-field" placeholder="Enter image URL completely (https://...)">
+                        <button class="btn" onclick="app.loadFromUrl()">Load</button>
+                    </div>
+
+                    <input type="file" id="file-input" style="display: none;" accept="image/*">
+                </div>
+            </section>
+
+            <!-- Configuration, Metadata and Conversion State -->
+            <div id="workspace-section" style="display: none;">
+                <div class="config-grid">
+                    
+                    <!-- LEFT COLUMN: Configurations & Constraints -->
+                    <section class="glass-card">
+                        <h2 class="section-title">Conversion Settings</h2>
+
+                        <!-- Output Format Target Selection Dropdown -->
+                        <div class="form-group">
+                            <label for="output-format">Convert To</label>
+                            <select id="output-format" class="select-input"></select>
+                        </div>
+
+                        <!-- Target Quality Slider Layer -->
+                        <div class="form-group" id="quality-group">
+                            <label for="quality-range">Quality Configuration</label>
+                            <div class="range-container">
+                                <input type="range" id="quality-range" class="range-input" min="5" max="100" value="90">
+                                <span class="range-value" id="quality-display">90%</span>
+                            </div>
+                            <div style="margin-top: 0.5rem;">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="lossless-toggle"> Lossless Processing Matrix
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Target Geometric Resizing Section Layer -->
+                        <div class="form-group">
+                            <label>Transform Resolutions</label>
+                            <div style="margin-bottom: 0.75rem;">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="aspect-toggle" checked> Lock Proportions (Aspect Ratio)
+                                </label>
+                            </div>
+                            <div class="dimensions-inputs">
+                                <div>
+                                    <label for="resize-w" style="margin-bottom:0.25rem;">Width (px)</label>
+                                    <input type="number" id="resize-w" class="input-number" placeholder="Original">
+                                </div>
+                                <div>
+                                    <label for="resize-h" style="margin-bottom:0.25rem;">Height (px)</label>
+                                    <input type="number" id="resize-h" class="input-number" placeholder="Original">
+                                </div>
+                            </div>
+                            <button class="btn btn-secondary" id="reset-size-btn" style="margin-top: 1rem; width: 100%; justify-content: center;">
+                                Reset to Base Geometry
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- RIGHT COLUMN: Metadata & Performance Auditing Tables -->
+                    <section class="glass-card">
+                        <h2 class="section-title">File Inspector</h2>
+                        
+                        <table class="info-table">
+                            <tbody>
+                                <tr><td>File Identifier</td><td id="meta-name">-</td></tr>
+                                <tr><td>Source Matrix</td><td id="meta-format">-</td></tr>
+                                <tr><td>Resolution Grid</td><td id="meta-dimensions">-</td></tr>
+                                <tr><td>Aspect Formula</td><td id="meta-aspect">-</td></tr>
+                                <tr><td>Total Density</td><td id="meta-pixels">-</td></tr>
+                                <tr><td>Raw Byte Payload</td><td id="meta-size">-</td></tr>
+                                <tr><td>Alpha Channel</td><td id="meta-alpha">-</td></tr>
+                            </tbody>
+                        </table>
+
+                        <div class="comparison-metric" id="comparison-metric-box" style="display: none;">
+                            <h3 class="section-title" style="margin-top: 1.5rem; font-size: 1rem;">Payload Delta Projection</h3>
+                            <table class="info-table">
+                                <tbody>
+                                    <tr><td>Source Envelope</td><td id="comp-source">-</td></tr>
+                                    <tr><td>Target Estimate</td><td id="comp-dest">-</td></tr>
+                                    <tr><td>Delta Shift</td><td id="comp-diff">-</td></tr>
+                                </tbody>
+                            </table>
+                            <div class="bar-container">
+                                <div id="comp-bar" class="bar-fill"></div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Side-by-Side Visual Inspection Previews Layout -->
+                <section class="glass-card">
+                    <h2 class="section-title">Asynchronous Visual Pipelines</h2>
+                    <div class="preview-grid">
+                        <div>
+                            <h4 style="margin-bottom: 0.5rem; color: var(--text-muted)">Source Ingestion</h4>
+                            <div class="preview-box">
+                                <img id="source-preview" alt="Source Element Context">
+                            </div>
+                        </div>
+                        <div>
+                            <h4 style="margin-bottom: 0.5rem; color: var(--text-muted)">Target Interpolation</h4>
+                            <div class="preview-box">
+                                <div id="preview-placeholder" style="color: var(--text-muted); font-size: 0.9rem; text-align: center;">
+                                    Awaiting Execution Sequence...
+                                </div>
+                                <img id="dest-preview" style="display: none;" alt="Target Interpolation Canvas Context">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Global Execution Trigger -->
+                    <div class="action-wrapper">
+                        <button class="btn btn-large" id="convert-btn">
+                            <span class="spinner" id="convert-spinner" style="display: none;"></span>
+                            Execute Transformation Sequence
+                        </button>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- VIEW 2: COMPLETED DOWNSTREAM DELIVERY PIPELINE -->
+        <main id="download-view" class="view-panel">
+            <section class="glass-card success-hero">
+                <div class="success-icon-wrapper">
+                    <svg viewBox="0 0 24 24">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                </div>
+                <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Pipeline Computation Complete</h2>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">The target object payload matrix has successfully resolved completely inside your runtime memory buffer sandbox.</p>
+
+                <div class="config-grid" style="text-align: left; max-width: 700px; margin: 0 auto 2rem auto;">
+                    <div class="glass-card" style="margin-bottom: 0; background: rgba(15,23,42,0.3)">
+                        <h4 style="color: var(--text-muted); margin-bottom: 0.5rem;">Input Context</h4>
+                        <p id="dl-meta-in" style="font-weight: 600;"></p>
+                    </div>
+                    <div class="glass-card" style="margin-bottom: 0; background: rgba(15,23,42,0.3)">
+                        <h4 style="color: var(--text-muted); margin-bottom: 0.5rem;">Output Context</h4>
+                        <p id="dl-meta-out" style="font-weight: 600;"></p>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 1rem; justify-content: center;">
+                    <a id="download-link" class="btn btn-large btn-success">Download Resolved File</a>
+                    <button class="btn btn-large btn-secondary" onclick="app.resetToHome()">Convert New Matrix</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Web Camera Capture Execution Device Sandbox Context -->
+    <dialog id="camera-dialog" style="background: var(--panel-bg); color: white; border: 1px solid var(--panel-border); border-radius: 16px; padding: 2rem; margin: auto; max-width: 500px; box-shadow: var(--glass-glow);">
+        <h3 style="margin-bottom: 1rem;">Capture Source Payload</h3>
+        <video id="camera-stream" autoplay playsinline style="width: 100%; max-height: 350px; background: #000; border-radius: 8px; transform: scaleX(-1);"></video>
+        <div style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: flex-end;">
+            <button class="btn btn-secondary" onclick="app.closeCamera(true)">Abort</button>
+            <button class="btn" onclick="app.captureCamera()">Capture Buffer</button>
+        </div>
+    </dialog>
+
+    <script>
+        /**
+         * Core Application Architecture Matrix Engine
+         * Implements localized pure browser processing logic pipelines
+         */
+        class UniversalConverterEngine {
+            constructor() {
+                this.formats = ['JPG', 'JPEG', 'PNG', 'WEBP', 'GIF', 'SVG', 'BMP', 'ICO', 'TIFF', 'AVIF'];
+                this.outputFormats = ['JPG', 'PNG', 'WEBP', 'GIF', 'SVG', 'BMP', 'ICO', 'TIFF', 'AVIF'];
+                
+                // Active System Memory Matrices
+                this.sourcePayload = {
+                    blob: null,
+                    dataUrl: '',
+                    name: '',
+                    format: '',
+                    size: 0,
+                    width: 0,
+                    height: 0,
+                    aspectRatio: 1,
+                    hasAlpha: false
+                };
+
+                this.targetPayload = {
+                    blob: null,
+                    dataUrl: '',
+                    format: '',
+                    size: 0
+                };
+
+                this.streamContext = null;
+                this.isRouterProcessing = false;
+
+                // Connect core dynamic DOM pointers
+                this.dom = {
+                    fileInput: document.getElementById('file-input'),
+                    dropZone: document.getElementById('drop-zone'),
+                    urlContainer: document.getElementById('url-container'),
+                    urlInput: document.getElementById('url-input'),
+                    outputFormat: document.getElementById('output-format'),
+                    qualityGroup: document.getElementById('quality-group'),
+                    qualityRange: document.getElementById('quality-range'),
+                    qualityDisplay: document.getElementById('quality-display'),
+                    losslessToggle: document.getElementById('lossless-toggle'),
+                    aspectToggle: document.getElementById('aspect-toggle'),
+                    resizeW: document.getElementById('resize-w'),
+                    resizeH: document.getElementById('resize-h'),
+                    resetSizeBtn: document.getElementById('reset-size-btn'),
+                    workspace: document.getElementById('workspace-section'),
+                    convertBtn: document.getElementById('convert-btn'),
+                    convertSpinner: document.getElementById('convert-spinner'),
+                    sourcePreview: document.getElementById('source-preview'),
+                    destPreview: document.getElementById('dest-preview'),
+                    previewPlaceholder: document.getElementById('preview-placeholder'),
+                    comparisonBox: document.getElementById('comparison-metric-box'),
+                    
+                    // Metadata Pointers
+                    metaName: document.getElementById('meta-name'),
+                    metaFormat: document.getElementById('meta-format'),
+                    metaDimensions: document.getElementById('meta-dimensions'),
+                    metaAspect: document.getElementById('meta-aspect'),
+                    metaPixels: document.getElementById('meta-pixels'),
+                    metaSize: document.getElementById('meta-size'),
+                    metaAlpha: document.getElementById('meta-alpha'),
+                    
+                    compSource: document.getElementById('comp-source'),
+                    compDest: document.getElementById('comp-dest'),
+                    compDiff: document.getElementById('comp-diff'),
+                    compBar: document.getElementById('comp-bar'),
+                    
+                    // Views
+                    viewConverter: document.getElementById('converter-view'),
+                    viewDownload: document.getElementById('download-view'),
+                    
+                    // Download Metrics Pointers
+                    dlMetaIn: document.getElementById('dl-meta-in'),
+                    dlMetaOut: document.getElementById('dl-meta-out'),
+                    dlLink: document.getElementById('download-link'),
+                    
+                    // Camera
+                    cameraDialog: document.getElementById('camera-dialog'),
+                    cameraStream: document.getElementById('camera-stream'),
+                    
+                    // SEO Node References
+                    seoTitle: document.getElementById('seo-title'),
+                    seoDesc: document.getElementById('seo-desc')
+                };
+            }
+
+            init() {
+                this.buildDropdownOptions();
+                this.bindEventPipelines();
+                this.evaluateSystemRouteState(window.location.pathname, true);
+            }
+
+            buildDropdownOptions() {
+                this.dom.outputFormat.innerHTML = '';
+                this.outputFormats.forEach(fmt => {
+                    const opt = document.createElement('option');
+                    opt.value = fmt;
+                    opt.textContent = fmt;
+                    this.dom.outputFormat.appendChild(opt);
+                });
+            }
+
+            bindEventPipelines() {
+                // Drag and Drop Ingestion Pipes
+                this.dom.dropZone.addEventListener('dragover', (e) => { e.preventDefault(); this.dom.dropZone.classList.add('dragover'); });
+                this.dom.dropZone.addEventListener('dragleave', () => this.dom.dropZone.classList.remove('dragover'));
+                this.dom.dropZone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    this.dom.dropZone.classList.remove('dragover');
+                    if(e.dataTransfer.files.length > 0) this.ingestFileBlob(e.dataTransfer.files[0]);
+                });
+                this.dom.dropZone.addEventListener('click', () => this.dom.fileInput.click());
+                this.dom.fileInput.addEventListener('change', (e) => {
+                    if(e.target.files.length > 0) this.ingestFileBlob(e.target.files[0]);
+                });
+
+                // Global Buffer Clipboard Pasting Pipes
+                window.addEventListener('paste', (e) => {
+                    const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+                    for (const item of items) {
+                        if (item.kind === 'file' && item.type.startsWith('image/')) {
+                            this.ingestFileBlob(item.getAsFile());
+                            break;
+                        }
+                    }
+                });
+
+                // Dropdown Form Invalidation Events
+                this.dom.outputFormat.addEventListener('change', () => {
+                    this.evaluateQualityStateUI();
+                    this.synchronizeSystemRouteState();
+                    this.executePredictiveEstimation();
+                });
+
+                // Quality Modifier Controls
+                this.dom.qualityRange.addEventListener('input', (e) => {
+                    this.dom.qualityDisplay.textContent = `${e.target.value}%`;
+                    this.executePredictiveEstimation();
+                });
+                
+                this.dom.losslessToggle.addEventListener('change', (e) => {
+                    this.dom.qualityRange.disabled = e.target.checked;
+                    this.executePredictiveEstimation();
+                });
+
+                // Mathematical Resolution Transformations Constrain Listeners
+                this.dom.resizeW.addEventListener('input', () => {
+                    if(this.dom.aspectToggle.checked && this.sourcePayload.width) {
+                        this.dom.resizeH.value = Math.round(this.dom.resizeW.value / this.sourcePayload.aspectRatio);
+                    }
+                });
+                this.dom.resizeH.addEventListener('input', () => {
+                    if(this.dom.aspectToggle.checked && this.sourcePayload.height) {
+                        this.dom.resizeW.value = Math.round(this.dom.resizeH.value * this.sourcePayload.aspectRatio);
+                    }
+                });
+                this.dom.resetSizeBtn.addEventListener('click', () => this.restoreBaseGeometry());
+
+                // Execution Process Handlers
+                this.dom.convertBtn.addEventListener('click', () => this.executeMatrixTransformation());
+
+                // History Popstate System Route Synch
+                window.addEventListener('popstate', (e) => {
+                    this.evaluateSystemRouteState(window.location.pathname, false);
+                });
+            }
+
+            toggleUrlInput() {
+                const display = this.dom.urlContainer.style.display;
+                this.dom.urlContainer.style.display = display === 'none' ? 'flex' : 'none';
+            }
+
+            async loadFromUrl() {
+                const url = this.dom.urlInput.value.trim();
+                if(!url) return;
+                try {
+                    this.dom.previewPlaceholder.textContent = "Fetching remote network payload vector...";
+                    const resp = await fetch(url);
+                    if(!resp.ok) throw new Error("Network vector connection context denied.");
+                    const blob = await resp.blob();
+                    let name = url.split('/').pop().split('?')[0] || 'remote_image';
+                    if(!name.includes('.')) name += '.' + (blob.type.split('/')[1] || 'png');
+                    this.ingestFileBlob(blob, name);
+                } catch(err) {
+                    alert(`Network Proxy Error: Unable to fetch cross-origin resource matrix. (${err.message})`);
+                    this.dom.previewPlaceholder.textContent = "Awaiting Execution Sequence...";
+                }
+            }
+
+            async openCamera() {
+                try {
+                    this.streamContext = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" }, audio: false });
+                    this.dom.cameraStream.srcObject = this.streamContext;
+                    this.dom.cameraDialog.showModal();
+                } catch(err) {
+                    alert(`System Framework Failure: Camera access context rejected. ${err.message}`);
+                }
+            }
+
+            closeCamera(stopStream = true) {
+                if(stopStream && this.streamContext) {
+                    this.streamContext.getTracks().forEach(track => track.stop());
+                }
+                this.dom.cameraDialog.close();
+            }
+
+            captureCamera() {
+                if(!this.dom.cameraStream.srcObject) return;
+                const canvas = document.createElement('canvas');
+                canvas.width = this.dom.cameraStream.videoWidth;
+                canvas.height = this.dom.cameraStream.videoHeight;
+                const ctx = canvas.getContext('2d');
+                // Mirror balance transformation correction context mapping
+                ctx.translate(canvas.width, 0);
+                ctx.scale(-1, 1);
+                ctx.drawImage(this.dom.cameraStream, 0, 0, canvas.width, canvas.height);
+                
+                canvas.toBlob((blob) => {
+                    this.ingestFileBlob(blob, `capture_${Date.now()}.jpg`);
+                    this.closeCamera(true);
+                }, 'image/jpeg', 0.95);
+            }
+
+            /**
+             * Primary Ingestion Engine Layer
+             */
+            ingestFileBlob(blob, customName = '') {
+                if(!blob || !blob.type.startsWith('image/')) {
+                    alert("Invalid object schema: Buffer payload is not an explicit image entity.");
+                    return;
+                }
+
+                this.sourcePayload.blob = blob;
+                this.sourcePayload.size = blob.size;
+                this.sourcePayload.name = customName || blob.name || `matrix_source_${Date.now()}`;
+                
+                // Mathematical Parsing of format mapping strings
+                let identifiedExt = this.sourcePayload.name.split('.').pop().toUpperCase();
+                if(!this.formats.includes(identifiedExt)) {
+                    identifiedExt = blob.type.split('/')[1].toUpperCase();
+                }
+                this.sourcePayload.format = identifiedExt;
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    this.sourcePayload.dataUrl = e.target.result;
+                    
+                    // Create browser hardware abstraction image runtime configuration context
+                    const img = new Image();
+                    img.onload = () => {
+                        this.sourcePayload.width = img.width;
+                        this.sourcePayload.height = img.height;
+                        this.sourcePayload.aspectRatio = img.width / img.height;
+                        this.sourcePayload.pixels = img.width * img.height;
+                        
+                        // Parse alpha maps
+                        this.sourcePayload.hasAlpha = this.checkAlphaChannel(img);
+                        
+                        this.populateMetadataUI();
+                        this.restoreBaseGeometry();
+                        
+                        this.dom.sourcePreview.src = this.sourcePayload.dataUrl;
+                        this.dom.workspace.style.display = 'block';
+                        this.dom.destPreview.style.display = 'none';
+                        this.dom.previewPlaceholder.style.display = 'block';
+                        this.dom.previewPlaceholder.textContent = "Awaiting transformation command vector compilation...";
+                        
+                        this.synchronizeSystemRouteState();
+                        this.executePredictiveEstimation();
+                        
+                        // Scroll display smoothly to focus operational workflow context workspace
+                        this.dom.workspace.scrollIntoView({ behavior: 'smooth' });
+                    };
+                    img.src = this.sourcePayload.dataUrl;
+                };
+                reader.readAsDataURL(blob);
+            }
+
+            checkAlphaChannel(img) {
+                const canvas = document.createElement('canvas');
+                canvas.width = 1; canvas.height = 1;
+                const ctx = canvas.getContext('2d');
+                try {
+                    ctx.drawImage(img, 0, 0, 1, 1);
+                    return ctx.getImageData(0, 0, 1, 1).data[3] < 255;
+                } catch(e) { 
+                    return ['PNG', 'WEBP', 'SVG', 'AVIF'].includes(this.sourcePayload.format); 
+                }
+            }
+
+            populateMetadataUI() {
+                this.dom.metaName.textContent = this.sourcePayload.name;
+                this.dom.metaFormat.textContent = this.sourcePayload.format;
+                this.dom.metaDimensions.textContent = `${this.sourcePayload.width} x ${this.sourcePayload.height} px`;
+                this.dom.metaAspect.textContent = this.sourcePayload.aspectRatio.toFixed(2) + `:1`;
+                this.dom.metaPixels.textContent = `${(this.sourcePayload.pixels / 1000000).toFixed(2)} MP`;
+                this.dom.metaSize.textContent = this.formatBytes(this.sourcePayload.size);
+                this.dom.metaAlpha.textContent = this.sourcePayload.hasAlpha ? "Present (32-bit Depth Mapping)" : "Absent (24-bit Standard Solid)";
+            }
+
+            restoreBaseGeometry() {
+                this.dom.resizeW.value = this.sourcePayload.width;
+                this.dom.resizeH.value = this.sourcePayload.height;
+            }
+
+            evaluateQualityStateUI() {
+                const targetFmt = this.dom.outputFormat.value;
+                if(['JPG', 'JPEG', 'WEBP', 'AVIF'].includes(targetFmt)) {
+                    this.dom.qualityGroup.style.display = 'block';
+                } else {
+                    this.dom.qualityGroup.style.display = 'none';
+                }
+            }
+
+            formatBytes(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+
+            /**
+             * Advanced Analytical Processing Metric Estimation Function Framework
+             */
+            executePredictiveEstimation() {
+                if(!this.sourcePayload.size) return;
+                this.dom.comparisonBox.style.display = 'block';
+                
+                const targetFmt = this.dom.outputFormat.value;
+                let multiplier = 0.85; // baseline webp factor conversion scale estimation metrics
+
+                if(targetFmt === 'PNG') multiplier = this.sourcePayload.hasAlpha ? 1.2 : 1.5;
+                if(targetFmt === 'JPG' || targetFmt === 'BMP') multiplier = 1.0;
+                if(targetFmt === 'TIFF') multiplier = 2.5;
+                if(targetFmt === 'ICO') multiplier = 0.15;
+                if(targetFmt === 'SVG') multiplier = 0.6;
+                
+                // Adjust for user parameters
+                if(!this.dom.qualityRange.disabled && ['JPG', 'WEBP', 'AVIF'].includes(targetFmt)) {
+                    const qFactor = this.dom.qualityRange.value / 100;
+                    multiplier *= (qFactor * 0.9);
+                }
+                
+                const geometricFactor = (parseInt(this.dom.resizeW.value || this.sourcePayload.width) * parseInt(this.dom.resizeH.value || this.sourcePayload.height)) / this.sourcePayload.pixels;
+                const estimatedSize = Math.round(this.sourcePayload.size * multiplier * (isNaN(geometricFactor) ? 1 : geometricFactor));
+
+                this.dom.compSource.textContent = this.formatBytes(this.sourcePayload.size);
+                this.dom.compDest.textContent = `~ ${this.formatBytes(estimatedSize)}`;
+                
+                const diff = estimatedSize - this.sourcePayload.size;
+                const percent = Math.abs((diff / this.sourcePayload.size) * 100).toFixed(1);
+                
+                if(diff <= 0) {
+                    this.dom.compDiff.innerHTML = `<span style="color: #10b981;">-${this.formatBytes(Math.abs(diff))} (Saved ${percent}%)</span>`;
+                    this.dom.compBar.className = "bar-fill";
+                    this.dom.compBar.style.width = `${Math.min(100, Math.max(5, (estimatedSize / this.sourcePayload.size) * 100))}%`;
+                } else {
+                    this.dom.compDiff.innerHTML = `<span style="color: #ef4444;">+${this.formatBytes(diff)} (Increased ${percent}%)</span>`;
+                    this.dom.compBar.className = "bar-fill negative";
+                    this.dom.compBar.style.width = '100%';
+                }
+            }
+
+            /**
+             * History Optimization Routing Engine API Integration Layers
+             */
+            synchronizeSystemRouteState() {
+                if(this.isRouterProcessing || !this.sourcePayload.format) return;
+                const srcFmt = this.sourcePayload.format.toLowerCase();
+                const destFmt = this.dom.outputFormat.value.toLowerCase();
+                const routePath = `/${srcFmt}-to-${destFmt}`;
+                
+                window.history.pushState({ srcFmt, destFmt }, '', routePath);
+                this.updateDocumentSEOMetadata(srcFmt.toUpperCase(), destFmt.toUpperCase());
+            }
+
+            evaluateSystemRouteState(pathName, initialLoad = false) {
+                this.isRouterProcessing = true;
+                const routeMatch = pathName.match(/\/([a-z0-9]+)-to-([a-z0-9]+)/i);
+                
+                if(routeMatch && routeMatch.length === 3) {
+                    const inputTarget = routeMatch[1].toUpperCase();
+                    const outputTarget = routeMatch[2].toUpperCase();
+                    
+                    if(this.outputFormats.includes(outputTarget)) {
+                        this.dom.outputFormat.value = outputTarget;
+                    }
+                    this.updateDocumentSEOMetadata(inputTarget, outputTarget);
+                } else {
+                    if(pathName === '/download-image') {
+                        this.routeToView('download');
+                    } else {
+                        this.routeToView('converter');
+                        this.updateDocumentSEOMetadata('', '');
+                    }
+                }
+                this.evaluateQualityStateUI();
+                this.isRouterProcessing = false;
+            }
+
+            updateDocumentSEOMetadata(inFmt, outFmt) {
+                if(inFmt && outFmt) {
+                    const parsedTitle = `${inFmt} to ${outFmt} Premium Image Converter`;
+                    const parsedDesc = `Convert ${inFmt} to ${outFmt} inside local sandboxed browser memory. Free, instantaneous background rendering without external script dependencies.`;
+                    
+                    this.dom.seoTitle.textContent = parsedTitle;
+                    document.title = parsedTitle;
+                    this.dom.seoDesc.textContent = parsedDesc;
+                    document.querySelector('meta[name="description"]').setAttribute("content", parsedDesc);
+                } else {
+                    const defaultTitle = "Universal Image Converter";
+                    const defaultDesc = "Convert, resize, and optimize images completely in your browser.";
+                    this.dom.seoTitle.textContent = defaultTitle;
+                    document.title = defaultTitle;
+                    this.dom.seoDesc.textContent = defaultDesc;
+                    document.querySelector('meta[name="description"]').setAttribute("content", defaultDesc);
+                }
+            }
+
+            routeToView(targetView) {
+                if(targetView === 'download') {
+                    this.dom.viewConverter.classList.remove('active');
+                    this.dom.viewDownload.classList.add('active');
+                } else {
+                    this.dom.viewDownload.classList.remove('active');
+                    this.dom.viewConverter.classList.add('active');
+                }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            /**
+             * Core Bitonal Asynchronous Graph Canvas Execution Core
+             */
+            executeMatrixTransformation() {
+                if(!this.sourcePayload.dataUrl) return;
+
+                this.dom.convertBtn.disabled = true;
+                this.dom.convertSpinner.style.display = 'inline-block';
+                
+                const targetW = parseInt(this.dom.resizeW.value) || this.sourcePayload.width;
+                const targetH = parseInt(this.dom.resizeH.value) || this.sourcePayload.height;
+                const targetFormat = this.dom.outputFormat.value;
+                
+                let quality = this.dom.qualityRange.value / 100;
+                if(this.dom.losslessToggle.checked) quality = 1.0;
+
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = targetW;
+                    canvas.height = targetH;
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Standard background compilation environment fill strategy
+                    if(!['PNG', 'WEBP', 'SVG'].includes(targetFormat) || (targetFormat === 'JPG' || targetFormat === 'JPEG')) {
+                        ctx.fillStyle = '#FFFFFF';
+                        ctx.fillRect(0, 0, targetW, targetH);
+                    }
+
+                    // Perform geographic scaling mapping
+                    ctx.drawImage(img, 0, 0, targetW, targetH);
+
+                    // Map structural translation rules
+                    let mimeString = `image/${targetFormat.toLowerCase()}`;
+                    if(targetFormat === 'JPG') mimeString = 'image/jpeg';
+                    if(targetFormat === 'ICO') mimeString = 'image/x-icon';
+
+                    // Specialized fallback translation matrices layers override block
+                    if(targetFormat === 'SVG') {
+                        this.processVectorSvgOutput(canvas, targetW, targetH);
+                        return;
+                    }
+
+                    canvas.toBlob((blob) => {
+                        if(!blob) {
+                            // High level capability layer mitigation fallback
+                            this.processFallbackDataUrlMatrix(canvas, mimeString, targetFormat);
+                            return;
+                        }
+                        this.resolveTargetPayload(blob, targetFormat);
+                    }, mimeString, quality);
+                };
+                img.src = this.sourcePayload.dataUrl;
+            }
+
+            processVectorSvgOutput(canvas, w, h) {
+                // Vector wrapper schema wrapper matrix block layout
+                const dataUrl = canvas.toDataURL('image/png');
+                const svgString = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">
+                    <image width="${w}" height="${h}" href="${dataUrl}"/>
+                </svg>`;
+                const blob = new Blob([svgString], { type: 'image/svg+xml' });
+                this.resolveTargetPayload(blob, 'SVG');
+            }
+
+            processFallbackDataUrlMatrix(canvas, mime, formatStr) {
+                try {
+                    const dataUrl = canvas.toDataURL(mime);
+                    // Extract dataUrl elements completely structure array block back to standard operational Blob
+                    const arr = dataUrl.split(','), base64BlobStr = atob(arr[1]);
+                    let n = base64BlobStr.length, u8arr = new Uint8Array(n);
+                    while(n--) { u8arr[n] = base64BlobStr.charCodeAt(n); }
+                    const fileBlob = new Blob([u8arr], { type: mime });
+                    this.resolveTargetPayload(fileBlob, formatStr);
+                } catch(e) {
+                    alert("Processing Matrix Exception: Browser target compilation error down-scaling layout configuration properties.");
+                    this.dom.convertBtn.disabled = false;
+                    this.dom.convertSpinner.style.display = 'none';
+                }
+            }
+
+            resolveTargetPayload(blob, extension) {
+                this.targetPayload.blob = blob;
+                this.targetPayload.size = blob.size;
+                this.targetPayload.format = extension;
+                
+                if(this.targetPayload.dataUrl) URL.revokeObjectURL(this.targetPayload.dataUrl);
+                this.targetPayload.dataUrl = URL.createObjectURL(blob);
+
+                // Update UI preview instances layers completely
+                this.dom.previewPlaceholder.style.display = 'none';
+                this.dom.destPreview.style.display = 'block';
+                this.dom.destPreview.src = this.targetPayload.dataUrl;
+
+                // Configure Delivery Stage fields
+                const targetFileName = this.sourcePayload.name.substring(0, this.sourcePayload.name.lastIndexOf('.')) + '.' + extension.toLowerCase();
+                
+                this.dom.dlMetaIn.textContent = `${this.sourcePayload.format} [${this.sourcePayload.width}x${this.sourcePayload.height}] (${this.formatBytes(this.sourcePayload.size)})`;
+                this.dom.dlMetaOut.textContent = `${extension} [${this.dom.resizeW.value}x${this.dom.resizeH.value}] (${this.formatBytes(this.targetPayload.size)})`;
+                
+                this.dom.dlLink.href = this.targetPayload.dataUrl;
+                this.dom.dlLink.download = targetFileName;
+
+                // Release configuration button block locks
+                this.dom.convertBtn.disabled = false;
+                this.dom.convertSpinner.style.display = 'none';
+
+                // Route history engine layer and shift views instantly
+                window.history.pushState({ view: 'download' }, '', '/download-image');
+                this.routeToView('download');
+            }
+
+            resetToHome() {
+                window.history.pushState({}, '', '/');
+                this.routeToView('converter');
+                this.synchronizeSystemRouteState();
+            }
+        }
+
+        // System Initialization
+        const app = new UniversalConverterEngine();
+        document.addEventListener('DOMContentLoaded', () => app.init());
+    </script>
+</body>
+</html>

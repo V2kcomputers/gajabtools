@@ -355,13 +355,20 @@ allowSite= "no"
                         <label class="small text-muted d-block">Layout Preset</label>
                         <select id="layoutPresetSelect" class="form-select form-select-sm bg-secondary text-white border-0">
                             <option value="custom" selected>Custom Parameters</option>
-                            <option value="passport-standard">Passport Standard</option>
+                            <option value="passport-standard" >Passport Standard</option>
                             <option value="passport-compact">Passport Compact</option>
                             <option value="passport-premium">Passport Premium</option>
                             <option value="id-card">ID Card</option>
                             <option value="visa-photo">Visa Photo</option>
                             <option value="stamp-size">Stamp Size</option>
                             <option value="wallet">Wallet Size</option>
+                            <option value="4x6-photo-paper">4x6 paper (12 - 3x4)</option>
+                            <option value="A4-photo-paper-42">A4 Page (42 - 6x7)</option>
+                            <option value="A4-photo-paper-36">A4 Page (36 - 6x6)</option>
+                            <option value="A4-photo-paper-30">A4 Page (30 - 5x6)</option>
+                            <option value="A4-photo-paper-25">A4 Page (25 - 5x5)</option>
+                            <option value="A4-photo-paper-4x6">A4 Page (4x6 Size - 1x4)</option>
+                            <option value="4x6-photo-paper-full">4x6 paper (Full Size)</option>
                         </select>
                     </div>
 
@@ -369,9 +376,12 @@ allowSite= "no"
                         <label class="small text-muted d-block">Photo Size Specification</label>
                         <select id="photoSizeSelect" class="form-select form-select-sm bg-secondary text-white border-0">
                             <option value="25x35">25 x 35 mm</option>
-                            <option value="30x40">30 x 40 mm</option>
-                            <option value="35x45" selected>35 x 45 mm (Standard Passport)</option>
+                            <option value="30x40" selected>30 x 40 mm</option>
+                            <option value="35x45" >35 x 45 mm (Standard Passport)</option>
                             <option value="51x51">2" x 2" Inch (US / India Visa)</option>
+                            <option value="30x35">30 x 35 mm (12 photo in 4x6)</option>
+                            <option value="30x38">30 x 38 mm (42 photo in A4)</option>
+                            <option value="98x140">98 x 140 mm (4x6 Size)</option>
                             <option value="custom">Custom Size</option>
                         </select>
                     </div>
@@ -391,7 +401,7 @@ allowSite= "no"
                 <div class="d-flex flex-wrap align-items-center gap-2">
                     <div>
                         <label class="small text-muted d-block">Spacing</label>
-                        <input type="number" id="gridSpacing" class="form-control form-control-sm bg-secondary text-white border-0" style="width:60px;" value="3" min="0">
+                        <input type="number" id="gridSpacing" class="form-control form-control-sm bg-secondary text-white border-0" style="width:60px;" value="2" min="0">
                     </div>
                     <div>
                         <label class="small text-muted d-block">Margin</label>
@@ -452,11 +462,18 @@ allowSite= "no"
                     <button class="btn btn-sm btn-danger d-flex align-items-center gap-1" id="exportPdfBtn">
                         <span class="material-icons fs-5">picture_as_pdf</span> PDF
                     </button>
-                    <button class="btn btn-sm btn-success d-flex align-items-center gap-1" id="printBtn">
-                        <span class="material-icons fs-5">print</span> Print
+                    <button class="btn btn-sm btn-success d-flex align-items-center gap-1" id="printBtn" >
+                        <span class="material-icons fs-5">print</span>
                     </button>
+                    <button class="btn btn-sm btn-warning d-flex align-items-center gap-1" id="openBlobPdfBtn">
+    
+    Open PDF<span class="material-icons fs-5">open_in_new</span>
+</button>
+<button class="btn btn-primary" id="printBlobBtn">
+     <span class="material-icons fs-5">print</span> Print PDF
+</button>
                     <a class="btn btn-sm btn-outline-light d-flex align-items-center gap-1" href="/passport-photo/">
-                        <span class="material-icons fs-5">arrow_back</span> Back
+                        <span class="material-icons fs-5">arrow_back</span> Back /Edit
                     </a>
                 </div>
 
@@ -690,6 +707,9 @@ allowSite= "no"
         }
 
         function setupEventListeners() {
+            document.getElementById("printBlobBtn")
+    .addEventListener("click", printPdfAsBlob);
+            document.getElementById('openBlobPdfBtn').addEventListener('click', openPdfAsBlob);
             const layoutModifyingControls = [
                 'sheetLayoutSelect', 'sheetCustomW', 'sheetCustomH',
                 'photoSizeSelect', 'photoCustomW', 'photoCustomH'
@@ -734,18 +754,12 @@ allowSite= "no"
             isProgrammaticChange = true;
 
             switch (presetName) {
-                  case 'passport-standard':
-                    sheetLayout.value = 'a4-portrait';
-                    photoSize.value = '30x40';
-                    spacing.value = 2;
-                    margin.value = 5;
-                    border.value = 'thin';
-                    break;
+                
                 case 'passport-standard':
                     sheetLayout.value = 'a4-portrait';
                     photoSize.value = '35x45';
                     spacing.value = 4;
-                    margin.value = 10;
+                    margin.value = 5;
                     border.value = 'thin';
                     break;
                 case 'passport-compact':
@@ -784,6 +798,50 @@ allowSite= "no"
                     photoSize.value = '25x35';
                     spacing.value = 2;
                     margin.value = 4;
+                    border.value = 'thin';
+                    break;
+                 case 'A4-photo-paper-42':
+                    sheetLayout.value = 'a4-portrait';
+                    photoSize.value = '30x38';
+                    spacing.value = 2;
+                    margin.value = 6;
+                    border.value = 'thin';
+                    break;
+                 case 'A4-photo-paper-36':
+                    sheetLayout.value = 'a4-portrait';
+                    photoSize.value = '30x40';
+                    spacing.value = 2;
+                    margin.value = 8;
+                    border.value = 'thin';
+                    break;
+
+                 case 'A4-photo-paper-30':
+                    sheetLayout.value = 'a4-portrait';
+                    photoSize.value = '35x45';
+                    spacing.value = 2;
+                    margin.value = 4;
+                    border.value = 'thin';
+                    break;
+
+                case 'A4-photo-paper-25':
+                    sheetLayout.value = 'a4-portrait';
+                    photoSize.value = '35x45';
+                    spacing.value = 4;
+                    margin.value = 5;
+                    border.value = 'thin';
+                    break;
+                       case 'A4-photo-paper-4x6':
+                    sheetLayout.value = 'a4-portrait';
+                    photoSize.value = '98x140';
+                    spacing.value = 2;
+                    margin.value = 5;
+                    border.value = 'thin';
+                    break;
+                    case '4x6-photo-paper-full':
+                    sheetLayout.value = '4x6';
+                    photoSize.value = '98x140';
+                    spacing.value = 2;
+                    margin.value = 2;
                     border.value = 'thin';
                     break;
                 case 'wallet':
@@ -831,6 +889,9 @@ allowSite= "no"
             const pSize = document.getElementById('photoSizeSelect').value;
             if (pSize === '25x35') { photoW = 25; photoH = 35; }
             else if (pSize === '30x40') { photoW = 30; photoH = 40; }
+             else if (pSize === '30x35') { photoW = 30; photoH = 35; }
+             else if (pSize === '30x38') { photoW = 30; photoH = 38; }
+              else if (pSize === '98x140') { photoW = 98; photoH = 140; }
             else if (pSize === '51x51') { photoW = 50.8; photoH = 50.8; }
             else if (pSize === 'custom') {
                 photoW = parseFloat(document.getElementById('photoCustomW').value) || 35;
@@ -1411,6 +1472,142 @@ allowSite= "no"
                 pdf.save(`passport_sheet_full_${Date.now()}.pdf`);
             });
         }
+
+
+        function openPdfAsBlob() {
+    const { jsPDF } = window.jspdf;
+    const dims = getDimensions();
+    const sheetsList = document.querySelectorAll('.printable-sheet');
+    const orientation = dims.sheetW > dims.sheetH ? 'l' : 'p';
+
+    const pdf = new jsPDF({
+        orientation: orientation,
+        unit: 'mm',
+        format: [dims.sheetW, dims.sheetH]
+    });
+
+    let processChain = Promise.resolve();
+
+    sheetsList.forEach((sheetEl, index) => {
+
+        processChain = processChain.then(() => {
+
+            const prevTransform = sheetEl.style.transform;
+            sheetEl.style.transform = "none";
+
+            const pageText = sheetEl.querySelector(".preview-page-indicator");
+            if (pageText) pageText.style.opacity = "0";
+
+            return html2canvas(sheetEl, {
+                scale: 3.125,
+                useCORS: true,
+                logging: false
+            }).then(canvas => {
+
+                sheetEl.style.transform = prevTransform;
+                if (pageText) pageText.style.opacity = "1";
+
+                const imgData = canvas.toDataURL("image/jpeg", 1.0);
+
+                if (index > 0) {
+                    pdf.addPage([dims.sheetW, dims.sheetH], orientation);
+                }
+
+                pdf.addImage(
+                    imgData,
+                    "JPEG",
+                    0,
+                    0,
+                    dims.sheetW,
+                    dims.sheetH
+                );
+            });
+
+        });
+
+    });
+
+    processChain.then(() => {
+
+        const blob = pdf.output("blob");
+
+        const blobUrl = URL.createObjectURL(blob);
+
+        window.open(blobUrl, "_blank");
+
+        // Memory free after 60 sec
+        setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
+
+    });
+}
+function printPdfAsBlob() {
+
+    const { jsPDF } = window.jspdf;
+    const dims = getDimensions();
+    const sheetsList = document.querySelectorAll(".printable-sheet");
+    const orientation = dims.sheetW > dims.sheetH ? "l" : "p";
+
+    const pdf = new jsPDF({
+        orientation,
+        unit: "mm",
+        format: [dims.sheetW, dims.sheetH]
+    });
+
+    let chain = Promise.resolve();
+
+    sheetsList.forEach((sheetEl, index) => {
+
+        chain = chain.then(() => {
+
+            const prev = sheetEl.style.transform;
+            sheetEl.style.transform = "none";
+
+            return html2canvas(sheetEl, {
+                scale: 3.125,
+                useCORS: true,
+                logging: false
+            }).then(canvas => {
+
+                sheetEl.style.transform = prev;
+
+                if (index > 0)
+                    pdf.addPage([dims.sheetW, dims.sheetH], orientation);
+
+                pdf.addImage(
+                    canvas.toDataURL("image/jpeg", 1),
+                    "JPEG",
+                    0,
+                    0,
+                    dims.sheetW,
+                    dims.sheetH
+                );
+            });
+
+        });
+
+    });
+
+    chain.then(() => {
+
+        const blob = pdf.output("blob");
+        const url = URL.createObjectURL(blob);
+
+        const win = window.open(url, "_blank");
+
+        if (!win) return;
+
+        win.onload = () => {
+            setTimeout(() => {
+                win.focus();
+                win.print();
+            }, 700);
+        };
+
+        setTimeout(() => URL.revokeObjectURL(url), 60000);
+
+    });
+
+}
     </script>
    
 </body>
