@@ -1,0 +1,49 @@
+[
+  {
+  "id": "Farmate",
+  "title": "Paper cutting/ Notification border",
+  "description": "Add Notice To Put Shop Name",
+  "category": "Famate",
+  "tags": [
+    "Farmate",
+    "Image",
+    "Frame"
+  ],
+  "url": "https://tools.v2kcomputers.com/p/image-crop-with-logo-and-border.html",
+  "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiLpLLPNzaOUBwFE6RDV0CAM3DHhUKOfnXFweQjhZW7rA5FWG5RL1u4zTvU12rVvowdY9k0jOh2sTMCDpquFfQpGmodI8J_A-0yXw54uap6lEwaEdhoLJKXmVVbhmeqbjRovBV_jQ58DIKcRkpoVvwvNjAQfBMTW4SOByuGoEtMO8hsl_p2wMlyD3jGwA/s1600/image%20border.png",
+  "icon": "✏️",
+  "author": "Gajab Tool",
+  "version": "1",
+  "featured": true,
+  "popular": false,
+  "new": false,
+  "status": "active",
+  "language": "en",
+  "created": "2024-01-14",
+  "updated": "2026-07-14"
+},
+  {
+    "id": "bill-maker",
+    "title": "Bill / Invoice Maker",
+    "description": "Generate GST bills, invoices and printable receipts online.",
+    "category": "Business Tools",
+    "tags": [
+      "bill",
+      "invoice",
+      "gst",
+      "receipt"
+    ],
+    "url": "https://tools.v2kcomputers.com/p/bill-maker.html",
+    "image": "https://tools.v2kcomputers.com/images/tools/bill-maker.webp",
+    "icon": "",
+    "author": "V2K Computers",
+    "version": "1.0",
+    "featured": false,
+    "popular": true,
+    "new": true,
+    "status": "active",
+    "language": "en",
+    "created": "2024-05-15",
+    "updated": "2026-07-14"
+  }
+]

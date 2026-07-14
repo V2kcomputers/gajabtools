@@ -55,16 +55,53 @@
         </div>
     </div>
 
-    <div class="modal fade" id="uploadModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-centered">
-            <div class="modal-content border-0 card-glass shadow-2xl">
-                <div class="modal-header border-bottom border-white border-opacity-10 p-3 bg-glass">
-                    <h5 class="modal-title fw-bold d-flex align-items-center gap-2"><span class="material-icons text-primary">folder_open</span> Choose Image Database</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body p-0">
-                    <iframe src="/upload/" id="uploadIframe" class="w-100 h-100" style="min-height: 70vh; border:none;"></iframe>
-                </div>
+<!-- Modal Code -->
+<div class="modal fade" id="uploadModal" data-bs-backdrop="static" tabindex="-1" aria-hidden="true">
+    <!-- आकार बढ़ाने के लिए 'modal-fullscreen-xl-down' या सीधे कस्टम स्टाइल दी गई है -->
+    <div class="modal-dialog modal-dialog-centered modal-custom-size">
+        <div class="modal-content border-0 shadow-lg professional-card">
+            
+            <!-- Header: क्लीन और प्रोफेशनल पैडिंग के साथ -->
+            <div class="modal-header bg-light px-4 py-3 border-bottom">
+                <h5 class="modal-title fw-semibold d-flex align-items-center gap-2 text-dark m-0" style="font-size: 1.15rem;">
+                    <span class="material-icons text-primary-gradient fs-4">folder_open</span> 
+                    Choose Image Database
+                </h5>
+                <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            
+            <!-- Body: कोई एक्स्ट्रा स्पेस नहीं, पूरा फोकस iframe पर -->
+            <div class="modal-body p-0 overflow-hidden">
+                <iframe src="/upload/" id="uploadIframe" class="w-100 h-100" style="min-height: 78vh; border:none; display: block;"></iframe>
+            </div>
+            
         </div>
     </div>
+</div>
+
+
+<style>
+
+@media (min-width: 1200px) {
+    .modal-custom-size {
+        max-width: 92vw; 
+    }
+}
+
+.professional-card {
+    border-radius: 12px;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.text-primary-gradient {
+    background: linear-gradient(45deg, #0d6efd, #0a58ca);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#uploadIframe {
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+</style>
