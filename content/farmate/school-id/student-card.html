@@ -2,19 +2,20 @@
 +++
 date = 2026-06-02T15:52:59+05:30
 url ="/school-id-generated/"
-title = 'Student ID Card- Gajab Tools'
+title = 'Simple Id Card'
 description = "Hidden content section for tools, formats, updates, landing pages and special resources. Pages in this section are intended to be accessed directly via URL and are excluded from public listings."
+jsFiles = ["js/pages/disabled.js"] #,"js/pages/disabled.js"
 type= "tools"
 [sitemap]
   disable = true
 +++
-
+<script> history.replaceState( {}, "", "/school-id-create/" + window.location.search + window.location.hash ); </script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Generated Multi-ID Cards Batch View</title>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -970,18 +971,7 @@ type= "tools"
   <div class="action-bar" id="actionBar">
 
     <button class="btn-back" onclick="goBackToCreate()">Edit/Update</button>
-    <div class="download-dropdown-wrapper">
-      <button class="btn-png" onclick="toggleDownloadMenu()" id="downloadMenuBtn">📥 Download / Export ▾</button>
-      <div class="download-menu" id="downloadMenu">
-         <button onclick="openPDF()">👁 Open PDF </button>
-        <button onclick="downloadPNG()">🖼 Download PNG</button>
-        <button onclick="downloadJPG()">🖼 Download JPG</button>
-        <button onclick="downloadPDF()">📄 Download PDF</button>
-        <button onclick="sharePDF()">📤 Share PDF</button>
-        <button onclick="printCards()">🖨 Print</button>
-      </div>
-    </div>
-
+ 
     <button class="btn-action" onclick="selectAllCards()">☑ Select All</button>
     <button class="btn-action" onclick="deselectAllCards()">☐ Deselect All</button>
     
@@ -1022,6 +1012,18 @@ type= "tools"
         <option value="a5" data-wrapper-class="layout-a5-page" data-width="148mm" data-height="210mm" data-cards="3" data-columns="1" data-rows="3">📄 A5 Sheet (3 Cards)</option>
       </select>
     </div>
+       <div class="download-dropdown-wrapper">
+      <button class="btn-png" onclick="toggleDownloadMenu()" id="downloadMenuBtn">📥 Download / Export ▾</button>
+      <div class="download-menu" id="downloadMenu">
+         <button onclick="openPDF()">👁 Open PDF </button>
+        <button onclick="downloadPNG()">🖼 Download PNG</button>
+        <button onclick="downloadJPG()">🖼 Download JPG</button>
+        <button onclick="downloadPDF()">📄 Download PDF</button>
+        <button onclick="sharePDF()">📤 Share PDF</button>
+        <button onclick="printCards()">🖨 Print</button>
+      </div>
+    </div>
+
   </div>
 
   <div id="errorDisplayContainer"></div>
@@ -1987,11 +1989,11 @@ async function resetBackCardModalSettings() {
    ========================================================================== */
 window.addEventListener("DOMContentLoaded", async () => {
     const params = new URLSearchParams(window.location.search);
-    const token = params.get("token");
+    const token = params.get("id_card");
     activeParamToken = token;
 
     if (!token) {
-        showErrorMessage("Invalid token");
+        showErrorMessage("Invalid Season");
         return;
     }
 

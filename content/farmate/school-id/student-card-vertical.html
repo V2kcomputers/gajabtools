@@ -1,18 +1,19 @@
 +++
 date = 2026-06-02T15:52:59+05:30
 url ="/school-id-generated-04/"
-title = 'Student ID Card- Gajab Tools'
+title = 'Vertical Identity Card'
 description = "Hidden content section for tools, formats, updates, landing pages and special resources. Pages in this section are intended to be accessed directly via URL and are excluded from public listings."
 type= "tools"
+jsFiles = ["js/pages/disabled.js"] #,"js/pages/disabled.js"
 [sitemap]
   disable = true
 +++
+<script> history.replaceState( {}, "", "/school-id-create/" + window.location.search + window.location.hash ); </script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Generated Multi-ID Cards Batch View</title>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -1153,17 +1154,7 @@ type= "tools"
   <div class="action-bar" id="actionBar">
 
     <button class="btn-back" onclick="goBackToCreate()">Edit/Update</button>
-    <div class="download-dropdown-wrapper">
-      <button class="btn-png" onclick="toggleDownloadMenu()" id="downloadMenuBtn">📥 Download / Export ▾</button>
-      <div class="download-menu" id="downloadMenu">
-         <button onclick="openPDF()">👁 Open PDF </button>
-        <button onclick="downloadPNG()">🖼 Download PNG</button>
-        <button onclick="downloadJPG()">🖼 Download JPG</button>
-        <button onclick="downloadPDF()">📄 Download PDF</button>
-        <button onclick="sharePDF()">📤 Share PDF</button>
-        <button onclick="printCards()">🖨 Print</button>
-      </div>
-    </div>
+  
 
     <button class="btn-action" onclick="selectAllCards()">☑ Select All</button>
     <button class="btn-action" onclick="deselectAllCards()">☐ Deselect All</button>
@@ -1187,68 +1178,6 @@ type= "tools"
     </div>
 
     <div class="layout-selector-wrapper">
-      <label for="bgDesignSelect">Front Design:</label>
-      <select id="bgDesignSelect" class="layout-select" onchange="handleBackgroundDesignChange(this.value, 'front')">
-        <option value="classic">Classic</option>
-        <option value="wave">Wave</option>
-        <option value="corporate">Corporate</option>
-        <option value="modern">Modern</option>
-        <option value="luxury">Luxury</option>
-        <option value="education">Education</option>
-        <option value="creative">Creative</option>
-        <option value="minimal">Minimal</option>
-        <option value="glass">Glass</option>
-        <option value="polygon">Polygon</option>
-        <option value="ribbon">Ribbon</option>
-        <option value="abstract">Abstract</option>
-        <option value="hexagon">Hexagon</option>
-        <option value="diamond">Diamond</option>
-        <option value="gradient">Gradient</option>
-        <option value="layered">Layered</option>
-        <option value="mesh">Mesh</option>
-        <option value="circle">Circle</option>
-        <option value="frame">Frame</option>
-        <option value="technology">Technology</option>
-        <option value="premium">Premium</option>
-        <option value="clean">Clean</option>
-        <option value="professional">Professional</option>
-        <option value="soft">Soft</option>
-        <option value="dynamic">Dynamic</option>
-      </select>
-    </div>
-
-    <div class="layout-selector-wrapper">
-      <label for="backBgDesignSelect">Back Design:</label>
-      <select id="backBgDesignSelect" class="layout-select" onchange="handleBackgroundDesignChange(this.value, 'back')">
-        <option value="classic">Classic</option>
-        <option value="wave">Wave</option>
-        <option value="corporate">Corporate</option>
-        <option value="modern">Modern</option>
-        <option value="luxury">Luxury</option>
-        <option value="education">Education</option>
-        <option value="creative">Creative</option>
-        <option value="minimal">Minimal</option>
-        <option value="glass">Glass</option>
-        <option value="polygon">Polygon</option>
-        <option value="ribbon">Ribbon</option>
-        <option value="abstract">Abstract</option>
-        <option value="hexagon">Hexagon</option>
-        <option value="diamond">Diamond</option>
-        <option value="gradient">Gradient</option>
-        <option value="layered">Layered</option>
-        <option value="mesh">Mesh</option>
-        <option value="circle">Circle</option>
-        <option value="frame">Frame</option>
-        <option value="technology">Technology</option>
-        <option value="premium">Premium</option>
-        <option value="clean">Clean</option>
-        <option value="professional">Professional</option>
-        <option value="soft">Soft</option>
-        <option value="dynamic">Dynamic</option>
-      </select>
-    </div>
-
-    <div class="layout-selector-wrapper">
         <label for="focusModeSelect">Show Mode:</label>
         <select id="focusModeSelect" class="layout-select" onchange="handleFocusModeChange(this.value)">
             <option value="focus" selected>🎯Selected Only</option>
@@ -1266,6 +1195,17 @@ type= "tools"
         <option value="legal" data-wrapper-class="layout-legal-page" data-width="356mm" data-height="216mm" data-cards="12" data-columns="6" data-rows="2">📄 Legal Sheet (12 Cards)</option>
         <option value="a5" data-wrapper-class="layout-a5-page" data-width="210mm" data-height="148mm" data-cards="3" data-columns="3" data-rows="1">📄 A5 Sheet (3 Cards)</option>
       </select>
+    </div>
+      <div class="download-dropdown-wrapper">
+      <button class="btn-png" onclick="toggleDownloadMenu()" id="downloadMenuBtn">📥 Download / Export ▾</button>
+      <div class="download-menu" id="downloadMenu">
+         <button onclick="openPDF()">👁 Open PDF </button>
+        <button onclick="downloadPNG()">🖼 Download PNG</button>
+        <button onclick="downloadJPG()">🖼 Download JPG</button>
+        <button onclick="downloadPDF()">📄 Download PDF</button>
+        <button onclick="sharePDF()">📤 Share PDF</button>
+        <button onclick="printCards()">🖨 Print</button>
+      </div>
     </div>
   </div>
 
@@ -2424,11 +2364,11 @@ async function resetBackCardModalSettings() {
    ========================================================================== */
 window.addEventListener("DOMContentLoaded", async () => {
     const params = new URLSearchParams(window.location.search);
-    const token = params.get("token");
+    const token = params.get("id_card");
     activeParamToken = token;
 
     if (!token) {
-        showErrorMessage("Invalid token");
+        showErrorMessage("Invalid id_card");
         return;
     }
 

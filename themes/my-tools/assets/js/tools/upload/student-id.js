@@ -209,12 +209,12 @@ window.addEventListener("DOMContentLoaded", async () => {
     const urlFormat = params.get("format");
     const localFormat = localStorage.getItem("selected-template");
 
-    if (urlFormat && ["format01", "format02", "format03", "format04"].includes(urlFormat)) {
+    if (urlFormat && ["simple-degine", "curve-degine", "simple-curve-degine", "vertical-degine"].includes(urlFormat)) {
         updateTemplateState(urlFormat);
-    } else if (localFormat && ["format01", "format02", "format03", "format04"].includes(localFormat)) {
+    } else if (localFormat && ["simple-degine", "curve-degine", "simple-curve-degine", "fvertical-degine"].includes(localFormat)) {
         updateTemplateState(localFormat);
     } else {
-        updateTemplateState("format01", "/school-id-generated/");
+        updateTemplateState("simple-degine", "/school-id-generated/");
     }
 
     const saved = JSON.parse(localStorage.getItem("school-id-list"));
@@ -543,7 +543,7 @@ function generateAllCardsPage() {
         
         setTimeout(() => {
           DOM.btnBulkExportTrigger.classList.remove('is-loading');
-          window.location.href = selectedTemplate + "?token=" + token;
+          window.location.href = selectedTemplate + "?id_card=" + token;
         }, 800);
     } catch (err) {
         DOM.btnBulkExportTrigger.classList.remove('is-loading');
