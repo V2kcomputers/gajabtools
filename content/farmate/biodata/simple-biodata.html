@@ -3,7 +3,7 @@ date = 2026-06-02T15:52:59+05:30
 links = [
 "Visit Tools = https://gajabtools.com"
 ]
-url = "/create-biodata/"
+url = "/matrimonial-biodata/"
 imageBanner = "  "
 cssStyles = []
 jsFiles = []
@@ -16,1844 +16,723 @@ pageWidth = "600"
 allowSite= "no" 
 +++
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Professional Multi-Page Biodata System</title>
+<!-- Scripts standard order loaded correctly -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
 <style>
-:root{
-    --primary:#b38a24;
-    --primary-dark:#8d6b15;
-    --bg:#f4f6fb;
-    --white:#ffffff;
-    --border:#e5e7eb;
-    --text:#222;  
+:root {
+    --page-bg: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.15);
+    --app-bg: #f0f2f5;
+    --primary-accent: #b38a24;
+    --dark-accent: #7a5b15;
+    /* Dynamic padding managed by engine option settings */
+    --page-internal-padding: 10mm; 
 }
 
-body{
-
-    background:var(--bg);
-    font-family:'Segoe UI',sans-serif;
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--app-bg);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
 }
 
-.biodata-container{
-    max-width:950px;
-    margin:auto;
+/* Control Toolbar Outside Printable Area */
+.control-panel {
+    background: #ffffff;
+    padding: 15px 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
 }
 
-.biodata-container h1{
-    text-align:center;
-    color:var(--primary);
-    margin-bottom:30px;
-    font-size:32px;
+.controls-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-.biodata-section{
-    background:#fff;
-    border-radius:16px;
-    padding:25px;
-    margin-bottom:25px;
-    box-shadow:0 4px 20px rgba(0,0,0,.06);
-    border:1px solid #eee;
+.selector-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
 }
 
-.biodata-section h2{
-    margin:0 0 20px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    color:#333;
-    font-size:22px;
-    padding-bottom:12px;
-    border-bottom:2px solid #f0f0f0;
+.selector-group select {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 2px solid #ead9aa;
+    background: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--dark-accent);
+    outline: none;
+    cursor: pointer;
 }
 
-.form-group{
-    position:relative;
-    background:#fafafa;
-    border:1px solid var(--border);
-    border-radius:12px;
-    padding:15px;
-    margin-bottom:15px;
-    transition:.3s;
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-.form-group:hover{
-    border-color:var(--primary);
-    box-shadow:0 4px 12px rgba(179,138,36,.12);
+.action-buttons button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: var(--primary-accent);
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    transition: background 0.2s ease;
 }
 
-.form-group label{
-    display:block;
-    font-weight:600;
-    margin-bottom:8px;
-    color:#444;
+.action-buttons button:hover {
+    background: var(--dark-accent);
 }
 
-.form-group input,
-.form-group textarea,
-.form-group select{
-    width:100%;
-    padding:12px;
-    border:1px solid #ddd;
-    border-radius:8px;
-    font-size:15px;
-    outline:none;
+.download-menu {
+    position: relative;
 }
 
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus{
-    border-color:var(--primary);
+.download-options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    min-width: 180px;
+    z-index: 999;
+    margin-top: 5px;
+    overflow: hidden;
 }
 
-.drag-handle{
-    position:absolute;
-    left:12px;
-    top:12px;
-    font-size:22px;
-    color:#888;
-    cursor:grab;
+.download-options button {
+    width: 100%;
+    border-radius: 0;
+    background: #fff;
+    color: #333;
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+}
+.download-options button:hover {
+    background: #f9f6ee;
+    color: var(--dark-accent);
 }
 
-.form-group label,
-.form-group input,
-.form-group textarea,
-.form-group select{
-    margin-left:28px;
-    width:calc(100% - 28px);
+.download-options.show {
+    display: block;
 }
 
-.form-group button{
-    position:absolute;
-    right:12px;
-    top:12px;
-    width:34px;
-    height:34px;
-    border:none;
-    border-radius:50%;
-    background:#ef4444;
-    color:#fff;
-    cursor:pointer;
-    font-size:16px;
+/* Real Page Grid Container */
+#documentContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 15px;
+    gap: 25px;
+    box-sizing: border-box;
 }
 
-.form-group button:hover{
-    background:#dc2626;
+/* Strict Real Paper Dimensions */
+.document-page {
+    background: var(--page-bg);
+    box-shadow: 0 4px 20px var(--shadow-color);
+    position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transform-origin: top center;
 }
 
-.preview{
-    margin-top:15px;
-    width:180px;
-    height:220px;
-    border-radius:12px;
-    overflow:hidden;
-    border:3px solid #eee;
+.document-page.size-a4 {
+    width: 210mm;
+    height: 297mm;
+    min-width: 210mm;
+    min-height: 297mm;
+    padding: var(--page-internal-padding);
 }
 
-.preview img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
+.document-page.size-letter {
+    width: 8.5in;
+    height: 11in;
+    min-width: 8.5in;
+    min-height: 11in;
+    padding: calc(var(--page-internal-padding) * 0.9);
 }
 
-.dynamic-field{
-    position:relative;
-    display:flex;
-    gap:10px;
-    align-items:center;
-    padding:15px 55px 15px 40px;
-    margin-bottom:12px;
-    background:#fafafa;
-    border:1px solid #e5e7eb;
-    border-radius:12px;
-    transition:.3s;
+.page-content-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
-.dynamic-field:hover{
-    border-color:#b38a24;
-    box-shadow:0 4px 12px rgba(179,138,36,.12);
+/* Exact Original CSS Styles Elements */
+.hero-section {
+    display: flex;
+    gap: 35px;
+    align-items: center;
+    margin-bottom: 35px;
+    padding: 25px;
+    background: linear-gradient(135deg, #fffef9, #f5ead0);
+    border: 2px solid #d8bc73;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.05);
+    box-sizing: border-box;
 }
 
-.dynamic-field .drag-handle{
-    position:absolute;
-    left:12px;
-    top:50%;
-    transform:translateY(-50%);
-    cursor:grab;
-    font-size:20px;
-    color:#777;
-    user-select:none;
+.profile-photo {
+    width: 130px;
+    height: 160px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 16px;
+    border: 4px solid #b8943d;
+    box-shadow: 0 10px 25px rgba(0,0,0,.15);
 }
 
-.dynamic-field input{
-    flex:1;
-    padding:12px;
-    border:1px solid #ddd;
-    border-radius:8px;
-    font-size:15px;
+.profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.dynamic-field input:focus{
-    outline:none;
-    border-color:#b38a24;
+.hero-info {
+    flex: 1;
 }
 
-.dynamic-field button{
-    position:absolute;
-    right:12px;
-    top:50%;
-    transform:translateY(-50%);
-    width:34px;
-    height:34px;
-    border:none;
-    border-radius:50%;
-    background:#ef4444;
-    color:#fff;
-    cursor:pointer;
-    font-size:16px;
+.hero-info #fullName {
+    font-size: 48px;
+    color: #7a5b15;
+    margin-bottom: 0px;
+    font-weight: 900;
 }
 
-.dynamic-field button:hover{
-    background:#dc2626;
-}
-h2 button{
-    width:auto !important;
-    height:auto !important;
-    position:static !important;
-    padding:10px 16px;
-    border-radius:8px !important;
-    background:var(--primary) !important;
-    color:#fff;
-    font-size:14px;
+.hero-grid {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 12px 25px;
 }
 
-h2 button:hover{
-    background:var(--primary-dark) !important;
+.biodata-section {
+    margin-top: 2px;
+    margin-bottom: 25px;
+    padding: 5px;
+    background: #fff;
+    border-radius: 18px;
+    box-sizing: border-box;
 }
 
-button[type="submit"]{
-    width:100%;
-    padding:18px;
-    border:none;
-    border-radius:12px;
-    background:linear-gradient(
-        135deg,
-        #c9a227,
-        #9d7918
-    );
-    color:#fff;
-    font-size:20px;
-    font-weight:700;
-    cursor:pointer;
+.section-title {
+    color: #b38a24;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    border-bottom: 2px solid #ead9aa;
+    padding-bottom: 10px;
 }
 
-button[type="submit"]:hover{
-    transform:translateY(-2px);
+.info-grid {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 12px 25px;
 }
 
-.dragging{
-    opacity:.4;
-    background:#fff8e1;
-    border:2px dashed var(--primary);
-}
-.template-switcher{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
+.label {
+    font-weight: 700;
+    color: #7a5b15;
 }
 
-.template-card{
-display:block;
-cursor:pointer;
-border:3px solid #e5e7eb;
-border-radius:14px;
-overflow:hidden;
-background:#fff;
-transition:.3s;
+.value {
+    color: #333;
 }
 
-.template-card img{
-width:100%;
-height:280px;
-object-fit:cover;
-display:block;
+.about {
+    line-height: 1.9;
+    font-size: 18px;
 }
 
-.template-card span{
-display:block;
-padding:12px;
-font-weight:600;
-text-align:center;
+.top-header {
+    display: block;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
 }
 
-.template-card input{
-display:none;
+.religious-symbol {
+    width: 60px;
+    height: 60px;
+    left: 30%;
+    top: 0px;
+    position: relative;
+    object-fit: contain;
+    flex-shrink: 0;
 }
 
-.template-card:has(input:checked){
-border-color:#b38a24;
-box-shadow:0 0 0 4px rgba(179,138,36,.2);
-transform:translateY(-3px);
+/* Page Counter Footer Component Layout Rules Fix */
+.page-footer {
+    position: absolute;
+    bottom: 12mm; /* Lifted up safely away from device clipping margins */
+    right: 15mm;  /* Shifted safely right */
+    text-align: right;
+    color: #888;
+    font-size: 13px;
+    font-weight: 600;
+    pointer-events: none;
+    z-index: 10;
 }
 
-.selected-symbol{
-    display:flex;
-    align-items:center;
-    gap:15px;
-    padding:15px;
-    border:2px dashed #ccc;
-    border-radius:12px;
-    cursor:pointer;
+/* Offscreen Processing Area Wrapper */
+#blueprintContainer {
+    position: absolute;
+    top: -99999px;
+    left: -99999px;
+    width: 210mm;
+    box-sizing: border-box;
+}
+#blueprintContainer.size-letter {
+    width: 8.5in;
 }
 
-.selected-symbol img{
-    width:60px;
-    height:60px;
-    object-fit:contain;
+@media (max-width: 900px) {
+    #documentContainer { padding: 15px 5px; }
 }
 
-.symbol-picker{
-    margin-top:15px;
-    display:grid;
-    grid-template-columns:
-    repeat(auto-fill,minmax(100px,1fr));
-    gap:15px;
+@media print {
+    body { background: #fff !important; }
+    .control-panel { display: none !important; }
+    #documentContainer { padding: 0 !important; margin: 0 !important; gap: 0 !important; display: block !important; }
+    .document-page {
+        box-shadow: none !important;
+        margin: 0 !important;
+        page-break-after: always !important;
+        break-after: always !important;
+    }
 }
-
-.symbol-item{
-    text-align:center;
-    padding:10px;
-    border:2px solid #eee;
-    border-radius:12px;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.symbol-item:hover{
-    border-color:#b38a24;
-}
-
-.symbol-item img{
-    width:50px;
-    height:50px;
-    object-fit:contain;
-}
-.symbol-popup{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.5);
-display:flex;
-justify-content:center;
-align-items:center;
-z-index:9999;
-}
-
-.popup-box{
-background:#fff;
-padding:25px;
-border-radius:12px;
-width:320px;
-text-align:center;
-}
-
-.popup-box button{
-display:block;
-width:100%;
-margin:10px 0;
-padding:12px;
-cursor:pointer;
-}
-
-
-.symbol-library-modal{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.6);
-    z-index:99999;
-}
-
-.symbol-library-box{
-    position:absolute;
-    inset:20px;
-    background:#fff;
-    border-radius:12px;
-    overflow:hidden;
-}
-
-.symbol-library-box iframe{
-    width:100%;
-    height:100%;
-    border:none;
-}
-
-#closeLibraryModal{
-    position:absolute;
-    top:10px;
-    right:10px;
-    z-index:10;
-    width:40px;
-    height:40px;
-    border:none;
-    border-radius:50%;
-    cursor:pointer;
-}
-.action-buttons{
-    display:flex;
-    gap:12px;
-    margin-bottom:20px;
-}
-
-.action-buttons button{
-    flex:1;
-    padding:14px;
-    border:none;
-    border-radius:12px;
-    font-size:16px;
-    font-weight:600;
-    cursor:pointer;
-}
-
-.action-buttons button:first-child{
-    background:#10b981;
-    color:#fff;
-}
-
-.action-buttons button:last-child{
-    background:#ef4444;
-    color:#fff;
-}
-
-.action-buttons button:hover{
-    opacity:.9;
-}
-
-
-@media (max-width: 600px) { 
-.dynamic-field {display: block}
- }
-
 </style>
 </head>
 <body>
 
-<div class="biodata-container">
-
-<h1>Create Matrimonial Biodata</h1>
-
-<form id="biodataForm">
-
-<div class="biodata-section">
-    <h2>Religious Symbol</h2>
-
-    <div class="selected-symbol" id="selectedSymbolBox">
-        <img id="selectedSymbolPreview"
-             src="https://breathetogetheryoga.com/wp-content/uploads/om-by-martialred.jpg"
-             alt="Selected Symbol">
-
-        <span>Click to Change Symbol</span>
-    </div>
-
-    <input
-        type="hidden"
-        id="selectedSymbol"
-        value="https://breathetogetheryoga.com/wp-content/uploads/om-by-martialred.jpg">
-
-    <div
-        class="symbol-picker"
-        id="symbolPicker"
-        style="display:none;">
-
-        <div class="symbol-item"
-             data-symbol="https://breathetogetheryoga.com/wp-content/uploads/om-by-martialred.jpg">
-            <img src="https://breathetogetheryoga.com/wp-content/uploads/om-by-martialred.jpg">
-            <span>ॐ</span>
+<div class="control-panel">
+    <div class="controls-row">
+        <div class="selector-group">
+            <label for="pageSizeSelector">📄 Page Size: </label>
+            <select id="pageSizeSelector" onchange="changePageSize(this.value)">
+                <option value="a4">A4 (210 × 297 mm)</option>
+                <option value="letter">Letter (8.5 × 11 in)</option>
+            </select>
         </div>
 
-        <div class="symbol-item"
-             data-symbol="https://upload.wikimedia.org/wikipedia/commons/f/fa/Allah3.svg">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Allah3.svg">
-            <span>Allah</span>
+        <div class="selector-group">
+            <label for="marginSelector">📏 Page Margins: </label>
+            <select id="marginSelector" onchange="changeMargins(this.value)">
+                <option value="normal">Normal (Standard Space)</option>
+                <option value="compact">Compact (Fit to Single Page)</option>
+                <option value="wide">Wide (Spacious Layout)</option>
+            </select>
         </div>
-
-        <div class="symbol-item"
-             data-symbol="https://static.vecteezy.com/system/resources/thumbnails/005/199/735/small/khanda-symbol-sikhi-sign-icon-black-color-illustration-flat-style-simple-image-vector.jpg">
-            <img src="https://static.vecteezy.com/system/resources/thumbnails/005/199/735/small/khanda-symbol-sikhi-sign-icon-black-color-illustration-flat-style-simple-image-vector.jpg">
-            <span>Khanda</span>
-        </div>
-
-        <div class="symbol-item"
-             data-symbol="https://media.istockphoto.com/id/1425978448/vector/black-and-gray-christian-cross-icon-in-flat-design-vector-illustration-abstract-linear.jpg?s=612x612&w=0&k=20&c=C8WaaJvhZo1mrrrYRlPVfImErMWJ6FSOKpHZUIY8x7Y=">
-            <img src="https://media.istockphoto.com/id/1425978448/vector/black-and-gray-christian-cross-icon-in-flat-design-vector-illustration-abstract-linear.jpg?s=612x612&w=0&k=20&c=C8WaaJvhZo1mrrrYRlPVfImErMWJ6FSOKpHZUIY8x7Y=">
-            <span>Cross</span>
-        </div>
-
-        <div class="symbol-item custom-upload"
-     id="openCustomPopup">
-
-    <img
-        id="customSymbolThumb"
-        src=""
-        style="
-        width:50px;
-        height:50px;
-        object-fit:contain;
-        display:none;">
-
-    <span id="customSymbolText">
-        + Custom
-    </span>
-</div>
-
     </div>
-    <div
-id="customSymbolPopup"
-style="display:none;"
-class="symbol-popup">
-
-    <div class="popup-box">
-
-        <h3>Select Symbol</h3>
-
-        <button
-        type="button"
-        id="uploadDirectBtn">
-            Upload From Device
-        </button>
-
-        <button
-        type="button"
-        id="uploadLibraryBtn">
-            Choose From Library
-        </button>
-
-        <button
-        type="button"
-        id="closePopupBtn">
-            Close
-        </button>
-
-    </div>
-
-</div>
-
-<input
-type="file"
-id="customSymbolInput"
-accept=".png,.svg,image/*"
-style="display:none;">
-</div>
-
-
-
-<div class="biodata-section">
-<h2>Basic Information</h2>
-
-
-    <!-- Full Name -->
-    <div class="form-group">
-        <span class="drag-handle">☰</span>
-        <label>Full Name</label>
-        <input type="text" id="fullName" required placeholder="Full Name">
-    </div>
-<div id="basicInfoContainer">
-    <div class="form-group">
-        <span class="drag-handle">☰</span>
-        <label>Date of Birth</label>
-        <input type="text" id="dob">
-        <button type="button" onclick="removeField(this)">✖</button>
-    </div>
-
-    <!-- Time of Birth -->
-    <div class="form-group">
-        <span class="drag-handle">☰</span>
-        <label>Time of Birth</label>
-        <input type="text" id="timeBirth">
-        <button type="button" onclick="removeField(this)">✖</button>
-    </div>
-
-    <!-- Place of Birth -->
-    <div class="form-group">
-        <span class="drag-handle">☰</span>
-        <label>Place of Birth</label>
-        <input type="text" id="placeBirth">
-        <button type="button" onclick="removeField(this)">✖</button>
-    </div>
-
-</div>
-<div class="form-group">
-<label>Photo</label>
-<input type="file" id="photo" accept="image/*">
-<div class="preview" id="preview">
-<img id="previewImg">
-</div>
-</div>
-
-</div>
-
-<div class="biodata-section" >
-<h2>About Me</h2>
-<div class="form-group">
-<label>About Me</label>
-
-<select id="aboutSelect" onchange="toggleAboutCustom()">
-    <option value="">Select About</option>
-
-    <option value="Simple and Family Oriented Person">
-        Simple and Family Oriented Person
-    </option>
-
-    <option value="Well Educated and Career Focused">
-        Well Educated and Career Focused
-    </option>
-
-    <option value="Traditional with Modern Values">
-        Traditional with Modern Values
-    </option>
-
-    <option value="custom">
-        Write Custom
-    </option>
-</select>
-
-<textarea
-    id="aboutCustom"
-    placeholder="Write About Yourself"
-    style="display:none;margin-top:10px;">
-</textarea>
-</div>
-
-</div>
-
-
-<div class="biodata-section"  >
-<h2>Personal Details</h2>
-<div id="personalInfoContainer">
-<div class="form-group">
-     <span class="drag-handle">☰</span>
-<label>Height</label>
-<input type="text" id="height" >
-  <button type="button" onclick="removeField(this)">✖</button>
-</div>
-
-<div class="form-group">
-     <span class="drag-handle">☰</span>
-<label>Weight</label>
-<input type="text" id="weight">
-  <button type="button" onclick="removeField(this)">✖</button>
-</div>
-
-<div class="form-group">
-
-      <span class="drag-handle">☰</span>
-<label>Complexion</label>
-
-<select id="complexion" onchange="toggleComplexionCustom()">
-
-    <option value="">Select Complexion</option>
-
-    <option value="Fair">Fair</option>
-    <option value="Wheatish">Wheatish</option>
-    <option value="Medium">Medium</option>
-    <option value="Dark">Dark</option>
-
-    <option value="custom">
-        Other (Write Custom)
-    </option>
-
-</select>
-
-<input
-    type="text"
-    id="complexionCustom"
-    placeholder="Enter Complexion"
-    style="display:none;margin-top:10px;">
-  <button type="button" onclick="removeField(this)">✖</button>
-</div>
-
-<div class="form-group">
-     <span class="drag-handle">☰</span>
-<label>Religion</label>
-
-<select id="religion" onchange="toggleReligionCustom()">
-    <option value="">Select Religion</option>
-
-    <option value="Hindu">Hindu</option>
-    <option value="Muslim">Muslim</option>
-    <option value="Sikh">Sikh</option>
-    <option value="Christian">Christian</option>
-    <option value="Jain">Jain</option>
-    <option value="Buddhist">Buddhist</option>
-
-    <option value="custom">
-        Other (Write Custom)
-    </option>
-</select>
-
-<input
-    type="text"
-    id="religionCustom"
-    placeholder="Enter Religion"
-    style="display:none;margin-top:10px;">
-
-  <button type="button" onclick="removeField(this)">✖</button>
-</div>
-
-<div class="form-group">
-     <span class="drag-handle">☰</span>
-<label>Caste</label>
-<input type="text" id="caste">
- <button type="button" onclick="removeField(this)">✖</button>
-</div>
-
-<div class="form-group">
-     <span class="drag-handle">☰</span>
-<label>Gotra</label>
-<input type="text" id="gotra">
- <button type="button" onclick="removeField(this)">✖</button>
-</div>
-
-<div class="form-group">
-    <span class="drag-handle">☰</span>
-<label>Rashi</label>
-
-<select id="rashi" onchange="toggleRashiCustom()">
-
-    <option value="">Select Rashi</option>
-
-    <option value="Mesh (Aries)">Mesh (Aries)</option>
-    <option value="Vrishabh (Taurus)">Vrishabh (Taurus)</option>
-    <option value="Mithun (Gemini)">Mithun (Gemini)</option>
-    <option value="Kark (Cancer)">Kark (Cancer)</option>
-    <option value="Singh (Leo)">Singh (Leo)</option>
-    <option value="Kanya (Virgo)">Kanya (Virgo)</option>
-    <option value="Tula (Libra)">Tula (Libra)</option>
-    <option value="Vrishchik (Scorpio)">Vrishchik (Scorpio)</option>
-    <option value="Dhanu (Sagittarius)">Dhanu (Sagittarius)</option>
-    <option value="Makar (Capricorn)">Makar (Capricorn)</option>
-    <option value="Kumbh (Aquarius)">Kumbh (Aquarius)</option>
-    <option value="Meen (Pisces)">Meen (Pisces)</option>
-
-    <option value="custom">
-        Other (Write Custom)
-    </option>
-
-</select>
-
-<input
-    type="text"
-    id="rashiCustom"
-    placeholder="Enter Rashi"
-    style="display:none;margin-top:10px;">
-    <button type="button" onclick="removeField(this)">✖</button>
-</div>
-
-<div class="form-group">
-     <span class="drag-handle">☰</span>
-<label>Nakshatra</label>
-<input type="text" id="nakshatra">
- <button type="button" onclick="removeField(this)">✖</button>
-</div>
-
-<div class="form-group">
-     <span class="drag-handle">☰</span>
-<label>Manglik</label>
-<select id="manglik">
-<option>No</option>
-<option>Yes</option>
-</select>
- <button type="button" onclick="removeField(this)">✖</button>
-</div>
-<div id="personalContainer"> </div>
-    <h2> <button type="button" onclick="addField('personalContainer')">
-            + Add More Personal Details Field
-        </button> </h2>
-
     
-  </div>
-<div class="biodata-section" >
-<h2>Education & Career</h2>
-<div id="educationContainer">
-<div class="form-group">
-    <span class="drag-handle">☰</span>
-<label>Education</label>
-<input type="text" id="education">
-<button type="button" onclick="removeField(this)">✖</button>
-</div>
-
-<div class="form-group">
-    <span class="drag-handle">☰</span>
-<label>Occupation</label>
-<input type="text" id="occupation">
-<button type="button" onclick="removeField(this)">✖</button>
-</div>
-
-</div> </div>
-
-<div class="biodata-section">
-<h2>Family Details</h2>
-<div id="familyInfoContainer">
-<div class="form-group">
-      <span class="drag-handle">☰</span>
-<label>Father Name</label>
-<input type="text" id="fatherName">
-<button type="button" onclick="removeField(this)">✖</button>
-</div>
-
-<div class="form-group">
-      <span class="drag-handle">☰</span>
-<label>Father Occupation</label>
-<input type="text" id="fatherOccupation">
-<button type="button" onclick="removeField(this)">✖</button>
-</div>
-
-<div class="form-group">
-      <span class="drag-handle">☰</span>
-<label>Mother Name</label>
-<input type="text" id="motherName">
-<button type="button" onclick="removeField(this)">✖</button>
-</div>
-
-<div class="form-group">
-      <span class="drag-handle">☰</span>
-<label>Mother Occupation</label>
-<input type="text" id="motherOccupation">
-<button type="button" onclick="removeField(this)">✖</button>
-</div>
-<div class="form-group">
-    <span class="drag-handle">☰</span>
-    <label>Siblings</label>
-    <input type="text" id="siblings">
-    <button type="button" onclick="removeField(this)">✖</button>
-</div> </div>
-<div id="familyContainer"> </div> 
-<h2> <button type="button" onclick="addField('familyContainer')"> + Add More Family Details Field</button></h2>
-
+    <div class="action-buttons">
+        <button onclick="history.length > 1 ? history.back() : location.href='/create-biodata/'">✏️ Edit Biodata</button>
+        <button onclick="window.print()">🖨️ Print</button>
+        
+        <div class="download-menu">
+            <button onclick="toggleDownloadMenu()">⬇️ Download Biodata</button>
+            <div id="downloadOptions" class="download-options">
+                <button id="pdfBtn" onclick="downloadPDF()">📄 PDF Biodata</button>
+                <button id="imgBtn" onclick="saveImage()">🖼️ JPG Biodata</button>
+            </div>
+        </div>
+        
+        <button onclick="savePDF()">👁️‍🗨️ View Biodata PDF</button>
+        <button onclick="sharePDF()">📤 Share Biodata</button>
     </div>
-
-
-<div class="biodata-section">
-<h2>Contact Details</h2>
-<div id="contactInfoContainer">
-<div class="form-group">
-    <span class="drag-handle">☰</span>
-<label>Mobile Number</label>
-<input type="text" id="mobile">
- <button type="button" onclick="removeField(this)">✖</button>
 </div>
 
-<div class="form-group">
-    <span class="drag-handle">☰</span>
-<label>Address</label>
-<textarea id="address"></textarea>
- <button type="button" onclick="removeField(this)">✖</button>
-</div> </div>
- 
-    <div id="contactContainer"> </div>
- <h2> <button type="button" onclick="addField('contactContainer')">
-            + Add More Contact Details Field
-        </button>
-    </h2>
+<!-- Output Container Context -->
+<div id="documentContainer"></div>
 
-</div>
-<div class="biodata-section">
-<button type="submit">
-✨ Generate Biodata
-</button> <hr>
+<!-- Offscreen Blueprint DOM Source Node -->
+<div id="blueprintContainer">
+    <div class="biodata">
+        <div class="hero-section" id="heroBlueprint">
+            <div class="profile-photo" id="selectPhoto">
+                <img id="photo" src="" alt="Photo">
+            </div>
+            <div class="hero-info">
+                <img id="religiousSymbol" class="religious-symbol" crossorigin="anonymous" src="">
+                <div class="top-header">
+                    <div> 
+                        <div id="fullName"></div> 
+                        <div class="about" id="about">Simple and Family Oriented Person</div>
+                    </div> 
+                </div>
+            </div>  
+        </div>
 
-<div class="action-buttons">
-    <button type="button" onclick="fillExampleBiodata()">
-        🪄 Example Biodata
-    </button>
+        <div class="biodata-section" id="secBasic">
+            <div class="section-title">Personal Details</div>
+            <div id="basicInfo" class="info-grid"></div> <br>
+            <div id="personalInfo" class="info-grid"></div>
+        </div>
 
-    <button type="button" onclick="clearFormData()">
-       🧼 Clear form
-    </button>
-</div> </div>
+        <div class="biodata-section" id="secFamily">
+            <div class="section-title">Family Details</div>
+            <div id="familyInfo" class="info-grid"></div>
+        </div>
 
-</form>
-<div class="biodata-section">
-
-<h2>Select Template</h2>
-
-<div class="template-switcher">
-
-<label class="template-card">
-<input
-type="radio"
-name="template"
-value="/matrimonial-biodata/"
-data-slug="classic"
-checked>
-
-<img
-src="https://resumekraft.com/wp-content/uploads/2023/07/Job-Biodata-template-2-724x1024.jpg"
-alt="Classic Template">
-
-<span>Classic Template</span>
-</label>
-
-<label class="template-card">
-<input
-type="radio"
-name="template"
-value="/matrimonial-biodata-modern/"
-data-slug="modern">
-
-<img
-src="https://freebiodatamaker.com/images/templates/preview/abstract-yellow-en-template.webp"
-alt="Modern Template">
-
-<span>Modern Template</span>
-</label>
-
-<label class="template-card">
-<input
-type="radio"
-name="template"
-value="/matrimonial-biodata-premium/"
-data-slug="premium">
-
-<img
-src="https://resumesector.com/wp-content/uploads/2025/04/Bio-Data-Format.jpg"
-alt="Premium Template">
-
-<span>Premium Template</span>
-</label>
-
-</div>
-</div>
-</div>
-
-
-<div id="symbolLibraryModal" class="symbol-library-modal">
-
-    <div class="symbol-library-box">
-
-        <button
-        type="button"
-        id="closeLibraryModal">
-            ✕
-        </button>
-
-        <iframe
-        id="symbolLibraryFrame"
-        src=""
-        loading="lazy">
-        </iframe>
-
+        <div class="biodata-section" id="secContact">
+            <div class="section-title">Contact Details</div>
+            <div id="contactInfo" class="info-grid"></div>
+        </div>
     </div>
-
 </div>
-
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 
 <script>
-function removeField(btn){
-    btn.closest(".form-group").remove();
+let currentPageSize = 'a4';
+let currentMarginSetting = 'normal';
+let activePreviewUrl = null;
+let data = null;
+
+function toggleDownloadMenu(){
+    document.getElementById("downloadOptions").classList.toggle("show");
 }
 
-[
-"basicInfoContainer",
-"personalInfoContainer",
-"educationContainer",
-"familyInfoContainer",
-"contactInfoContainer"
-].forEach(id=>{
-
-    new Sortable(
-        document.getElementById(id),
-        {
-            animation:150,
-            handle:".drag-handle"
-        }
-    );
-
-});
-</script>
-<script>
-
-// ===========================
-// PHOTO PREVIEW
-// ===========================
-
-// ===========================
-// PHOTO PREVIEW + COMPRESS
-// ===========================
-
-let uploadedPhoto = null;
-
-document
-.getElementById("photo")
-.addEventListener(
-"change",
-function(){
-
-    const file =
-    this.files[0];
-
-    if(!file) return;
-
-    uploadedPhoto = file;
-
-    const url =
-    URL.createObjectURL(file);
-
-    document
-    .getElementById("preview")
-    .style.display =
-    "block";
-
-    document
-    .getElementById("previewImg")
-    .src = url;
-
-});
-
-// ===========================
-// ADD / REMOVE FIELD
-// ===========================
-
-function addField(containerId){
-
-    const row = document.createElement("div");
-
-    row.className = "dynamic-field";
-
-    row.innerHTML = `
-        <input
-            type="text"
-            class="field-label"
-            placeholder="Field Name">
-
-        <input
-            type="text"
-            class="field-value"
-            placeholder="Field Value">
-
-        <button
-            type="button"
-            onclick="removeDynamicField(this)">
-            ✖
-        </button>
-    `;
-
-    document
-    .getElementById(containerId)
-    .appendChild(row);
-
+window.onclick = function(e) {
+    if (!e.target.matches('.download-menu button')) {
+        document.getElementById("downloadOptions").classList.remove('show');
+    }
 }
 
-function removeDynamicField(btn){
-
-    btn.closest(".dynamic-field").remove();
-
-}
-
-
-// ===========================
-// COLLECT DYNAMIC FIELDS
-// ===========================
-
-function collectFields(containerId){
-
-    const fields = [];
-
-    document
-    .querySelectorAll(
-        `#${containerId} .dynamic-field`
-    )
-    .forEach(row=>{
-
-        const label =
-        row.querySelector(".field-label")
-        .value
-        .trim();
-
-        const value =
-        row.querySelector(".field-value")
-        .value
-        .trim();
-
-        if(label || value){
-
-            fields.push({
-                label,
-                value
-            });
-
-        }
-
-    });
-
-    return fields;
-
-}
-
-
-// ===========================
-// FORM SUBMIT
-// ===========================
-
-// ===========================
-// GET SECTION DATA WITH ORDER
-// ===========================
-function getSectionData(containerId){
-
-    const fields = [];
-
-    document
-    .querySelectorAll(
-        `#${containerId} .form-group`
-    )
-    .forEach(item=>{
-
-        const label =
-        item.querySelector("label")
-        ?.innerText
-        ?.trim();
-
-        const input =
-        item.querySelector(
-            "input:not([type='file']), textarea, select"
-        );
-
-        if(!label || !input){
-            return;
-        }
-
-        fields.push({
-            label: label,
-            value: input.value
-        });
-
-    });
-
-    return fields;
-}
-
-function collectFields(containerId){
-
-    const fields = [];
-
-    document
-    .querySelectorAll(
-        `#${containerId} .dynamic-field`
-    )
-    .forEach(row=>{
-
-        const label =
-        row.querySelector(".field-label")
-        .value
-        .trim();
-
-        const value =
-        row.querySelector(".field-value")
-        .value
-        .trim();
-
-        if(label || value){
-
-            fields.push({
-                label,
-                value
-            });
-
-        }
-
-    });
-
-    return fields;
-}
-
+// Database Engine Modules
 async function openDB(){
-
     return new Promise((resolve,reject)=>{
-
-        const request = indexedDB.open("BiodataDB", 2);
-
-        request.onupgradeneeded = function(e){
-
-            console.log("UPGRADE RUNNING");
-
-            const db = e.target.result;
-
-            console.log(
-                "Stores:",
-                db.objectStoreNames
-            );
-
-            if(!db.objectStoreNames.contains("photos")){
-
-                console.log(
-                    "CREATING PHOTOS STORE"
-                );
-
-                db.createObjectStore(
-                    "photos",
-                    {
-                        keyPath:"id"
-                    }
-                );
-            }
-        };
-
-        request.onsuccess = function(){
-
-            console.log(
-                "DB OPENED"
-            );
-
-            resolve(request.result);
-        };
-
-        request.onerror = function(){
-
-            console.log(
-                "DB ERROR",
-                request.error
-            );
-
-            reject(request.error);
-        };
-
+        try {
+            const request = indexedDB.open("BiodataDB", 2);
+            request.onupgradeneeded = (e)=>{
+                const db = e.target.result;
+                if(!db.objectStoreNames.contains("photos")){
+                    db.createObjectStore("photos", { keyPath:"id" });
+                }
+            };
+            request.onsuccess = () => resolve(request.result);
+            request.onerror = () => reject(request.error);
+        } catch(err) { reject(err); }
     });
 }
 
-async function savePhoto(photoId,file){
-
+async function getPhoto(photoId){
+    if(!photoId) return null;
     const db = await openDB();
-
     return new Promise((resolve,reject)=>{
-
-        const tx = db.transaction(
-            "photos",
-            "readwrite"
-        );
-
-        tx.objectStore("photos").put({
-            id: photoId,
-            file: file
-        });
-
-        tx.oncomplete = () => resolve();
-
-        tx.onerror = () => reject(tx.error);
-
+        const tx = db.transaction("photos","readonly");
+        const request = tx.objectStore("photos").get(photoId);
+        request.onsuccess = () => resolve(request.result?.file);
+        request.onerror = () => reject(request.error);
     });
-
 }
-// ===========================
-// FORM SUBMIT
-// ===========================
 
-document
-.getElementById("biodataForm")
-.addEventListener(
-"submit",
-async function(e){
-
-    e.preventDefault();
-
-    const biodata_id =
-    "bio_" +
-    Date.now();
-
-    const personalInfo =
-    getSectionData(
-        "personalInfoContainer"
-    );
-
-    personalInfo.push(
-        ...collectFields(
-            "personalContainer"
-        )
-    );
-
-    const familyInfo =
-    getSectionData(
-        "familyInfoContainer"
-    );
-
-    familyInfo.push(
-        ...collectFields(
-            "familyContainer"
-        )
-    );
-
-    const contactInfo =
-    getSectionData(
-        "contactInfoContainer"
-    );
-
-    contactInfo.push(
-        ...collectFields(
-            "contactContainer"
-        )
-    );
-
-const about =
-document.getElementById("aboutSelect").value === "custom"
-? document.getElementById("aboutCustom").value
-: document.getElementById("aboutSelect").value;
-
-const religion =
-document.getElementById("religion").value === "custom"
-? document.getElementById("religionCustom").value
-: document.getElementById("religion").value;
-
-const complexion =
-document.getElementById("complexion").value === "custom"
-? document.getElementById("complexionCustom").value
-: document.getElementById("complexion").value;
-
-const rashi =
-document.getElementById("rashi").value === "custom"
-? document.getElementById("rashiCustom").value
-: document.getElementById("rashi").value;
-const photoId =
-"photo_" +
-Date.now();
-
-try{
-
-    if(uploadedPhoto){
-
-        await savePhoto(
-            photoId,
-            uploadedPhoto
-        );
-
-    }
-
-}catch(err){
-
-    console.error(err);
-
+// Original Hydration Flow
+try {
+    const token = new URLSearchParams(location.search).get("biodata_id");
+    if(!token) throw new Error();
+    const rawData = localStorage.getItem(token);
+    if(!rawData) throw new Error();
+    data = JSON.parse(rawData);
+} catch {
+    data = {
+        fullName: "Rahul S. Sharma",
+        about: "Simple and Family Oriented Person",
+        religiousSymbol: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50' height='50'><text y='35' font-size='35' fill='%23b38a24'>🕉</text></svg>",
+        sections: {
+            basicInfo: [{label:"Date of Birth", value:"15 August 1994"}, {label:"Birth Time", value:"10:20 AM"}],
+            personalInfo: [{label:"Height", value:"5ft 10in"}, {label:"Complexion", value:"Fair"}],
+            familyInfo: [{label:"Father's Name", value:"Suresh Sharma"}, {label:"Mother's Name", value:"Alka Sharma"}],
+            contactInfo: [{label:"Mobile", value:"+91 9876543210"}, {label:"Address", value:"Mumbai, India"}]
+        }
+    };
 }
-const biodata = {
 
-    biodata_id,
+function renderSection(containerId, fields){
+    const container = document.getElementById(containerId);
+    if(!container || !fields) return;
+    container.innerHTML = "";
+    fields.forEach(field=>{
+        const label = document.createElement("div");
+        label.className = "label";
+        label.textContent = field.label;
+        const value = document.createElement("div");
+        value.className = "value";
+        value.textContent = field.value;
+        container.append(label, value);
+    });
+}
 
-    photoId,
+async function waitForImages() {
+    const images = document.querySelectorAll("img");
+    await Promise.all(Array.from(images).map(img => {
+        if (img.complete) return Promise.resolve();
+        return new Promise(res => { img.onload = res; img.onerror = res; });
+    }));
+}
 
-     religiousSymbol:
-document.getElementById(
-"selectedSymbol"
-).value,
+// Fixed Calculations Height Metric Engines
+async function buildDocumentPages() {
+    await waitForImages();
+    const container = document.getElementById('documentContainer');
+    container.innerHTML = ""; 
 
-    fullName:
-    document
-    .getElementById(
-        "fullName"
-    ).value,
-
-    about,
-    religion,
-    complexion,
-    rashi,
-
-    sections:{
-        basicInfo:
-        getSectionData(
-            "basicInfoContainer"
-        ),
-
-        personalInfo,
-
-        familyInfo,
-
-        contactInfo,
-
-        educationInfo:
-        getSectionData(
-            "educationContainer"
-        )
-    }
-
-};
-
-    localStorage.setItem(
-        biodata_id,
-        JSON.stringify(
-            biodata
-        )
-    );
-const selectedTemplateUrl =
-document.querySelector(
-'input[name="template"]:checked'
-).value;
-
-location.href =
-selectedTemplateUrl +
-"?biodata_id=" +
-encodeURIComponent(biodata_id);
-});
-
-</script>
-
-<script>
+    const isA4 = currentPageSize === 'a4';
+    const totalHeightPx = isA4 ? 1122 : 1056;
     
-   const AUTOSAVE_KEY = "biodataDraft";
+    // Adjust height allocations natively depending on margin settings selected
+    let paddingReduction = 150;
+    if (currentMarginSetting === 'compact') paddingReduction = 90;
+    if (currentMarginSetting === 'wide') paddingReduction = 210;
 
-function saveDraft(){
+    const maxContentHeight = totalHeightPx - paddingReduction;
 
-    const data = {};
+    const hero = document.getElementById('heroBlueprint');
+    const secBasic = document.getElementById('secBasic');
+    const secFamily = document.getElementById('secFamily');
+    const secContact = document.getElementById('secContact');
 
-    document
-    .querySelectorAll("input, textarea, select")
-    .forEach(el=>{
+    let pagesData = [];
+    let currentStack = [];
+    let currentHeight = 0;
 
-        if(
-            el.type === "file" ||
-            el.type === "radio"
-        ) return;
+    function pushToPage(element) {
+        const height = element.getBoundingClientRect().height;
+        if (currentHeight + height > maxContentHeight && currentStack.length > 0) {
+            pagesData.push(currentStack);
+            currentStack = [];
+            currentHeight = 0;
+        }
+        currentStack.push(element.cloneNode(true));
+        currentHeight += height;
+    }
 
-        data[el.id || el.name] =
-        el.value;
+    pushToPage(hero);
+    pushToPage(secBasic);
+    pushToPage(secFamily);
+    pushToPage(secContact);
 
+    if (currentStack.length > 0) {
+        pagesData.push(currentStack);
+    }
+
+    pagesData.forEach((pageNodes, idx) => {
+        const pageNode = document.createElement('div');
+        pageNode.className = `document-page size-${currentPageSize}`;
+        
+        const wrapper = document.createElement('div');
+        wrapper.className = "page-content-wrapper";
+        
+        pageNodes.forEach(node => wrapper.appendChild(node));
+        pageNode.appendChild(wrapper);
+
+        const footer = document.createElement('div');
+        footer.className = "page-footer";
+        footer.textContent = `Page ${idx + 1} of ${pagesData.length}`;
+        pageNode.appendChild(footer);
+
+        container.appendChild(pageNode);
     });
 
-    localStorage.setItem(
-        AUTOSAVE_KEY,
-        JSON.stringify(data)
-    );
+    applyScaleResponsive();
 }
-document.addEventListener(
-    "input",
-    saveDraft
-);
-window.addEventListener(
-    "DOMContentLoaded",
-    ()=>{
 
-        const saved =
-        localStorage.getItem(
-            AUTOSAVE_KEY
-        );
+function applyScaleResponsive() {
+    const pages = document.querySelectorAll('.document-page');
+    const vw = window.innerWidth;
+    const targetW = currentPageSize === 'a4' ? 794 : 816;
+    
+    pages.forEach(p => {
+        p.style.transform = "none";
+        p.style.margin = "0 auto 25px auto";
+        if(vw < targetW + 40) {
+            const scaleFactor = (vw - 20) / targetW;
+            p.style.transform = `scale(${scaleFactor})`;
+            p.style.marginBottom = `${-(targetW * (1 - scaleFactor)) + 20}px`;
+        }
+    });
+}
 
-        if(!saved) return;
+function changePageSize(val) {
+    currentPageSize = val;
+    const bp = document.getElementById('blueprintContainer');
+    if(val === 'letter') bp.className = "size-letter";
+    else bp.className = "";
+    buildDocumentPages();
+}
 
-        const data =
-        JSON.parse(saved);
+function changeMargins(val) {
+    currentMarginSetting = val;
+    const root = document.documentElement;
+    if(val === 'compact') root.style.setProperty('--page-internal-padding', '12mm');
+    else if(val === 'wide') root.style.setProperty('--page-internal-padding', '26mm');
+    else root.style.setProperty('--page-internal-padding', '20mm');
+    
+    buildDocumentPages();
+}
 
-        document
-        .querySelectorAll(
-            "input, textarea, select"
-        )
-        .forEach(el=>{
+// Hydrate elements safely layout execution hooks
+if(data){
+    if(data.religiousSymbol) document.getElementById("religiousSymbol").src = data.religiousSymbol;
+    if(data.fullName) document.getElementById("fullName").textContent = data.fullName;
+    if(data.about) document.getElementById("about").textContent = data.about;
 
-            if(el.type==="file") return;
+    renderSection("basicInfo", data.sections?.basicInfo);
+    renderSection("personalInfo", data.sections?.personalInfo);
+    renderSection("familyInfo", data.sections?.familyInfo);
+    renderSection("contactInfo", data.sections?.contactInfo);
 
-            const key =
-            el.id || el.name;
+    (async()=>{
+        if(data.photoId){
+            try{
+                const file = await getPhoto(data.photoId);
+                if(file){
+                    if(activePreviewUrl) URL.revokeObjectURL(activePreviewUrl);
+                    activePreviewUrl = URL.createObjectURL(file);
+                    document.getElementById("photo").src = activePreviewUrl;
+                    buildDocumentPages();
+                }
+            }catch(err){ console.error(err); }
+        }
+    })();
+}
 
-            if(data[key]!==undefined){
+// Fixed HTML2PDF Native Multi-Page Compiler Engine
+function generateCleanPDFWorkerElement() {
+    const pages = document.querySelectorAll('.document-page');
+    const workerWrapper = document.createElement('div');
+    workerWrapper.style.background = "#ffffff";
+    
+    pages.forEach((p) => {
+        const pageClone = p.cloneNode(true);
+        pageClone.style.transform = "none";
+        pageClone.style.margin = "0px";
+        pageClone.style.boxShadow = "none";
+        pageClone.style.display = "block";
+        pageClone.style.position = "relative";
+        workerWrapper.appendChild(pageClone);
+    });
+    return workerWrapper;
+}
 
-                el.value =
-                data[key];
+function getPDFOptions() {
+    return {
+        margin: [0, 0, 0, 0],
+        filename: `${(data.fullName || "biodata").replace(/\s+/g, "-")}.pdf`,
+        image: { type: "jpeg", quality: 1.0 },
+        html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+        jsPDF: { unit: "mm", format: currentPageSize === 'a4' ? 'a4' : 'letter', orientation: "portrait" }
+    };
+}
 
+// Stabilized Downloader Pipeline Functions
+async function downloadPDF() {
+    const btn = document.getElementById("pdfBtn");
+    btn.innerHTML = "Processing...";
+    try {
+        const element = generateCleanPDFWorkerElement();
+        const opt = getPDFOptions();
+        await html2pdf().set(opt).from(element).save();
+    } catch(err) {
+        console.error("PDF generation failed:", err);
+    } finally {
+        btn.innerHTML = "📄 PDF Biodata";
+    }
+}
+
+async function savePDF() {
+    try {
+        const element = generateCleanPDFWorkerElement();
+        const opt = getPDFOptions();
+        html2pdf().set(opt).from(element).output('blob').then(function(blob) {
+            const blobUrl = URL.createObjectURL(blob);
+            window.open(blobUrl, "_blank");
+        });
+    } catch(err) {
+        console.error(err);
+    }
+}
+
+async function sharePDF() {
+    try {
+        const element = generateCleanPDFWorkerElement();
+        const opt = getPDFOptions();
+        html2pdf().set(opt).from(element).output('blob').then(async function(blob) {
+            const file = new File([blob], (data.fullName || "biodata") + ".pdf", { type: "application/pdf" });
+            if(navigator.canShare && navigator.canShare({ files: [file] })) {
+                await navigator.share({ title: "Biodata", text: "My Biodata Document", files: [file] });
+            } else {
+                window.open(URL.createObjectURL(blob), "_blank");
             }
-
         });
-
+    } catch(err) {
+        console.error(err);
     }
-);
-function clearFormData(){
-
-    if(
-        !confirm(
-            "Are you sure you want to clear all saved data?"
-        )
-    ) return;
-
-    localStorage.removeItem(
-    AUTOSAVE_KEY
-);
- location.reload();
-} 
-</script>
-<script>
-    function toggleAboutCustom(){
-
-    const select =
-    document.getElementById("aboutSelect");
-
-    const custom =
-    document.getElementById("aboutCustom");
-
-    custom.style.display =
-    select.value === "custom"
-    ? "block"
-    : "none";
 }
 
-function toggleReligionCustom(){
+async function saveImage(){
+    const btn = document.getElementById("imgBtn");
+    btn.innerHTML = "Processing...";
+    const zip = new JSZip();
+    const pages = document.querySelectorAll('.document-page');
 
-    const select =
-    document.getElementById("religion");
+    try {
+        for(let i=0; i<pages.length; i++) {
+            const p = pages[i];
+            const origTransform = p.style.transform;
+            const origMargin = p.style.margin;
+            p.style.transform = "none";
+            p.style.margin = "0";
 
-    const custom =
-    document.getElementById("religionCustom");
+            const canvas = await html2canvas(p, { scale: 2, useCORS: true });
+            
+            p.style.transform = origTransform;
+            p.style.margin = origMargin;
 
-    custom.style.display =
-    select.value === "custom"
-    ? "block"
-    : "none";
-}
-function toggleComplexionCustom(){
-
-    const select =
-    document.getElementById("complexion");
-
-    const custom =
-    document.getElementById("complexionCustom");
-
-    custom.style.display =
-    select.value === "custom"
-    ? "block"
-    : "none";
-}
-function toggleRashiCustom(){
-
-    const select =
-    document.getElementById("rashi");
-
-    const custom =
-    document.getElementById("rashiCustom");
-
-    custom.style.display =
-    select.value === "custom"
-    ? "block"
-    : "none";
-}
-</script>
-<script>
-document
-.querySelectorAll('input[name="template"]')
-.forEach(radio=>{
-
-radio.addEventListener("change",function(){
-
-const url = new URL(location.href);
-
-url.searchParams.set(
-"template",
-this.dataset.slug
-);
-
-history.replaceState(
-{},
-"",
-url
-);
-
-});
-
-});
-const currentTemplate =
-new URLSearchParams(location.search)
-.get("template");
-
-if(currentTemplate){
-
-const radio =
-document.querySelector(
-`input[data-slug="${currentTemplate}"]`
-);
-
-if(radio){
-radio.checked = true;
-}
-
-}
-</script>
-<script>
-    const selectedBox =
-document.getElementById(
-"selectedSymbolBox"
-);
-
-const picker =
-document.getElementById(
-"symbolPicker"
-);
-
-selectedBox.onclick=()=>{
-
-    picker.style.display =
-    picker.style.display==="none"
-    ? "grid"
-    : "none";
-
-};
-
-document
-.querySelectorAll(".symbol-item")
-.forEach(item=>{
-
-    item.addEventListener(
-    "click",
-    function(){
-
-        const symbol =
-        this.dataset.symbol;
-
-        if(!symbol) return;
-
-        document
-        .getElementById(
-        "selectedSymbol"
-        )
-        .value = symbol;
-
-        document
-        .getElementById(
-        "selectedSymbolPreview"
-        )
-        .src = symbol;
-
-        picker.style.display =
-        "none";
-
-    });
-    
-});
-
-document
-.getElementById(
-"customSymbolInput"
-)
-.addEventListener(
-"change",
-function(){
-
-    const file =
-    this.files[0];
-
-    if(!file) return;
-
-    const url =
-    URL.createObjectURL(file);
-
-    document
-    .getElementById(
-    "selectedSymbol"
-    )
-    .value = url;
-
-    document
-    .getElementById(
-    "selectedSymbolPreview"
-    )
-    .src = url;
-    document
-.getElementById(
-"customSymbolThumb"
-)
-.src = url;
-
-document
-.getElementById(
-"customSymbolThumb"
-)
-.style.display =
-"block";
-
-document
-.getElementById(
-"customSymbolText"
-)
-.textContent =
-"Change ✏️";
-
-});
-</script>
-<script>
-    const popup =
-document.getElementById(
-"customSymbolPopup"
-);
-
-document
-.getElementById(
-"openCustomPopup"
-)
-.onclick=()=>{
-
-popup.style.display="flex";
-
-};
-
-document
-.getElementById(
-"closePopupBtn"
-)
-.onclick=()=>{
-
-popup.style.display="none";
-
-};
-
-// Direct Upload
-
-document
-.getElementById(
-"uploadDirectBtn"
-)
-.onclick=()=>{
-
-popup.style.display="none";
-
-document
-.getElementById(
-"customSymbolInput"
-)
-.click();
-
-};
-
-// Library Upload
-
-document
-.getElementById(
-"uploadLibraryBtn"
-)
-.onclick=()=>{
-
-popup.style.display="none";
-
-document
-.getElementById(
-"symbolLibraryModal"
-)
-.style.display =
-"block";
-
-document
-.getElementById(
-"symbolLibraryFrame"
-)
-.src =
-"/symbol-library/";
-
-};
-document
-.getElementById(
-"closeLibraryModal"
-)
-.onclick=()=>{
-
-document
-.getElementById(
-"symbolLibraryModal"
-)
-.style.display =
-"none";
-
-};
-</script>
-<script>
-window.addEventListener("message", function(e){
-
-    if(
-        !e.data ||
-        e.data.type !== "selected-symbol"
-    ){
-        return;
+            const base64Str = canvas.toDataURL("image/jpeg", 1.0).split(',')[1];
+            zip.file(`biodata-page-${i+1}.jpg`, base64Str, { base64: true });
+        }
+        const blobContent = await zip.generateAsync({ type: "blob" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blobContent);
+        link.download = `${(data.fullName || "biodata").replace(/\s+/g, "-")}-images.zip`;
+        link.click();
+    } finally {
+        btn.innerHTML = "🖼️ JPG Biodata";
     }
-
-    document.getElementById(
-        "selectedSymbol"
-    ).value = e.data.url;
-
-    document.getElementById(
-        "selectedSymbolPreview"
-    ).src = e.data.url;
-
-    document.getElementById(
-        "customSymbolThumb"
-    ).src = e.data.url;
-
-    document.getElementById(
-        "customSymbolThumb"
-    ).style.display = "block";
-
-    document.getElementById(
-        "customSymbolText"
-    ).textContent = "Change ✏️";
-
-    document.getElementById(
-        "symbolLibraryModal"
-    ).style.display = "none";
-
-});
-</script>
-<script>
-function fillExampleBiodata(){
-
-    document.getElementById("fullName").value = "Rahul Sharma";
-
-    document.getElementById("dob").value = "15-05-1998";
-    document.getElementById("timeBirth").value = "08:30 PM";
-    document.getElementById("placeBirth").value = "Bhopal, Madhya Pradesh";
-
-    document.getElementById("aboutSelect").value =
-    "Traditional with Modern Values";
-
-    document.getElementById("height").value = "5 Feet 8 Inch";
-    document.getElementById("weight").value = "70 Kg";
-
-    document.getElementById("complexion").value = "Fair";
-    document.getElementById("religion").value = "Hindu";
-
-    document.getElementById("caste").value = "Brahmin";
-    document.getElementById("gotra").value = "Bharadwaj";
-
-    document.getElementById("rashi").value =
-    "Mesh (Aries)";
-
-    document.getElementById("nakshatra").value =
-    "Ashwini";
-
-    document.getElementById("manglik").value =
-    "No";
-
-    document.getElementById("education").value =
-    "B.Tech Computer Science";
-
-    document.getElementById("occupation").value =
-    "Software Engineer";
-
-    document.getElementById("fatherName").value =
-    "Mahesh Sharma";
-
-    document.getElementById("fatherOccupation").value =
-    "Businessman";
-
-    document.getElementById("motherName").value =
-    "Sunita Sharma";
-
-    document.getElementById("motherOccupation").value =
-    "Homemaker";
-
-    document.getElementById("siblings").value =
-    "1 Brother";
-
-    document.getElementById("mobile").value =
-    "9876543210";
-
-    document.getElementById("address").value =
-    "Bhopal, Madhya Pradesh";
-
-    saveDraft();
-
-    alert("Example Biodata Filled Successfully!");
 }
+
+window.onresize = applyScaleResponsive;
+window.onload = () => { buildDocumentPages(); };
 </script>
 </body>
 </html>
-
-
-

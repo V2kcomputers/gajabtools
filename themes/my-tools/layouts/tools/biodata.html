@@ -457,6 +457,7 @@ data-symbol="/svg/Om-Symbol-Silhouette.svg">
         <div class="symbol-item"
              data-symbol="https://upload.wikimedia.org/wikipedia/commons/f/fa/Allah3.svg">
             <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Allah3.svg">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Allah3.svg" style="display:none;">
             <span>Allah</span>
         </div>
 
@@ -568,7 +569,7 @@ style="display:none;">
 <div class="form-group">
 <label>Photo</label>
 <input type="file" id="photo" accept="image/*">
-<div class="preview" id="preview">
+<div class="preview" id="preview" style="display:none;">
 <img id="previewImg">
 </div>
 </div>
@@ -851,7 +852,7 @@ style="display:none;">
     </button>
 
     <button type="button" onclick="clearFormData()">
-       🧼 Clear form
+        🧼 Clear form
     </button>
 </div> </div>
 
@@ -930,9 +931,6 @@ alt="Premium Template">
 
 </div>
 
-
-
-
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 
 <script>
@@ -958,58 +956,184 @@ function removeField(btn){
 
 });
 </script>
+
 <script>
-
-// ===========================
-// PHOTO PREVIEW
-// ===========================
-
-// ===========================
-// PHOTO PREVIEW + COMPRESS
-// ===========================
+// ==========================================
+// UPGRADED INDEXEDDB PHOTO STORAGE MODULE
+// ==========================================
 
 let uploadedPhoto = null;
+let activePreviewUrl = null;
 
-document
-.getElementById("photo")
-.addEventListener(
-"change",
-async function(){
+async function openDB(){
+    return new Promise((resolve,reject)=>{
+        try {
+            const request = indexedDB.open("BiodataDB", 2);
+            request.onupgradeneeded = function(e){
+                const db = e.target.result;
+                if(!db.objectStoreNames.contains("photos")){
+                    db.createObjectStore("photos", { keyPath: "id" });
+                }
+            };
+            request.onsuccess = function(){
+                resolve(request.result);
+            };
+            request.onerror = function(){
+                reject(request.error || new Error("IndexedDB connection blocked."));
+            };
+        } catch(err) {
+            reject(err);
+        }
+    });
+}
 
+async function photoExists(photoId) {
+    if(!photoId) return false;
+    try {
+        const db = await openDB();
+        return new Promise((resolve) => {
+            const tx = db.transaction("photos", "readonly");
+            const store = tx.objectStore("photos");
+            const request = store.getKey(photoId);
+            request.onsuccess = () => resolve(request.result !== undefined);
+            request.onerror = () => resolve(false);
+        });
+    } catch(err) {
+        return false;
+    }
+}
+
+async function savePhoto(photoId, file){
+    if(!photoId || !file) return;
+    try {
+        const db = await openDB();
+        return new Promise((resolve,reject)=>{
+            const tx = db.transaction("photos", "readwrite");
+            const store = tx.objectStore("photos");
+            
+            store.put({
+                id: photoId,
+                file: file,
+                name: file.name || "upload",
+                type: file.type || "image/jpeg",
+                size: file.size || 0,
+                createdAt: Date.now()
+            });
+
+            tx.oncomplete = () => resolve();
+            tx.onerror = () => reject(tx.error);
+        });
+    } catch(err) {
+        console.error("IndexedDB write failed:", err);
+        throw err;
+    }
+}
+
+async function getPhoto(photoId){
+    if(!photoId) return null;
+    try {
+        const db = await openDB();
+        return new Promise((resolve,reject)=>{
+            const tx = db.transaction("photos", "readonly");
+            const store = tx.objectStore("photos");
+            const request = store.get(photoId);
+
+            request.onsuccess = () => resolve(request.result ? request.result.file : null);
+            request.onerror = () => reject(request.error);
+        });
+    } catch(err) {
+        console.error("IndexedDB read failed:", err);
+        return null;
+    }
+}
+
+async function deletePhoto(photoId){
+    if(!photoId) return;
+    try {
+        const db = await openDB();
+        return new Promise((resolve,reject)=>{
+            const tx = db.transaction("photos", "readwrite");
+            const store = tx.objectStore("photos");
+            store.delete(photoId);
+            tx.oncomplete = () => resolve();
+            tx.onerror = () => reject(tx.error);
+        });
+    } catch(err) {
+        console.error("IndexedDB drop failed:", err);
+    }
+}
+
+async function updatePhoto(oldPhotoId, newPhotoId, file) {
+    if(oldPhotoId && oldPhotoId !== newPhotoId) {
+        await deletePhoto(oldPhotoId);
+    }
+    await savePhoto(newPhotoId, file);
+}
+
+async function restorePhoto() {
+    const draftPhotoId = localStorage.getItem("draftPhotoId");
+    if(!draftPhotoId) return;
+    try {
+        const file = await getPhoto(draftPhotoId);
+        if(file) {
+            uploadedPhoto = file;
+            if(activePreviewUrl) {
+                URL.revokeObjectURL(activePreviewUrl);
+            }
+            activePreviewUrl = URL.createObjectURL(file);
+            document.getElementById("preview").style.display = "block";
+            document.getElementById("previewImg").src = activePreviewUrl;
+        } else {
+            localStorage.removeItem("draftPhotoId");
+        }
+    } catch(err) {
+        console.error("Failed executing clean restore mapping setup:", err);
+    }
+}
+
+async function clearPhoto() {
+    const draftPhotoId = localStorage.getItem("draftPhotoId");
+    if(draftPhotoId) {
+        await deletePhoto(draftPhotoId);
+        localStorage.removeItem("draftPhotoId");
+    }
+    if(activePreviewUrl) {
+        URL.revokeObjectURL(activePreviewUrl);
+        activePreviewUrl = null;
+    }
+    uploadedPhoto = null;
+    document.getElementById("photo").value = "";
+    document.getElementById("preview").style.display = "none";
+    document.getElementById("previewImg").src = "";
+}
+
+// Intercept Input System Component Selection Changes
+document.getElementById("photo").addEventListener("change", async function(){
     const file = this.files[0];
-
     if(!file) return;
 
     uploadedPhoto = file;
 
-    const photoId = "draft_photo";
+    if(activePreviewUrl) {
+        URL.revokeObjectURL(activePreviewUrl);
+    }
 
-    await savePhoto(
-        photoId,
-        file
-    );
- const checkFile =
-await getPhoto(symbolId);
+    const photoId = "photo_draft_" + Date.now();
 
-console.log(
-    "CHECK:",
-    checkFile
-);
-    localStorage.setItem(
-        "draftPhotoId",
-        photoId
-    );
+    try {
+        await savePhoto(photoId, file);
+        localStorage.setItem("draftPhotoId", photoId);
 
-    document
-    .getElementById("preview")
-    .style.display = "block";
-
-    document
-    .getElementById("previewImg")
-    .src = URL.createObjectURL(file);
-
+        activePreviewUrl = URL.createObjectURL(file);
+        document.getElementById("preview").style.display = "block";
+        document.getElementById("previewImg").src = activePreviewUrl;
+    } catch(err) {
+        console.error("Error committing input change event properties:", err);
+    }
 });
+</script>
 
+<script>
 // ===========================
 // ADD / REMOVE FIELD
 // ===========================
@@ -1091,11 +1215,6 @@ function collectFields(containerId){
 
 }
 
-
-// ===========================
-// FORM SUBMIT
-// ===========================
-
 // ===========================
 // GET SECTION DATA WITH ORDER
 // ===========================
@@ -1133,146 +1252,6 @@ function getSectionData(containerId){
     return fields;
 }
 
-function collectFields(containerId){
-
-    const fields = [];
-
-    document
-    .querySelectorAll(
-        `#${containerId} .dynamic-field`
-    )
-    .forEach(row=>{
-
-        const label =
-        row.querySelector(".field-label")
-        .value
-        .trim();
-
-        const value =
-        row.querySelector(".field-value")
-        .value
-        .trim();
-
-        if(label || value){
-
-            fields.push({
-                label,
-                value
-            });
-
-        }
-
-    });
-
-    return fields;
-}
-
-async function openDB(){
-
-    return new Promise((resolve,reject)=>{
-
-        const request = indexedDB.open("BiodataDB", 2);
-
-        request.onupgradeneeded = function(e){
-
-            console.log("UPGRADE RUNNING");
-
-            const db = e.target.result;
-
-            console.log(
-                "Stores:",
-                db.objectStoreNames
-            );
-
-            if(!db.objectStoreNames.contains("photos")){
-
-                console.log(
-                    "CREATING PHOTOS STORE"
-                );
-
-                db.createObjectStore(
-                    "photos",
-                    {
-                        keyPath:"id"
-                    }
-                );
-            }
-        };
-
-        request.onsuccess = function(){
-
-            console.log(
-                "DB OPENED"
-            );
-
-            resolve(request.result);
-        };
-
-        request.onerror = function(){
-
-            console.log(
-                "DB ERROR",
-                request.error
-            );
-
-            reject(request.error);
-        };
-
-    });
-}
-
-async function savePhoto(photoId,file){
-
-    const db = await openDB();
-
-    return new Promise((resolve,reject)=>{
-
-        const tx = db.transaction(
-            "photos",
-            "readwrite"
-        );
-
-        tx.objectStore("photos").put({
-            id: photoId,
-            file: file
-        });
-
-        tx.oncomplete = () => resolve();
-
-        tx.onerror = () => reject(tx.error);
-
-    });
-
-}
-async function getPhoto(photoId){
-
-    const db = await openDB();
-
-    return new Promise((resolve,reject)=>{
-
-        const tx =
-        db.transaction(
-            "photos",
-            "readonly"
-        );
-
-        const request =
-        tx.objectStore("photos")
-        .get(photoId);
-
-        request.onsuccess =
-        ()=>resolve(
-            request.result?.file
-        );
-
-        request.onerror =
-        ()=>reject(
-            request.error
-        );
-
-    });
-
-}
 // ===========================
 // FORM SUBMIT
 // ===========================
@@ -1341,29 +1320,23 @@ const rashi =
 document.getElementById("rashi").value === "custom"
 ? document.getElementById("rashiCustom").value
 : document.getElementById("rashi").value;
-const photoId =
-"photo_" +
-Date.now();
+
+let finalPhotoId = localStorage.getItem("draftPhotoId") || "";
 
 try{
-
     if(uploadedPhoto){
-
-        await savePhoto(
-            photoId,
-            uploadedPhoto
-        );
-
+        if(!finalPhotoId || finalPhotoId.startsWith("photo_draft_")) {
+            const runtimePhotoId = "photo_" + Date.now();
+            await updatePhoto(finalPhotoId, runtimePhotoId, uploadedPhoto);
+            finalPhotoId = runtimePhotoId;
+            localStorage.setItem("draftPhotoId", finalPhotoId);
+        }
     }
-
-
 }catch(err){
-
     console.error(err);
-
 }
-// Restore Symbol
 
+// Restore Symbol
 const selectedSymbol =
 document.getElementById(
     "selectedSymbolPreview"
@@ -1414,16 +1387,13 @@ if(selectedSymbol){
         selectedSymbol;
 
     }
-
-    
-
 }
 
 const biodata = {
 
     biodata_id,
 
-    photoId,
+    photoId: finalPhotoId,
 
     religiousSymbol:
     selectedSymbol,
@@ -1477,7 +1447,6 @@ encodeURIComponent(biodata_id);
 </script>
 
 <script>
-    
    const AUTOSAVE_KEY = "biodataDraft";
 
 function saveDraft(){
@@ -1510,8 +1479,6 @@ document.addEventListener(
 window.addEventListener(
 "DOMContentLoaded",
 async ()=>{
-
-
 
     const savedSymbol =
 localStorage.getItem(
@@ -1584,7 +1551,7 @@ if(customSymbolId){
         document.getElementById(
             "selectedSymbol"
         ).value =
-        customSymbolId;
+            customSymbolId;
 
         document.getElementById(
             "selectedSymbolPreview"
@@ -1595,46 +1562,8 @@ if(customSymbolId){
 
 }
 
-
-
-    // Photo Restore
-    const draftPhotoId =
-    localStorage.getItem(
-        "draftPhotoId"
-    );
-
-    if(draftPhotoId){
-
-        try{
-
-            const file =
-            await getPhoto(
-                draftPhotoId
-            );
-
-            if(file){
-
-                document
-                .getElementById("preview")
-                .style.display =
-                "block";
-
-                document
-                .getElementById("previewImg")
-                .src =
-                URL.createObjectURL(file);
-
-                uploadedPhoto = file;
-
-            }
-
-        }catch(err){
-
-            console.error(err);
-
-        }
-
-    }
+    // Photo Restore Hook Invocation
+    await restorePhoto();
 
     // Form Data Restore
     const saved =
@@ -1680,15 +1609,15 @@ function selectSymbol(symbol){
     .getElementById(
         "selectedSymbolPreview"
     ).src = symbol;
-    
-
-    
 }
-function clearFormData(){
+
+async function clearFormData(){
 
     if(!confirm(
         "Are you sure you want to clear all saved data?"
     )) return;
+
+    await clearPhoto();
 
     localStorage.removeItem(
         AUTOSAVE_KEY
@@ -1881,19 +1810,9 @@ async function(){
         symbolId
     );
 
-    console.log(
-        "NEW SYMBOL:",
-        symbolId
-    );
-
     await savePhoto(
         symbolId,
         file
-    );
-
-    console.log(
-        "Symbol Saved:",
-        symbolId
     );
 
     const url =
@@ -2134,6 +2053,4 @@ function fillExampleBiodata(){
 </script>
 </body>
 </html>
-
 {{ end }}
-
