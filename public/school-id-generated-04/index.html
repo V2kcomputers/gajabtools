@@ -292,7 +292,7 @@
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-    cursor: pointer;
+    cursor: default;
     user-select: none;
     transition: border 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
   }
@@ -1172,8 +1172,8 @@
     <div class="layout-selector-wrapper">
         <label for="focusModeSelect">Show Mode:</label>
         <select id="focusModeSelect" class="layout-select" onchange="handleFocusModeChange(this.value)">
-            <option value="focus" selected>🎯Selected Only</option>
-            <option value="show">📦 All Cards</option>
+            <option value="focus">🎯Selected Only</option>
+            <option value="show" selected>📦 All Cards</option>
         </select>
     </div>
    
@@ -1466,7 +1466,7 @@ const defaultStudentPhoto = "/svg/student-person-3.svg";
 let currentCardsData = [];
 let masterCardsDOM = []; 
 const selectedCards = {}; 
-let currentViewMode = 'focus'; 
+let currentViewMode = 'show'; 
 let loadedSchoolProfile = null; 
 let activeParamToken = "";
 let activeThemePreviewTab = "front";
@@ -2036,15 +2036,10 @@ function renderCurrentLayout() {
             if (item) {
                 const elementClone = item.dom.cloneNode(true);
                 updateCardUI(elementClone);
-                
-                elementClone.addEventListener('click', (e) => {
-                    toggleCardSelection(item.id);
-                });
 
                 const checkbox = elementClone.querySelector('.export-select-checkbox');
                 if (checkbox) {
-                    checkbox.addEventListener('click', (e) => { e.stopPropagation(); });
-                    checkbox.addEventListener('change', (e) => {
+                    checkbox.addEventListener('change', function () {
                         toggleCardSelection(item.id);
                     });
                 }
