@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Library</title>
-    <!-- Keep existing styling intact and add support for new button layout and retention filter -->
+    
     <style>
          :root{
               --primary:#e11d48;
@@ -48,7 +48,7 @@
                 color:#64748b;
             }
 
-            /* Search and Controls Box styling */
+             
             .controls-row {
                 display: flex;
                 gap: 15px;
@@ -139,7 +139,7 @@
                 color:#64748b;
             }
 
-            /* Three Action Buttons Grid Layout */
+             
             .upload-actions-grid {
                 display: flex;
                 gap: 12px;
@@ -528,7 +528,7 @@
                 }
             }
 
-            /* FLOATING DRAG POPUP AND INTERFACES STYLING */
+             
             #globalDragOverlay {
                 position: fixed;
                 inset: 0;
@@ -774,7 +774,7 @@
                 }
             }
             
-            /* Example section header style */
+             
             .section-divider-title {
                 grid-column: 1 / -1;
                 margin: 30px 0 10px 0;
@@ -785,7 +785,7 @@
                 font-weight: 600;
             }
     </style>
-    <!-- Include Cropper.js standard distribution requirements natively -->
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 </head>
@@ -805,7 +805,7 @@
         <h3>Drag & Drop Images</h3>
         <p>Upload JPG, PNG, WEBP Images</p>
         
-        <!-- Replaced standard single layout upload button with modern 3 Options actions container layout -->
+        
         <div class="upload-actions-grid" onclick="event.stopPropagation();">
             <button class="action-trigger-btn btn-camera" id="actionCamBtn">
                 <span>📷</span> Open Camera
@@ -818,7 +818,7 @@
                 <span>📋</span> Paste Image
             </button>
         </div>
-        <!-- Hidden input fields specifically designated for native continuous camera interface capturing mechanics -->
+        
         <input type="file" id="cameraFileInput" accept="image/*" capture="environment" style="display:none;">
     </div>
 </div>
@@ -829,7 +829,7 @@
         <input type="text" id="search" placeholder="🔍 Search images...">
     </div>
     
-    <!-- Image Retention / Automatic Background Cleanup Dropdown selection panel layout element node inside controllers toolbar row -->
+    
     <div class="retention-box-ui">
         <label for="retentionSelect">Keep Images:</label>
         <select id="retentionSelect">
@@ -883,7 +883,7 @@
     </div>
 </div>
 
-<!-- GLOBAL OVERLAY & GLASSMORPHISM POPUP PANEL -->
+
 <div id="globalDragOverlay">Drop Image Here</div>
 
 <div id="globalUploadPopup">
@@ -944,10 +944,10 @@ let currentRotation = 0;
 
 const objectUrlsMap = new Map();
 
-// PIPELINE FILE QUEUE MANAGER
+
 let incomingQueueFiles = [];
 
-// Permanent Example Images asset storage tracking array references definition logic pipeline configuration rules
+
 const sampleImagesList = [
     { token: "EX_SAMPLE1", name: "Sample Image 1.jpg", url: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=500&auto=format&fit=crop", isSample: true },
     { token: "EX_SAMPLE2", name: "Sample Image 2.jpg", url: "https://images.unsplash.com/photo-1557683316-973673baf926?w=500&auto=format&fit=crop", isSample: true },
@@ -972,7 +972,7 @@ req.onupgradeneeded = (e) => {
 req.onsuccess = (e) => {
     db = e.target.result;
     
-    // Auto retention clean execution rules initialize during software invocation execution context sequence structure
+    
     runRetentionCleanupEngine();
     
     load();
@@ -987,7 +987,7 @@ function checkUrlParameters() {
     const token = urlParams.get('token');
 
     if (action && token) {
-        // Intercept check for sample images deep link routing execution pipeline engine paths patterns handles cleanly
+        
         if (token.startsWith("EX_")) {
             const foundSample = sampleImagesList.find(s => s.token === token);
             if (foundSample) {
@@ -1036,7 +1036,7 @@ function generateUniqueToken() {
 
 function clearExistingObjectUrls() {
     for (const url of objectUrlsMap.values()) {
-        // Skip URL objects parsing revocation strings checks references tracking values for static HTTP link parameters instances URLs
+        
         if (!url.startsWith("http")) {
             URL.revokeObjectURL(url);
         }
@@ -1140,7 +1140,7 @@ document.getElementById("cropSave").onclick = async () => {
 
     if (currentCropId && currentCropToken) {
         if (String(currentCropId).startsWith("sample_")) {
-            // Handle saving a sample image modification event natively back down directly as brand new entry insertion parameters data records objects pipelines
+            
             saveNewCroppedEntryDirectly(blob, meta);
         } else {
             updateCroppedImage(currentCropId, currentCropToken, blob, meta);
@@ -1234,7 +1234,7 @@ function closeCropper() {
 }
 
 function openImageEditor(id, token) {
-    // Intercept check to reroute example images mapping actions through local native crop interface instances
+    
     if (String(id).startsWith("sample_") || token.startsWith("EX_")) {
         const foundSample = sampleImagesList.find(s => s.token === token);
         if (foundSample) openSampleImageInCropperDirectly(foundSample);
@@ -1290,7 +1290,7 @@ function load() {
             }
             cursor.continue();
         } else {
-            // Once IndexedDB records finish looping, permanently append the example images grid underneath cleanly
+            
             appendPermanentExampleImages(search);
         }
     };
@@ -1352,7 +1352,7 @@ function renderImageCard(image, isSample = false) {
     });
 }
 
-// Fallback handling if an external image url load fails natively
+
 function handleImageLoadFallback(imgObj) {
     imgObj.onerror = null;
     imgObj.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><rect width='100%' height='100%' fill='%23f1f5f9'/><text x='50%' y='50%' font-family='sans-serif' font-size='12' fill='%2394a3b8' dominant-baseline='middle' text-anchor='middle'>Image Missing</text></svg>";
@@ -1391,7 +1391,7 @@ function selectSampleImageDirectly(sampleObj) {
 }
 
 function openSampleImageInCropperDirectly(sampleObj) {
-    // Canvas conversion fetches remote assets correctly avoiding secure context tracking issues cleanly
+    
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
         const reader = new FileReader();
@@ -1611,9 +1611,9 @@ document.getElementById("zoomReset").onclick = () => {
 };
 
 
-// =====================================================================================
-// DRAG & DROP + CLIPBOARD DIRECT INGESTION TO CROPPER PIPELINE MECHANICS
-// =====================================================================================
+
+
+
 
 let activePopupObjectUrl = null;
 let dragCounter = 0; 
@@ -1704,7 +1704,7 @@ function handleIncomingFilesPipeline(files) {
 
     incomingQueueFiles = validFiles;
 
-    // Direct Cropper Intercept pipeline rule structure sequence pattern configuration logic parameters context
+    
     if (incomingQueueFiles.length === 1) {
         checkAndRunNextInQueue();
         return;
@@ -1905,16 +1905,16 @@ function makePopupDraggable(popupEl, headerEl) {
     }
 }
 
-// =====================================================================================
-// NEW THREE OPTIONS UPLOAD LAYOUT HANDLERS ENGINE
-// =====================================================================================
+
+
+
 function initThreeOptionsInterfaceControls() {
-    // 1. Camera Trigger Capture
+    
     const actionCamBtn = document.getElementById("actionCamBtn");
     const cameraFileInput = document.getElementById("cameraFileInput");
     
     actionCamBtn.onclick = () => {
-        // Fallback input click logic pattern handles everything smoothly
+        
         cameraFileInput.click();
     };
     
@@ -1924,7 +1924,7 @@ function initThreeOptionsInterfaceControls() {
         }
     };
 
-    // 2. Clipboard API Interactive Paste Request Trigger Action Panel Button handler
+    
     document.getElementById("actionPasteBtn").onclick = async () => {
         try {
             const clipboardItems = await navigator.clipboard.read();
@@ -1944,11 +1944,11 @@ function initThreeOptionsInterfaceControls() {
             if (extractedFiles.length > 0) {
                 handleIncomingFilesPipeline(extractedFiles);
             } else {
-                // Show modal overlay instruct popup if clipboard read content doesn't contain immediate raw bitmap objects elements references
+                
                 setupManualClipboardPasteHelperUI();
             }
         } catch (err) {
-            // Fallback strategy path if modern Navigator async clipboard read permissions fail natively
+            
             setupManualClipboardPasteHelperUI();
         }
     };
@@ -1964,13 +1964,13 @@ function setupManualClipboardPasteHelperUI() {
     showUploadPopup();
 }
 
-// =====================================================================================
-// AUTOMATIC RETENTION RETRIEVAL ENGINE / CLEANUP LOGIC PIPELINE
-// =====================================================================================
+
+
+
 function runRetentionCleanupEngine() {
     const retentionSelect = document.getElementById("retentionSelect");
     
-    // Load previously chosen option settings profile configuration values from local browser storage cache definitions logic parameters
+    
     const cacheOptionSetting = localStorage.getItem("app_image_retention_rule") || "until_clear";
     retentionSelect.value = cacheOptionSetting;
     
@@ -2012,7 +2012,7 @@ function executeAutoDeletionEvaluation(ruleMode) {
         const cursor = e.target.result;
         if (cursor) {
             const record = cursor.value;
-            // Evaluates and removes elements matching expiration configurations
+            
             if (record.created && record.created < cutoffTimestamp) {
                 cursor.delete();
             }
@@ -2021,7 +2021,7 @@ function executeAutoDeletionEvaluation(ruleMode) {
     };
     
     tx.oncomplete = () => {
-        // Safely updates layout view interface nodes components configurations metrics details loops updates sequences cleanly
+        
         if (document.getElementById("gallery").children.length > 0) {
             load();
         }
@@ -2037,7 +2037,7 @@ function purgeAllStoredIndexedDbRecordsNatively() {
     };
 }
 
-// Inject standard layout functions hooks directly back down safely across window element scopes contexts parameters targets references configurations strings mapping
+
 window.cropExisting = cropExisting;
 window.renameImg = renameImg;
 window.deleteImg = deleteImg;
