@@ -22,7 +22,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Library</title>
-    
+    <script>
+
+window.addEventListener("scroll", () => {
+    if (window.scrollY > 60) {
+        drop.classList.add("sticky-small");
+    } else {
+        drop.classList.remove("sticky-small");
+    }
+});</script>
     <style>
          :root{
               --primary:#e11d48;
@@ -120,14 +128,55 @@
             }
 
             #drop{
-                background: linear-gradient(135deg, #fff, #fff5f7);
                 border:3px dashed #f43f5e;
+                background: linear-gradient(135deg, #fff, #fff5f7);
+                 position: sticky;
+    top: 0;
+    z-index: 9999;
                 border-radius:24px;
-                padding:40px 20px;
+                padding:20px 20px;
                 text-align:center;
                 transition:.3s;
                 box-shadow: 0 15px 35px rgba(0,0,0,.08);
+                 transition: all .3s ease;
             }
+
+   
+#drop .upload-content{
+    
+    padding:24px;
+    border-radius:16px;
+
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+
+    transform-origin:top center;
+    transition:
+        transform .3s ease,
+        padding .3s ease,
+        border-radius .3s ease,
+        gap .3s ease;
+}
+
+#drop.sticky-small .upload-content{
+    transform:scale(.82);
+    padding:10px;
+    border-radius:10px;
+}
+#drop.sticky-small { padding:1px 5px;
+border-radius: 2px;
+background:rgba(255,255,255,.15);
+ backdrop-filter:blur(12px);
+-webkit-backdrop-filter:blur(12px);
+  border: 1px solid rgba(255,255,255,.18);
+    box-shadow: 0 8px 32px rgba(0,0,0,.12);
+}
+#drop.sticky-small h3, 
+#drop.sticky-small p, #drop.sticky-small .upload-icon{
+    display:none
+}
+
 
             #drop.dragover{
                 background: linear-gradient(135deg, #ffe4e6, #fff1f2);
@@ -385,10 +434,10 @@
             }
 
              .apply-btn{
-                width:52px;
+                width:100px;
                 height:52px;
                 border:none;
-                border-radius:50%;
+                border-radius:5px;
                 cursor:pointer;
                 position: absolute;
                 font-size:20px;
@@ -692,6 +741,21 @@
                 gap: 10px;
                 margin-top: 5px;
             }
+              .upload-icon-animated {
+              cursor:pointer;
+              font-size: 48px;
+              display: inline-block;
+              margin-bottom: 12px;
+              color: var(--primary);
+              animation: floatiCloud 4s ease-in-out infinite;
+              transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+              will-change: transform;
+         }
+
+         @keyframes floatiCloud {
+              0%, 100% { transform: translateY(0); }
+              50% { transform: translateY(-8px); }
+         }
             .mode-option-label {
                 display: flex;
                 align-items: center;
@@ -800,6 +864,7 @@
                 font-size: 20px;
                 font-weight: 600;
             }
+            
     </style>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
@@ -817,11 +882,11 @@
 
 <div id="drop">
     <div class="upload-content">
-        <div class="upload-icon">☁️</div>
+        <div class="upload-icon material-icons upload-icon-animated" style="pointer-events:none;">cloud_upload</div>
         <h3>Drag & Drop Images</h3>
         <p>Upload JPG, PNG, WEBP Images</p>
         
-        
+        <div class="upload-actions-sticky">
         <div class="upload-actions-grid" onclick="event.stopPropagation();">
             <button class="action-trigger-btn btn-camera" id="actionCamBtn">
                 <span>📷</span> Open Camera
@@ -833,7 +898,7 @@
             <button class="action-trigger-btn btn-paste" id="actionPasteBtn">
                 <span>📋</span> Paste Image
             </button>
-        </div>
+        </div></div>
         
         <input type="file" id="cameraFileInput" accept="image/*" capture="environment" style="display:none;">
     </div>
@@ -863,7 +928,7 @@
     
 <div id="cropModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.8); z-index:9999; padding:20px;">
     <div style="background:#fff; margin:auto; padding:20px; border-radius:20px;">
-         <button id="cropApplySelect" class="apply-btn">✓</button>
+         <button id="cropApplySelect" class="apply-btn">✓ Apply</button>
         <button id="cropCancel" class="crop-close">✕</button>
         <img id="cropImage" style="display:block; margin:auto;">
         <div style="display:flex; gap:10px; margin-top:15px; justify-content:center; flex-wrap:wrap;"></div>
@@ -885,6 +950,7 @@
         </div>
         <div class="rotation-box">
             <button id="cropSave" class="icon-btn">💾</button>
+            
         </div>
     </div>
 </div>
