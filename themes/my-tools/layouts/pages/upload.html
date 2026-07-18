@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Library</title>
     <script>
-
-window.addEventListener("scroll", () => {
-    if (window.scrollY > 60) {
-        drop.classList.add("sticky-small");
-    } else {
-        drop.classList.remove("sticky-small");
-    }
-});</script>
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 60) {
+            drop.classList.add("sticky-small");
+        } else {
+            drop.classList.remove("sticky-small");
+        }
+    });
+    </script>
     <style>
          :root{
               --primary:#e11d48;
@@ -1206,7 +1206,6 @@ document.getElementById("cropSave").onclick = async () => {
 
     if (currentCropId && currentCropToken) {
         if (String(currentCropId).startsWith("sample_")) {
-            
             saveNewCroppedEntryDirectly(blob, meta);
         } else {
             updateCroppedImage(currentCropId, currentCropToken, blob, meta);
@@ -1398,9 +1397,10 @@ function renderImageCard(image, isSample = false) {
     const imgEl = document.getElementById(`img-item-${uniqueCardId}`);
     
     if (isSample) {
-        imgEl.onclick = () => selectSampleImageDirectly(image);
+        // [संशोधित]: स्थायी उदाहरणों (Permanent Samples) पर क्लिक करने से अब सीधे क्रॉप मोड खुलेगा
+        imgEl.onclick = () => openSampleImageInCropperDirectly(image);
         imgEl.ondblclick = () => openSampleImageInCropperDirectly(image);
-        document.getElementById(`btn-sel-${uniqueCardId}`).onclick = () => selectSampleImageDirectly(image);
+        document.getElementById(`btn-sel-${uniqueCardId}`).onclick = () => openSampleImageInCropperDirectly(image);
         document.getElementById(`btn-crp-${uniqueCardId}`).onclick = () => openSampleImageInCropperDirectly(image);
         document.getElementById(`btn-edt-${uniqueCardId}`).onclick = () => openSampleImageInCropperDirectly(image);
     } else {
