@@ -6,15 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Library</title>
-    <script>
-    window.addEventListener("scroll", () => {
-        if (window.scrollY > 60) {
-            drop.classList.add("sticky-small");
-        } else {
-            drop.classList.remove("sticky-small");
-        }
-    });
-    </script>
+
     <style>
          :root{
               --primary:#e11d48;
@@ -1015,10 +1007,10 @@ let incomingQueueFiles = [];
 
 
 const sampleImagesList = [
-    { token: "EX_SAMPLE1", name: "Passport Photo Main.jpg", url: "https://cdn.yojnaportal.com/library/passport-photo-man.webp?w=500&auto=format&fit=crop", isSample: true },
-    { token: "EX_SAMPLE2", name: "Education logo.jpg", url: "https://cdn.yojnaportal.com/library/education-logo.webp?w=500&auto=format&fit=crop", isSample: true },
-    { token: "EX_SAMPLE3", name: "Sample Sign.jpg", url: "https://cdn.yojnaportal.com/library/Sample-sign.webp?w=500&auto=format&fit=crop", isSample: true },
-    { token: "EX_SAMPLE4", name: "Sample Image 4.jpg", url: "https://cdn.yojnaportal.com/Cloudflare%20R2.jpg?w=500&auto=format&fit=crop", isSample: true }
+    { token: "EX_SAMPLE1", name: "Student Photo .jpg", url: "https://ia600503.us.archive.org/16/items/passport-photo-man/student%20photo.jpg?w=500&auto=format&fit=crop", isSample: true },
+    { token: "EX_SAMPLE4", name: "Passport Photo Main.jpg", url: "https://archive.org/download/passport-photo-man/passport-photo-man.jpg?w=500&auto=format&fit=crop", isSample: true },
+     { token: "EX_SAMPLE2", name: "Education logo.jpg", url: "https://ia600503.us.archive.org/16/items/passport-photo-man/education-logo.jpg?w=500&auto=format&fit=crop", isSample: true },
+    { token: "EX_SAMPLE3", name: "Sample Sign.jpg", url: "https://ia600503.us.archive.org/16/items/passport-photo-man/Sample%20Sign.jpg?w=500&auto=format&fit=crop", isSample: true }
 ];
 
 const req = indexedDB.open("ImageLibrary", 2);
@@ -2093,6 +2085,14 @@ function executeAutoDeletionEvaluation(ruleMode) {
         }
     };
 }
+
+ window.addEventListener("scroll", () => {
+        if (window.scrollY > 60) {
+            drop.classList.add("sticky-small");
+        } else {
+            drop.classList.remove("sticky-small");
+        }
+    });
 
 function purgeAllStoredIndexedDbRecordsNatively() {
     if (!db) return;

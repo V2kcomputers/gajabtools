@@ -351,7 +351,8 @@
                             <option value="visa-photo">Visa Photo</option>
                             <option value="stamp-size">Stamp Size</option>
                             <option value="wallet">Wallet Size</option>
-                            <option value="4x6-photo-paper">4x6 paper (12 - 3x4)</option>
+                            <option value="4x6-photo-paper-12">4x6 paper (12 - 3x4)</option>
+                             <option value="4x6-photo-paper-9">4x6 paper (9 - 3x3)</option>
                             <option value="A4-photo-paper-42">A4 Page (42 - 6x7)</option>
                             <option value="A4-photo-paper-36">A4 Page (36 - 6x6)</option>
                             <option value="A4-photo-paper-30">A4 Page (30 - 5x6)</option>
@@ -369,8 +370,10 @@
                             <option value="35x45" >35 x 45 mm (Standard Passport)</option>
                             <option value="51x51">2" x 2" Inch (US / India Visa)</option>
                             <option value="30x35">30 x 35 mm (12 photo in 4x6)</option>
+                            <option value="32x45">32 x 45 mm (9 photo in 4x6)</option>
                             <option value="30x38">30 x 38 mm (42 photo in A4)</option>
                             <option value="98x140">98 x 140 mm (4x6 Size)</option>
+                            
                             <option value="custom">Custom Size</option>
                         </select>
                     </div>
@@ -804,6 +807,8 @@
                     border.value = 'thin';
                     break;
 
+                     
+
                  case 'A4-photo-paper-30':
                     sheetLayout.value = 'a4-portrait';
                     photoSize.value = '35x45';
@@ -833,6 +838,22 @@
                     margin.value = 2;
                     border.value = 'thin';
                     break;
+                   case '4x6-photo-paper-12':
+                    sheetLayout.value = '4x6';
+                    photoSize.value = '30x35';
+                    spacing.value = 1;
+                    margin.value = 2;
+                    border.value = 'thin';
+                    break;
+
+                     case '4x6-photo-paper-9':
+                    sheetLayout.value = '4x6';
+                    photoSize.value = '32x45';
+                    spacing.value = 0;
+                    margin.value = 2;
+                    border.value = 'thick';
+                    break;
+
                 case 'wallet':
                     sheetLayout.value = '5x7';
                     photoSize.value = 'custom';
@@ -880,6 +901,7 @@
             else if (pSize === '30x40') { photoW = 30; photoH = 40; }
              else if (pSize === '30x35') { photoW = 30; photoH = 35; }
              else if (pSize === '30x38') { photoW = 30; photoH = 38; }
+             else if (pSize === '32x45') { photoW = 32; photoH = 45; }
               else if (pSize === '98x140') { photoW = 98; photoH = 140; }
             else if (pSize === '51x51') { photoW = 50.8; photoH = 50.8; }
             else if (pSize === 'custom') {
