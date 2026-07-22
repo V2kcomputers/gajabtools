@@ -1,0 +1,40 @@
+<div class="control-panel">
+    <div class="controls-row">
+        <div class="selector-group">
+            <label for="pageSizeSelector">📄 Page Size: </label>
+            <select id="pageSizeSelector" onchange="changePageSize(this.value)">
+                <option value="auto" selected>Single Page (Default)</option>
+                <option value="a4">A4 (210 × 297 mm)</option>
+                <option value="letter">Letter (8.5 × 11 in)</option>
+            </select>
+        </div>
+
+        <div class="selector-group">
+            <label for="marginSelector">📏 Page Margins: </label>
+            <select id="marginSelector" onchange="changeMargins(this.value)">
+                <option value="normal">Normal (Standard Space)</option>
+                <option value="compact">Compact (Fit to Single Page)</option>
+                <option value="wide">Wide (Spacious Layout)</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="action-buttons">
+        <button onclick="history.length > 1 ? history.back() : location.href='/create-biodata/'">✏️ Edit Biodata</button>
+        <button onclick="window.print()">🖨️ Print</button>
+        
+        <div class="download-menu">
+            <button onclick="toggleDownloadMenu()">⬇️ Download Biodata</button>
+            <div id="downloadOptions" class="download-options">
+                <button id="pdfBtn" onclick="downloadPDF()">📄 PDF Biodata</button>
+                <button id="imgBtn" onclick="saveImage()">🖼️ JPG Biodata</button>
+            </div>
+        </div>
+        
+        <button onclick="savePDF()">👁️‍🗨️ View Biodata PDF</button>
+        <button onclick="sharePDF()">📤 Share Biodata</button>
+    </div>
+</div>
+
+<!-- Output Container Context -->
+<div id="documentContainer"></div>
