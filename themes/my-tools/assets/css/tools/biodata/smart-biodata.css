@@ -1,0 +1,218 @@
+:root {
+    --maroon-royal: #5B0012;
+    --maroon-deep: #7A0016;
+    --gold-primary: #D4AF37;
+    --gold-light: #F3E5AB;
+    --cream-bg: #FAF6EE;
+    --card-bg: #FFFFFF;
+    --text-dark: #2C1810;
+    --border-gold: #E6C687;
+    --shadow-luxury: 0 10px 30px rgba(91, 0, 18, 0.12);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #F4F0E8;
+    font-family: 'Noto Sans Devanagari', 'Mukta', 'Poppins', sans-serif;
+    color: var(--text-dark);
+
+  
+}
+
+/* ==========================================
+   MAIN BLUEPRINT CONTAINER & CARD
+   ========================================== */
+#blueprintContainer {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.biodata {
+    background: var(--card-bg);
+    width: 100%;
+    padding: 35px 40px;
+    border-radius: 16px;
+    border: 3px solid var(--gold-primary);
+    box-shadow: var(--shadow-luxury);
+    position: relative;
+    background-image: radial-gradient(rgba(212, 175, 55, 0.12) 1px, transparent 0);
+    background-size: 20px 20px;
+}
+
+/* ==========================================
+   HERO SECTION (Header, Symbol, Photo, Name)
+   ========================================== */
+.hero-section {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+    border-bottom: 2px dashed var(--gold-primary);
+    background: var(--cream-bg);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border-gold);
+    position: relative;
+}
+
+/* प्रोफाइल फोटो फ्रेम */
+.profile-photo {
+    width: 130px;
+    height: 160px;
+    border-radius: 10px;
+    border: 3px solid var(--gold-primary);
+    overflow: hidden;
+    background-color: #EEE;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+}
+
+.profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* धार्मिक प्रतीक */
+.religious-symbol {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.top-header #fullName {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--maroon-royal);
+    line-height: 1.2;
+    margin-bottom: 6px;
+}
+
+.top-header .about {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--maroon-deep);
+    opacity: 0.85;
+}
+
+/* ==========================================
+   BIODATA SECTIONS & GRID LAYOUT
+   ========================================== */
+.biodata-section {
+    margin-bottom: 22px;
+}
+
+.section-title {
+    color: var(--maroon-royal);
+    font-size: 19px;
+    font-weight: 700;
+    border-bottom: 2px solid var(--gold-primary);
+    padding-bottom: 4px;
+    margin-bottom: 14px;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ग्रिड स्टाइल - जावास्क्रिप्ट से डायनामिक फ़ील्ड्स के लिए */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 24px;
+}
+
+/* Dynamic Item Generated Elements */
+.info-grid .info-item {
+    display: flex;
+    align-items: baseline;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.info-grid .info-item .info-label {
+    font-weight: 700;
+    color: var(--maroon-deep);
+    width: 42%;
+    min-width: 120px;
+}
+
+.info-grid .info-item .info-value {
+    font-weight: 500;
+    color: var(--text-dark);
+    width: 58%;
+}
+
+/* अगर कोई टेक्स्ट लंबा हो (उदा. पता, शिक्षा आदि) */
+.info-grid .info-item.full-width {
+    grid-column: span 2;
+}
+
+/* ==========================================
+   PRINT MEDIA QUERY (PDF / प्रिंट के लिए)
+   ========================================== */
+@media print {
+    body {
+        background: none;
+        padding: 0;
+    }
+
+    #blueprintContainer {
+        max-width: 100%;
+    }
+
+    .biodata {
+        box-shadow: none;
+        border: 2px solid var(--maroon-royal);
+        padding: 25px;
+        border-radius: 0;
+    }
+
+    .hero-section {
+        background: none;
+        border-radius: 0;
+    }
+}
+
+/* ==========================================
+   RESPONSIVE (मोबाइल स्क्रीन के लिए)
+   ========================================== */
+@media (max-width: 600px) {
+    .biodata {
+        padding: 20px 15px;
+    }
+
+    .hero-section {
+        flex-direction: column-reverse;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .info-grid .info-item.full-width {
+        grid-column: span 1;
+    }
+
+    .info-grid .info-item .info-label {
+        width: 45%;
+    }
+}

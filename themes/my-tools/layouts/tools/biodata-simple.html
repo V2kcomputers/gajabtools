@@ -1,4 +1,5 @@
 {{ define "tools" }} 
+<script> history.replaceState( {}, "", "/create-biodata/" + window.location.search + window.location.hash ); </script>
 {{ partial "tools-parts/js-htmlfiles.html" . }}
 
 {{ end }}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Matrimonial Biodata - Gajab Tools on GAJAB TOOLS</title>
+    <link>http://localhost:1313/matrimonial-biodata/</link>
+    <description>Recent content in Matrimonial Biodata - Gajab Tools on GAJAB TOOLS</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 22 Jul 2026 15:52:59 +0530</lastBuildDate>
+    <atom:link href="http://localhost:1313/matrimonial-biodata/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Modern Premium Biodata Studio</title>
+      <link>http://localhost:1313/modern-premium/</link>
+      <pubDate>Wed, 22 Jul 2026 15:52:59 +0530</pubDate>
+      <guid>http://localhost:1313/modern-premium/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Professional Biodata</title>
+      <link>http://localhost:1313/professional-biodata/</link>
+      <pubDate>Wed, 22 Jul 2026 15:52:59 +0530</pubDate>
+      <guid>http://localhost:1313/professional-biodata/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Matrimonial Biodata - Gajab Tools</title>
+      <link>http://localhost:1313/matrimonial-biodata/</link>
+      <pubDate>Tue, 02 Jun 2026 15:52:59 +0530</pubDate>
+      <guid>http://localhost:1313/matrimonial-biodata/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Matrimonial Biodata - Gajab Tools</title>
+      <link>http://localhost:1313/smart-biodata/</link>
+      <pubDate>Tue, 02 Jun 2026 15:52:59 +0530</pubDate>
+      <guid>http://localhost:1313/smart-biodata/</guid>
+      <description>&lt;!DOCTYPE html&gt;&#xD;&#xA;&lt;html lang=&#34;hi&#34;&gt;&#xD;&#xA;&lt;head&gt;&#xD;&#xA;    &lt;meta charset=&#34;UTF-8&#34;&gt;&#xD;&#xA;    &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1.0&#34;&gt;&#xD;&#xA;    &lt;title&gt;विवाह बायोडाटा&lt;/title&gt;&#xD;&#xA;    &lt;!-- भाषा और फ़ॉन्ट --&gt;&#xD;&#xA;    &lt;link rel=&#34;preconnect&#34; href=&#34;https://fonts.googleapis.com&#34;&gt;&#xD;&#xA;    &lt;link rel=&#34;preconnect&#34; href=&#34;https://fonts.gstatic.com&#34; crossorigin&gt;&#xD;&#xA;    &lt;link href=&#34;https://fonts.googleapis.com/css2?family=Hind:wght@500;600;700&amp;family=Mukta:wght@400;600;700;800&amp;family=Noto+Sans+Devanagari:wght@400;600;700&amp;display=swap&#34; rel=&#34;stylesheet&#34;&gt;&#xD;&#xA;    &#xD;&#xA;    &lt;style&gt;&#xD;&#xA;       &#xD;&#xA;        /* प्रिंट मीडिया क्वैरी */&#xD;&#xA;        @media print {&#xD;&#xA;            body {&#xD;&#xA;                background: none;&#xD;&#xA;                padding: 0;&#xD;&#xA;            }&#xD;&#xA;            .biodata-card {&#xD;&#xA;                box-shadow: none;&#xD;&#xA;                border: 2px solid var(--maroon-royal);&#xD;&#xA;                max-width: 100%;&#xD;&#xA;            }&#xD;&#xA;            .print-btn-container {&#xD;&#xA;                display: none;&#xD;&#xA;            }&#xD;&#xA;        }&#xD;&#xA;&#xD;&#xA;        @media (max-width: 600px) {&#xD;&#xA;            .info-grid {&#xD;&#xA;                grid-template-columns: 1fr;&#xD;&#xA;            }&#xD;&#xA;            .full-width {&#xD;&#xA;                grid-column: span 1;&#xD;&#xA;            }&#xD;&#xA;            .profile-overview {&#xD;&#xA;                flex-direction: column-reverse;&#xD;&#xA;                text-align: center;&#xD;&#xA;            }&#xD;&#xA;        }&#xD;&#xA;    &lt;/style&gt;&#xD;&#xA;&lt;/head&gt;&#xD;&#xA;&lt;body&gt;&#xD;&#xA;&#xD;&#xA;    &#xD;&#xA;&#xD;&#xA;    &lt;script&gt;&#xD;&#xA;    &#xD;&#xA;    &lt;/script&gt;&#xD;&#xA;&lt;/body&gt;&#xD;&#xA;&lt;/html&gt;</description>
+    </item>
+  </channel>
+</rss>

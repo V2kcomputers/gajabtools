@@ -1,0 +1,89 @@
+
+    <div style="width: 100%; max-width: 800px;">
+        <!-- एक्शन बटन -->
+        <div class="print-btn-container">
+            <button class="btn btn-edit" onclick="history.back()">✏️ Edit</button>
+           
+            
+            <!-- Language Toggle Dropdown -->
+            <select id="languageSelect" class="pdf-size-select" onchange="changeLanguage()">
+                <option value="en" selected>English</option>
+                <option value="hi" >हिन्दी</option>
+                
+                <option value="both">hi-en</option>
+            </select>
+             <button class="btn btn-print" onclick="window.print()">🖨️ Print</button>
+            <!-- Dedicated Page Size Selection Dropdown -->
+            <select id="pageSizeSelect" class="pdf-size-select" title="PDF Page Size" style="display: none;">
+                <option value="auto" selected>Auto</option>
+                <option value="a4" >A4</option>
+                <option value="letter">Letter</option>
+            </select>
+
+            <button class="btn btn-print" onclick="openPDFBlob()">👁️ Open PDF</button>
+            <div class="download-menu">
+
+    <button class="btn btn-print" onclick="toggleDownloadMenu()">
+        ⬇️ Download ▼
+    </button>
+
+    <div id="downloadOptions" class="download-options">
+        <button onclick="downloadPDF()">📄 Download PDF</button>
+        <button onclick="saveAsJPG()">🖼️ Save JPG</button>
+    </div>
+
+</div>
+        </div><br> 
+
+        <!-- मुख्य कार्ड -->
+        <div class="biodata-card">
+            <div class="inner-border">
+                
+                <!-- हेडर -->
+                <div class="card-header">
+                    <img id="displaySymbol" src="/symbols/om.png" alt="धार्मिक प्रतीक" class="symbol-img">
+                    <h1 id="biodataTitle">|| Marriage Biodata ||</h1>
+                </div>
+
+                <!-- प्रोफ़ाइल हाइलाइट -->
+                <div class="profile-overview">
+                    <div>
+                        <div class="candidate-name" id="displayName">-</div>
+                        <div class="candidate-intro" id="displayAbout"></div>
+                    </div>
+                    <img id="displayPhoto" src="" alt="प्रोफ़ाइल फ़ोटो" class="profile-photo">
+                </div>
+
+                <!-- 1. सामान्य जानकारी -->
+                <div class="section-container" id="secBasic">
+                    <div class="section-title" id="titleBasic">👤 Basic Information</div>
+                    <div class="info-grid" id="basicInfoGrid"></div>
+                </div>
+
+                <!-- 2. व्यक्तिगत विवरण -->
+                <div class="section-container" id="secPersonal">
+                    <div class="section-title" id="titlePersonal">📜 Personal Details</div>
+                    <div class="info-grid" id="personalInfoGrid"></div>
+                </div>
+
+                <!-- 3. शिक्षा एवं व्यवसाय -->
+                <div class="section-container" id="secEducation">
+                    <div class="section-title" id="titleEducation"> Education & Occupation</div>
+                    <div class="info-grid" id="educationInfoGrid"></div>
+                </div>
+
+                <!-- 4. पारिवारिक विवरण -->
+                <div class="section-container" id="secFamily">
+                    <div class="section-title" id="titleFamily">👨‍👩‍👧‍👦 Family Details</div>
+                    <div class="info-grid" id="familyInfoGrid"></div>
+                </div>
+
+                <!-- 5. संपर्क विवरण -->
+                <div class="section-container" id="secContact">
+                    <div class="section-title" id="titleContact">📞 Contact Details</div>
+                    <div class="info-grid" id="contactInfoGrid"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>

@@ -2,6 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/marriage-biodata-maker-onlin/</loc>
+    <lastmod>2026-07-23T19:57:05+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/post/</loc>
+    <lastmod>2026-07-23T19:57:05+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/biodata-farmate/</loc>
+    <lastmod>2026-07-23T15:52:59+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/biodata-create-simple/</loc>
+    <lastmod>2026-07-22T15:52:59+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
     <loc>http://localhost:1313/modern-premium/</loc>
     <lastmod>2026-07-22T15:52:59+05:30</lastmod>
     <changefreq>daily</changefreq>
@@ -9,11 +29,6 @@
   </url><url>
     <loc>http://localhost:1313/professional-biodata/</loc>
     <lastmod>2026-07-22T15:52:59+05:30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url><url>
-    <loc>http://localhost:1313/post/</loc>
-    <lastmod>2026-07-15T18:47:44+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
@@ -43,6 +58,11 @@
     <priority>0.8</priority>
   </url><url>
     <loc>http://localhost:1313/matrimonial-biodata/</loc>
+    <lastmod>2026-06-02T15:52:59+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/smart-biodata/</loc>
     <lastmod>2026-06-02T15:52:59+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>

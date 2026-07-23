@@ -1,0 +1,71 @@
++++
+date = 2026-06-02T15:52:59+05:30
+links = [
+"Visit Tools = https://gajabtools.com"
+]
+url = "/smart-biodata/"
+imageBanner = "  "
+htmlFiles = ["html/tools/biodata/main-layout.html" , "html/tools/biodata/smart-biodata.html"] # "html/tools/biodata/simple.html" , 
+cssStyles = ["css/tools/biodata/main-layout.css", "css/tools/biodata/smart-biodata.css"] #"css/tools/biodata/main-layout.css", "css/tools/biodata/simple.css"
+jsFiles = ["js/tools/biodata/main-layout.js" , "js/tools/biodata/smart-biodata.js"] #, "js/pages/disabled.js"
+jsFile  = ["https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" , "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" , "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"] # 
+
+title = 'Matrimonial Biodata - Gajab Tools'
+description = "  "
+type= "tools"
+layout = "biodata-simple"
+pageWidth = "600"
+allowSite= "no" 
++++
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>विवाह बायोडाटा</title>
+    <!-- भाषा और फ़ॉन्ट -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind:wght@500;600;700&family=Mukta:wght@400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+       
+        /* प्रिंट मीडिया क्वैरी */
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+            }
+            .biodata-card {
+                box-shadow: none;
+                border: 2px solid var(--maroon-royal);
+                max-width: 100%;
+            }
+            .print-btn-container {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            .full-width {
+                grid-column: span 1;
+            }
+            .profile-overview {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    
+
+    <script>
+    
+    </script>
+</body>
+</html>
