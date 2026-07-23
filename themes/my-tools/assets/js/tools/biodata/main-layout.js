@@ -1,6 +1,7 @@
 let currentPageSize = 'auto';
 let currentMarginSetting = 'normal';
 let activePreviewUrl = null;
+let activeSymbolUrl = null; // Track symbol object URL
 let data = null;
 
 function toggleDownloadMenu(){
@@ -32,13 +33,18 @@ async function openDB(){
 
 async function getPhoto(photoId){
     if(!photoId) return null;
-    const db = await openDB();
-    return new Promise((resolve,reject)=>{
-        const tx = db.transaction("photos","readonly");
-        const request = tx.objectStore("photos").get(photoId);
-        request.onsuccess = () => resolve(request.result?.file);
-        request.onerror = () => reject(request.error);
-    });
+    try {
+        const db = await openDB();
+        return new Promise((resolve,reject)=>{
+            const tx = db.transaction("photos","readonly");
+            const request = tx.objectStore("photos").get(photoId);
+            request.onsuccess = () => resolve(request.result?.file);
+            request.onerror = () => reject(request.error);
+        });
+    } catch(err) {
+        console.error("IndexedDB read error:", err);
+        return null;
+    }
 }
 
 // Original Hydration Flow
@@ -89,12 +95,15 @@ async function waitForImages() {
 async function buildDocumentPages() {
     await waitForImages();
     const container = document.getElementById('documentContainer');
+    if(!container) return;
     container.innerHTML = ""; 
 
     const hero = document.getElementById('heroBlueprint');
     const secBasic = document.getElementById('secBasic');
     const secFamily = document.getElementById('secFamily');
     const secContact = document.getElementById('secContact');
+
+    if(!hero) return;
 
     // AUTO HEIGHT ENGINE FLOW
     if (currentPageSize === 'auto') {
@@ -104,10 +113,10 @@ async function buildDocumentPages() {
         const wrapper = document.createElement('div');
         wrapper.className = "page-content-wrapper";
         
-        wrapper.appendChild(hero.cloneNode(true));
-        wrapper.appendChild(secBasic.cloneNode(true));
-        wrapper.appendChild(secFamily.cloneNode(true));
-        wrapper.appendChild(secContact.cloneNode(true));
+        if(hero) wrapper.appendChild(hero.cloneNode(true));
+        if(secBasic) wrapper.appendChild(secBasic.cloneNode(true));
+        if(secFamily) wrapper.appendChild(secFamily.cloneNode(true));
+        if(secContact) wrapper.appendChild(secContact.cloneNode(true));
         
         pageNode.appendChild(wrapper);
         container.appendChild(pageNode);
@@ -120,7 +129,6 @@ async function buildDocumentPages() {
     const isA4 = currentPageSize === 'a4';
     const totalHeightPx = isA4 ? 1122 : 1056;
     
-    // Adjust height allocations natively depending on margin settings selected
     let paddingReduction = 150;
     if (currentMarginSetting === 'compact') paddingReduction = 90;
     if (currentMarginSetting === 'wide') paddingReduction = 210;
@@ -132,6 +140,7 @@ async function buildDocumentPages() {
     let currentHeight = 0;
 
     function pushToPage(element) {
+        if(!element) return;
         const height = element.getBoundingClientRect().height;
         if (currentHeight + height > maxContentHeight && currentStack.length > 0) {
             pagesData.push(currentStack);
@@ -191,8 +200,10 @@ function applyScaleResponsive() {
 function changePageSize(val) {
     currentPageSize = val;
     const bp = document.getElementById('blueprintContainer');
-    if(val === 'letter') bp.className = "size-letter";
-    else bp.className = "";
+    if(bp) {
+        if(val === 'letter') bp.className = "size-letter";
+        else bp.className = "";
+    }
     buildDocumentPages();
 }
 
@@ -206,9 +217,8 @@ function changeMargins(val) {
     buildDocumentPages();
 }
 
-// Hydrate elements safely layout execution hooks
+// Hydrate elements with IndexedDB Blob Support (Photo & Custom Symbol)
 if(data){
-    if(data.religiousSymbol) document.getElementById("religiousSymbol").src = data.religiousSymbol;
     if(data.fullName) document.getElementById("fullName").textContent = data.fullName;
     if(data.about) document.getElementById("about").textContent = data.about;
 
@@ -217,18 +227,45 @@ if(data){
     renderSection("familyInfo", data.sections?.familyInfo);
     renderSection("contactInfo", data.sections?.contactInfo);
 
-    (async()=>{
+    (async () => {
+        // 1. Hydrate Religious Symbol (IndexedDB or Standard URL)
+        if(data.religiousSymbol) {
+            const symbolEl = document.getElementById("religiousSymbol");
+            if(symbolEl) {
+                if(data.religiousSymbol.startsWith("symbol_")) {
+                    try {
+                        const symbolFile = await getPhoto(data.religiousSymbol);
+                        if(symbolFile) {
+                            if(activeSymbolUrl) URL.revokeObjectURL(activeSymbolUrl);
+                            activeSymbolUrl = URL.createObjectURL(symbolFile);
+                            symbolEl.src = activeSymbolUrl;
+                        }
+                    } catch(err) {
+                        console.error("Error loading symbol Blob:", err);
+                    }
+                } else {
+                    symbolEl.src = data.religiousSymbol;
+                }
+            }
+        }
+
+        // 2. Hydrate Main Photo from IndexedDB
         if(data.photoId){
-            try{
+            try {
                 const file = await getPhoto(data.photoId);
                 if(file){
                     if(activePreviewUrl) URL.revokeObjectURL(activePreviewUrl);
                     activePreviewUrl = URL.createObjectURL(file);
-                    document.getElementById("photo").src = activePreviewUrl;
-                    buildDocumentPages();
+                    const photoEl = document.getElementById("photo");
+                    if(photoEl) photoEl.src = activePreviewUrl;
                 }
-            }catch(err){ console.error(err); }
+            } catch(err){ 
+                console.error("Error loading photo Blob:", err); 
+            }
         }
+
+        // Rebuild layout after resolving all Blobs
+        await buildDocumentPages();
     })();
 }
 
@@ -279,7 +316,7 @@ function getPDFOptions() {
 // Stabilized Downloader Pipeline Functions
 async function downloadPDF() {
     const btn = document.getElementById("pdfBtn");
-    btn.innerHTML = "Processing...";
+    if(btn) btn.innerHTML = "Processing...";
     try {
         const element = generateCleanPDFWorkerElement();
         const opt = getPDFOptions();
@@ -287,7 +324,7 @@ async function downloadPDF() {
     } catch(err) {
         console.error("PDF generation failed:", err);
     } finally {
-        btn.innerHTML = "📄 PDF Biodata";
+        if(btn) btn.innerHTML = "📄 PDF Biodata";
     }
 }
 
@@ -323,7 +360,7 @@ async function sharePDF() {
 
 async function saveImage(){
     const btn = document.getElementById("imgBtn");
-    btn.innerHTML = "Processing...";
+    if(btn) btn.innerHTML = "Processing...";
     const pages = document.querySelectorAll('.document-page');
 
     try {
@@ -367,7 +404,7 @@ async function saveImage(){
             link.click();
         }
     } finally {
-        btn.innerHTML = "🖼️ JPG Biodata";
+        if(btn) btn.innerHTML = "🖼️ JPG Biodata";
     }
 }
 

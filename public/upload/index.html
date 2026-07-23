@@ -65,7 +65,6 @@
                 color:#64748b;
             }
 
-             
             .controls-row {
                 display: flex;
                 gap: 15px;
@@ -123,27 +122,23 @@
             #drop{
                 border:3px dashed #f43f5e;
                 background: linear-gradient(135deg, #fff, #fff5f7);
-                 position: sticky;
-    top: 0;
-    z-index: 9999;
+                position: sticky;
+                top: 0;
+                z-index: 9999;
                 border-radius:24px;
                 padding:20px 20px;
                 text-align:center;
                 transition:.3s;
                 box-shadow: 0 15px 35px rgba(0,0,0,.08);
-                 transition: all .3s ease;
+                transition: all .3s ease;
             }
 
-   
 #drop .upload-content{
-    
     padding:24px;
     border-radius:16px;
-
     background:rgba(255,255,255,.15);
     backdrop-filter:blur(12px);
     -webkit-backdrop-filter:blur(12px);
-
     transform-origin:top center;
     transition:
         transform .3s ease,
@@ -160,16 +155,15 @@
 #drop.sticky-small { padding:1px 5px;
 border-radius: 2px;
 background:rgba(255,255,255,.15);
- backdrop-filter:blur(12px);
+backdrop-filter:blur(12px);
 -webkit-backdrop-filter:blur(12px);
-  border: 1px solid rgba(255,255,255,.18);
-    box-shadow: 0 8px 32px rgba(0,0,0,.12);
+border: 1px solid rgba(255,255,255,.18);
+box-shadow: 0 8px 32px rgba(0,0,0,.12);
 }
 #drop.sticky-small h3, 
 #drop.sticky-small p, #drop.sticky-small .upload-icon{
     display:none
 }
-
 
             #drop.dragover{
                 background: linear-gradient(135deg, #ffe4e6, #fff1f2);
@@ -197,7 +191,6 @@ background:rgba(255,255,255,.15);
                 color:#64748b;
             }
 
-             
             .upload-actions-grid {
                 display: flex;
                 gap: 12px;
@@ -586,7 +579,6 @@ background:rgba(255,255,255,.15);
                 }
             }
 
-             
             #globalDragOverlay {
                 position: fixed;
                 inset: 0;
@@ -847,7 +839,6 @@ background:rgba(255,255,255,.15);
                 }
             }
             
-             
             .section-divider-title {
                 grid-column: 1 / -1;
                 margin: 30px 0 10px 0;
@@ -857,7 +848,6 @@ background:rgba(255,255,255,.15);
                 font-size: 20px;
                 font-weight: 600;
             }
-            
     </style>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
@@ -903,7 +893,6 @@ background:rgba(255,255,255,.15);
         <input type="text" id="search" placeholder="🔍 Search images...">
     </div>
     
-    
     <div class="retention-box-ui">
         <label for="retentionSelect">Keep Images:</label>
         <select id="retentionSelect">
@@ -943,7 +932,6 @@ background:rgba(255,255,255,.15);
         </div>
         <div class="rotation-box">
             <button id="cropSave" class="icon-btn">💾</button>
-            
         </div>
     </div>
 </div>
@@ -957,7 +945,6 @@ background:rgba(255,255,255,.15);
         <iframe id="editIframe" style="width:100%; flex:1; border:none; background:#0f172a;"></iframe>
     </div>
 </div>
-
 
 <div id="globalDragOverlay">Drop Image Here</div>
 
@@ -1018,10 +1005,7 @@ let currentCropToken = null;
 let currentRotation = 0;
 
 const objectUrlsMap = new Map();
-
-
 let incomingQueueFiles = [];
-
 
 const sampleImagesList = [
     { token: "EX_SAMPLE1", name: "Student Photo .jpg", url: "https://ia600503.us.archive.org/16/items/passport-photo-man/student%20photo.jpg?w=500&auto=format&fit=crop", isSample: true },
@@ -1046,15 +1030,17 @@ req.onupgradeneeded = (e) => {
 
 req.onsuccess = (e) => {
     db = e.target.result;
-    
-    
     runRetentionCleanupEngine();
-    
     load();
     checkUrlParameters();
     initGlobalDragAndPasteHandlers();
     initThreeOptionsInterfaceControls();
 };
+
+function readUploadTarget() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('target') || 'photo';
+}
 
 function checkUrlParameters() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -1062,7 +1048,6 @@ function checkUrlParameters() {
     const token = urlParams.get('token');
 
     if (action && token) {
-        
         if (token.startsWith("EX_")) {
             const foundSample = sampleImagesList.find(s => s.token === token);
             if (foundSample) {
@@ -1111,7 +1096,6 @@ function generateUniqueToken() {
 
 function clearExistingObjectUrls() {
     for (const url of objectUrlsMap.values()) {
-        
         if (!url.startsWith("http")) {
             URL.revokeObjectURL(url);
         }
@@ -1308,7 +1292,6 @@ function closeCropper() {
 }
 
 function openImageEditor(id, token) {
-    
     if (String(id).startsWith("sample_") || token.startsWith("EX_")) {
         const foundSample = sampleImagesList.find(s => s.token === token);
         if (foundSample) openSampleImageInCropperDirectly(foundSample);
@@ -1364,7 +1347,6 @@ function load() {
             }
             cursor.continue();
         } else {
-            
             appendPermanentExampleImages(search);
         }
     };
@@ -1406,7 +1388,6 @@ function renderImageCard(image, isSample = false) {
     const imgEl = document.getElementById(`img-item-${uniqueCardId}`);
     
     if (isSample) {
-        
         imgEl.onclick = () => openSampleImageInCropperDirectly(image);
         imgEl.ondblclick = () => openSampleImageInCropperDirectly(image);
         document.getElementById(`btn-sel-${uniqueCardId}`).onclick = () => openSampleImageInCropperDirectly(image);
@@ -1426,7 +1407,6 @@ function renderImageCard(image, isSample = false) {
         ev.dataTransfer.setData("text/plain", JSON.stringify({ token: image.token }));
     });
 }
-
 
 function handleImageLoadFallback(imgObj) {
     imgObj.onerror = null;
@@ -1450,23 +1430,47 @@ function appendPermanentExampleImages(searchQuery) {
     });
 }
 
-function selectSampleImageDirectly(sampleObj) {
-    const payload = { token: sampleObj.token, isSample: true, url: sampleObj.url };
-    if (window.self !== window.top) {
-        window.parent.postMessage(payload, "*");
-        return;
+async function selectSampleImageDirectly(sampleObj) {
+    const target = readUploadTarget();
+    try {
+        const response = await fetch(sampleObj.url);
+        const blob = await response.blob();
+        const imageUrl = URL.createObjectURL(blob);
+        
+        const payload = {
+            type: "uploaded-image",
+            target: target,
+            id: `sample_${sampleObj.token}`,
+            token: sampleObj.token,
+            blob: blob,
+            image: {
+                id: `sample_${sampleObj.token}`,
+                token: sampleObj.token,
+                name: sampleObj.name,
+                blob: blob
+            },
+            imageUrl: imageUrl
+        };
+
+        if (window.self !== window.top) {
+            window.parent.postMessage(payload, "*");
+            return;
+        }
+
+        if (window.opener) {
+            window.opener.postMessage(payload, "*");
+            window.close();
+            return;
+        }
+
+        localStorage.setItem("selectedImageToken", sampleObj.token);
+        alert("Permanent Example Selected! " + sampleObj.token);
+    } catch (err) {
+        console.error("Failed fetching sample image blob:", err);
     }
-    if (window.opener) {
-        window.opener.postMessage(payload, "*");
-        window.close();
-        return;
-    }
-    localStorage.setItem("selectedImageToken", sampleObj.token);
-    alert("Permanent Example Selected! " + sampleObj.token);
 }
 
 function openSampleImageInCropperDirectly(sampleObj) {
-    
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
         const reader = new FileReader();
@@ -1508,6 +1512,7 @@ function renameImg(id) {
 }
 
 function selectImage(id) {
+    const target = readUploadTarget();
     const tx = db.transaction("images", "readonly");
     const reqGet = tx.objectStore("images").get(id);
 
@@ -1518,21 +1523,32 @@ function selectImage(id) {
             return;
         }
 
-        const messagePayload = { token: image.token };
+        const activeBlob = image.editedBlob || image.blob;
+        const imageUrl = URL.createObjectURL(activeBlob);
+
+        const payload = {
+            type: "uploaded-image",
+            target: target,
+            id: image.id,
+            token: image.token,
+            blob: activeBlob,
+            image: image,
+            imageUrl: imageUrl
+        };
 
         if (window.self !== window.top) {
-            window.parent.postMessage(messagePayload, "*");
+            window.parent.postMessage(payload, "*");
             return;
         }
 
         if (window.opener) {
-            window.opener.postMessage(messagePayload, "*");
+            window.opener.postMessage(payload, "*");
             window.close();
             return;
         }
 
         localStorage.setItem("selectedImageToken", image.token);
-        alert("Image Selected! "  + image.token);
+        alert("Image Selected! " + image.token);
     };
 }
 
@@ -1685,11 +1701,6 @@ document.getElementById("zoomReset").onclick = () => {
     if (cropper) cropper.zoomTo(1);
 };
 
-
-
-
-
-
 let activePopupObjectUrl = null;
 let dragCounter = 0; 
 
@@ -1779,7 +1790,6 @@ function handleIncomingFilesPipeline(files) {
 
     incomingQueueFiles = validFiles;
 
-    
     if (incomingQueueFiles.length === 1) {
         checkAndRunNextInQueue();
         return;
@@ -1980,16 +1990,11 @@ function makePopupDraggable(popupEl, headerEl) {
     }
 }
 
-
-
-
 function initThreeOptionsInterfaceControls() {
-    
     const actionCamBtn = document.getElementById("actionCamBtn");
     const cameraFileInput = document.getElementById("cameraFileInput");
     
     actionCamBtn.onclick = () => {
-        
         cameraFileInput.click();
     };
     
@@ -1999,7 +2004,6 @@ function initThreeOptionsInterfaceControls() {
         }
     };
 
-    
     document.getElementById("actionPasteBtn").onclick = async () => {
         try {
             const clipboardItems = await navigator.clipboard.read();
@@ -2019,11 +2023,9 @@ function initThreeOptionsInterfaceControls() {
             if (extractedFiles.length > 0) {
                 handleIncomingFilesPipeline(extractedFiles);
             } else {
-                
                 setupManualClipboardPasteHelperUI();
             }
         } catch (err) {
-            
             setupManualClipboardPasteHelperUI();
         }
     };
@@ -2039,13 +2041,8 @@ function setupManualClipboardPasteHelperUI() {
     showUploadPopup();
 }
 
-
-
-
 function runRetentionCleanupEngine() {
     const retentionSelect = document.getElementById("retentionSelect");
-    
-    
     const cacheOptionSetting = localStorage.getItem("app_image_retention_rule") || "until_clear";
     retentionSelect.value = cacheOptionSetting;
     
@@ -2087,7 +2084,6 @@ function executeAutoDeletionEvaluation(ruleMode) {
         const cursor = e.target.result;
         if (cursor) {
             const record = cursor.value;
-            
             if (record.created && record.created < cutoffTimestamp) {
                 cursor.delete();
             }
@@ -2096,20 +2092,19 @@ function executeAutoDeletionEvaluation(ruleMode) {
     };
     
     tx.oncomplete = () => {
-        
         if (document.getElementById("gallery").children.length > 0) {
             load();
         }
     };
 }
 
- window.addEventListener("scroll", () => {
-        if (window.scrollY > 60) {
-            drop.classList.add("sticky-small");
-        } else {
-            drop.classList.remove("sticky-small");
-        }
-    });
+window.addEventListener("scroll", () => {
+    if (window.scrollY > 60) {
+        drop.classList.add("sticky-small");
+    } else {
+        drop.classList.remove("sticky-small");
+    }
+});
 
 function purgeAllStoredIndexedDbRecordsNatively() {
     if (!db) return;
@@ -2119,7 +2114,6 @@ function purgeAllStoredIndexedDbRecordsNatively() {
         load();
     };
 }
-
 
 window.cropExisting = cropExisting;
 window.renameImg = renameImg;

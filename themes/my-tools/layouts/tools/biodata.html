@@ -1,4 +1,10 @@
 {{ define "tools" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matrimonial Biodata</title>
 <style>
 :root{
     --primary:#b38a24;
@@ -10,7 +16,6 @@
 }
 
 body{
-
     background:var(--bg);
     font-family:'Segoe UI',sans-serif;
 }
@@ -98,12 +103,13 @@ body{
 .form-group label,
 .form-group input,
 .form-group textarea,
-.form-group select{
+.form-group select,
+.form-group .upload-btn{
     margin-left:28px;
     width:calc(100% - 28px);
 }
 
-.form-group button{
+.form-group button.remove-btn{
     position:absolute;
     right:12px;
     top:12px;
@@ -117,12 +123,33 @@ body{
     font-size:16px;
 }
 
-.form-group button:hover{
+.form-group button.remove-btn:hover{
     background:#dc2626;
+}
+
+/* Upload Button Style */
+.upload-btn {
+    display: inline-block;
+    padding: 12px 20px;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.upload-btn:hover {
+    background: var(--primary-dark);
 }
 
 .preview{
     margin-top:15px;
+    margin-left:28px;
     width:180px;
     height:220px;
     border-radius:12px;
@@ -378,6 +405,52 @@ cursor:pointer;
     border-radius:50%;
     cursor:pointer;
 }
+
+/* Unified Upload Manager Modal Styling */
+.upload-manager-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 100000;
+}
+
+.upload-manager-box {
+    position: absolute;
+    inset: 20px;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.upload-manager-box iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+#closeUploadModalBtn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: #ef4444;
+    color: #fff;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+#closeUploadModalBtn:hover {
+    background: #dc2626;
+}
+
 .action-buttons{
     display:flex;
     gap:12px;
@@ -410,8 +483,11 @@ cursor:pointer;
 
 
 @media (max-width: 600px) { 
-.dynamic-field {display: block}
- }
+    .dynamic-field {display: block}
+    .upload-manager-box {
+        inset: 10px;
+    }
+}
 
 </style>
 </head>
@@ -428,10 +504,8 @@ cursor:pointer;
 
     <div class="selected-symbol" id="selectedSymbolBox">
         <img id="selectedSymbolPreview"
-             src="/svg/Om-Symbol-Silhouette.svg"
+             src="/symbols/om.png"
              alt="Selected Symbol">
-
-
              
         <span>Click to Change Symbol</span>
     </div>
@@ -439,16 +513,16 @@ cursor:pointer;
     <input
 type="hidden"
 id="selectedSymbol"
-value="/svg/Om-Symbol-Silhouette.svg">
+value="/symbols/om.png">
 
     <div
         class="symbol-picker"
         id="symbolPicker"
         style="display:none;">
 <div class="symbol-item"
-data-symbol="/svg/Om-Symbol-Silhouette.svg">
+data-symbol="/symbols/om.png">
 
-    <img src="/svg/Om-Symbol-Silhouette.svg">
+    <img src="/symbols/om.png">
 
     <span>ॐ</span>
 
@@ -521,12 +595,6 @@ class="symbol-popup">
     </div>
 
 </div>
-
-<input
-type="file"
-id="customSymbolInput"
-accept=".png,.svg,image/*"
-style="display:none;">
 </div>
 
 
@@ -546,7 +614,7 @@ style="display:none;">
         <span class="drag-handle">☰</span>
         <label>Date of Birth</label>
         <input type="text" id="dob">
-        <button type="button" onclick="removeField(this)">✖</button>
+        <button type="button" class="remove-btn" onclick="removeField(this)">✖</button>
     </div>
 
     <!-- Time of Birth -->
@@ -554,7 +622,7 @@ style="display:none;">
         <span class="drag-handle">☰</span>
         <label>Time of Birth</label>
         <input type="text" id="timeBirth">
-        <button type="button" onclick="removeField(this)">✖</button>
+        <button type="button" class="remove-btn" onclick="removeField(this)">✖</button>
     </div>
 
     <!-- Place of Birth -->
@@ -562,21 +630,21 @@ style="display:none;">
         <span class="drag-handle">☰</span>
         <label>Place of Birth</label>
         <input type="text" id="placeBirth">
-        <button type="button" onclick="removeField(this)">✖</button>
+        <button type="button" class="remove-btn" onclick="removeField(this)">✖</button>
     </div>
 
 </div>
 <div class="form-group">
-<label>Photo</label>
-<input type="file" id="photo" accept="image/*">
-<div class="preview" id="preview" style="display:none;">
-<img id="previewImg">
-</div>
-</div>
-
+    <label>Photo</label>
+    <button type="button" class="upload-btn" onclick="openUploadModal('photo')">Upload Photo</button>
+    <div class="preview" id="preview" style="display:none;">
+        <img id="previewImg" alt="Photo Preview">
+    </div>
 </div>
 
-<div class="biodata-section" >
+</div>
+
+<div class="biodata-section">
 <h2>About Me</h2>
 <div class="form-group">
 <label>About Me</label>
@@ -611,21 +679,21 @@ style="display:none;">
 </div>
 
 
-<div class="biodata-section"  >
+<div class="biodata-section">
 <h2>Personal Details</h2>
 <div id="personalInfoContainer">
 <div class="form-group">
      <span class="drag-handle">☰</span>
 <label>Height</label>
-<input type="text" id="height" >
-  <button type="button" onclick="removeField(this)">✖</button>
+<input type="text" id="height">
+  <button type="button" class="remove-btn" onclick="removeField(this)">✖</button>
 </div>
 
 <div class="form-group">
      <span class="drag-handle">☰</span>
 <label>Weight</label>
 <input type="text" id="weight">
-  <button type="button" onclick="removeField(this)">✖</button>
+  <button type="button" class="remove-btn" onclick="removeField(this)">✖</button>
 </div>
 
 <div class="form-group">
@@ -653,7 +721,7 @@ style="display:none;">
     id="complexionCustom"
     placeholder="Enter Complexion"
     style="display:none;margin-top:10px;">
-  <button type="button" onclick="removeField(this)">✖</button>
+  <button type="button" class="remove-btn" onclick="removeField(this)">✖</button>
 </div>
 
 <div class="form-group">
@@ -681,21 +749,21 @@ style="display:none;">
     placeholder="Enter Religion"
     style="display:none;margin-top:10px;">
 
-  <button type="button" onclick="removeField(this)">✖</button>
+  <button type="button" class="remove-btn" onclick="removeField(this)">✖</button>
 </div>
 
 <div class="form-group">
      <span class="drag-handle">☰</span>
 <label>Caste</label>
 <input type="text" id="caste">
- <button type="button" onclick="removeField(this)">✖</button>
+ <button type="button" class="remove-btn" onclick="removeField(this)">✖</button>
 </div>
 
 <div class="form-group">
      <span class="drag-handle">☰</span>
 <label>Gotra</label>
 <input type="text" id="gotra">
- <button type="button" onclick="removeField(this)">✖</button>
+ <button type="button" class="remove-btn" onclick="removeField(this)">✖</button>
 </div>
 
 <div class="form-group">
@@ -730,14 +798,14 @@ style="display:none;">
     id="rashiCustom"
     placeholder="Enter Rashi"
     style="display:none;margin-top:10px;">
-    <button type="button" onclick="removeField(this)">✖</button>
+    <button type="button" class="remove-btn" onclick="removeField(this)">✖</button>
 </div>
 
 <div class="form-group">
      <span class="drag-handle">☰</span>
 <label>Nakshatra</label>
 <input type="text" id="nakshatra">
- <button type="button" onclick="removeField(this)">✖</button>
+ <button type="button" class="remove-btn" onclick="removeField(this)">✖</button>
 </div>
 
 <div class="form-group">
@@ -747,7 +815,7 @@ style="display:none;">
 <option>No</option>
 <option>Yes</option>
 </select>
- <button type="button" onclick="removeField(this)">✖</button>
+ <button type="button" class="remove-btn" onclick="removeField(this)">✖</button>
 </div>
 <div id="personalContainer"> </div>
     <h2> <button type="button" onclick="addField('personalContainer')">
@@ -756,21 +824,21 @@ style="display:none;">
 
     
   </div>
-<div class="biodata-section" >
+<div class="biodata-section">
 <h2>Education & Career</h2>
 <div id="educationContainer">
 <div class="form-group">
     <span class="drag-handle">☰</span>
 <label>Education</label>
 <input type="text" id="education">
-<button type="button" onclick="removeField(this)">✖</button>
+<button type="button" class="remove-btn" onclick="removeField(this)">✖</button>
 </div>
 
 <div class="form-group">
     <span class="drag-handle">☰</span>
 <label>Occupation</label>
 <input type="text" id="occupation">
-<button type="button" onclick="removeField(this)">✖</button>
+<button type="button" class="remove-btn" onclick="removeField(this)">✖</button>
 </div>
 
 </div> </div>
@@ -782,34 +850,34 @@ style="display:none;">
       <span class="drag-handle">☰</span>
 <label>Father Name</label>
 <input type="text" id="fatherName">
-<button type="button" onclick="removeField(this)">✖</button>
+<button type="button" class="remove-btn" onclick="removeField(this)">✖</button>
 </div>
 
 <div class="form-group">
       <span class="drag-handle">☰</span>
 <label>Father Occupation</label>
 <input type="text" id="fatherOccupation">
-<button type="button" onclick="removeField(this)">✖</button>
+<button type="button" class="remove-btn" onclick="removeField(this)">✖</button>
 </div>
 
 <div class="form-group">
       <span class="drag-handle">☰</span>
 <label>Mother Name</label>
 <input type="text" id="motherName">
-<button type="button" onclick="removeField(this)">✖</button>
+<button type="button" class="remove-btn" onclick="removeField(this)">✖</button>
 </div>
 
 <div class="form-group">
       <span class="drag-handle">☰</span>
 <label>Mother Occupation</label>
 <input type="text" id="motherOccupation">
-<button type="button" onclick="removeField(this)">✖</button>
+<button type="button" class="remove-btn" onclick="removeField(this)">✖</button>
 </div>
 <div class="form-group">
     <span class="drag-handle">☰</span>
     <label>Siblings</label>
     <input type="text" id="siblings">
-    <button type="button" onclick="removeField(this)">✖</button>
+    <button type="button" class="remove-btn" onclick="removeField(this)">✖</button>
 </div> </div>
 <div id="familyContainer"> </div> 
 <h2> <button type="button" onclick="addField('familyContainer')"> + Add More Family Details Field</button></h2>
@@ -824,14 +892,14 @@ style="display:none;">
     <span class="drag-handle">☰</span>
 <label>Mobile Number</label>
 <input type="text" id="mobile">
- <button type="button" onclick="removeField(this)">✖</button>
+ <button type="button" class="remove-btn" onclick="removeField(this)">✖</button>
 </div>
 
 <div class="form-group">
     <span class="drag-handle">☰</span>
 <label>Address</label>
 <textarea id="address"></textarea>
- <button type="button" onclick="removeField(this)">✖</button>
+ <button type="button" class="remove-btn" onclick="removeField(this)">✖</button>
 </div> </div>
  
     <div id="contactContainer"> </div>
@@ -872,7 +940,7 @@ data-slug="classic"
 checked>
 
 <img
-src="https://resumekraft.com/wp-content/uploads/2023/07/Job-Biodata-template-2-724x1024.jpg"
+src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhmbeDRq04yOdui8eIs9VndlSs2l947n29dOnKsgG4GMM8lWKGQnShPjkkdbU_QGj_9ZWXIQZXLJgHZCObIwDto8e_clgtnj5S_vo1o0QMabMrJWBnADaBPbW8Rc42r2q3ypnJEWNIwda_HIVGjJKvtPyly2Ev4icpIuEZ7zpABEkAL5ED46WCrUQhpMA/s320/Simple.jpg"
 alt="Classic Template">
 
 <span>Classic Template</span>
@@ -882,11 +950,11 @@ alt="Classic Template">
 <input
 type="radio"
 name="template"
-value="/matrimonial-biodata-modern/"
+value="/modern-premium/"
 data-slug="modern">
 
 <img
-src="https://freebiodatamaker.com/images/templates/preview/abstract-yellow-en-template.webp"
+src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiVg2esr90zrFYy5HLz9g_nz6E_lhMPO5bdAXKJqfFy3eUzpYJ8-1ZsoGfbW9rSjuiUUegb3J8XItUTkX4p7c6K5SS7HT0z7hbHkoRoYRnl8rkPmYKwvpe-uXua2pdPIYPC3w9o9zLyDlNXWIEYIrvKXttDnJcykdZqHEMhbnX4gMuC1xRRFJQNY8mISg/s320/Modern%20biodata.jpg"
 alt="Modern Template">
 
 <span>Modern Template</span>
@@ -896,11 +964,11 @@ alt="Modern Template">
 <input
 type="radio"
 name="template"
-value="/matrimonial-biodata-premium/"
+value="/professional-biodata/"
 data-slug="premium">
 
 <img
-src="https://resumesector.com/wp-content/uploads/2025/04/Bio-Data-Format.jpg"
+src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhGLT9JNje5VJ5B_sLh9nDVRGe9TQ8WeqrHo1WxrzCGaJNVzZv2nX2EBdfAIbbBP5Y2J3DtvEKFZywhV499b4J6wVJPrUAhP3dWIXVFFKOKkjlJImptIXT2HzsGN1Bvb5zAgnkgnny-mF01peHQjVspATEV8mUmQdhJ0_IWEqQn36Zc_4jzTxWTV1RUtQ/s800/professional-biodata.jpg"
 alt="Premium Template">
 
 <span>Premium Template</span>
@@ -929,6 +997,14 @@ alt="Premium Template">
 
     </div>
 
+</div>
+
+<!-- Unified Reusable Upload Manager Modal -->
+<div id="uploadManagerModal" class="upload-manager-modal">
+    <div class="upload-manager-box">
+        <button type="button" id="closeUploadModalBtn" onclick="closeUploadModal()">✕</button>
+        <iframe id="uploadManagerFrame" src="" loading="lazy"></iframe>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
@@ -1102,33 +1178,91 @@ async function clearPhoto() {
         activePreviewUrl = null;
     }
     uploadedPhoto = null;
-    document.getElementById("photo").value = "";
     document.getElementById("preview").style.display = "none";
     document.getElementById("previewImg").src = "";
 }
 
-// Intercept Input System Component Selection Changes
-document.getElementById("photo").addEventListener("change", async function(){
-    const file = this.files[0];
-    if(!file) return;
+// ==========================================
+// UNIFIED UPLOAD MANAGER FUNCTIONS
+// ==========================================
 
-    uploadedPhoto = file;
+function openUploadModal(target) {
+    const modal = document.getElementById("uploadManagerModal");
+    const frame = document.getElementById("uploadManagerFrame");
+    frame.src = "/upload/?target=" + encodeURIComponent(target);
+    modal.style.display = "block";
+}
 
-    if(activePreviewUrl) {
-        URL.revokeObjectURL(activePreviewUrl);
-    }
+function closeUploadModal() {
+    const modal = document.getElementById("uploadManagerModal");
+    const frame = document.getElementById("uploadManagerFrame");
+    modal.style.display = "none";
+    frame.src = "";
+}
 
-    const photoId = "photo_draft_" + Date.now();
+async function handleUploadedImage(data) {
+    if (!data || data.type !== "uploaded-image") return;
 
-    try {
-        await savePhoto(photoId, file);
+    if (data.target === "photo") {
+        const photoId = data.imageId || data.blobId || ("photo_draft_" + Date.now());
+        
+        // Fetch from IndexedDB if stored by upload page
+        let file = await getPhoto(photoId);
+        if (file) {
+            uploadedPhoto = file;
+        } else if (data.imageUrl) {
+            uploadedPhoto = data.imageUrl;
+        }
+
+        if (activePreviewUrl) {
+            URL.revokeObjectURL(activePreviewUrl);
+        }
+
         localStorage.setItem("draftPhotoId", photoId);
 
-        activePreviewUrl = URL.createObjectURL(file);
+        if (file) {
+            activePreviewUrl = URL.createObjectURL(file);
+            document.getElementById("previewImg").src = activePreviewUrl;
+        } else if (data.imageUrl) {
+            document.getElementById("previewImg").src = data.imageUrl;
+        }
+        
         document.getElementById("preview").style.display = "block";
-        document.getElementById("previewImg").src = activePreviewUrl;
-    } catch(err) {
-        console.error("Error committing input change event properties:", err);
+        saveDraft();
+
+    } else if (data.target === "symbol") {
+        const symbolId = data.imageId || data.blobId || ("symbol_" + Date.now());
+        
+        // Check IndexedDB
+        let file = await getPhoto(symbolId);
+        let displayUrl = data.imageUrl;
+
+        if (file) {
+            displayUrl = URL.createObjectURL(file);
+            localStorage.setItem("customSymbolId", symbolId);
+            localStorage.setItem("selectedSymbol", symbolId);
+            document.getElementById("selectedSymbol").value = symbolId;
+        } else if (data.imageUrl) {
+            localStorage.removeItem("customSymbolId");
+            localStorage.setItem("selectedSymbol", data.imageUrl);
+            document.getElementById("selectedSymbol").value = data.imageUrl;
+        }
+
+        document.getElementById("selectedSymbolPreview").src = displayUrl;
+        document.getElementById("customSymbolThumb").src = displayUrl;
+        document.getElementById("customSymbolThumb").style.display = "block";
+        document.getElementById("customSymbolText").textContent = "Change ✏️";
+
+        const picker = document.getElementById("symbolPicker");
+        if (picker) picker.style.display = "none";
+    }
+
+    closeUploadModal();
+}
+
+window.addEventListener("message", function(e) {
+    if (e.data && e.data.type === "uploaded-image") {
+        handleUploadedImage(e.data);
     }
 });
 </script>
@@ -1324,7 +1458,7 @@ document.getElementById("rashi").value === "custom"
 let finalPhotoId = localStorage.getItem("draftPhotoId") || "";
 
 try{
-    if(uploadedPhoto){
+    if(uploadedPhoto && typeof uploadedPhoto !== "string"){
         if(!finalPhotoId || finalPhotoId.startsWith("photo_draft_")) {
             const runtimePhotoId = "photo_" + Date.now();
             await updatePhoto(finalPhotoId, runtimePhotoId, uploadedPhoto);
@@ -1786,73 +1920,6 @@ document
     });
 
 });
-
-document
-.getElementById("customSymbolInput")
-.addEventListener(
-"change",
-async function(){
-
-    const file = this.files[0];
-
-    if(!file) return;
-
-    const symbolId =
-    "symbol_" + Date.now();
-
-    localStorage.setItem(
-        "customSymbolId",
-        symbolId
-    );
-
-    localStorage.setItem(
-        "selectedSymbol",
-        symbolId
-    );
-
-    await savePhoto(
-        symbolId,
-        file
-    );
-
-    const url =
-    URL.createObjectURL(file);
-
-    document
-    .getElementById(
-        "selectedSymbol"
-    )
-    .value = symbolId;
-
-    document
-    .getElementById(
-        "selectedSymbolPreview"
-    )
-    .src = url;
-
-    document
-    .getElementById(
-        "customSymbolThumb"
-    )
-    .src = url;
-
-    document
-    .getElementById(
-        "customSymbolThumb"
-    )
-    .style.display = "block";
-
-    document
-    .getElementById(
-        "customSymbolText"
-    )
-    .textContent =
-    "Change ✏️";
-
-    picker.style.display =
-    "none";
-
-});
 </script>
 
 <script>
@@ -1881,7 +1948,7 @@ popup.style.display="none";
 
 };
 
-// Direct Upload
+// Direct Upload (Symbol Upload opens Upload Manager Modal)
 
 document
 .getElementById(
@@ -1891,11 +1958,7 @@ document
 
 popup.style.display="none";
 
-document
-.getElementById(
-"customSymbolInput"
-)
-.click();
+openUploadModal('symbol');
 
 };
 
@@ -1938,7 +2001,6 @@ document
 "none";
 
 };
-
 
 </script>
 <script>
