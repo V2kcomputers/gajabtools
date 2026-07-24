@@ -1,0 +1,477 @@
+<!-- HERO HEADER -->
+<header class="hero-header">
+    <div class="hero-divider">
+        <span class="hero-divider-line"></span>
+        <span style="font-size: 24px;">🌺</span>
+        <span class="hero-divider-line"></span>
+    </div>
+    <h1>विवाह हेतु बायोडाटा</h1>
+    <p class="hero-subheading">कुछ ही मिनटों में आकर्षक एवं प्रोफेशनल विवाह बायोडाटा तैयार करें</p>
+    <div class="hero-divider">
+        <span class="hero-divider-line"></span>
+        <span style="font-size: 16px; color: var(--gold-primary);">✨ 🪔 ✨</span>
+        <span class="hero-divider-line"></span>
+    </div>
+</header>
+
+<div class="biodata-container">
+<form id="biodataForm">
+
+<div class="dashboard-grid">
+
+    <!-- LEFT COLUMN -->
+    <div class="dashboard-col">
+
+        <!-- 1. RELIGIOUS SYMBOL (DEFAULT OPEN) -->
+        <div class="biodata-section">
+            <h2 onclick="toggleSection(this)">
+                <span class="section-title-wrapper">
+                    <span class="section-icon">☸</span>
+                    धार्मिक प्रतीक (Religious Symbol)
+                </span>
+                <span class="accordion-toggle-icon">▼</span>
+            </h2>
+
+            <div class="section-body">
+                <div class="selected-symbol" id="selectedSymbolBox">
+                    <img id="selectedSymbolPreview" src="/symbols/om.png" alt="Selected Symbol">
+                    <span>प्रतीक बदलने के लिए यहाँ क्लिक करें</span>
+                </div>
+
+                <input type="hidden" id="selectedSymbol" value="/symbols/om.png">
+
+                <div class="symbol-picker" id="symbolPicker" style="display:none;">
+                    <div class="symbol-item" data-symbol="/symbols/om.png">
+                        <img src="/symbols/om.png" alt="Om">
+                        <span>ॐ</span>
+                    </div>
+
+                    <div class="symbol-item" data-symbol="https://upload.wikimedia.org/wikipedia/commons/f/fa/Allah3.svg">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Allah3.svg" alt="Allah">
+                        <span>Allah</span>
+                    </div>
+
+                    <div class="symbol-item" data-symbol="https://static.vecteezy.com/system/resources/thumbnails/005/199/735/small/khanda-symbol-sikhi-sign-icon-black-color-illustration-flat-style-simple-image-vector.jpg">
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/005/199/735/small/khanda-symbol-sikhi-sign-icon-black-color-illustration-flat-style-simple-image-vector.jpg" alt="Khanda">
+                        <span>Khanda</span>
+                    </div>
+
+                    <div class="symbol-item" data-symbol="https://media.istockphoto.com/id/1425978448/vector/black-and-gray-christian-cross-icon-in-flat-design-vector-illustration-abstract-linear.jpg?s=612x612&w=0&k=20&c=C8WaaJvhZo1mrrrYRlPVfImErMWJ6FSOKpHZUIY8x7Y=">
+                        <img src="https://media.istockphoto.com/id/1425978448/vector/black-and-gray-christian-cross-icon-in-flat-design-vector-illustration-abstract-linear.jpg?s=612x612&w=0&k=20&c=C8WaaJvhZo1mrrrYRlPVfImErMWJ6FSOKpHZUIY8x7Y=" alt="Cross">
+                        <span>Cross</span>
+                    </div>
+
+                    <div class="symbol-item custom-upload" id="openCustomPopup">
+                        <img id="customSymbolThumb" src="" style="width:45px; height:45px; object-fit:contain; display:none;" alt="Thumb">
+                        <span id="customSymbolText">+ कस्टम जोड़ें</span>
+                    </div>
+                </div>
+
+                <div id="customSymbolPopup" style="display:none;" class="symbol-popup">
+                    <div class="popup-box">
+                        <h3>प्रतीक चुनें</h3>
+                        <button type="button" id="uploadDirectBtn">डिवाइस से अपलोड करें</button>
+                        <button type="button" id="uploadLibraryBtn">लाइब्रेरी से चुनें</button>
+                        <button type="button" id="closePopupBtn">बंद करें</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. BASIC INFORMATION (DEFAULT OPEN) -->
+        <div class="biodata-section">
+            <h2 onclick="toggleSection(this)">
+                <span class="section-title-wrapper">
+                    <span class="section-icon">👤</span>
+                    सामान्य जानकारी (Basic Info)
+                </span>
+                <span class="accordion-toggle-icon">▼</span>
+            </h2>
+
+            <div class="section-body">
+                <div class="form-group">
+                    <span class="drag-handle">☰</span>
+                    <label>पूरा नाम (Full Name)</label>
+                    <input type="text" id="fullName" required placeholder="पूरा नाम दर्ज करें">
+                </div>
+
+                <div id="basicInfoContainer">
+                    <div class="form-group">
+                        <span class="drag-handle">☰</span>
+                        <label>जन्म तिथि (Date of Birth)</label>
+                        <input type="text" id="dob" placeholder="उदा: 15/08/1995">
+                        <button type="button" class="btn-remove" onclick="removeField(this)">✖</button>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="drag-handle">☰</span>
+                        <label>जन्म समय (Time of Birth)</label>
+                        <input type="text" id="timeBirth" placeholder="उदा: 08:30 AM">
+                        <button type="button" class="btn-remove" onclick="removeField(this)">✖</button>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="drag-handle">☰</span>
+                        <label>जन्म स्थान (Place of Birth)</label>
+                        <input type="text" id="placeBirth" placeholder="शहर / राज्य">
+                        <button type="button" class="btn-remove" onclick="removeField(this)">✖</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. FAMILY DETAILS (DEFAULT COLLAPSED) -->
+        <div class="biodata-section collapsed">
+            <h2 onclick="toggleSection(this)">
+                <span class="section-title-wrapper">
+                    <span class="section-icon">👨‍👩‍👧‍👦</span>
+                    पारिवारिक विवरण (Family Details)
+                </span>
+                <span class="accordion-toggle-icon">▼</span>
+            </h2>
+            <div class="section-body">
+                <div id="familyInfoContainer">
+                    <div class="form-group">
+                        <span class="drag-handle">☰</span>
+                        <label>पिता का नाम (Father's Name)</label>
+                        <input type="text" id="fatherName">
+                        <button type="button" class="btn-remove" onclick="removeField(this)">✖</button>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="drag-handle">☰</span>
+                        <label>पिता का व्यवसाय (Father's Occupation)</label>
+                        <input type="text" id="fatherOccupation">
+                        <button type="button" class="btn-remove" onclick="removeField(this)">✖</button>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="drag-handle">☰</span>
+                        <label>माता का नाम (Mother's Name)</label>
+                        <input type="text" id="motherName">
+                        <button type="button" class="btn-remove" onclick="removeField(this)">✖</button>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="drag-handle">☰</span>
+                        <label>माता का व्यवसाय (Mother's Occupation)</label>
+                        <input type="text" id="motherOccupation">
+                        <button type="button" class="btn-remove" onclick="removeField(this)">✖</button>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="drag-handle">☰</span>
+                        <label>भाई/बहन (Siblings)</label>
+                        <input type="text" id="siblings">
+                        <button type="button" class="btn-remove" onclick="removeField(this)">✖</button>
+                    </div>
+                </div>
+                <div id="familyContainer"></div> 
+                <div style="margin-top: 15px; text-align: right;">
+                    <button type="button" onclick="addField('familyContainer')">
+                        + और पारिवारिक जानकारी जोड़ें
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. EDUCATION & CAREER (DEFAULT COLLAPSED) -->
+        <div class="biodata-section collapsed">
+            <h2 onclick="toggleSection(this)">
+                <span class="section-title-wrapper">
+                    <span class="section-icon">🎓</span>
+                    शिक्षा एवं कार्य (Education & Career)
+                </span>
+                <span class="accordion-toggle-icon">▼</span>
+            </h2>
+            <div class="section-body">
+                <div id="educationContainer">
+                    <div class="form-group">
+                        <span class="drag-handle">☰</span>
+                        <label>शिक्षा (Education)</label>
+                        <input type="text" id="education" placeholder="उच्चतम डिग्री / योग्यता">
+                        <button type="button" class="btn-remove" onclick="removeField(this)">✖</button>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="drag-handle">☰</span>
+                        <label>व्यवसाय / नौकरी (Occupation)</label>
+                        <input type="text" id="occupation" placeholder="कंपनी / पद / व्यवसाय">
+                        <button type="button" class="btn-remove" onclick="removeField(this)">✖</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="dashboard-col">
+
+        <!-- 5. PHOTO CARD (DEFAULT COLLAPSED) -->
+        <div class="biodata-section collapsed">
+            <h2 onclick="toggleSection(this)">
+                <span class="section-title-wrapper">
+                    <span class="section-icon">🖼</span>
+                    प्रोफाइल फोटो (Profile Photo)
+                </span>
+                <span class="accordion-toggle-icon">▼</span>
+            </h2>
+            <div class="section-body">
+                <div class="photo-card-wrapper">
+                    <div class="photo-frame">
+                        <div class="photo-frame-inner">
+                            <div class="preview" id="preview" style="display:none; width:100%; height:100%; margin-left:0;">
+                                <img id="previewImg" alt="Preview">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-upload-trigger" onclick="openUploadModal('photo')">
+                        📷 फोटो चुनें / अपलोड करें
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. ABOUT ME (DEFAULT COLLAPSED) -->
+        <div class="biodata-section collapsed">
+            <h2 onclick="toggleSection(this)">
+                <span class="section-title-wrapper">
+                    <span class="section-icon">📝</span>
+                    मेरे बारे में (About Me)
+                </span>
+                <span class="accordion-toggle-icon">▼</span>
+            </h2>
+            <div class="section-body">
+                <div class="form-group" style="padding-left: 16px;">
+                    <label>संक्षिप्त विवरण</label>
+                    <select id="aboutSelect" onchange="toggleAboutCustom()">
+                        <option value="">विवरण चुनें</option>
+                        <option value="Simple and Family Oriented Person">सरल एवं परिवार प्रेमी (Simple & Family Oriented)</option>
+                        <option value="Well Educated and Career Focused">शिक्षित एवं करियर-उन्मुख (Well Educated & Career Focused)</option>
+                        <option value="Traditional with Modern Values">पारंपरिक एवं आधुनिक विचारों का संगम (Traditional with Modern Values)</option>
+                        <option value="custom">स्वयं लिखें (Custom Text)</option>
+                    </select>
+                    <textarea id="aboutCustom" placeholder="अपने बारे में लिखें..." style="display:none; margin-top:10px; height:80px;"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. PERSONAL DETAILS (DEFAULT COLLAPSED) -->
+        <div class="biodata-section collapsed">
+            <h2 onclick="toggleSection(this)">
+                <span class="section-title-wrapper">
+                    <span class="section-icon">📜</span>
+                    व्यक्तिगत विवरण (Personal Details)
+                </span>
+                <span class="accordion-toggle-icon">▼</span>
+            </h2>
+            <div class="section-body">
+                <div id="personalInfoContainer">
+                    <div class="form-group">
+                        <span class="drag-handle">☰</span>
+                        <label>कद (Height)</label>
+                        <input type="text" id="height" placeholder="उदा: 5 फीट 8 इंच">
+                        <button type="button" class="btn-remove" onclick="removeField(this)">✖</button>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="drag-handle">☰</span>
+                        <label>वजन (Weight)</label>
+                        <input type="text" id="weight" placeholder="उदा: 65 kg">
+                        <button type="button" class="btn-remove" onclick="removeField(this)">✖</button>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="drag-handle">☰</span>
+                        <label>रंग (Complexion)</label>
+                        <select id="complexion" onchange="toggleComplexionCustom()">
+                            <option value="">चुनें</option>
+                            <option value="Fair">गोरा (Fair)</option>
+                            <option value="Wheatish">गेहुंआ (Wheatish)</option>
+                            <option value="Medium">मध्यम (Medium)</option>
+                            <option value="Dark">सांवला (Dark)</option>
+                            <option value="custom">अन्य (Write Custom)</option>
+                        </select>
+                        <input type="text" id="complexionCustom" placeholder="रंग दर्ज करें" style="display:none;margin-top:10px;">
+                        <button type="button" class="btn-remove" onclick="removeField(this)">✖</button>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="drag-handle">☰</span>
+                        <label>धर्म (Religion)</label>
+                        <select id="religion" onchange="toggleReligionCustom()">
+                            <option value="">चुनें</option>
+                            <option value="Hindu">हिंदू (Hindu)</option>
+                            <option value="Muslim">मुस्लिम (Muslim)</option>
+                            <option value="Sikh">सिख (Sikh)</option>
+                            <option value="Christian">ईसाई (Christian)</option>
+                            <option value="Jain">जैन (Jain)</option>
+                            <option value="Buddhist">बौद्ध (Buddhist)</option>
+                            <option value="custom">अन्य (Write Custom)</option>
+                        </select>
+                        <input type="text" id="religionCustom" placeholder="धर्म दर्ज करें" style="display:none;margin-top:10px;">
+                        <button type="button" class="btn-remove" onclick="removeField(this)">✖</button>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="drag-handle">☰</span>
+                        <label>जाति (Caste)</label>
+                        <input type="text" id="caste">
+                        <button type="button" class="btn-remove" onclick="removeField(this)">✖</button>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="drag-handle">☰</span>
+                        <label>गोत्र (Gotra)</label>
+                        <input type="text" id="gotra">
+                        <button type="button" class="btn-remove" onclick="removeField(this)">✖</button>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="drag-handle">☰</span>
+                        <label>राशि (Rashi)</label>
+                        <select id="rashi" onchange="toggleRashiCustom()">
+                            <option value="">चुनें</option>
+                            <option value="Mesh (Aries)">मेष (Aries)</option>
+                            <option value="Vrishabh (Taurus)">वृषभ (Taurus)</option>
+                            <option value="Mithun (Gemini)">मिथुन (Gemini)</option>
+                            <option value="Kark (Cancer)">कर्क (Cancer)</option>
+                            <option value="Singh (Leo)">सिंह (Leo)</option>
+                            <option value="Kanya (Virgo)">कन्या (Virgo)</option>
+                            <option value="Tula (Libra)">तुला (Libra)</option>
+                            <option value="Vrishchik (Scorpio)">वृश्चिक (Scorpio)</option>
+                            <option value="Dhanu (Sagittarius)">धनु (Sagittarius)</option>
+                            <option value="Makar (Capricorn)">मकर (Capricorn)</option>
+                            <option value="Kumbh (Aquarius)">कुंभ (Aquarius)</option>
+                            <option value="Meen (Pisces)">मीन (Pisces)</option>
+                            <option value="custom">अन्य (Write Custom)</option>
+                        </select>
+                        <input type="text" id="rashiCustom" placeholder="राशि दर्ज करें" style="display:none;margin-top:10px;">
+                        <button type="button" class="btn-remove" onclick="removeField(this)">✖</button>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="drag-handle">☰</span>
+                        <label>नक्षत्र (Nakshatra)</label>
+                        <input type="text" id="nakshatra">
+                        <button type="button" class="btn-remove" onclick="removeField(this)">✖</button>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="drag-handle">☰</span>
+                        <label>मांगलिक (Manglik)</label>
+                        <select id="manglik">
+                            <option>नहीं (No)</option>
+                            <option>हाँ (Yes)</option>
+                        </select>
+                        <button type="button" class="btn-remove" onclick="removeField(this)">✖</button>
+                    </div>
+                </div>
+                <div id="personalContainer"></div>
+                <div style="margin-top: 15px; text-align: right;">
+                    <button type="button" onclick="addField('personalContainer')">
+                        + और व्यक्तिगत विवरण जोड़ें
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. CONTACT DETAILS (DEFAULT COLLAPSED) -->
+        <div class="biodata-section collapsed">
+            <h2 onclick="toggleSection(this)">
+                <span class="section-title-wrapper">
+                    <span class="section-icon">📞</span>
+                    संपर्क विवरण (Contact Details)
+                </span>
+                <span class="accordion-toggle-icon">▼</span>
+            </h2>
+            <div class="section-body">
+                <div id="contactInfoContainer">
+                    <div class="form-group">
+                        <span class="drag-handle">☰</span>
+                        <label>मोबाइल नंबर (Mobile Number)</label>
+                        <input type="text" id="mobile">
+                        <button type="button" class="btn-remove" onclick="removeField(this)">✖</button>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="drag-handle">☰</span>
+                        <label>पता (Address)</label>
+                        <textarea id="address" style="height: 60px;"></textarea>
+                        <button type="button" class="btn-remove" onclick="removeField(this)">✖</button>
+                    </div>
+                </div>
+                
+                <div id="contactContainer"></div>
+                <div style="margin-top: 15px; text-align: right;">
+                    <button type="button" onclick="addField('contactContainer')">
+                        + और संपर्क विवरण जोड़ें
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div> <!-- END DASHBOARD GRID -->
+
+<!-- TEMPLATE SELECTION FULL WIDTH (DEFAULT COLLAPSED) -->
+<div class="biodata-section full-width-section collapsed">
+    <h2 onclick="toggleSection(this)">
+        <span class="section-title-wrapper">
+            <span class="section-icon">🎨</span>
+            टम्प्लेट चुनें (Select Template)
+        </span>
+        <span class="accordion-toggle-icon">▼</span>
+    </h2>
+    <div class="section-body">
+        <div class="template-switcher">
+            <label class="template-card">
+                <input type="radio" name="template" value="/matrimonial-biodata/" data-slug="classic" checked>
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhmbeDRq04yOdui8eIs9VndlSs2l947n29dOnKsgG4GMM8lWKGQnShPjkkdbU_QGj_9ZWXIQZXLJgHZCObIwDto8e_clgtnj5S_vo1o0QMabMrJWBnADaBPbW8Rc42r2q3ypnJEWNIwda_HIVGjJKvtPyly2Ev4icpIuEZ7zpABEkAL5ED46WCrUQhpMA/s320/Simple.jpg" alt="Classic Template">
+                <span>क्लासिक टम्प्लेट (Classic)</span>
+            </label>
+
+            <label class="template-card">
+                <input type="radio" name="template" value="/modern-premium/" data-slug="modern">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiVg2esr90zrFYy5HLz9g_nz6E_lhMPO5bdAXKJqfFy3eUzpYJ8-1ZsoGfbW9rSjuiUUegb3J8XItUTkX4p7c6K5SS7HT0z7hbHkoRoYRnl8rkPmYKwvpe-uXua2pdPIYPC3w9o9zLyDlNXWIEYIrvKXttDnJcykdZqHEMhbnX4gMuC1xRRFJQNY8mISg/s320/Modern%20biodata.jpg" alt="Modern Template">
+                <span>मॉडर्न टम्प्लेट (Modern)</span>
+            </label>
+
+            <label class="template-card">
+                <input type="radio" name="template" value="/professional-biodata/" data-slug="premium">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhGLT9JNje5VJ5B_sLh9nDVRGe9TQ8WeqrHo1WxrzCGaJNVzZv2nX2EBdfAIbbBP5Y2J3DtvEKFZywhV499b4J6wVJPrUAhP3dWIXVFFKOKkjlJImptIXT2HzsGN1Bvb5zAgnkgnny-mF01peHQjVspATEV8mUmQdhJ0_IWEqQn36Zc_4jzTxWTV1RUtQ/s800/professional-biodata.jpg" alt="Premium Template">
+                <span>प्रीमियम टम्प्लेट (Premium)</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- SUBMIT ACTIONS -->
+<div class="biodata-section full-width-section" style="background: transparent; box-shadow: none; border: none; padding: 0;">
+    <button type="submit">✨ बायोडाटा तैयार करें (Generate Biodata)</button>
+    <div class="action-buttons">
+        <button type="button" onclick="fillExampleBiodata()">🪄 उदाहरण देखें (Example Biodata)</button>
+        <button type="button" onclick="clearFormData()">🧼 फॉर्म साफ करें (Clear Form)</button>
+    </div>
+</div>
+
+</form>
+</div>
+
+<!-- Modal 1: Central Upload Manager -->
+<div id="universalUploadModal" class="universal-upload-modal">
+    <div class="universal-upload-box">
+        <button type="button" id="closeUploadModalBtn" onclick="closeUploadModal()">✕</button>
+        <iframe id="universalUploadFrame" src="" loading="lazy"></iframe>
+    </div>
+</div>
+
+<!-- Modal 2: Symbol Library Modal -->
+<div id="symbolLibraryModal" class="symbol-library-modal">
+    <div class="symbol-library-box">
+        <button type="button" id="closeLibraryModal">✕</button>
+        <iframe id="symbolLibraryFrame" src="" loading="lazy"></iframe>
+    </div>
+</div>

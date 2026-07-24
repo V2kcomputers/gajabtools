@@ -1,0 +1,14 @@
+const StorageManager=(()=>{const a=["bio_","resume_","idcard_","image_","qr_","draft_"],c=["AppDraftsDB","AppPhotosDB"],r=.01,i=.98;let t={percent:0,usedMB:0,totalMB:0,saveAllowed:!0},e=null;async function o(){if(navigator.storage&&navigator.storage.estimate)try{const{quota:e,usage:n}=await navigator.storage.estimate(),o=e?(e/(1024*1024)).toFixed(2):0,a=n?(n/(1024*1024)).toFixed(2):0,s=e?n/e:0;return t={percent:parseFloat((s*100).toFixed(1)),usedMB:parseFloat(a),totalMB:parseFloat(o),saveAllowed:s<i},t}catch(e){console.warn("[StorageManager] Could not estimate storage:",e)}return t={percent:0,usedMB:0,totalMB:0,saveAllowed:!0},t}async function s(){try{const e=[];for(let t=0;t<localStorage.length;t++){const n=localStorage.key(t);n&&a.some(e=>n.startsWith(e))&&e.push(n)}e.forEach(e=>localStorage.removeItem(e))}catch(e){console.error("[StorageManager] Error clearing LocalStorage:",e)}if(window.indexedDB){const e=c.map(e=>new Promise(t=>{const n=window.indexedDB.deleteDatabase(e);n.onsuccess=()=>t(!0),n.onerror=()=>t(!1),n.onblocked=()=>t(!1)}));await Promise.all(e)}return await n(),!0}async function n(){const e=await o();return e.percent>=r*100?d(e):u(),e.saveAllowed}function l(){return t.saveAllowed}function d(t){e||(e=document.createElement("div"),e.id="storage-manager-banner",e.setAttribute("role","alert"),Object.assign(e.style,{position:"fixed",bottom:"16px",right:"16px",maxWidth:"380px",zIndex:"999999",padding:"12px 16px",borderRadius:"8px",fontSize:"13px",fontFamily:"system-ui, -apple-system, sans-serif",boxShadow:"0 4px 12px rgba(0,0,0,0.15)",display:"flex",alignItems:"center",justify:"space-between",gap:"12px",transition:"all 0.2s ease-in-out"}),document.body.appendChild(e));const n=!t.saveAllowed;e.style.backgroundColor=n?"#fef2f2":"#fffbe2",e.style.color=n?"#991b1b":"#723b13",e.style.border=`1px solid ${n?"#fca5a5":"#fde047"}`;const o=n?`<strong>Storage Nearly Full (${t.percent}%)</strong><br>Saving disabled to prevent loss.`:`<strong>Storage Low (${t.percent}%)</strong><br>Consider cleaning old draft files.`;e.innerHTML=`
+      <div>${o}</div>
+      <button id="storage-manager-clear-btn" style="
+        background: ${n?"#dc2626":"#d97706"};
+        color: #fff;
+        border: none;
+        padding: 6px 10px;
+        border-radius: 4px;
+        font-weight: 600;
+        cursor: pointer;
+        white-space: nowrap;
+        font-size: 12px;
+      ">🧹 Clear Drafts</button>
+    `,document.getElementById("storage-manager-clear-btn")?.addEventListener("click",s,{once:!0})}function u(){e&&(e.remove(),e=null)}function h(){document.readyState==="loading"?document.addEventListener("DOMContentLoaded",()=>n()):n()}return{init:h,check:n,canSave:l,clearDrafts:s,getUsage:o}})();StorageManager.init()
