@@ -1,4 +1,4 @@
-{{ $mainStyles := slice "css/main/mainbase.css" }}
+{{ $mainStyles := slice "css/main/mainbase.css"  "css/main/annotation.css"}}
 {{ range $mainStyles }}
   {{ with resources.Get . | resources.Minify | resources.Fingerprint }}
     <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
