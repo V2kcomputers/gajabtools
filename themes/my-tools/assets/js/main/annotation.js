@@ -1,17 +1,33 @@
 /**
- * Live Annotation System v1.3.0
+ * Live Annotation System v1.3.0 (Upgraded)
  */
 (function (global) {
   'use strict';
 
   const AnnotationConfig = {
     enabled: true,
-    defaultHighlight: "#FFE45C",
-    defaultPen: "#ff0000",
+    defaultHighlightColor: "#FFF59D",
+    defaultPenColor: "#FF0000",
+    drawingPresets: ["#FF0000", "#FF9800", "#FFD600", "#7ED321", "#29B6F6"],
+    highlightPresets: ["#FFF59D", "#C8F7A6", "#AEEBFF", "#FFC8E6", "#E2D5FF"],
     penWidth: 3,
     opacity: 0.8,
     autoSave: true,
-    showToolbar: true
+    showToolbar: true,
+    lensConfig: {
+      enabled: false,
+      type: "plane",
+      hideMouseCursor: false,
+      color: "#FFFF00",
+      presets: ["#FFFF00", "#0000FF", "#00FF00", "#FFC0CB", "#800080", "#FFFFFF", "glass"],
+      size: 50,
+      opacity: 0.35,
+      borderEnabled: true,
+      borderWidth: 2,
+      borderColor: "#FFFF00",
+      customBorderColor: false,
+      glowEnabled: false
+    }
   };
 
   // --- STORAGE ENGINE ---
@@ -110,10 +126,17 @@
         }
       }
       return node;
+    },
+    hexToRGBA(hex, alpha) {
+      if (!hex || typeof hex !== 'string' || !hex.startsWith('#')) return `rgba(255, 255, 255, ${alpha})`;
+      let c = hex.replace('#', '');
+      if (c.length === 3) c = c.split('').map(x => x + x).join('');
+      const num = parseInt(c, 16);
+      return `rgba(${(num >> 16) & 255}, ${(num >> 8) & 255}, ${num & 255}, ${alpha})`;
     }
   };
 
-  // --- HIGHLIGHT ENGINE (WITH CLICK TO ERASE & UNDO SUPPORT) ---
+  // --- HIGHLIGHT ENGINE ---
   class HighlightEngine {
     constructor(system) {
       this.system = system;
@@ -122,7 +145,6 @@
     }
 
     initEvents() {
-      // Direct text highlight creation
       document.addEventListener('mouseup', Utils.debounce(() => {
         if (!this.system.config.enabled || this.system.state.activeTool !== 'highlight') return;
         const selection = window.getSelection();
@@ -130,13 +152,12 @@
 
         const range = selection.getRangeAt(0);
         if (range.toString().trim().length > 0) {
-          this.highlightRange(range, this.system.config.defaultHighlight);
+          this.highlightRange(range, this.system.config.defaultHighlightColor);
           selection.removeAllRanges();
           this.system.autoSave();
         }
       }, 100));
 
-      // TEXT SELECTION MITANE KA OPTION: Click on highlight to remove it
       document.addEventListener('click', (e) => {
         const mark = e.target.closest('mark.las-highlight');
         if (mark) {
@@ -183,7 +204,7 @@
 
         const mark = document.createElement('mark');
         mark.className = 'las-highlight';
-        mark.style.backgroundColor = color;
+        mark.style.backgroundColor = color.startsWith('#') ? Utils.hexToRGBA(color, 0.5) : color;
 
         try {
           nodeRange.surroundContents(mark);
@@ -225,7 +246,6 @@
       }
     }
 
-    // CTRL+Z SE HIGHLIGHT BACK / UNDO
     undo() {
       if (this.highlights.length > 0) {
         const lastHighlight = this.highlights.pop();
@@ -290,7 +310,6 @@
 
       window.addEventListener('resize', Utils.debounce(() => this.resize(), 150));
       
-      // AUTO DELETE DRAWING ON SCROLL
       window.addEventListener('scroll', () => {
         if (this.paths.length > 0) {
           this.clear();
@@ -316,7 +335,7 @@
         this.isDrawing = true;
         const pt = this.getPoint(e);
         this.currentPath = {
-          color: this.system.config.defaultPen,
+          color: this.system.config.defaultPenColor,
           width: isEraseMode ? this.system.config.penWidth * 5 : this.system.config.penWidth,
           opacity: this.system.config.opacity,
           isEraser: isEraseMode,
@@ -408,10 +427,123 @@
     restore(paths) { if (Array.isArray(paths)) { this.paths = paths; this.redraw(); } }
   }
 
+  // --- LENS CURSOR ENGINE ---
+  class LensCursorEngine {
+    constructor(system) {
+      this.system = system;
+      this.lensEl = null;
+      this.pos = { x: 0, y: 0 };
+      this.rafId = null;
+      this.isTracking = false;
+    }
+
+    init() {
+      if (this.lensEl) return;
+      this.lensEl = document.createElement('div');
+      this.lensEl.className = 'las-lens-cursor';
+      document.body.appendChild(this.lensEl);
+
+      window.addEventListener('mousemove', (e) => {
+        this.pos.x = e.clientX;
+        this.pos.y = e.clientY;
+        if (this.system.state.activeTool === 'lens' && !this.isTracking) {
+          this.startTracking();
+        }
+      }, { passive: true });
+    }
+
+    startTracking() {
+      this.isTracking = true;
+      const update = () => {
+        if (this.system.state.activeTool === 'lens') {
+          this.lensEl.style.transform = `translate3d(${this.pos.x}px, ${this.pos.y}px, 0) translate(-50%, -50%)`;
+          this.rafId = requestAnimationFrame(update);
+        } else {
+          this.isTracking = false;
+          this.rafId = null;
+        }
+      };
+      this.rafId = requestAnimationFrame(update);
+    }
+
+    updateStyle() {
+      if (!this.lensEl) return;
+      const cfg = this.system.config.lensConfig;
+      this.lensEl.style.width = `${cfg.size}px`;
+      this.lensEl.style.height = `${cfg.size}px`;
+
+      const isGlass = cfg.color === "glass";
+
+      this.lensEl.classList.remove('las-lens-plane', 'las-lens-convex', 'las-lens-concave', 'las-lens-glass');
+      this.lensEl.classList.add(`las-lens-${cfg.type || 'plane'}`);
+
+      if (isGlass) {
+        this.lensEl.classList.add('las-lens-glass');
+        this.lensEl.style.backgroundColor = 'transparent';
+      } else {
+        this.lensEl.style.backgroundColor = Utils.hexToRGBA(cfg.color, cfg.opacity);
+      }
+
+      if (cfg.borderEnabled) {
+        let borderColor = cfg.customBorderColor ? cfg.borderColor : cfg.color;
+        if (borderColor === "glass") {
+          borderColor = "rgba(255, 255, 255, 0.85)";
+        }
+        this.lensEl.style.border = `${cfg.borderWidth}px solid ${borderColor}`;
+      } else {
+        this.lensEl.style.border = 'none';
+      }
+
+      if (cfg.glowEnabled) {
+        let glowColor = cfg.customBorderColor ? cfg.borderColor : cfg.color;
+        if (glowColor === "glass") {
+          glowColor = "rgba(255, 255, 255, 0.6)";
+        }
+        this.lensEl.style.boxShadow = `0 0 12px ${glowColor}, 0 0 20px ${glowColor}`;
+      } else if (!isGlass && cfg.type === 'plane') {
+        this.lensEl.style.boxShadow = 'none';
+      }
+
+      if (this.system.state.activeTool === 'lens' && cfg.hideMouseCursor) {
+        document.body.classList.add('las-hide-cursor');
+      } else {
+        document.body.classList.remove('las-hide-cursor');
+      }
+    }
+
+    setVisible(visible) {
+      if (!this.lensEl) this.init();
+      if (visible) {
+        this.updateStyle();
+        this.lensEl.style.display = 'block';
+        if (!this.isTracking) this.startTracking();
+      } else {
+        this.lensEl.style.display = 'none';
+        document.body.classList.remove('las-hide-cursor');
+        this.isTracking = false;
+        if (this.rafId) {
+          cancelAnimationFrame(this.rafId);
+          this.rafId = null;
+        }
+      }
+    }
+  }
+
   // --- MAIN SYSTEM CONTROLLER ---
   class LiveAnnotationSystem {
     constructor(config = {}) {
       this.config = Object.assign({}, AnnotationConfig, config);
+      if (config.lensConfig) {
+        this.config.lensConfig = Object.assign({}, AnnotationConfig.lensConfig, config.lensConfig);
+      }
+
+      if (config.defaultHighlight && !config.defaultHighlightColor) {
+        this.config.defaultHighlightColor = config.defaultHighlight;
+      }
+      if (config.defaultPen && !config.defaultPenColor) {
+        this.config.defaultPenColor = config.defaultPen;
+      }
+
       this.storage = new StorageEngine();
       this.state = {
         activeTool: null,
@@ -420,14 +552,57 @@
 
       this.highlighter = new HighlightEngine(this);
       this.drawer = new DrawEngine(this);
+      this.lens = new LensCursorEngine(this);
       this.autoSave = Utils.debounce(() => this.saveCurrentPage(), 500);
+
+      this.cursorPos = { x: 0, y: 0 };
+      this.cursorRaf = null;
     }
 
     async init() {
       await this.storage.init();
+      this.lens.init();
       this.renderUI();
+      this.initCursorPreview();
+      this.initClickPulse();
       this.bindShortcuts();
       await this.loadCurrentPage();
+    }
+
+    initCursorPreview() {
+      this.cursorEl = document.createElement('div');
+      this.cursorEl.className = 'las-cursor-preview';
+      document.body.appendChild(this.cursorEl);
+
+      const updatePosition = () => {
+        if (this.state.activeTool === 'highlight') {
+          this.cursorEl.style.transform = `translate3d(${this.cursorPos.x}px, ${this.cursorPos.y}px, 0) translate(-50%, -50%)`;
+        }
+        this.cursorRaf = null;
+      };
+
+      window.addEventListener('mousemove', (e) => {
+        this.cursorPos.x = e.clientX;
+        this.cursorPos.y = e.clientY;
+        if (this.state.activeTool === 'highlight' && !this.cursorRaf) {
+          this.cursorRaf = requestAnimationFrame(updatePosition);
+        }
+      }, { passive: true });
+    }
+
+    initClickPulse() {
+      window.addEventListener('pointerdown', (e) => {
+        if (!this.config.enabled) return;
+        const pulse = document.createElement('div');
+        pulse.className = 'las-click-pulse';
+        pulse.style.left = `${e.clientX}px`;
+        pulse.style.top = `${e.clientY}px`;
+        pulse.style.backgroundColor = this.state.activeTool === 'highlight' 
+          ? this.config.defaultHighlightColor 
+          : this.config.defaultPenColor;
+        document.body.appendChild(pulse);
+        setTimeout(() => pulse.remove(), 200);
+      }, { passive: true });
     }
 
     setActiveTool(toolName) {
@@ -448,34 +623,182 @@
       const hlActive = this.state.activeTool === 'highlight';
       const drawActive = this.state.activeTool === 'draw';
       const eraserActive = this.state.activeTool === 'eraser';
+      const lensActive = this.state.activeTool === 'lens';
 
       const toggleHl = this.panel.querySelector('#las-toggle-hl');
       const toggleDraw = this.panel.querySelector('#las-toggle-draw');
       const toggleEraser = this.panel.querySelector('#las-toggle-eraser');
+      const toggleLens = this.panel.querySelector('#las-toggle-lens');
 
       if (toggleHl) toggleHl.checked = hlActive;
       if (toggleDraw) toggleDraw.checked = drawActive;
       if (toggleEraser) toggleEraser.checked = eraserActive;
+      if (toggleLens) toggleLens.checked = lensActive;
 
       this.toolbar.querySelector('#las-tb-hl').classList.toggle('las-active', hlActive);
       this.toolbar.querySelector('#las-tb-draw').classList.toggle('las-active', drawActive);
       this.toolbar.querySelector('#las-tb-eraser').classList.toggle('las-eraser-active', eraserActive);
+      const tbLens = this.toolbar.querySelector('#las-tb-lens');
+      if (tbLens) tbLens.classList.toggle('las-active', lensActive);
+
+      const tbHlSlot = this.toolbar.querySelector('#las-tb-palette-hl');
+      const tbDrawSlot = this.toolbar.querySelector('#las-tb-palette-draw');
+      if (tbHlSlot) tbHlSlot.style.display = hlActive ? 'flex' : 'none';
+      if (tbDrawSlot) tbDrawSlot.style.display = drawActive ? 'flex' : 'none';
+
+      const secLens = this.panel.querySelector('#las-sec-lens');
+      const secHl = this.panel.querySelector('#las-sec-hl');
+      const secDraw = this.panel.querySelector('#las-sec-draw');
+      if (secLens) secLens.style.display = lensActive ? 'block' : 'none';
+      if (secHl) secHl.style.display = hlActive ? 'block' : 'none';
+      if (secDraw) secDraw.style.display = drawActive ? 'block' : 'none';
 
       if (this.drawer.canvas) {
         const needCanvas = drawActive || eraserActive;
         this.drawer.canvas.classList.toggle('las-active', needCanvas);
         this.drawer.canvas.classList.toggle('las-eraser-mode', eraserActive);
       }
+
+      if (this.cursorEl) {
+        if (hlActive) {
+          this.cursorEl.style.backgroundColor = this.config.defaultHighlightColor;
+          this.cursorEl.style.display = 'block';
+        } else {
+          this.cursorEl.style.display = 'none';
+        }
+      }
+
+      this.lens.setVisible(lensActive);
+      this.renderPalettes();
+    }
+
+    createPaletteContainer(presets, currentColor, onSelect) {
+      const container = document.createElement('div');
+      container.className = 'las-palette';
+
+      presets.forEach(color => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        const isGlass = color === "glass";
+        
+        btn.className = 'las-swatch' + 
+          (isGlass ? ' las-swatch-glass' : '') + 
+          (color.toLowerCase() === currentColor.toLowerCase() ? ' las-active-swatch' : '');
+        
+        if (!isGlass) {
+          btn.style.backgroundColor = color;
+        }
+
+        btn.setAttribute('aria-label', `Select color ${color}`);
+        btn.setAttribute('title', isGlass ? '💎 Glass (Original)' : color);
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          onSelect(color);
+        });
+        container.appendChild(btn);
+      });
+
+      return container;
+    }
+
+    renderPalettes() {
+      const tbHlSlot = this.toolbar.querySelector('#las-tb-palette-hl');
+      const tbDrawSlot = this.toolbar.querySelector('#las-tb-palette-draw');
+
+      if (tbHlSlot) {
+        tbHlSlot.innerHTML = '';
+        tbHlSlot.appendChild(this.createPaletteContainer(
+          this.config.highlightPresets, 
+          this.config.defaultHighlightColor, 
+          (color) => {
+            this.config.defaultHighlightColor = color;
+            if (this.cursorEl) this.cursorEl.style.backgroundColor = color;
+            this.renderPalettes();
+          }
+        ));
+      }
+
+      if (tbDrawSlot) {
+        tbDrawSlot.innerHTML = '';
+        tbDrawSlot.appendChild(this.createPaletteContainer(
+          this.config.drawingPresets, 
+          this.config.defaultPenColor, 
+          (color) => {
+            this.config.defaultPenColor = color;
+            this.renderPalettes();
+          }
+        ));
+      }
+
+      const panelHlSlot = this.panel.querySelector('#las-panel-palette-hl');
+      const panelDrawSlot = this.panel.querySelector('#las-panel-palette-draw');
+      const panelLensSlot = this.panel.querySelector('#las-panel-palette-lens');
+
+      if (panelHlSlot) {
+        panelHlSlot.innerHTML = '';
+        panelHlSlot.appendChild(this.createPaletteContainer(
+          this.config.highlightPresets, 
+          this.config.defaultHighlightColor, 
+          (color) => {
+            this.config.defaultHighlightColor = color;
+            if (this.cursorEl) this.cursorEl.style.backgroundColor = color;
+            this.renderPalettes();
+          }
+        ));
+      }
+
+      if (panelDrawSlot) {
+        panelDrawSlot.innerHTML = '';
+        panelDrawSlot.appendChild(this.createPaletteContainer(
+          this.config.drawingPresets, 
+          this.config.defaultPenColor, 
+          (color) => {
+            this.config.defaultPenColor = color;
+            this.renderPalettes();
+          }
+        ));
+      }
+
+      if (panelLensSlot) {
+        panelLensSlot.innerHTML = '';
+        const lensPal = this.createPaletteContainer(
+          this.config.lensConfig.presets,
+          this.config.lensConfig.color,
+          (color) => {
+            this.config.lensConfig.color = color;
+            if (!this.config.lensConfig.customBorderColor) {
+              this.config.lensConfig.borderColor = color === 'glass' ? '#FFFFFF' : color;
+            }
+            this.lens.updateStyle();
+            this.renderPalettes();
+            this.autoSave();
+          }
+        );
+        const cp = document.createElement('input');
+        cp.type = 'color';
+        cp.className = 'las-color-picker-input';
+        cp.value = this.config.lensConfig.color === 'glass' ? '#ffffff' : this.config.lensConfig.color;
+        cp.title = 'Custom Color';
+        cp.addEventListener('input', (e) => {
+          this.config.lensConfig.color = e.target.value;
+          if (!this.config.lensConfig.customBorderColor) {
+            this.config.lensConfig.borderColor = e.target.value;
+          }
+          this.lens.updateStyle();
+          this.renderPalettes();
+          this.autoSave();
+        });
+        lensPal.appendChild(cp);
+        panelLensSlot.appendChild(lensPal);
+      }
     }
 
     renderUI() {
-      // Floating Action Button
       this.fab = document.createElement('button');
       this.fab.className = 'las-element las-fab';
       this.fab.innerHTML = `<svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>`;
       document.body.appendChild(this.fab);
 
-      // Side Panel
       this.panel = document.createElement('div');
       this.panel.className = 'las-element las-panel';
       this.panel.innerHTML = `
@@ -499,16 +822,68 @@
               <label class="las-switch"><input type="checkbox" id="las-toggle-eraser"><span class="las-slider"></span></label>
             </div>
             <div class="las-row">
+              <span>Lens Cursor</span>
+              <label class="las-switch"><input type="checkbox" id="las-toggle-lens"><span class="las-slider"></span></label>
+            </div>
+            <div class="las-row">
               <span>Show Toolbar</span>
               <label class="las-switch"><input type="checkbox" id="las-toggle-tb" ${this.config.showToolbar ? 'checked' : ''}><span class="las-slider"></span></label>
             </div>
           </div>
 
-          <div class="las-section">
+          <div class="las-section" id="las-sec-lens" style="display:none;">
+            <div class="las-section-title">Lens Cursor Settings</div>
+            <div class="las-row">
+              <span>Lens Type</span>
+              <select id="las-lens-type" class="las-select">
+                <option value="plane" ${this.config.lensConfig.type === 'plane' ? 'selected' : ''}>Plane Spotlight</option>
+                <option value="convex" ${this.config.lensConfig.type === 'convex' ? 'selected' : ''}>Convex Magnify</option>
+                <option value="concave" ${this.config.lensConfig.type === 'concave' ? 'selected' : ''}>Concave Depth</option>
+              </select>
+            </div>
+            <div class="las-row">
+              <span>Hide Mouse Cursor</span>
+              <label class="las-switch"><input type="checkbox" id="las-lens-hide-cursor" ${this.config.lensConfig.hideMouseCursor ? 'checked' : ''}><span class="las-slider"></span></label>
+            </div>
+            <div class="las-row">
+              <span>Lens Color</span>
+              <div id="las-panel-palette-lens"></div>
+            </div>
+            <div class="las-row">
+              <span>Lens Size</span>
+              <input type="range" id="las-lens-size" min="10" max="150" value="${this.config.lensConfig.size}">
+            </div>
+            <div class="las-row">
+              <span>Lens Opacity</span>
+              <input type="range" id="las-lens-opacity" min="0.2" max="1.0" step="0.05" value="${this.config.lensConfig.opacity}">
+            </div>
+            <div class="las-row">
+              <span>Border ON/OFF</span>
+              <label class="las-switch"><input type="checkbox" id="las-lens-border-toggle" ${this.config.lensConfig.borderEnabled ? 'checked' : ''}><span class="las-slider"></span></label>
+            </div>
+            <div class="las-row">
+              <span>Border Width</span>
+              <input type="range" id="las-lens-border-width" min="1" max="5" value="${this.config.lensConfig.borderWidth}">
+            </div>
+            <div class="las-row">
+              <span>Glow ON/OFF</span>
+              <label class="las-switch"><input type="checkbox" id="las-lens-glow-toggle" ${this.config.lensConfig.glowEnabled ? 'checked' : ''}><span class="las-slider"></span></label>
+            </div>
+          </div>
+
+          <div class="las-section" id="las-sec-hl" style="display:none;">
+            <div class="las-section-title">Highlight Color Settings</div>
+            <div class="las-row">
+              <span>Highlight Color</span>
+              <div id="las-panel-palette-hl"></div>
+            </div>
+          </div>
+
+          <div class="las-section" id="las-sec-draw" style="display:none;">
             <div class="las-section-title">Pen & Canvas Styling</div>
             <div class="las-row">
-              <span>Color</span>
-              <input type="color" id="las-picker-color" value="${this.config.defaultHighlight}">
+              <span>Drawing Color</span>
+              <div id="las-panel-palette-draw"></div>
             </div>
             <div class="las-row">
               <span>Thickness</span>
@@ -523,13 +898,15 @@
       `;
       document.body.appendChild(this.panel);
 
-      // Mini Bottom Toolbar
       this.toolbar = document.createElement('div');
       this.toolbar.className = 'las-element las-toolbar';
       if (this.config.showToolbar) this.toolbar.classList.add('las-visible');
       this.toolbar.innerHTML = `
         <button class="las-tb-btn" id="las-tb-hl" title="Highlight"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 11-6 6v3h3l6-6m-3-3 3-3 3 3-3 3m0-6 2-2a2 2 0 0 1 3 3l-2 2"/></svg></button>
+        <div id="las-tb-palette-hl" style="display:none;"></div>
+        <button class="las-tb-btn" id="las-tb-lens" title="Lens Cursor"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
         <button class="las-tb-btn" id="las-tb-draw" title="Draw (Pencil Cursor)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg></button>
+        <div id="las-tb-palette-draw" style="display:none;"></div>
         <button class="las-tb-btn" id="las-tb-eraser" title="Rubber / Eraser"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m7 21-4-4 10-10 6 6-6 6z"/><path d="m18 11 3 3-4 4h-6"/></svg></button>
         <button class="las-tb-btn" id="las-tb-undo" title="Undo (Ctrl+Z)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></button>
         <button class="las-tb-btn" id="las-tb-clear" title="Clear Canvas"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
@@ -537,25 +914,21 @@
       document.body.appendChild(this.toolbar);
 
       this.bindUIEvents();
+      this.renderPalettes();
     }
 
     bindUIEvents() {
       this.fab.addEventListener('click', () => this.togglePanel());
       this.panel.querySelector('.las-panel-close').addEventListener('click', () => this.togglePanel(false));
 
-      // Panel Tool Controls
       this.panel.querySelector('#las-toggle-hl').addEventListener('change', () => this.setActiveTool('highlight'));
       this.panel.querySelector('#las-toggle-draw').addEventListener('change', () => this.setActiveTool('draw'));
       this.panel.querySelector('#las-toggle-eraser').addEventListener('change', () => this.setActiveTool('eraser'));
+      this.panel.querySelector('#las-toggle-lens').addEventListener('change', () => this.setActiveTool('lens'));
 
       this.panel.querySelector('#las-toggle-tb').addEventListener('change', (e) => {
         this.config.showToolbar = e.target.checked;
         this.toolbar.classList.toggle('las-visible', this.config.showToolbar);
-      });
-
-      this.panel.querySelector('#las-picker-color').addEventListener('input', (e) => {
-        this.config.defaultHighlight = e.target.value;
-        this.config.defaultPen = e.target.value;
       });
 
       this.panel.querySelector('#las-pen-width').addEventListener('input', (e) => {
@@ -566,12 +939,54 @@
         this.config.opacity = parseFloat(e.target.value);
       });
 
-      // Toolbar Buttons
+      this.panel.querySelector('#las-lens-type').addEventListener('change', (e) => {
+        this.config.lensConfig.type = e.target.value;
+        this.lens.updateStyle();
+        this.autoSave();
+      });
+
+      this.panel.querySelector('#las-lens-hide-cursor').addEventListener('change', (e) => {
+        this.config.lensConfig.hideMouseCursor = e.target.checked;
+        this.lens.updateStyle();
+        this.autoSave();
+      });
+
+      this.panel.querySelector('#las-lens-size').addEventListener('input', (e) => {
+        this.config.lensConfig.size = parseInt(e.target.value, 10);
+        this.lens.updateStyle();
+        this.autoSave();
+      });
+
+      this.panel.querySelector('#las-lens-opacity').addEventListener('input', (e) => {
+        this.config.lensConfig.opacity = parseFloat(e.target.value);
+        this.lens.updateStyle();
+        this.autoSave();
+      });
+
+      this.panel.querySelector('#las-lens-border-toggle').addEventListener('change', (e) => {
+        this.config.lensConfig.borderEnabled = e.target.checked;
+        this.lens.updateStyle();
+        this.autoSave();
+      });
+
+      this.panel.querySelector('#las-lens-border-width').addEventListener('input', (e) => {
+        this.config.lensConfig.borderWidth = parseInt(e.target.value, 10);
+        this.lens.updateStyle();
+        this.autoSave();
+      });
+
+      this.panel.querySelector('#las-lens-glow-toggle').addEventListener('change', (e) => {
+        this.config.lensConfig.glowEnabled = e.target.checked;
+        this.lens.updateStyle();
+        this.autoSave();
+      });
+
       this.toolbar.querySelector('#las-tb-hl').addEventListener('click', () => this.setActiveTool('highlight'));
       this.toolbar.querySelector('#las-tb-draw').addEventListener('click', () => this.setActiveTool('draw'));
       this.toolbar.querySelector('#las-tb-eraser').addEventListener('click', () => this.setActiveTool('eraser'));
+      const tbLensBtn = this.toolbar.querySelector('#las-tb-lens');
+      if (tbLensBtn) tbLensBtn.addEventListener('click', () => this.setActiveTool('lens'));
       
-      // SMART UNDO: Active mode ke according Drawing ya Highlight undo karega
       this.toolbar.querySelector('#las-tb-undo').addEventListener('click', () => {
         if (this.state.activeTool === 'highlight') {
           this.highlighter.undo();
@@ -590,7 +1005,6 @@
 
     bindShortcuts() {
       window.addEventListener('keydown', (e) => {
-        // SMART CTRL+Z UNDO
         if (e.ctrlKey && !e.shiftKey && e.key.toLowerCase() === 'z') {
           e.preventDefault();
           if (this.state.activeTool === 'highlight') {
@@ -610,6 +1024,10 @@
               e.preventDefault();
               this.setActiveTool('draw');
               break;
+            case 'L':
+              e.preventDefault();
+              this.setActiveTool('lens');
+              break;
             case 'S':
               e.preventDefault();
               this.togglePanel();
@@ -623,7 +1041,8 @@
       if (!this.config.autoSave) return;
       const data = {
         highlights: this.highlighter.exportData(),
-        drawings: this.drawer.exportData()
+        drawings: this.drawer.exportData(),
+        lensConfig: this.config.lensConfig
       };
       await this.storage.save(window.location.pathname, data);
     }
@@ -635,6 +1054,27 @@
       if (data.drawings) {
         this.drawer.init();
         this.drawer.restore(data.drawings);
+      }
+      if (data.lensConfig) {
+        this.config.lensConfig = Object.assign({}, this.config.lensConfig, data.lensConfig);
+        this.lens.updateStyle();
+        const typeSelect = this.panel.querySelector('#las-lens-type');
+        const hideCursorToggle = this.panel.querySelector('#las-lens-hide-cursor');
+        const sizeInput = this.panel.querySelector('#las-lens-size');
+        const opacityInput = this.panel.querySelector('#las-lens-opacity');
+        const borderToggle = this.panel.querySelector('#las-lens-border-toggle');
+        const borderWidthInput = this.panel.querySelector('#las-lens-border-width');
+        const glowToggle = this.panel.querySelector('#las-lens-glow-toggle');
+        
+        if (typeSelect) typeSelect.value = this.config.lensConfig.type;
+        if (hideCursorToggle) hideCursorToggle.checked = this.config.lensConfig.hideMouseCursor;
+        if (sizeInput) sizeInput.value = this.config.lensConfig.size;
+        if (opacityInput) opacityInput.value = this.config.lensConfig.opacity;
+        if (borderToggle) borderToggle.checked = this.config.lensConfig.borderEnabled;
+        if (borderWidthInput) borderWidthInput.value = this.config.lensConfig.borderWidth;
+        if (glowToggle) glowToggle.checked = this.config.lensConfig.glowEnabled;
+
+        this.renderPalettes();
       }
     }
   }
