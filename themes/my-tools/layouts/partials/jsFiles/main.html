@@ -1,5 +1,5 @@
 {{ $bundle := slice
-    (resources.Get "js/main/mainbase.js") (resources.Get "js/main/annotation.js") | resources.Concat "js/app.bundle.js" | minify| fingerprint
+    (resources.Get "js/main/mainbase.js") | resources.Concat "js/app.bundle.js" | minify| fingerprint
 }}
 
 <script src="{{ $bundle.RelPermalink }}" integrity="{{ $bundle.Data.Integrity }}" defer></script>
