@@ -1,0 +1,408 @@
+<!-- ============================================================ -->
+<!--                   GLOBAL DROP OVERLAY COVER                  -->
+<!-- ============================================================ -->
+<div id="img-comp-global-overlay" class="img-comp-global-overlay">
+  <div class="img-comp-overlay-content">
+    <div class="img-comp-cloud-icon">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+      </svg>
+    </div>
+    <h2>Drop Image Anywhere to Upload</h2>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!--                   1. CROP MODAL OVERLAY                      -->
+<!-- ============================================================ -->
+<div id="img-crop-modal" class="img-comp-modal" style="display: none;">
+  <div class="img-comp-modal-card">
+    <div class="img-comp-modal-header">
+      <h3>Crop Image</h3>
+      <button type="button" id="img-crop-close-btn" class="img-comp-btn-icon">&times;</button>
+    </div>
+    
+    <div class="img-crop-viewport" id="img-crop-viewport">
+      <img id="img-crop-target-img" alt="Crop Target" draggable="false" />
+      <div id="img-crop-box" class="img-crop-box">
+        <div class="img-crop-handle handle-tl" data-handle="tl"></div>
+        <div class="img-crop-handle handle-tr" data-handle="tr"></div>
+        <div class="img-crop-handle handle-bl" data-handle="bl"></div>
+        <div class="img-crop-handle handle-br" data-handle="br"></div>
+      </div>
+    </div>
+
+    <div class="img-comp-modal-toolbar">
+      <div class="img-crop-aspect-buttons">
+        <button type="button" class="img-crop-ratio-btn active" data-ratio="free">Free</button>
+        <button type="button" class="img-crop-ratio-btn" data-ratio="1">1:1</button>
+        <button type="button" class="img-crop-ratio-btn" data-ratio="1.3333">4:3</button>
+        <button type="button" class="img-crop-ratio-btn" data-ratio="1.7777">16:9</button>
+      </div>
+      <div class="img-crop-actions">
+        <button type="button" id="img-crop-cancel-btn" class="img-comp-btn img-comp-btn-secondary">Cancel</button>
+        <button type="button" id="img-crop-apply-btn" class="img-comp-btn img-comp-btn-primary">Apply Crop</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!--       2. COLOR EFFECTS MODAL OVERLAY (WITH LIVE PREVIEW)     -->
+<!-- ============================================================ -->
+<div id="img-fx-modal" class="img-comp-modal" style="display: none;">
+  <div class="img-comp-modal-card img-fx-modal-card">
+    <div class="img-comp-modal-header">
+      <h3>Color Effects &amp; Filters</h3>
+      <button type="button" id="img-fx-close-btn" class="img-comp-btn-icon">&times;</button>
+    </div>
+    
+    <!-- SPLIT LAYOUT: LIVE PREVIEW & SLIDERS -->
+    <div class="img-fx-modal-body">
+      <!-- LIVE IMAGE PREVIEW BOX -->
+      <div class="img-fx-preview-box">
+        <img id="img-fx-preview-img" alt="Filter Live Preview" />
+      </div>
+
+      <!-- FILTERS CONTROLS -->
+      <div class="img-comp-sliders-col">
+        <div class="img-comp-field">
+          <div class="img-comp-slider-header"><label for="img-fx-brightness">Brightness</label><span id="img-fx-brightness-val">100%</span></div>
+          <input type="range" id="img-fx-brightness" min="0" max="200" value="100" />
+        </div>
+        <div class="img-comp-field">
+          <div class="img-comp-slider-header"><label for="img-fx-contrast">Contrast</label><span id="img-fx-contrast-val">100%</span></div>
+          <input type="range" id="img-fx-contrast" min="0" max="200" value="100" />
+        </div>
+        <div class="img-comp-field">
+          <div class="img-comp-slider-header"><label for="img-fx-saturation">Saturation</label><span id="img-fx-saturation-val">100%</span></div>
+          <input type="range" id="img-fx-saturation" min="0" max="200" value="100" />
+        </div>
+        <div class="img-comp-field">
+          <div class="img-comp-slider-header"><label for="img-fx-grayscale">Grayscale</label><span id="img-fx-grayscale-val">0%</span></div>
+          <input type="range" id="img-fx-grayscale" min="0" max="100" value="0" />
+        </div>
+        <div class="img-comp-field">
+          <div class="img-comp-slider-header"><label for="img-fx-sepia">Sepia</label><span id="img-fx-sepia-val">0%</span></div>
+          <input type="range" id="img-fx-sepia" min="0" max="100" value="0" />
+        </div>
+        <div class="img-comp-field">
+          <div class="img-comp-slider-header"><label for="img-fx-blur">Blur</label><span id="img-fx-blur-val">0px</span></div>
+          <input type="range" id="img-fx-blur" min="0" max="20" value="0" step="0.5" />
+        </div>
+      </div>
+    </div>
+
+    <div class="img-comp-modal-toolbar" style="justify-content: flex-end;">
+      <button type="button" id="img-fx-reset-btn" class="img-comp-btn img-comp-btn-secondary" style="margin-right: auto;">Reset Filters</button>
+      <button type="button" id="img-fx-apply-btn" class="img-comp-btn img-comp-btn-primary">Apply Effects</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!--          MODULE: IMAGE RESIZER & SIZE COMPRESSOR            -->
+<!-- ============================================================ -->
+<section id="img-compressor-module" class="img-comp-container">
+  <div class="img-comp-card">
+    
+    <!-- HEADER -->
+    <div class="img-comp-header">
+      <h2>Professional Image Resizer, Compressor & Editor</h2>
+      <p>100% Client-Side &amp; Private — Export as JPG, PNG, WEBP, or PDF</p>
+    </div>
+
+    <!-- UPLOAD CONTAINER -->
+    <div id="img-comp-dropzone" class="img-comp-dropzone">
+      <input type="file" id="img-comp-file-input" accept="image/jpeg,image/png,image/webp" style="display:none;" />
+      <input type="file" id="img-comp-camera-input" accept="image/*" capture="environment" style="display:none;" />
+
+      <div class="img-comp-dropzone-content">
+        <div class="img-comp-cloud-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+          </svg>
+        </div>
+
+        <h2 class="img-comp-drop-title">Drag &amp; Drop Images</h2>
+        <p class="img-comp-drop-sub">Upload JPG, PNG, WEBP Images</p>
+
+        <div class="img-comp-btn-group">
+          <button type="button" id="img-comp-camera-btn" class="img-comp-action-btn btn-camera">
+            <span>📷</span> Open Camera
+          </button>
+          <button type="button" id="img-comp-browse-btn" class="img-comp-action-btn btn-upload">
+            <span>📁</span> Upload Image
+          </button>
+          <button type="button" id="img-comp-paste-btn" class="img-comp-action-btn btn-paste">
+            <span>📋</span> Paste Image
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN WORKSPACE -->
+    <div id="img-comp-workspace" class="img-comp-workspace" style="display: none;">
+      
+      <!-- TOOLBAR -->
+      <div class="img-comp-toolbar">
+        <button type="button" id="img-comp-open-crop-btn" class="img-comp-btn img-comp-btn-primary">✂️ Crop Image</button>
+        <button type="button" id="img-comp-open-fx-btn" class="img-comp-btn img-comp-btn-primary" style="background:#8e44ad;">🎨 Color Effects</button>
+        <button type="button" id="img-comp-replace-btn" class="img-comp-btn img-comp-btn-secondary">Replace Image</button>
+        <button type="button" id="img-comp-remove-btn" class="img-comp-btn img-comp-btn-danger">Remove</button>
+        <button type="button" id="img-comp-reset-btn" class="img-comp-btn img-comp-btn-secondary">Reset Settings</button>
+        <a href="#downlaod-now"><button type="button" class="img-comp-btn img-comp-btn-primary">Go to Bottom</button></a>
+      </div>
+
+      <!-- MAIN GRID -->
+      <div class="img-comp-grid">
+        
+        <!-- PREVIEW SECTION -->
+        <div class="img-comp-preview-section">
+          <div class="img-comp-preview-bar">
+            <span>Preview</span>
+            <div class="img-comp-zoom-controls">
+              <button type="button" id="img-comp-zoom-out" title="Zoom Out">−</button>
+              <span id="img-comp-zoom-level">100%</span>
+              <button type="button" id="img-comp-zoom-in" title="Zoom In">+</button>
+              <button type="button" id="img-comp-zoom-fit">Fit</button>
+              <button type="button" id="img-comp-zoom-100">100%</button>
+            </div>
+          </div>
+
+          <div class="img-comp-canvas-wrapper" id="img-comp-canvas-wrapper">
+            <img id="img-comp-preview-img" alt="Image Preview" />
+            <div id="img-comp-loader" class="img-comp-loader" style="display: none;">
+              <div class="img-comp-spinner"></div>
+              <span>Processing...</span>
+            </div>
+          </div>
+
+          <div class="img-comp-compare-toggle">
+            <!-- ROTATION & FLIP -->
+            <div class="img-comp-group">
+              <h3>Rotate &amp; Flip</h3>
+              <div class="img-comp-tools-grid">
+                <button type="button" id="img-comp-rot-left" class="img-comp-tool-btn" title="Rotate Left 90°">↺ 90°</button>
+                <button type="button" id="img-comp-rot-right" class="img-comp-tool-btn" title="Rotate Right 90°">↻ 90°</button>
+                <button type="button" id="img-comp-flip-h" class="img-comp-tool-btn" title="Flip Horizontal">↔ Flip H</button>
+                <button type="button" id="img-comp-flip-v" class="img-comp-tool-btn" title="Flip Vertical">↕ Flip V</button>
+              </div>
+            </div>
+            <label>
+              <input type="checkbox" id="img-comp-toggle-compare" />
+              Show Original vs Output 
+            </label>
+          </div>
+          
+          <div id="img-comp-comparison-box" class="img-comp-comparison-box" style="display: none;">
+            <div class="img-comp-comp-item">
+              <span class="img-comp-badge">Original</span>
+              <img id="img-comp-orig-img" alt="Original" />
+            </div>
+            <div class="img-comp-comp-item">
+              <span class="img-comp-badge">Output</span>
+              <img id="img-comp-out-img" alt="Output" />
+            </div>
+          </div>
+          
+        </div>
+
+        <!-- SETTINGS PANEL -->
+        <div class="img-comp-settings-section">
+          
+          <!-- DIMENSIONS -->
+          <div class="img-comp-group">
+            <h3>Dimensions (Pixels)</h3>
+            <div class="img-comp-row img-comp-dim-row">
+              <div class="img-comp-field">
+                <label for="img-comp-width">Width (px)</label>
+                <input type="number" id="img-comp-width" min="1" />
+              </div>
+              <div class="img-comp-aspect-toggle">
+                <button type="button" id="img-comp-aspect-btn" class="img-comp-aspect-active" title="Toggle Aspect Ratio Lock">🔒</button>
+              </div>
+              <div class="img-comp-field">
+                <label for="img-comp-height">Height (px)</label>
+                <input type="number" id="img-comp-height" min="1" />
+              </div>
+            </div>
+
+            <label class="img-comp-sublabel">Presets</label>
+            <div class="img-comp-preset-grid">
+              <button type="button" class="img-comp-preset-btn" data-w="300" data-h="300">300x300</button>
+              <button type="button" class="img-comp-preset-btn" data-w="400" data-h="400">400x400</button>
+              <button type="button" class="img-comp-preset-btn" data-w="512" data-h="512">512x512</button>
+              <button type="button" class="img-comp-preset-btn" data-w="600" data-h="600">600x600</button>
+              <button type="button" class="img-comp-preset-btn" data-w="800" data-h="800">800x800</button>
+              <button type="button" class="img-comp-preset-btn" data-w="1024" data-h="768">1024x768</button>
+              <button type="button" class="img-comp-preset-btn" data-w="1200" data-h="628">1200x628</button>
+              <button type="button" class="img-comp-preset-btn" data-w="1280" data-h="720">1280x720</button>
+              <button type="button" class="img-comp-preset-btn" data-w="1600" data-h="900">1600x900</button>
+              <button type="button" class="img-comp-preset-btn" data-w="1920" data-h="1080">1920x1080</button>
+              <button type="button" class="img-comp-preset-btn" data-w="600" data-h="600" data-name="passport">Passport</button>
+              <button type="button" class="img-comp-preset-btn" data-w="300" data-h="80" data-name="signature">Signature</button>
+            </div>
+          </div>
+
+          <!-- TARGET FILE SIZE RANGE -->
+          <div class="img-comp-group">
+            <h3>Target File Size Range</h3>
+            
+            <!-- MINIMUM TARGET -->
+            <div class="img-comp-field" style="margin-bottom: 10px;">
+              <label for="img-comp-min-target-size">Minimum Target Size</label>
+              <select id="img-comp-min-target-size">
+                <option value="0">Auto</option>
+                <option value="10">10 KB</option>
+                <option value="20">20 KB</option>
+                <option value="30">30 KB</option>
+                <option value="50">50 KB</option>
+                <option value="75">75 KB</option>
+                <option value="100">100 KB</option>
+                <option value="150">150 KB</option>
+                <option value="200">200 KB</option>
+                <option value="300">300 KB</option>
+                <option value="500">500 KB</option>
+                <option value="1024">1 MB</option>
+                <option value="2048">2 MB</option>
+                <option value="custom">Custom...</option>
+              </select>
+              <div id="img-comp-min-custom-box" class="img-comp-row" style="display:none; gap: 6px; margin-top: 4px;">
+                <input type="number" id="img-comp-min-custom-val" value="10" min="0" step="0.1" />
+                <select id="img-comp-min-custom-unit">
+                  <option value="KB">KB</option>
+                  <option value="MB">MB</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- MAXIMUM TARGET -->
+            <div class="img-comp-field">
+              <label for="img-comp-target-size">Maximum Target Size</label>
+              <select id="img-comp-target-size">
+                <option value="0" >Auto</option>
+                <option value="10">10 KB</option>
+                <option value="20">20 KB</option>
+                <option value="30">30 KB</option>
+                <option value="50">50 KB</option>
+                <option value="75">75 KB</option>
+                <option value="100">100 KB</option>
+                <option value="150">150 KB</option>
+                <option value="200">200 KB</option>
+                <option value="300" selected>300 KB</option>
+                <option value="500">500 KB</option>
+                <option value="1024">1 MB</option>
+                <option value="2048">2 MB</option>
+                <option value="custom">Custom...</option>
+              </select>
+              <div id="img-comp-custom-size-box" class="img-comp-row" style="display:none; gap: 6px; margin-top: 4px;">
+                <input type="number" id="img-comp-custom-val" value="100" min="1" step="0.1" />
+                <select id="img-comp-custom-unit">
+                  <option value="KB">KB</option>
+                  <option value="MB">MB</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- FORMAT & QUALITY -->
+          <div class="img-comp-group">
+            <h3>Format &amp; Quality</h3>
+            <div class="img-comp-field">
+              <label for="img-comp-format">Output Format</label>
+              <select id="img-comp-format">
+                <option value="image/jpeg">JPG</option>
+                <option value="application/pdf">PDF Document (.pdf)</option>
+                <option value="image/png">PNG</option>
+                <option value="image/webp">WEBP</option>
+              </select>
+              <div id="img-comp-png-warning" class="img-comp-warning" style="display: none;">
+                Note: PNG is a lossless format. Exact target size auto-compression cannot always be achieved.
+              </div>
+            </div>
+
+            <div class="img-comp-field img-comp-space-top">
+              <div class="img-comp-slider-header">
+                <label for="img-comp-quality">Quality</label>
+                <span id="img-comp-quality-val">90%</span>
+              </div>
+              <input type="range" id="img-comp-quality" min="1" max="100" value="90" />
+            </div>
+          </div>
+
+          <!-- ADVANCED OPTIONS -->
+          <div class="img-comp-group">
+            <h3>Advanced Settings</h3>
+            <div class="img-comp-checkbox-grid">
+              <label><input type="checkbox" id="img-comp-opt-aspect" checked /> Maintain Aspect Ratio</label>
+              <label><input type="checkbox" id="img-comp-opt-sharpen" /> Sharpen Image</label>
+              <label><input type="checkbox" id="img-comp-opt-transparency" checked /> Keep Transparency</label>
+              <label><input type="checkbox" id="img-comp-opt-hq" checked /> High Quality Scaling</label>
+              <label><input type="checkbox" id="img-comp-opt-fast" /> Fast Mode</label>
+            </div>
+          </div>
+
+          <!-- FILENAME -->
+          <div class="img-comp-group">
+            <div class="img-comp-field">
+              <label for="img-comp-filename">Output Filename</label>
+              <input type="text" id="img-comp-filename" value="resized-image" />
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- METRICS TABLE -->
+      <div class="img-comp-group img-comp-table-group">
+        <h3>Image Details &amp; Compression Metrics</h3>
+        <div class="img-comp-table-scroll">
+          <table class="img-comp-table">
+            <thead>
+              <tr>
+                <th>Property</th>
+                <th>Original</th>
+                <th>Output</th>
+                <th>Target Range / Difference</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Dimensions</td>
+                <td id="img-comp-info-orig-dim">-</td>
+                <td id="img-comp-info-out-dim">-</td>
+                <td id="img-comp-info-diff-dim">-</td>
+              </tr>
+              <tr>
+                <td>File Size</td>
+                <td id="img-comp-info-orig-size">-</td>
+                <td id="img-comp-info-out-size">-</td>
+                <td id="img-comp-info-diff-size">-</td>
+              </tr>
+              <tr>
+                <td>Target Range</td>
+                <td id="img-comp-info-target-min">Auto</td>
+                <td id="img-comp-info-target-max">100 KB</td>
+                <td id="img-comp-info-status">-</td>
+              </tr>
+              <tr>
+                <td>Format</td>
+                <td id="img-comp-info-orig-format">-</td>
+                <td id="img-comp-info-out-format">-</td>
+                <td>-</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="img-comp-msg" class="img-comp-msg" style="display: none;"></div>
+
+      <div class="img-comp-actions" id="downlaod-now">
+        <button type="button" id="img-comp-download-btn" class="img-comp-btn img-comp-btn-primary">Download Now</button>
+      </div>
+
+    </div>
+  </div>
+</section>

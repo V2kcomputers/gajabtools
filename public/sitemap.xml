@@ -2,12 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/marriage-biodata-maker-onlin/</loc>
-    <lastmod>2026-07-23T19:57:05+05:30</lastmod>
+    <loc>http://localhost:1313/post/</loc>
+    <lastmod>2026-07-29T19:35:56+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url><url>
-    <loc>http://localhost:1313/post/</loc>
+    <loc>http://localhost:1313/professional-image-resizer-and-editor-online/</loc>
+    <lastmod>2026-07-29T19:35:56+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/marriage-biodata-maker-onlin/</loc>
     <lastmod>2026-07-23T19:57:05+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
@@ -83,6 +88,11 @@
     <priority>0.8</priority>
   </url><url>
     <loc>http://localhost:1313/passport-photo/</loc>
+    <lastmod>2026-06-02T15:52:59+05:30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url><url>
+    <loc>http://localhost:1313/image-resizer-editor/</loc>
     <lastmod>2026-06-02T15:52:59+05:30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
