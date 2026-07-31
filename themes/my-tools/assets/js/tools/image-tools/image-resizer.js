@@ -1,4 +1,4 @@
-(function() {
+ (function() {
   'use strict';
 
   const state = {
@@ -13,17 +13,14 @@
     outputCanvas: null,
     outputDimensions: { width: 0, height: 0 },
     debounceTimer: null,
-    // Transformations
     rotation: 0,
     flipH: false,
     flipV: false,
-    // Crop state
     cropRatio: 'free'
   };
 
   const $ = id => document.getElementById(id);
 
-  // DOM Elements
   const dropzone = $('img-comp-dropzone');
   const globalOverlay = $('img-comp-global-overlay');
   const fileInput = $('img-comp-file-input');
@@ -67,7 +64,6 @@
   const resetBtn = $('img-comp-reset-btn');
   const msgBox = $('img-comp-msg');
 
-  // Crop Modal DOM
   const cropModal = $('img-crop-modal');
   const cropViewport = $('img-crop-viewport');
   const cropTargetImg = $('img-crop-target-img');
@@ -77,13 +73,31 @@
   const cancelCropBtn = $('img-crop-cancel-btn');
   const applyCropBtn = $('img-crop-apply-btn');
 
-  // Color Effects Modal DOM
   const fxModal = $('img-fx-modal');
   const fxPreviewImg = $('img-fx-preview-img');
   const openFxBtn = $('img-comp-open-fx-btn');
   const closeFxBtn = $('img-fx-close-btn');
   const applyFxBtn = $('img-fx-apply-btn');
   const resetFxBtn = $('img-fx-reset-btn');
+
+  function getFormatDetails() {
+    const formatValue = formatSelect.value;
+    let mimeType;
+    let fileExtension;
+
+    if (formatValue.includes("|")) {
+      [mimeType, fileExtension] = formatValue.split("|");
+    } else {
+      mimeType = formatValue;
+      if (mimeType === "application/pdf") {
+        fileExtension = "pdf";
+      } else {
+        fileExtension = mimeType.split("/")[1];
+      }
+    }
+
+    return { mimeType, fileExtension };
+  }
 
   function initModule() {
     dropzone.addEventListener('click', () => fileInput.click());
@@ -99,7 +113,6 @@
     fileInput.addEventListener('change', e => handleFiles(e.target.files));
     cameraInput.addEventListener('change', e => handleFiles(e.target.files));
 
-    // GLOBAL DRAG & DROP
     let dragCounter = 0;
     window.addEventListener('dragenter', e => {
       e.preventDefault();
@@ -124,7 +137,6 @@
       if (e.dataTransfer.files && e.dataTransfer.files.length > 0) handleFiles(e.dataTransfer.files);
     });
 
-    // GLOBAL PASTE
     window.addEventListener('paste', e => {
       const items = (e.clipboardData || e.originalEvent.clipboardData).items;
       for (let item of items) {
@@ -135,13 +147,11 @@
       }
     });
 
-    // ROTATION & FLIP
     $('img-comp-rot-left').addEventListener('click', () => { state.rotation = (state.rotation - 90) % 360; triggerProcessDebounced(); });
     $('img-comp-rot-right').addEventListener('click', () => { state.rotation = (state.rotation + 90) % 360; triggerProcessDebounced(); });
     $('img-comp-flip-h').addEventListener('click', () => { state.flipH = !state.flipH; triggerProcessDebounced(); });
     $('img-comp-flip-v').addEventListener('click', () => { state.flipV = !state.flipV; triggerProcessDebounced(); });
 
-    // COLOR FX MODAL TRIGGERS & LIVE PREVIEW
     openFxBtn.addEventListener('click', openFxModal);
     closeFxBtn.addEventListener('click', () => fxModal.style.display = 'none');
     applyFxBtn.addEventListener('click', () => { fxModal.style.display = 'none'; triggerProcessDebounced(); });
@@ -155,13 +165,11 @@
       });
     });
 
-    // CROP MODAL TRIGGERS
     openCropBtn.addEventListener('click', openCropModal);
     closeCropBtn.addEventListener('click', closeCropModal);
     cancelCropBtn.addEventListener('click', closeCropModal);
     applyCropBtn.addEventListener('click', applyCrop);
 
-    // Aspect Ratio Buttons for Crop
     document.querySelectorAll('.img-crop-ratio-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.img-crop-ratio-btn').forEach(b => b.classList.remove('active'));
@@ -171,7 +179,6 @@
       });
     });
 
-    // DIMENSIONS & ASPECT RATIO
     widthInput.addEventListener('input', () => {
       if (state.aspectRatioLocked && state.aspectRatio) {
         heightInput.value = Math.round(widthInput.value / state.aspectRatio);
@@ -201,7 +208,6 @@
       });
     });
 
-    // LISTENERS FOR MIN & MAX RANGE TARGETS
     minTargetSizeSelect.addEventListener('change', () => {
       minCustomSizeBox.style.display = minTargetSizeSelect.value === 'custom' ? 'flex' : 'none';
       triggerProcessDebounced();
@@ -217,7 +223,8 @@
     customUnitSelect.addEventListener('change', triggerProcessDebounced);
 
     formatSelect.addEventListener('change', () => {
-      pngWarning.style.display = formatSelect.value === 'image/png' ? 'block' : 'none';
+      const { mimeType } = getFormatDetails();
+      pngWarning.style.display = mimeType === 'image/png' ? 'block' : 'none';
       triggerProcessDebounced();
     });
 
@@ -243,7 +250,6 @@
     initCropDragAndResize();
   }
 
-  // OPEN COLOR FX MODAL & SYNC PREVIEW IMAGE
   function openFxModal() {
     if (!state.baseImage) return;
     fxPreviewImg.src = previewImg.src;
@@ -251,7 +257,6 @@
     fxModal.style.display = 'flex';
   }
 
-  // UPDATE LIVE PREVIEW FILTER ON IMAGE
   function updateFxLivePreview() {
     const brightness = $('img-fx-brightness').value;
     const contrast = $('img-fx-contrast').value;
@@ -263,7 +268,6 @@
     fxPreviewImg.style.filter = `brightness(${brightness}%) contrast(${contrast}%) saturate(${saturation}%) grayscale(${grayscale}%) sepia(${sepia}%) blur(${blur}px)`;
   }
 
-  // RESET COLOR FILTERS ONLY
   function resetFxControls() {
     ['brightness', 'contrast', 'saturation'].forEach(fx => { $(`img-fx-${fx}`).value = 100; $(`img-fx-${fx}-val`).innerText = '100%'; });
     ['grayscale', 'sepia', 'blur'].forEach(fx => { $(`img-fx-${fx}`).value = 0; $(`img-fx-${fx}-val`).innerText = fx === 'blur' ? '0px' : '0%'; });
@@ -271,7 +275,6 @@
     triggerProcessDebounced();
   }
 
-  // CROP MODAL LOGIC
   function openCropModal() {
     if (!state.baseImage) return;
     cropTargetImg.src = previewImg.src;
@@ -483,7 +486,6 @@
     state.debounceTimer = setTimeout(processImage, 200);
   }
 
-  // HELPER FOR DRAWING TRANSFORMED BASE IMAGE TO CANVAS
   function renderCanvasAtSize(targetW, targetH) {
     const isFast = $('img-comp-opt-fast').checked;
     const canvas = document.createElement('canvas');
@@ -491,7 +493,6 @@
     canvas.height = Math.max(1, Math.round(targetH));
     const ctx = canvas.getContext('2d', { alpha: $('img-comp-opt-transparency').checked });
 
-    // COLOR FILTERS
     const brightness = $('img-fx-brightness').value;
     const contrast = $('img-fx-contrast').value;
     const saturation = $('img-fx-saturation').value;
@@ -508,7 +509,6 @@
       ctx.imageSmoothingEnabled = !isFast;
     }
 
-    // ROTATION & FLIP TRANSFORMATIONS
     ctx.save();
     ctx.translate(canvas.width / 2, canvas.height / 2);
     ctx.rotate((state.rotation * Math.PI) / 180);
@@ -528,80 +528,83 @@
     return canvas;
   }
 
-  // MAIN PROCESSOR
   async function processImage() {
     if (!state.baseImage) return;
 
     showLoader(true);
     clearError();
 
-    const initialWidth = parseInt(widthInput.value) || state.originalWidth;
-    const initialHeight = parseInt(heightInput.value) || state.originalHeight;
-    const selectedFormat = formatSelect.value;
+    try {
+      const initialWidth = parseInt(widthInput.value) || state.originalWidth;
+      const initialHeight = parseInt(heightInput.value) || state.originalHeight;
+      const { mimeType, fileExtension } = getFormatDetails();
 
-    const minTargetBytes = getMinTargetSizeBytes();
-    let maxTargetBytes = getMaxTargetSizeBytes();
+      const minTargetBytes = getMinTargetSizeBytes();
+      let maxTargetBytes = getMaxTargetSizeBytes();
 
-    let internalMime = selectedFormat;
-    let pdfOverheadEstimate = 0;
-    if (selectedFormat === 'application/pdf') {
-      internalMime = 'image/jpeg';
-      pdfOverheadEstimate = 2000; // 2 KB PDF structural overhead estimate
+      let internalMime = mimeType;
+      let pdfOverheadEstimate = 0;
+      if (mimeType === 'application/pdf') {
+        internalMime = 'image/jpeg';
+        pdfOverheadEstimate = 2000;
+      }
+
+      let initialQuality = parseInt(qualityInput.value) / 100;
+      let finalBlob = null;
+      let finalCanvas = null;
+
+      const hasMax = maxTargetBytes > 0;
+      const hasMin = minTargetBytes > 0;
+
+      if ((hasMax || hasMin) && internalMime !== 'image/png') {
+        let targetMaxImgBytes = hasMax ? Math.max(1024, maxTargetBytes - pdfOverheadEstimate) : Infinity;
+        let targetMinImgBytes = hasMin ? Math.max(0, minTargetBytes - pdfOverheadEstimate) : 0;
+
+        const compressedResult = await compressToTargetRange(
+          initialWidth, 
+          initialHeight, 
+          internalMime, 
+          targetMinImgBytes, 
+          targetMaxImgBytes,
+          initialQuality,
+          mimeType === 'application/pdf'
+        );
+        
+        finalBlob = compressedResult.blob;
+        finalCanvas = compressedResult.canvas;
+      } else {
+        finalCanvas = renderCanvasAtSize(initialWidth, initialHeight);
+        finalBlob = await canvasToBlobAsync(finalCanvas, internalMime, initialQuality);
+      }
+
+      let previewBlob = finalBlob;
+
+      if (mimeType === 'application/pdf') {
+        const pdfBlob = await createPdfBlobFromImageBlob(finalBlob, finalCanvas.width, finalCanvas.height);
+        finalBlob = pdfBlob;
+      }
+
+      state.outputCanvas = finalCanvas;
+      state.outputBlob = finalBlob;
+      state.outputDimensions = { width: finalCanvas.width, height: finalCanvas.height };
+
+      const previewUrl = URL.createObjectURL(previewBlob);
+      previewImg.src = previewUrl;
+      outImg.src = previewUrl;
+
+      updateMetricsTable(finalBlob.size, finalCanvas.width, finalCanvas.height, minTargetBytes, maxTargetBytes);
+    } catch (err) {
+      showError("Processing failed: " + err.message);
+    } finally {
+      showLoader(false);
     }
-
-    let initialQuality = parseInt(qualityInput.value) / 100;
-    let finalBlob = null;
-    let finalCanvas = null;
-
-    const hasMax = maxTargetBytes > 0;
-    const hasMin = minTargetBytes > 0;
-
-    if ((hasMax || hasMin) && internalMime !== 'image/png') {
-      let targetMaxImgBytes = hasMax ? Math.max(1024, maxTargetBytes - pdfOverheadEstimate) : Infinity;
-      let targetMinImgBytes = hasMin ? Math.max(0, minTargetBytes - pdfOverheadEstimate) : 0;
-
-      const compressedResult = await compressToTargetRange(
-        initialWidth, 
-        initialHeight, 
-        internalMime, 
-        targetMinImgBytes, 
-        targetMaxImgBytes,
-        initialQuality,
-        selectedFormat === 'application/pdf'
-      );
-      
-      finalBlob = compressedResult.blob;
-      finalCanvas = compressedResult.canvas;
-    } else {
-      finalCanvas = renderCanvasAtSize(initialWidth, initialHeight);
-      finalBlob = await canvasToBlobAsync(finalCanvas, internalMime, initialQuality);
-    }
-
-    let previewBlob = finalBlob;
-
-    if (selectedFormat === 'application/pdf') {
-      const pdfBlob = await createPdfBlobFromImageBlob(finalBlob, finalCanvas.width, finalCanvas.height);
-      finalBlob = pdfBlob;
-    }
-
-    state.outputCanvas = finalCanvas;
-    state.outputBlob = finalBlob;
-    state.outputDimensions = { width: finalCanvas.width, height: finalCanvas.height };
-
-    const previewUrl = URL.createObjectURL(previewBlob);
-    previewImg.src = previewUrl;
-    outImg.src = previewUrl;
-
-    updateMetricsTable(finalBlob.size, finalCanvas.width, finalCanvas.height, minTargetBytes, maxTargetBytes);
-    showLoader(false);
   }
 
-  // ACCURATE COMPRESSION ALGORITHM (STRICTLY FORCES WITHIN TARGET RANGE)
   async function compressToTargetRange(startW, startH, mimeType, minBytes, maxBytes, preferredQuality, isPdf) {
     let curW = startW;
     let curH = startH;
-    let scaleStep = 0.88; // Dimensions scale down step
-    let absoluteMinQuality = 0.01; // Allow quality drop down to 1% if necessary
+    let scaleStep = 0.88;
+    let absoluteMinQuality = 0.01;
     
     let bestBlob = null;
     let bestCanvas = null;
@@ -614,10 +617,9 @@
       let qBest = Math.min(Math.max(preferredQuality, qMin), qMax);
       let passBlob = await canvasToBlobAsync(canvas, mimeType, qBest);
 
-      // Binary search for optimal quality percentage
       for (let i = 0; i < 9; i++) {
         let testBlobSize = passBlob.size;
-        if (isPdf) testBlobSize += 2000; // Account for PDF wrapper overhead
+        if (isPdf) testBlobSize += 2000;
 
         if (maxBytes !== Infinity && testBlobSize > maxBytes) {
           qMax = qBest;
@@ -642,12 +644,10 @@
         bestCanvas = canvas;
       }
 
-      // Stop as soon as output falls strictly within range
       if (isWithinRange) {
         return { blob: bestBlob, canvas: bestCanvas };
       }
 
-      // If file size is still above max target at lowest quality, scale down dimensions
       if (maxBytes !== Infinity && checkSize > maxBytes) {
         curW = Math.round(curW * scaleStep);
         curH = Math.round(curH * scaleStep);
@@ -668,8 +668,10 @@
     return { blob: bestBlob, canvas: bestCanvas };
   }
 
-  // CREATE PDF BLOB FROM COMPRESSED IMAGE
   async function createPdfBlobFromImageBlob(imageBlob, width, height) {
+    if (!window.jspdf || !window.jspdf.jsPDF) {
+      throw new Error("jsPDF library load nahi hui hai. Kripya internet connection check karein.");
+    }
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF({
       orientation: width > height ? 'l' : 'p',
@@ -764,8 +766,8 @@
     }
 
     $('img-comp-info-orig-format').innerText = state.originalFile.type.split('/')[1].toUpperCase();
-    const selFmt = formatSelect.value;
-    $('img-comp-info-out-format').innerText = selFmt === 'application/pdf' ? 'PDF' : selFmt.split('/')[1].toUpperCase();
+    const { fileExtension } = getFormatDetails();
+    $('img-comp-info-out-format').innerText = fileExtension.toUpperCase();
   }
 
   function setZoom(val) {
@@ -778,9 +780,8 @@
     if (!state.outputBlob) return;
 
     const rawName = filenameInput.value.trim() || 'resized-image';
-    const selectedFormat = formatSelect.value;
-    const ext = selectedFormat === 'application/pdf' ? 'pdf' : selectedFormat.split('/')[1];
-    const finalName = rawName.endsWith(`.${ext}`) ? rawName : `${rawName}.${ext}`;
+    const { fileExtension } = getFormatDetails();
+    const finalName = rawName.endsWith(`.${fileExtension}`) ? rawName : `${rawName}.${fileExtension}`;
 
     const link = document.createElement('a');
     link.href = URL.createObjectURL(state.outputBlob);
@@ -809,7 +810,7 @@
 
     qualityInput.value = 90;
     qualityValDisplay.innerText = '90%';
-    formatSelect.value = 'image/jpeg';
+    formatSelect.value = 'image/jpeg|jpg';
     processImage();
   }
 
