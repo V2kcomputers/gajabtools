@@ -632,11 +632,11 @@
                 const pdfDoc = await PDFLib.PDFDocument.create();
                 
                 const namingMode = document.getElementById('naming-mode').value;
-                let exportFileName = 'Edited_Document';
+                let exportFileName = 'Edited_GajabTools';
                 if (namingMode === 'first') {
                     exportFileName = state.firstFileName || 'Document';
                 } else {
-                    exportFileName = document.getElementById('pdf-meta-title').value.trim() || 'Edited_Document';
+                    exportFileName = document.getElementById('pdf-meta-title').value.trim() || 'Edited__GajabTools';
                 }
 
                 pdfDoc.setTitle(exportFileName);
