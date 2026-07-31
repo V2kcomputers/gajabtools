@@ -1,0 +1,218 @@
+<body>
+
+    <div class="glass-panel">
+        <div class="logo">
+            <i class="fa-solid fa-file-pdf"></i> A4 Interactive Overlay PDF Studio
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-sm" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="theme-icon"></i></button>
+            <button class="btn btn-success" onclick="generateMergedPDF(true)"> <i class="fa-solid fa-eye"></i> Print/Preview</button>
+<button class="btn btn-primary" onclick="generateMergedPDF(false)"> <i class="fa-solid fa-download"></i> Download PDF</button>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Left Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="upload-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+                    <i class="fa-solid fa-cloud-arrow-up" style="font-size: 1.5rem; color: var(--accent-primary);"></i>
+                    <div style="font-size: 0.85rem; font-weight: 600; margin-top: 6px;">Drop Files (PDF / Image)</div>
+                    <input type="file" id="file-input" multiple accept="application/pdf,image/*" style="display: none;" onchange="handleFileSelect(event)">
+                </div>
+                <div class="file-toolbar">
+                    <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-secondary);" id="file-count">0 Pages</span>
+                    <button class="btn btn-sm btn-danger" onclick="clearAll()"><i class="fa-solid fa-trash"></i> Clear All</button>
+                </div>
+            </div>
+            <div class="file-list" id="file-list"></div>
+        </div>
+
+        <!-- Center Workspace -->
+        <div class="workspace">
+            <div class="workspace-toolbar">
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <button class="btn btn-sm" onclick="zoomPreview(-0.1)"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+                    <span id="zoom-level" style="font-size: 0.8rem;">100%</span>
+                    <button class="btn btn-sm" onclick="zoomPreview(0.1)"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                    <button class="btn btn-sm" onclick="resetZoom()"><i class="fa-solid fa-expand"></i> Reset</button>
+                </div>
+                
+                <!-- Side-by-Side Action Buttons -->
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn btn-sm btn-primary" onclick="document.getElementById('file-input').click()" title="Add new page layout to list">
+                        <i class="fa-solid fa-plus"></i> Add File
+                    </button>
+                    
+                    <button class="btn btn-sm btn-success" onclick="document.getElementById('overlay-file-input').click()" title="Add Image on top of current layout">
+                        <i class="fa-solid fa-file-circle-plus"></i> Add Overlay Image
+                    </button>
+                    <input type="file" id="overlay-file-input" accept="image/*" style="display: none;" onchange="handleAddOverlayImage(event)">
+                    
+                    <button class="btn btn-sm" onclick="rotateCurrentItem(-90)"><i class="fa-solid fa-rotate-left"></i></button>
+                    <button class="btn btn-sm" onclick="rotateCurrentItem(90)"><i class="fa-solid fa-rotate-right"></i></button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteCurrentItem()"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            </div>
+            <div class="preview-container" id="preview-container">
+                <div class="page-stage" id="page-stage">
+                    <canvas id="main-canvas"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Inspector Panel -->
+        <div class="inspector">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('adjust')">Effects</button>
+                <button class="tab-btn" onclick="switchTab('layout')">Layout</button>
+                <button class="tab-btn" onclick="switchTab('crop')">Crop</button>
+                <button class="tab-btn" onclick="switchTab('export')">Export Settings</button>
+            </div>
+
+            <!-- Tab 1: Visual Effects Engine -->
+            <div class="tab-content active" id="tab-adjust">
+                <div class="selection-indicator" id="effect-target-label">
+                    <span>Target: Full Page Canvas</span>
+                    <button class="btn btn-sm" onclick="deselectElement()" style="padding:2px 6px;">Clear Selection</button>
+                </div>
+
+                <div class="control-group">
+                    <label>Brightness <span id="val-brightness">100%</span></label>
+                    <input type="range" id="adj-brightness" min="0" max="200" value="100" oninput="applyFilters()">
+                </div>
+                <div class="control-group">
+                    <label>Contrast <span id="val-contrast">100%</span></label>
+                    <input type="range" id="adj-contrast" min="0" max="200" value="100" oninput="applyFilters()">
+                </div>
+                <div class="control-group">
+                    <label>Saturation <span id="val-saturation">100%</span></label>
+                    <input type="range" id="adj-saturation" min="0" max="200" value="100" oninput="applyFilters()">
+                </div>
+                <div class="control-group">
+                    <label>Grayscale (B&W) <span id="val-grayscale">0%</span></label>
+                    <input type="range" id="adj-grayscale" min="0" max="100" value="0" oninput="applyFilters()">
+                </div>
+                <div class="control-group">
+                    <label>Sepia <span id="val-sepia">0%</span></label>
+                    <input type="range" id="adj-sepia" min="0" max="100" value="0" oninput="applyFilters()">
+                </div>
+                <div class="control-group">
+                    <label>Invert Colors <span id="val-invert">0%</span></label>
+                    <input type="range" id="adj-invert" min="0" max="100" value="0" oninput="applyFilters()">
+                </div>
+                <button class="btn btn-sm" onclick="resetFilters()"><i class="fa-solid fa-arrows-rotate"></i> Reset Active Effects</button>
+            </div>
+
+            <!-- Tab 2: Page Layout -->
+            <div class="tab-content" id="tab-layout">
+                <div class="control-group">
+                    <label>Target Page Size</label>
+                    <select id="layout-size" onchange="updateCanvasDimension(); renderCanvasPreview();">
+                        <option value="A4" selected>A4 Standard (210 x 297 mm)</option>
+                        <option value="LETTER">US Letter (216 x 279 mm)</option>
+                        <option value="LEGAL">US Legal (216 x 356 mm)</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label>Orientation</label>
+                    <select id="layout-orientation" onchange="updateCanvasDimension(); renderCanvasPreview();">
+                        <option value="portrait" selected>Portrait (Vertical)</option>
+                        <option value="landscape">Landscape (Horizontal)</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label>Page Background Color</label>
+                    <div style="display:flex; gap:8px; align-items:center;">
+                        <input type="color" id="layout-bg-color" value="#ffffff" onchange="renderCanvasPreview();">
+                        <span style="font-size:0.8rem;">Canvas Base Fill</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 3: Crop -->
+            <div class="tab-content" id="tab-crop">
+                <div class="control-group">
+                    <label>Aspect Ratio</label>
+                    <select id="crop-aspect" onchange="changeCropRatio()">
+                        <option value="NaN">Free Crop</option>
+                        <option value="1">1:1 Square</option>
+                        <option value="0.707">A4 Ratio</option>
+                        <option value="1.777">16:9 Screen</option>
+                    </select>
+                </div>
+                <div style="display: flex; gap: 8px; margin-top: 12px;">
+                    <button class="btn btn-primary btn-sm" style="flex:1;" onclick="startCropping()">Enable Crop</button>
+                    <button class="btn btn-success btn-sm" style="flex:1;" onclick="applyCrop()">Apply Crop</button>
+                </div>
+            </div>
+
+            <!-- Tab 4: Export Settings & File Naming -->
+            <div class="tab-content" id="tab-export">
+                <div class="control-group">
+                    <label>File Naming Mode</label>
+                    <select id="naming-mode" onchange="toggleNamingInput()">
+                        <option value="first">Use First File Name</option>
+                        <option value="custom" selected>Custom Filename</option>
+                    </select>
+                </div>
+                <div class="control-group" id="custom-name-group">
+                    <label>Output Filename</label>
+                    <input type="text" id="pdf-meta-title" value="Edited_Document">
+                </div>
+                <div class="control-group">
+                    <label>Export Quality</label>
+                    <select id="pdf-compression">
+                        <option value="0.92">High Quality (100%)</option>
+                        <option value="0.75" selected>Balanced (Medium Compression)</option>
+                        <option value="0.5">Small File Size</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div id="status-left">Ready</div>
+        <div id="status-right">0 Total Pages</div>
+    </footer>
+
+    <!-- Paste Selection Dialog Modal -->
+    <div class="overlay" id="paste-modal-overlay">
+        <div class="paste-modal">
+            <i class="fa-solid fa-paste" style="font-size: 2.5rem; color: var(--accent-primary);"></i>
+            <div>
+                <h3 style="font-size: 1.1rem; margin-bottom: 4px;">Paste Image Choice</h3>
+                <p style="font-size: 0.8rem; color: var(--text-secondary);">How would you like to place the copied image?</p>
+            </div>
+            <div class="paste-modal-options">
+                <button class="btn btn-primary" onclick="confirmPasteOption('new')">
+                    <i class="fa-solid fa-file-circle-plus"></i> Add as New Page
+                </button>
+                <button class="btn btn-success" id="paste-overlay-btn" onclick="confirmPasteOption('current')">
+                    <i class="fa-solid fa-layer-group"></i> Add to Current Page Overlay
+                </button>
+            </div>
+            <button class="btn btn-sm" style="align-self: center;" onclick="closePasteModal()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Full Screen Drop Overlay -->
+    <div class="global-drop-overlay" id="global-drop-overlay">
+        <div class="global-drop-box">
+            <i class="fa-solid fa-file-circle-plus" style="font-size: 3.5rem; color: var(--accent-primary);"></i>
+            <div style="font-size: 1.25rem; font-weight: 700; margin-top: 12px;">Drop Your PDF or Image Anywhere</div>
+            <div style="font-size: 0.85rem; opacity: 0.8; margin-top: 4px;">Files will be added automatically</div>
+        </div>
+    </div>
+
+    <!-- Progress Overlay -->
+    <div class="overlay" id="progress-overlay">
+        <div class="progress-box">
+            <i class="fa-solid fa-spinner fa-spin" style="font-size: 2rem; color: var(--accent-primary);"></i>
+            <div id="progress-title" style="font-weight: 600; margin-top: 10px;">Processing...</div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progress-fill"></div>
+            </div>
+        </div>
+    </div>
