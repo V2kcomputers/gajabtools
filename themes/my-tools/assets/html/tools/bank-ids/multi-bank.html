@@ -1,0 +1,142 @@
+<div class="container1">
+    
+    <!-- Collapsible Bank Selector Section (Minimized by default) -->
+    <div class="bank-control-section">
+      <div class="accordion-header" onclick="toggleBankControls()">
+        <span><i class="fa fa-university"></i> Bank Management & Settings</span>
+        <i id="accordionIcon" class="fa fa-chevron-down"></i>
+      </div>
+
+      <div id="bankControlsContent" class="accordion-content">
+        <label for="bankSelect">Select Bank:</label>
+        <select id="bankSelect" onchange="onBankChange()">
+          <option value="sbi">State Bank of India</option>
+          <option value="pnb">Punjab National Bank</option>
+          <option value="bob">Bank of Baroda</option>
+          <option value="canara">Canara Bank</option>
+          <option value="union">Union Bank</option>
+          <option value="cbi">Central Bank of India</option>
+          <option value="indian">Indian Bank</option>
+          <option value="iob">Indian Overseas Bank</option>
+          <option value="boi">Bank of India</option>
+          <option value="uco" selected>UCO Bank</option>
+          <option value="psb">Punjab & Sind Bank</option>
+          <option value="idbi">IDBI Bank</option>
+          <option value="axis">Axis Bank</option>
+          <option value="icici">ICICI Bank</option>
+          <option value="hdfc">HDFC Bank</option>
+          <option value="kotak">Kotak Mahindra Bank</option>
+          <option value="yes">Yes Bank</option>
+          <option value="au">AU Small Finance Bank</option>
+          <option value="custom">Custom Bank</option>
+        </select>
+
+        <!-- Custom Bank Specific Fields -->
+        <div id="customBankSection" class="custom-bank-fields">
+          <label for="customBankName">Custom Bank Name:</label>
+          <input type="text" id="customBankName" placeholder="Enter Custom Bank Name" oninput="applyCustomBank()">
+
+          <label for="customIfsc">Custom IFSC Code:</label>
+          <input type="text" id="customIfsc" placeholder="Enter Custom IFSC Code" oninput="applyCustomBank()">
+
+          <label for="customLogo">Upload Custom Logo:</label>
+          <input type="file" id="customLogo" accept="image/*" onchange="handleCustomLogoUpload(event)">
+        </div>
+
+        <!-- Advanced Customization Controls -->
+        <div class="custom-controls" style="margin-top: 10px;">
+          <label for="headerTitleInput">Header Title (Form):</label>
+          <input type="text" id="headerTitleInput" value="UCO Identity card" oninput="updateHeader()">
+
+          <label for="cardTitleInput">Card Title (Preview Subhead):</label>
+          <input type="text" id="cardTitleInput" value="Identity Card" oninput="updateHeader()">
+
+          <div class="color-pickers">
+              <div>
+                  <label for="headerBgPicker">Header BG:</label>
+                  <input type="color" id="headerBgPicker" value="#ffffff" style="width:100%; height:35px; padding:2px;" onchange="updateThemeColors()">
+              </div>
+              <div>
+                  <label for="headerTextColorPicker">Header Text:</label>
+                  <input type="color" id="headerTextColorPicker" value="#003A8C" style="width:100%; height:35px; padding:2px;" onchange="updateThemeColors()">
+              </div>
+          </div>
+        </div>
+
+        <button type="button" class="share-btn" onclick="generateShareLink()"><i class="fa fa-share-alt"></i> Generate & Copy Share Link</button>
+      </div>
+    </div>
+
+    <form id="resumeForm" onsubmit="preview(event)" method="post">
+      <h1 id="title">UCO Identity card</h1>
+      
+      <div class="left">
+        <label for="CifNumber">Customer Number:</label>
+        <input type="text" id="CifNumber" name="CifNumber" placeholder="Enter Customer Id">
+        
+        <label for="account">Account Number:</label>
+        <input type="number" id="account" name="account" required maxlength="11" placeholder="Enter Account Number">
+
+        <label for="confirm_account">Confirm Account:</label>
+        <input type="number" id="confirm_account" name="confirm_account" required placeholder="Confirm Account Number">
+        
+        <label for="ifsc">IFSC Code:</label>
+        <input type="text" id="ifsc" name="ifsc" value="UCBA0003148" oninput="updateQuery()">
+
+        <label for="Customer">Customer Name:</label>
+        <input type="text" id="Customer" name="Customer" placeholder="Enter Customer Name">
+      </div>
+
+      <div class="right">
+        <label for="Perent">Father/Husband:</label>
+        <input type="text" id="Perent" name="Perent" placeholder="Enter Parent Name">
+
+        <label for="Address">Address:</label>
+        <input type="text" id="Address" name="Address" rows="2" placeholder="Enter Customer Full Address">
+
+        <label for="Pincode">Pin Code:</label>
+        <input type="text" id="Pincode" name="Pincode" placeholder="Enter Pincode Number" maxlength="6">
+        
+        <label for="KoName">Kiosk Name:</label>
+        <input type="text" id="KoName" name="KoName" placeholder="Enter Kiosk Name" value="">
+
+        <label for="Location">Kiosk Location:</label>
+        <input type="text" id="Location" placeholder="Enter Location Address" name="Location" value="">
+      </div>
+
+      <label for="photo">Upload Photo:</label>
+      <input type="file" id="photo" name="photo" accept="image/*">
+
+      <input type="submit" id="submitBtn" value="Generate Identity Card" onclick="return checkAccount()">
+    </form>
+
+    <div class="preview-section" id="previewSection">
+      <div class="cut">
+        <div class="passbook" id="passbookCard">
+          <div style="clear: both;">
+            <div class="Bank-Name" id="previewBankName">UCO BANK</div>
+            <div class="id-name" id="previewCardTitle">Identity Card</div>
+            <img class="bg-img" id="previewWatermark" style="opacity: 0.2;" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhySQIz1PgG6D21JJHDgdw2u4HYCmjIdqySri_y41rP_HpnmXikLmmiQ8DNXX1Y0Vfui3qopelJ-rLFw4VtUiTCPlyGvOIt347ZqE1HjVic4Nz6CLK9AFZRk3PaUa_AAcaxMer18UtZdmKjekcoexx8r3FRFwRlqmAS96-fFRVi76POFnb_xRhfkTrIsQ/s1600/UCO%20BANK.png" alt="Watermark">
+          </div>
+          
+          <div style="clear: both;">
+            <img class="head-img" id="previewLogo" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhySQIz1PgG6D21JJHDgdw2u4HYCmjIdqySri_y41rP_HpnmXikLmmiQ8DNXX1Y0Vfui3qopelJ-rLFw4VtUiTCPlyGvOIt347ZqE1HjVic4Nz6CLK9AFZRk3PaUa_AAcaxMer18UtZdmKjekcoexx8r3FRFwRlqmAS96-fFRVi76POFnb_xRhfkTrIsQ/s1600/UCO%20BANK.png" alt="Bank Logo"> 
+          </div>
+          
+          <div class="main">
+            <div class="head"></div>
+            <div id="photo"><img id="previewPhoto" class="photo" src="" alt="Paste Photo"></div>
+            <table id="previewTable"></table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reset, Edit, Print Buttons moved completely OUTSIDE passbook container -->
+      <div class="button-group-outside">
+        <button class="reload" onclick="location.reload();">Reset <i class="fa fa-refresh" style="font-size:11px;color:white"></i></button>
+        <button class="edit" onclick="editInfo()">Edit <i class="fa fa-edit" style="font-size:11px;color:black"></i></button>
+        <button class="print" onclick="window.print()">Print <i class="fa fa-print" style="font-size:11px;color:white"></i></button>
+      </div>
+    </div>
+
+  </div> 

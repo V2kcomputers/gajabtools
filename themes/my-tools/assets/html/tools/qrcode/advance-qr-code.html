@@ -1,0 +1,309 @@
+ <!-- Header -->
+  <header class="header">
+    <div class="brand">
+      <i class="fa-solid fa-qrcode"></i>
+      <span>OmniQR Studio</span>
+    </div>
+    <div class="nav-actions">
+      <button class="btn btn-secondary btn-sm" id="btn-randomize"><i class="fa-solid fa-dice"></i> Shuffle</button>
+      <button class="btn btn-secondary btn-sm" id="btn-theme"><i class="fa-solid fa-moon"></i> Theme</button>
+      <button class="btn btn-primary btn-sm" id="btn-export-config"><i class="fa-solid fa-download"></i> Save JSON</button>
+    </div>
+  </header>
+
+  <div class="app-container">
+    
+    <!-- LEFT CONFIGURATION PANEL -->
+    <main class="panel">
+      
+      <!-- Content Type Tabs -->
+      <nav class="tabs-nav" id="content-tabs">
+        <button class="tab-btn active" data-tab="text"><i class="fa-solid fa-font"></i> Text/URL</button>
+        <button class="tab-btn" data-tab="wifi"><i class="fa-solid fa-wifi"></i> WiFi</button>
+        <button class="tab-btn" data-tab="vcard"><i class="fa-solid fa-address-card"></i> vCard</button>
+        <button class="tab-btn" data-tab="upi"><i class="fa-solid fa-indian-rupee-sign"></i> UPI</button>
+        <button class="tab-btn" data-tab="social"><i class="fa-solid fa-share-nodes"></i> Social</button>
+        <button class="tab-btn" data-tab="batch"><i class="fa-solid fa-file-csv"></i> Batch CSV</button>
+      </nav>
+
+      <!-- TAB: TEXT / URL -->
+      <div class="tab-content active" id="tab-text">
+        <div class="form-group">
+          <label>URL or Plain Content</label>
+          <textarea id="input-text" class="form-control" placeholder="https://example.com or enter any plain text..."></textarea>
+        </div>
+      </div>
+
+      <!-- TAB: WIFI -->
+      <div class="tab-content" id="tab-wifi">
+        <div class="form-group">
+          <label>Network SSID (Name)</label>
+          <input type="text" id="wifi-ssid" class="form-control" placeholder="My Home Network">
+        </div>
+        <div class="grid-2">
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="wifi-pass" class="form-control" placeholder="••••••••">
+          </div>
+          <div class="form-group">
+            <label>Encryption</label>
+            <select id="wifi-type" class="form-control">
+              <option value="WPA">WPA/WPA2</option>
+              <option value="WEP">WEP</option>
+              <option value="nopass">None</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: VCARD -->
+      <div class="tab-content" id="tab-vcard">
+        <div class="grid-2">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" id="v-fn" class="form-control" placeholder="Jane">
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" id="v-ln" class="form-control" placeholder="Doe">
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" id="v-tel" class="form-control" placeholder="+1234567890">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="v-email" class="form-control" placeholder="jane@example.com">
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: UPI -->
+      <div class="tab-content" id="tab-upi">
+        <div class="grid-2">
+          <div class="form-group">
+            <label>Payee VPA (UPI ID)</label>
+            <input type="text" id="upi-id" class="form-control" placeholder="merchant@upi">
+          </div>
+          <div class="form-group">
+            <label>Payee Name</label>
+            <input type="text" id="upi-name" class="form-control" placeholder="Store Name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Amount (Optional)</label>
+          <input type="number" id="upi-amount" class="form-control" placeholder="500">
+        </div>
+      </div>
+
+      <!-- TAB: SOCIAL -->
+      <div class="tab-content" id="tab-social">
+        <div class="grid-2">
+          <div class="form-group">
+            <label>Platform</label>
+            <select id="social-platform" class="form-control">
+              <option value="https://wa.me/">WhatsApp</option>
+              <option value="https://instagram.com/">Instagram</option>
+              <option value="https://twitter.com/">X / Twitter</option>
+              <option value="https://linkedin.com/in/">LinkedIn</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Username / Number</label>
+            <input type="text" id="social-user" class="form-control" placeholder="user_handle">
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: BATCH CSV -->
+      <div class="tab-content" id="tab-batch">
+        <div class="form-group">
+          <label>Upload CSV File (Single Column Data)</label>
+          <input type="file" id="batch-file" accept=".csv" class="form-control">
+        </div>
+        <button class="btn btn-primary btn-block" id="btn-process-batch"><i class="fa-solid fa-gears"></i> Generate Batch (.ZIP)</button>
+      </div>
+
+      <!-- QUICK PRESETS RIBBON -->
+      <label class="form-group" style="margin-top: 1rem; display:block;">Quick Design Presets</label>
+      <div class="presets-scroll">
+        <div class="preset-chip" data-preset="classic">Classic Black</div>
+        <div class="preset-chip" data-preset="modern-purple">Modern Neon</div>
+        <div class="preset-chip" data-preset="ocean-gradient">Ocean Blue</div>
+        <div class="preset-chip" data-preset="luxury-gold">Luxury Gold</div>
+        <div class="preset-chip" data-preset="emerald-dots">Emerald Tech</div>
+      </div>
+
+      <!-- CUSTOMIZATION ACCORDIONS -->
+      
+      <!-- MODULE PATTERNS -->
+      <details open>
+        <summary><i class="fa-solid fa-border-all"></i> Module Style (Dots Pattern)</summary>
+        <div class="details-content grid-3" id="module-styles-grid">
+          <div class="style-card active" data-value="square"><i class="fa-solid fa-square"></i> Square</div>
+          <div class="style-card" data-value="dots"><i class="fa-solid fa-circle"></i> Dots</div>
+          <div class="style-card" data-value="rounded"><i class="fa-solid fa-square-full"></i> Rounded</div>
+          <div class="style-card" data-value="classy"><i class="fa-solid fa-diamond"></i> Classy</div>
+          <div class="style-card" data-value="classy-rounded"><i class="fa-solid fa-shapes"></i> Smooth</div>
+          <div class="style-card" data-value="extra-rounded"><i class="fa-solid fa-circle-notch"></i> Extra Round</div>
+        </div>
+      </details>
+
+      <!-- EYE FRAME STYLES -->
+      <details>
+        <summary><i class="fa-solid fa-eye"></i> Eye Frame Style</summary>
+        <div class="details-content grid-3" id="eye-frame-grid">
+          <div class="style-card active" data-value="square"><i class="fa-regular fa-square"></i> Square</div>
+          <div class="style-card" data-value="circle"><i class="fa-regular fa-circle"></i> Circle</div>
+          <div class="style-card" data-value="rounded"><i class="fa-solid fa-vector-square"></i> Rounded</div>
+        </div>
+      </details>
+
+      <!-- EYE CENTER STYLES -->
+      <details>
+        <summary><i class="fa-solid fa-bullseye"></i> Eye Center Style</summary>
+        <div class="details-content grid-3" id="eye-center-grid">
+          <div class="style-card active" data-value="square"><i class="fa-solid fa-square-small"></i> Square</div>
+          <div class="style-card" data-value="circle"><i class="fa-solid fa-circle-small"></i> Circle</div>
+        </div>
+      </details>
+
+      <!-- COLOR & GRADIENT CONTROL -->
+      <details>
+        <summary><i class="fa-solid fa-palette"></i> Colors & Gradients</summary>
+        <div class="details-content">
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Color Mode</label>
+              <select id="color-mode" class="form-control">
+                <option value="single">Single Color</option>
+                <option value="gradient">Gradient</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Background</label>
+              <input type="color" id="bg-color" class="form-control" value="#ffffff">
+            </div>
+          </div>
+
+          <div id="single-color-box" class="form-group">
+            <label>Foreground Color</label>
+            <input type="color" id="fg-color" class="form-control" value="#0f172a">
+          </div>
+
+          <div id="gradient-color-box" class="form-group" style="display:none;">
+            <div class="grid-2">
+              <div>
+                <label>Start Color</label>
+                <input type="color" id="grad-color-1" class="form-control" value="#6366f1">
+              </div>
+              <div>
+                <label>Stop Color</label>
+                <input type="color" id="grad-color-2" class="form-control" value="#a855f7">
+              </div>
+            </div>
+            <div class="form-group" style="margin-top:0.75rem;">
+              <label>Gradient Type</label>
+              <select id="grad-type" class="form-control">
+                <option value="linear">Linear</option>
+                <option value="radial">Radial</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- EMBEDDED LOGO -->
+      <details>
+        <summary><i class="fa-solid fa-image"></i> Embedded Logo</summary>
+        <div class="details-content">
+          <div class="form-group">
+            <label>Upload Logo (PNG/SVG/JPG)</label>
+            <input type="file" id="logo-file" accept="image/*" class="form-control">
+          </div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Logo Size Ratio</label>
+              <input type="range" id="logo-size" min="0.1" max="0.3" step="0.02" value="0.2" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>Margin (Padding)</label>
+              <input type="range" id="logo-margin" min="0" max="20" step="2" value="5" class="form-control">
+            </div>
+          </div>
+          <button class="btn btn-secondary btn-sm" id="btn-clear-logo"><i class="fa-solid fa-trash"></i> Remove Logo</button>
+        </div>
+      </details>
+
+      <!-- ADVANCED QR PARAMS -->
+      <details>
+        <summary><i class="fa-solid fa-sliders"></i> Advanced Settings</summary>
+        <div class="details-content">
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Error Correction</label>
+              <select id="qr-ecl" class="form-control">
+                <option value="L">L (7%)</option>
+                <option value="M" selected>M (15%)</option>
+                <option value="Q">Q (25%)</option>
+                <option value="H">H (30% - Best for Logos)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Quiet Zone (Margin)</label>
+              <input type="number" id="qr-margin" class="form-control" value="10" min="0" max="50">
+            </div>
+          </div>
+        </div>
+      </details>
+
+    </main>
+
+    <!-- RIGHT STICKY PREVIEW PANEL -->
+    <aside class="preview-sticky">
+      <div class="panel preview-stage">
+        
+        <div id="canvas-container"></div>
+
+        <!-- Realtime Scan Quality Meter -->
+        <div class="meter-box">
+          <div class="meter-label">
+            <span>Estimated Scan Reliability</span>
+            <span id="quality-val">High (95%)</span>
+          </div>
+          <div class="meter-bar">
+            <div class="meter-fill" id="quality-fill"></div>
+          </div>
+        </div>
+
+        <div class="grid-2" style="width: 100%; margin-top: 1.25rem;">
+          <button class="btn btn-primary" id="btn-download-png"><i class="fa-solid fa-file-image"></i> Download PNG</button>
+          <button class="btn btn-secondary" id="btn-download-svg"><i class="fa-solid fa-file-code"></i> SVG</button>
+        </div>
+        <button class="btn btn-secondary btn-block btn-sm" style="margin-top:0.5rem;" id="btn-fullscreen">
+          <i class="fa-solid fa-expand"></i> Fullscreen View
+        </button>
+      </div>
+
+      <!-- LOCAL HISTORY -->
+      <div class="panel">
+        <label class="form-group"><i class="fa-solid fa-clock-rotate-left"></i> Recent Generations</label>
+        <div class="history-list" id="history-container">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- FULLSCREEN MODAL -->
+  <div class="modal-overlay" id="fs-modal">
+    <div style="text-align: center;">
+      <div id="modal-target" style="display:inline-block; padding: 2rem; background:#fff; border-radius:16px;"></div>
+      <div style="margin-top: 1rem;">
+        <button class="btn btn-primary" id="btn-close-modal">Close Window</button>
+      </div>
+    </div>
+  </div>
