@@ -1,9 +1,11 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://quge5.com/88/tag.min.js" data-zone="276673" async data-cfasync="false"></script>
 {{ partial "imp-codes/seo-meta.html" . }}
 {{ with .Params.cssStyles }}{{ range . }}{{ $css := resources.Get . | resources.Minify | resources.Fingerprint }}<link rel="stylesheet" href="{{ $css.Permalink }}" integrity="{{ $css.Data.Integrity }}">{{ end }}{{ end }}
 {{ partial "imp-codes/article-schema.html" . }}
+ {{ partial "imp-codes/monetag-ads.html" . }}
 {{ if eq .Params.adsense "yes" }}
   {{ partial "imp-codes/adsense.html" . }}
 {{ end }}
