@@ -5,7 +5,6 @@
 {{ partial "imp-codes/seo-meta.html" . }}
 {{ with .Params.cssStyles }}{{ range . }}{{ $css := resources.Get . | resources.Minify | resources.Fingerprint }}<link rel="stylesheet" href="{{ $css.Permalink }}" integrity="{{ $css.Data.Integrity }}">{{ end }}{{ end }}
 {{ partial "imp-codes/article-schema.html" . }}
- {{ partial "imp-codes/monetag-ads.html" . }}
 {{ if eq .Params.adsense "yes" }}
   {{ partial "imp-codes/adsense.html" . }}
 {{ end }}
