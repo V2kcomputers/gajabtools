@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amita:wght@400;700&family=Arya:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Shok Sandesh Card</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+            font-family: "Arya", serif;
+            font-weight: 400;
+        }
+
+    #preview-card {
+            font-family: "Arya", serif; /* Default font for preview */
+            width: 500px;
+            border: 1px solid black;
+            padding: 10px;
+            background-color: #fff;
+            margin: 20px auto;
+            border-radius: 5px;
+        }
+
+
+        .form-container, .card-container {
+            width: 400px;
+            background: white;
+            padding: 15px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            border-radius: 5px;
+            border: 1px solid #000;
+            margin-bottom: 20px;
+        }
+        .form-container input, .form-container button {
+            width: 100%;
+            margin: 5px 0;
+            padding: 8px;
+            font-size: 14px;
+        }
+        .header {
+            text-align: center;
+        }
+        .title-image { height: 40px; }
+        .content {
+            font-size: 9px;
+            line-height: 1.3;
+            margin-bottom: 10px;
+        }
+        .address-box {
+            border: 1px solid #000;
+            padding: 5px;
+            text-align: center;
+            font-size: 9px;
+            border-radius: 10px;
+        }
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+        }
+        .dotted-line {
+            border-bottom: 1px dotted #000;
+            display: inline-block;
+            width: 150px;
+            vertical-align: middle;
+            margin: 0 5px;
+        }
+        b { font-weight:700; }
+        .preview-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            width: 400px;
+        }
+
+@media print {
+      /* Hide header when printing */
+      button {
+        display: none;
+      }
+      
+
+  body {
+           
+            background-color: #fff;
+            
+     
+    } 
+
+
+
+    </style>
+</head>
+<body>
+    <div class="form-container" id="form-container">
+        <h2>Fill Details for Shok Sandesh Card</h2>
+        <form onsubmit="generatePreview(event)">
+            <label> स्वर्गीय का नाम </label>
+            <input type="text" id="deceased" placeholder="Deceased's Name" value="हमारे परम पूज्य दादा जी">
+            <label> स्वर्गवास दिनांक </label>
+            <input type="date" id="deathDate" placeholder="Date of Passing">
+            <label> अनुष्ठान / संस्कार </label>
+            <input type="text" id="sanskar" value="तेरहवीं संस्कार">
+            <input type="date" id="ceremonyDate" placeholder="Ceremony Date">
+            <label> कार्य क्रम स्थान </label>
+            <input type="text" id="village" placeholder="Address">
+            <label> परिवार सदस्य </label>
+            <input type="text" id="family" placeholder="Family Members" value="पुत्रः">
+            <input type="text" id="condoler" placeholder="Condoler's Name">
+            <input type="text" id="contact" placeholder="Contact Number">
+            <button type="submit">Generate (Shok Sandesh) Card</button>
+        </form>
+    </div>
+
+    <div class="card-container" id="preview-card" style="display: none;">
+        <div class="header">
+            <img class="title-image" src="https://i.ibb.co/Y2TTPHz/Shok-Sandesh-font-Kriti-dev-501.jpg" alt="शोक संदेश">
+        </div>
+        <div class="content">
+            <div>श्री/श्रीमान<span class="dotted-line" id="preview-recipient"></span></div>
+            <div>मान्यवर,</div>
+            <p style="margin: 5px 0;">
+                अत्यंत दुःख के साथ सूचित करना पड़ रहा है कि <b id="preview-deceased"></b> का स्वर्गवास दिनांक <b id="preview-deathDate"></b> (<span id="deathDay"></span>) को हो गया है जिनकी दिवंगत आत्मा की शांति हेतु <b id="preview-sanskar"></b> दिनांक <b id="preview-ceremonyDate"></b> (<span id="ceremonyDay"></span>) को शाम 4 बजे आयोजित किया गया है।
+            </p>
+            <p style="margin: 5px 0;">अतः आपसे अनुरोध है कि शांति भोज में सम्मिलित होने की कृपा करें।</p>
+        </div>
+        <div class="address-box">
+            <strong>-शांतिभोज स्थल-</strong><br>
+            <span id="preview-village"></span>
+        </div>
+        <div class="footer">
+            <div>
+                <strong>शोकाकुल परिवार -</strong><br>
+                <span id="preview-family"></span>
+            </div>
+            <div style="text-align: right;">
+                <strong>शोक संतुत-</strong><br>
+                <span id="preview-condoler"></span><br>
+                मो० <span id="preview-contact"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="preview-actions" id="preview-actions" style="display: none;">
+        <button class="print" onclick="window.print()">Print <i class="fa fa-print" style="font-size:11px;color:white"></i></button>
+        <button onclick="saveAsImage()">Save as PNG</button>
+        <button onclick="editCard()">Edit</button>
+<button>
+ <select id="fontSelect">
+        <option value="Arya, serif">Arya</option>
+        <option value="Amita, cursive">Amita</option>
+        <option value="Roboto, sans-serif">Roboto</option>
+        <option value="Arial, sans-serif">Arial</option>
+        <option value="Times New Roman, serif">Times New Roman</option>
+    </select> </button>
+
+
+
+    </div>
+
+    <script>
+        function generatePreview(event) {
+            event.preventDefault();
+
+            const deathDate = new Date(document.getElementById('deathDate').value);
+            const ceremonyDate = new Date(document.getElementById('ceremonyDate').value);
+
+            const daysOfWeek = ["रविवार", "सोमवार", "मंगलवार", "बुधवार", "गुरुवार", "शुक्रवार", "शनिवार"];
+            document.getElementById('deathDay').textContent = daysOfWeek[deathDate.getDay()];
+            document.getElementById('ceremonyDay').textContent = daysOfWeek[ceremonyDate.getDay()];
+
+            document.getElementById('preview-deceased').textContent = document.getElementById('deceased').value;
+            document.getElementById('preview-deathDate').textContent = document.getElementById('deathDate').value;
+            document.getElementById('preview-ceremonyDate').textContent = document.getElementById('ceremonyDate').value;
+            document.getElementById('preview-sanskar').textContent = document.getElementById('sanskar').value;
+            document.getElementById('preview-village').textContent = document.getElementById('village').value;
+            document.getElementById('preview-family').textContent = document.getElementById('family').value;
+            document.getElementById('preview-condoler').textContent = document.getElementById('condoler').value;
+            document.getElementById('preview-contact').textContent = document.getElementById('contact').value;
+
+            document.getElementById('form-container').style.display = 'none';
+            document.getElementById('preview-card').style.display = 'block';
+            document.getElementById('preview-actions').style.display = 'flex';
+        }
+
+        function printCard() {
+            const printContent = document.getElementById('preview-card').innerHTML;
+            const originalContent = document.body.innerHTML;
+            document.body.innerHTML = printContent;
+            window.print();
+            document.body.innerHTML = originalContent;
+            location.reload();
+        }
+
+
+function saveAsImage() {
+            const preview = document.getElementById('preview-card');
+            const scale = 2; // Higher resolution scaling
+
+            html2canvas(preview, {
+                scale: scale,
+                useCORS: true,
+                logging: false,
+                allowTaint: false,
+                backgroundColor: null
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'shok_sandesh.png';
+                link.href = canvas.toDataURL('image/png', 1.0);
+                link.click();
+            });
+        }
+
+
+        function editCard() {
+            document.getElementById('form-container').style.display = 'block';
+            document.getElementById('preview-card').style.display = 'none';
+            document.getElementById('preview-actions').style.display = 'none';
+        }
+    </script>
+<script>
+        // JavaScript to change font based on selection
+        document.getElementById('fontSelect').addEventListener('change', function() {
+            const selectedFont = this.value;
+            document.getElementById('preview-card').style.fontFamily = selectedFont;
+        });
+    </script>
+<script>
+    // Disable specific key combinations
+    document.addEventListener('keydown', function (e) {
+        // Block F12
+        if (e.key === "F12") {
+            e.preventDefault();
+        }
+
+        // Block Ctrl+Shift+I (Inspect)
+        if (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "i")) {
+            e.preventDefault();
+        }
+
+        // Block Ctrl+U (View Source)
+        if (e.ctrlKey && (e.key === "U" || e.key === "u")) {
+            e.preventDefault();
+        }
+
+        // Block Ctrl+Shift+J (Console)
+        if (e.ctrlKey && e.shiftKey && (e.key === "J" || e.key === "j")) {
+            e.preventDefault();
+        }
+    });
+
+    // Disable right-click context menu
+    document.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+    });
+</script>
+
+</body>
+</html>

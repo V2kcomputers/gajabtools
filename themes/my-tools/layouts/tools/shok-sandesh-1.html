@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>शोक संदेश फॉर्म</title>
+      <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amita:wght@400;700&family=Arya:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+             font-family: "Arya", serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f8f8;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+       #preview {
+            font-family: "Arya", serif; /* Default font for preview */
+            width: 500px;
+            border: 1px solid black;
+            padding: 10px;
+            background-color: #fff;
+            margin: 20px auto;
+            border-radius: 5px;
+        }
+
+        .header {
+                display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid black;
+    padding-bottom: 3px;
+    margin-bottom: 5px;
+    color: #e74c3c;        }
+
+        .header h1 {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .main-content {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        #Shriman {
+            margin-left: 80px;
+
+            font-size: 13px;
+        }
+
+        #deceasedImage {
+            width: 70px;
+            height: 80px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            background-color: #fafafa;
+        }
+
+        .info p {
+            margin: 0 0 5px 0;
+            font-size: 15px;
+        }
+
+        .family #saddy {
+            background-color: #f1f1f1;
+            margin-bottom: 1px;
+            padding: 3px;
+            text-align: center;
+            color: #2980b9;
+            font-weight:bold;
+        }
+
+        .family p {
+            margin: 0;
+            font-size:15px;
+        }
+
+        .family-members {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .family-member {
+            width: 45%;
+            margin: 5px 0;
+            background-color: #ecf0f1;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .family-member select, .family-member input {
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        .family-columns {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .family-column {
+            width: 45%;
+        }
+
+        .footer {
+            border-top: 1px solid black;
+           
+        }
+
+        /* Form styles */
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+#submit-btn {   ustify-content: center;
+    margin: 0 10px;
+            padding: 10px 20px;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer; }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .button-group button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button-group button:hover {
+            background-color: #3498db;
+        }
+
+        #addFamilyBtn {
+            background-color: #2ecc71;
+            width: 100%;
+        }
+
+        #addFamilyBtn:hover {
+            background-color: #27ae60;
+        }
+
+        .address-contact {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+                font-size: 13px;
+        }
+
+        .contact-info {
+            width: 45%;
+        }
+        @media print {
+      /* Hide header when printing */
+      #title , .button-group button {
+        display: none;
+      }
+       body {
+  
+        background-color: #fff;
+    }
+     
+     
+    } 
+    </style>
+</head>
+<body>
+    <h1 id="title">शोक संदेश फॉर्म</h1>
+    
+    <form id="shokSandeshForm">
+     
+        
+        <label for="deceased">स्वर्गीय का नाम:</label>
+        <input type="text"  placeholder="स्वर्गीय का नाम डालें" id="deceased" required>
+        
+        <label for="deathDate">निधन दिनांक:</label>
+        <input type="date" id="deathDate" required>
+        
+        <label for="ritual1">पहला अनुष्ठान:</label>
+        <input type="text" id="ritual1" required value="दशगात्र (दिन)">
+        
+        <label for="ritual1Date">पहले अनुष्ठान की तिथि:</label>
+        <input type="date" id="ritual1Date" required >
+        
+        <label for="ritual2">दूसरा अनुष्ठान:</label>
+        <input type="text" id="ritual2" required value="गंगाजली पूजन/ तेरहवी  एवं ब्रम्हण भोज">
+        
+        <label for="ritual2Date">दूसरे अनुष्ठान की तिथि:</label>
+        <input type="date" id="ritual2Date" required>
+        
+        <div>शोकाकुल परिवार  (संबधियों को जोड़े )</div>
+        <div class="family-members" id="familyMembers"></div>
+        <button type="button" id="addFamilyBtn" onclick="addFamilyMember()"> ➕ सदस्य जोड़ें</button>
+
+        <div class="address-contact">
+            <div class="contact-info">
+                <label for="phone">मोबाइल नंबर:</label>
+                <input type="text" id="phone" placeholder="मोबाइल नंबर डालें" required>
+            </div>
+
+            <div class="contact-info">
+                <label for="address">कार्यस्थल:</label>
+                <input type="text" id="address" placeholder="पता डालें" required>
+            </div>
+        </div>
+     <label for="imageUpload">स्वर्गीय की छवि अपलोड करें:</label>
+        <input type="file" id="imageUpload" accept="image/*" required>
+        <button type="submit" id="submit-btn">शोक संदेश तैयार करें </button>
+    </form>
+    
+    <!-- Font Selector for Preview -->
+   
+
+    
+    <div id="preview" style="display: none;">
+        <div class="header">
+            <span>ॐ शांति:</span>
+            <h1>शोक संदेश</h1>
+            <span>ॐ शांति:</span>
+        </div>
+        <div id="Shriman">श्री मान ----------------------------------------------------</div>
+        <div class="main-content">
+            <img id="deceasedImage" alt="Deceased person">
+            <div class="info">
+                <p id="deceasedInfo"></p>
+                <p id="ritualInfo"></p>
+            </div>
+        </div>
+        <div class="family">
+            <div id="saddy">शोकाकुल परिवार</div>
+            <div class="family-columns">
+                <div class="family-column" id="familyListColumn1"></div>
+                <div class="family-column" id="familyListColumn2"></div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="address-contact">
+                <p id="addressPreview"></p>
+                <p id="phonePreview"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="button-group" style="display: none;" id="buttonGroup">
+        <button type="button" onclick="editPreview()">edit</button>
+<button type="button">     <select id="fontSelect">
+        <option value="Arya, serif">Arya</option>
+        <option value="Amita, cursive">Amita</option>
+        <option value="Roboto, sans-serif">Roboto</option>
+        <option value="Arial, sans-serif">Arial</option>
+        <option value="Times New Roman, serif">Times New Roman</option>
+    </select> </button>
+
+
+
+        <button type="button" onclick="printPreview()">Print/Pdf</button>
+        <button type="button" id="saveAsImageBtn" onclick="saveAsImage()">Save as Image</button>
+    </div>
+    <script>
+        const relations = ["पुत्र", "पिता", "भाई", "दादा", "नाती", "पति", "चाचा", "भतीजे", "देवर", "पंती", "बड़े भाई", "भतीजा", "छोटे भाई",  "ज्येष्ठ" ];
+
+        function addFamilyMember() {
+            const familyMembersDiv = document.getElementById('familyMembers');
+            const newMemberDiv = document.createElement('div');
+            newMemberDiv.classList.add('family-member');
+            newMemberDiv.innerHTML = `
+                <select class="relation" required>
+                    <option value="" disabled selected>संबंध चुनें</option>
+                    ${relations.map(relation => `<option value="${relation}">${relation}</option>`).join('')}
+                </select>
+                <input type="text" placeholder="नाम" class="name" required>
+                <button type="button" onclick="this.parentElement.remove()">हटाएं</button>
+            `;
+            familyMembersDiv.appendChild(newMemberDiv);
+        }
+
+        function previewImage() {
+            const imageUpload = document.getElementById('imageUpload');
+            const deceasedImage = document.getElementById('deceasedImage');
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                deceasedImage.src = e.target.result;
+            };
+
+            reader.readAsDataURL(imageUpload.files[0]);
+        }
+
+        function distributeFamilyMembers() {
+            const familyListColumn1 = document.getElementById('familyListColumn1');
+            const familyListColumn2 = document.getElementById('familyListColumn2');
+            familyListColumn1.innerHTML = '';
+            familyListColumn2.innerHTML = '';
+
+            const familyMembers = Array.from(document.getElementsByClassName('family-member'));
+            familyMembers.forEach((member, index) => {
+                const relation = member.querySelector('.relation').value;
+                const name = member.querySelector('.name').value;
+
+                const familyHTML = `<p>${relation}: <b>${name}</b> </p>`;
+                if (index < 3) {
+                    familyListColumn1.innerHTML += familyHTML;
+                } else {
+                    familyListColumn2.innerHTML += familyHTML;
+                }
+            });
+        }
+
+        document.getElementById('shokSandeshForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const deceased = document.getElementById('deceased').value;
+            const deathDateValue = document.getElementById('deathDate').value;
+            const ritual1 = document.getElementById('ritual1').value;
+            const ritual1DateValue = document.getElementById('ritual1Date').value;
+            const ritual2 = document.getElementById('ritual2').value;
+            const ritual2DateValue = document.getElementById('ritual2Date').value;
+            const address = document.getElementById('address').value;
+            const phone = document.getElementById('phone').value;
+
+            document.getElementById('deceasedInfo').innerHTML = `अत्यंत दुख के साथ सूचित करना पड़ रहा है कि <b>${deceased}</b> का स्वर्गवास दिनांक <b>${formatDateWithDay(deathDateValue)}</b> को हो गया है।`;
+            document.getElementById('ritualInfo').innerHTML = `अतः ब्रम्हलीन आत्मा की शांति हेतु <b>${ritual1}</b> दिनांक <b>${formatDateWithDay(ritual1DateValue)}</b> एवं <b>${ritual2}</b> दिनांक <b>${formatDateWithDay(ritual2DateValue)}</b> को है। सो आप जानवें!`;
+            document.getElementById('addressPreview').innerHTML = `कार्यस्थल: <b>${address}</b>`;
+            document.getElementById('phonePreview').innerHTML = `संपर्क: <b>${phone}</b>`;
+            
+            distributeFamilyMembers();
+            previewImage();
+
+            document.getElementById('shokSandeshForm').style.display = 'none';
+            document.getElementById('preview').style.display = 'block';
+            document.getElementById('buttonGroup').style.display = 'flex';
+        });
+
+        function formatDateWithDay(dateString) {
+            const date = new Date(dateString);
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const year = date.getFullYear();
+            const weekday = getHindiWeekday(date.getDay());
+            return `${day}/${month}/${year} (${weekday})`;
+        }
+
+        function getHindiWeekday(dayIndex) {
+            const hindiWeekdays = ['रविवार', 'सोमवार', 'मंगलवार', 'बुधवार', 'गुरुवार', 'शुक्रवार', 'शनिवार'];
+            return hindiWeekdays[dayIndex];
+        }
+
+
+   function saveAsImage() {
+            const preview = document.getElementById('preview');
+            html2canvas(preview).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'shok_sandesh.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        }
+
+      
+  
+        // ... (previous JavaScript functions remain unchanged) ...
+
+       function editPreview() {
+    // Show the form again and hide the preview
+    document.getElementById('preview').style.display = 'none';
+    document.getElementById('shokSandeshForm').style.display = 'block';
+    document.getElementById('buttonGroup').style.display = 'none';
+
+    // Repopulate the form with the current values
+    document.getElementById('deceased').value = document.getElementById('deceasedInfo').innerText.match(/<b>(.*?)<\/b>/)[1];  // Extract name from the preview
+    document.getElementById('deathDate').value = extractDateFromPreview('deceasedInfo'); // Refill date
+    document.getElementById('ritual1Date').value = extractDateFromPreview('ritualInfo', 0); // Ritual 1 date
+    document.getElementById('ritual2Date').value = extractDateFromPreview('ritualInfo', 1); // Ritual 2 date
+
+    // Address and phone
+    document.getElementById('address').value = document.getElementById('addressPreview').innerText.split(': ')[1];
+    document.getElementById('phone').value = document.getElementById('phonePreview').innerText.split(': ')[1];
+
+    // Reset family members (more complex logic could be added here)
+    const familyListColumn1 = document.getElementById('familyListColumn1').children;
+    const familyListColumn2 = document.getElementById('familyListColumn2').children;
+    const familyMembers = [...familyListColumn1, ...familyListColumn2];
+
+    const familyMembersDiv = document.getElementById('familyMembers');
+    familyMembersDiv.innerHTML = '';  // Clear old family members
+    familyMembers.forEach(member => {
+        const relation = member.innerText.split(':')[0].trim();
+        const name = member.innerText.split(':')[1].trim();
+
+        const newMemberDiv = document.createElement('div');
+        newMemberDiv.classList.add('family-member');
+        newMemberDiv.innerHTML = `
+            <select class="relation" required>
+                <option value="" disabled>संबंध चुनें</option>
+                ${relations.map(r => `<option value="${r}" ${r === relation ? 'selected' : ''}>${r}</option>`).join('')}
+            </select>
+            <input type="text" placeholder="नाम" class="name" value="${name}" required>
+            <button type="button" onclick="this.parentElement.remove()">हटाएं</button>
+        `;
+        familyMembersDiv.appendChild(newMemberDiv);
+    });
+}
+
+function extractDateFromPreview(elementId, index = 0) {
+    const regex = /(\d{2}\/\d{2}\/\d{4})/g;
+    const matches = document.getElementById(elementId).innerHTML.match(regex);
+    return matches ? matches[index].split('/').reverse().join('-') : '';
+}
+
+
+        function printPreview() {
+            window.print();
+        }
+
+        function generate4Up() {
+            const preview = document.getElementById('preview');
+            const preview4Up = document.getElementById('preview4Up');
+            const previewItems = preview4Up.querySelectorAll('.preview-item');
+
+            html2canvas(preview).then(canvas => {
+                const img = canvas.toDataURL('image/png');
+                previewItems.forEach(item => {
+                    item.innerHTML = `<img src="${img}" style="width:100%;">`;
+                });
+
+                preview.style.display = 'none';
+                preview4Up.style.display = 'block';
+            });
+        }
+function saveAsImage() {
+    const preview = document.getElementById('preview');
+    const scale = 2; // Increase this value for even higher resolution, but be mindful of performance
+
+    html2canvas(preview, {
+        scale: scale,
+        useCORS: true,
+        logging: false,
+        allowTaint: true,
+        backgroundColor: null
+    }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'shok_sandesh.png';
+        link.href = canvas.toDataURL('image/png', 1.0); // Use maximum quality for PNG
+        link.click();
+    });
+}
+    </script>
+     <script>
+        // JavaScript to change font based on selection
+        document.getElementById('fontSelect').addEventListener('change', function() {
+            const selectedFont = this.value;
+            document.getElementById('preview').style.fontFamily = selectedFont;
+        });
+    </script>
+    <script>
+    // Disable specific key combinations
+    document.addEventListener('keydown', function (e) {
+        // Block F12
+        if (e.key === "F12") {
+            e.preventDefault();
+        }
+
+        // Block Ctrl+Shift+I (Inspect)
+        if (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "i")) {
+            e.preventDefault();
+        }
+
+        // Block Ctrl+U (View Source)
+        if (e.ctrlKey && (e.key === "U" || e.key === "u")) {
+            e.preventDefault();
+        }
+
+        // Block Ctrl+Shift+J (Console)
+        if (e.ctrlKey && e.shiftKey && (e.key === "J" || e.key === "j")) {
+            e.preventDefault();
+        }
+    });
+
+    // Disable right-click context menu
+    document.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+    });
+</script>
+</body>
+</html>
+
