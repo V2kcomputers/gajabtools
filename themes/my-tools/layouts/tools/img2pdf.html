@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to PDF Converter</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        #imagePreview {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+        .image-item {
+            position: relative;
+            max-width: 100px;
+            max-height: 100px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: move;
+        }
+        .image-item img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        .delete-btn {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: red;
+            color: white;
+            text-align: certer;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+        }
+        .drop-zone {
+            border: 2px dashed green;
+            border-radius: 5px;
+            padding: 20px;
+            cursor: pointer;
+        }
+        .drop-zone:hover {
+            background-color: #f7f7f7;
+        }
+        button { 
+            width: 100%;
+            border-radius: 10px;
+            background-color: #0080ff;
+            color: white;
+            font-weight: bold; 
+            padding: 10px;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Image to PDF Converter</h1>
+        <div class="drop-zone" id="dropZone">
+           <h3> Drag & Drop Images or Click to Select </h3>
+            <p> (one or more file) </p>
+        </div>
+        <input type="file" id="imageInput" accept="image/*" multiple style="display: none;">
+        <div id="imagePreview"></div>
+        <br>
+        <button id="convertBtn" disabled>Convert to PDF</button>   
+    </div>
+
+    <script>
+        const dropZone = document.getElementById('dropZone');
+        const imageInput = document.getElementById('imageInput');
+        const imagePreview = document.getElementById('imagePreview');
+        const convertBtn = document.getElementById('convertBtn');
+
+        let selectedImages = [];
+
+        // Handle file selection (click to select)
+        dropZone.addEventListener('click', () => imageInput.click());
+
+        imageInput.addEventListener('change', handleFiles);
+
+        // Handle drag-and-drop
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.style.backgroundColor = '#e0e0e0';
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.style.backgroundColor = '#fff';
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.style.backgroundColor = '#fff';
+            handleFiles(e);
+        });
+
+        function handleFiles(e) {
+            const files = e.target.files || e.dataTransfer.files;
+            if (files.length) {
+                for (const file of files) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        selectedImages.push(event.target.result);
+                        displayImages();
+                        convertBtn.disabled = false;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        }
+
+        function displayImages() {
+            imagePreview.innerHTML = '';
+            selectedImages.forEach((src, index) => {
+                const div = document.createElement('div');
+                div.classList.add('image-item');
+                div.setAttribute('draggable', true);
+                div.dataset.index = index;
+
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = `Selected Image ${index + 1}`;
+                
+                const deleteBtn = document.createElement('button');
+                deleteBtn.classList.add('delete-btn');
+                deleteBtn.textContent = '×';
+                deleteBtn.onclick = () => deleteImage(index);
+                
+                div.appendChild(img);
+                div.appendChild(deleteBtn);
+                imagePreview.appendChild(div);
+
+                // Set up drag events
+                div.addEventListener('dragstart', handleDragStart);
+                div.addEventListener('dragover', handleDragOver);
+                div.addEventListener('drop', handleDrop);
+            });
+        }
+
+        function deleteImage(index) {
+            selectedImages.splice(index, 1); // Remove image from the array
+            displayImages(); // Re-display remaining images
+            if (selectedImages.length === 0) {
+                convertBtn.disabled = true;
+            }
+        }
+
+        // Drag-and-Drop Reordering Logic
+        let draggedElementIndex = null;
+
+        function handleDragStart(e) {
+            draggedElementIndex = e.target.dataset.index;
+            e.dataTransfer.effectAllowed = 'move';
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            const targetIndex = e.target.closest('.image-item').dataset.index;
+            if (draggedElementIndex !== null && targetIndex !== draggedElementIndex) {
+                const draggedImage = selectedImages[draggedElementIndex];
+                selectedImages.splice(draggedElementIndex, 1); // Remove dragged image from old position
+                selectedImages.splice(targetIndex, 0, draggedImage); // Insert image at new position
+                displayImages(); // Re-display images in new order
+            }
+        }
+
+        // Handle "Convert to PDF" button click
+        convertBtn.addEventListener('click', function() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            selectedImages.forEach((imgData, index) => {
+                const imgProps = doc.getImageProperties(imgData);
+                const pdfWidth = doc.internal.pageSize.getWidth();
+                const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+                if (index > 0) doc.addPage();
+                doc.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+            });
+
+            doc.save('file.pdf');
+        });
+    </script>
+</body>
+</html>
